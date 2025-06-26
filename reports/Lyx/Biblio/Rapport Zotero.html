@@ -1,0 +1,3364 @@
+<!DOCTYPE html>
+<html><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="Content-Security-Policy" content="script-src 'none'; media-src 'none'">
+		<title>Rapport Zotero</title>
+		<link rel="stylesheet" type="text/css" href="data:text/css;base64,Ym9keSB7CgliYWNrZ3JvdW5kOiB3aGl0ZTsKfQoKYSB7Cgl0ZXh0LWRlY29yYXRpb246IHVuZGVybGluZTsKfQoKYm9keSB7CglwYWRkaW5nOiAwOwp9Cgp1bC5yZXBvcnQgbGkuaXRlbSB7Cglib3JkZXItdG9wOiA0cHggc29saWQgIzU1NTsKCXBhZGRpbmctdG9wOiAxZW07CglwYWRkaW5nLWxlZnQ6IDFlbTsKCXBhZGRpbmctcmlnaHQ6IDFlbTsKCW1hcmdpbi1ib3R0b206IDJlbTsKfQoKaDEsIGgyLCBoMywgaDQsIGg1LCBoNiB7Cglmb250LXdlaWdodDogbm9ybWFsOwp9CgpoMiB7CgltYXJnaW46IDAgMCAuNWVtOwp9CgpoMi5wYXJlbnRJdGVtIHsKCWZvbnQtd2VpZ2h0OiBib2xkOwoJZm9udC1zaXplOiAxZW07CglwYWRkaW5nOiAwIDAgLjVlbTsKCWJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjY2NjOwp9CgovKiBJZiBjb21iaW5pbmcgY2hpbGRyZW4sIGRpc3BsYXkgcGFyZW50IHNsaWdodGx5IGxhcmdlciAqLwp1bC5yZXBvcnQuY29tYmluZUNoaWxkSXRlbXMgaDIucGFyZW50SXRlbSB7Cglmb250LXNpemU6IDEuMWVtOwoJcGFkZGluZy1ib3R0b206IC43NWVtOwoJbWFyZ2luLWJvdHRvbTogLjRlbTsKfQoKaDIucGFyZW50SXRlbSAudGl0bGUgewoJZm9udC13ZWlnaHQ6IG5vcm1hbDsKfQoKaDMgewoJbWFyZ2luLWJvdHRvbTogLjZlbTsKCWZvbnQtd2VpZ2h0OiBib2xkICFpbXBvcnRhbnQ7Cglmb250LXNpemU6IDFlbTsKCWRpc3BsYXk6IGJsb2NrOwp9CgovKiBNZXRhZGF0YSB0YWJsZSAqLwp0aCB7Cgl2ZXJ0aWNhbC1hbGlnbjogdG9wOwoJdGV4dC1hbGlnbjogcmlnaHQ7Cgl3aWR0aDogMTUlOwoJd2hpdGUtc3BhY2U6IG5vd3JhcDsKfQoKdGQgewoJcGFkZGluZy1sZWZ0OiAuNWVtOwp9CgoKdWwucmVwb3J0LCB1bC5ub3RlcywgdWwudGFncyB7CglsaXN0LXN0eWxlOiBub25lOwoJbWFyZ2luLWxlZnQ6IDA7CglwYWRkaW5nLWxlZnQ6IDA7Cn0KCi8qIFRhZ3MgKi8KaDMudGFncyB7Cglmb250LXNpemU6IDEuMWVtOwp9Cgp1bC50YWdzIHsKCWxpbmUtaGVpZ2h0OiAxLjc1ZW07CglsaXN0LXN0eWxlOiBub25lOwp9Cgp1bC50YWdzIGxpIHsKCWRpc3BsYXk6IGlubGluZTsKfQoKdWwudGFncyBsaTpub3QoOmxhc3QtY2hpbGQpOmFmdGVyIHsKCWNvbnRlbnQ6ICcsICc7Cn0KCgovKiBDaGlsZCBub3RlcyAqLwpoMy5ub3RlcyB7Cglmb250LXNpemU6IDEuMWVtOwp9Cgp1bC5ub3RlcyB7CgltYXJnaW4tYm90dG9tOiAxLjJlbTsKfQoKdWwubm90ZXMgPiBsaTpmaXJzdC1jaGlsZCBwIHsKCW1hcmdpbi10b3A6IDA7Cn0KCnVsLm5vdGVzID4gbGkgewoJcGFkZGluZzogLjdlbSAwOwp9Cgp1bC5ub3RlcyA+IGxpOm5vdCg6bGFzdC1jaGlsZCkgewoJYm9yZGVyLWJvdHRvbTogMXB4ICNjY2Mgc29saWQ7Cn0KCgp1bC5ub3RlcyA+IGxpIHA6Zmlyc3QtY2hpbGQgewoJbWFyZ2luLXRvcDogMDsKfQoKdWwubm90ZXMgPiBsaSBwOmxhc3QtY2hpbGQgewoJbWFyZ2luLWJvdHRvbTogMDsKfQoKLyogQWRkIHF1b3RhdGlvbiBtYXJrcyBhcm91bmQgYmxvY2txdW90ZSAqLwp1bC5ub3RlcyA+IGxpIGJsb2NrcXVvdGUgcDpub3QoOmVtcHR5KTpiZWZvcmUsCmxpLm5vdGUgYmxvY2txdW90ZSBwOm5vdCg6ZW1wdHkpOmJlZm9yZSB7Cgljb250ZW50OiAn4oCcJzsKfQoKdWwubm90ZXMgPiBsaSBibG9ja3F1b3RlIHA6bm90KDplbXB0eSk6bGFzdC1jaGlsZDphZnRlciwKbGkubm90ZSBibG9ja3F1b3RlIHA6bm90KDplbXB0eSk6bGFzdC1jaGlsZDphZnRlciB7Cgljb250ZW50OiAn4oCdJzsKfQoKLyogUHJlc2VydmUgd2hpdGVzcGFjZSBvbiBwbGFpbnRleHQgbm90ZXMgKi8KdWwubm90ZXMgbGkgcC5wbGFpbnRleHQsIGxpLm5vdGUgcC5wbGFpbnRleHQsIGRpdi5ub3RlIHAucGxhaW50ZXh0IHsKCXdoaXRlLXNwYWNlOiBwcmUtd3JhcDsKfQoKLyogRGlzcGxheSB0YWdzIHdpdGhpbiBjaGlsZCBub3RlcyBpbmxpbmUgKi8KdWwubm90ZXMgaDMudGFncyB7CglkaXNwbGF5OiBpbmxpbmU7Cglmb250LXNpemU6IDFlbTsKfQoKdWwubm90ZXMgaDMudGFnczphZnRlciB7Cgljb250ZW50OiAnICc7Cn0KCnVsLm5vdGVzIHVsLnRhZ3MgewoJZGlzcGxheTogaW5saW5lOwp9Cgp1bC5ub3RlcyB1bC50YWdzIGxpOm5vdCg6bGFzdC1jaGlsZCk6YWZ0ZXIgewoJY29udGVudDogJywgJzsKfQoKCi8qIENoaWxkIGF0dGFjaG1lbnRzICovCmgzLmF0dGFjaG1lbnRzIHsKCWZvbnQtc2l6ZTogMS4xZW07Cn0KCnVsLmF0dGFjaG1lbnRzIGxpIHsKCXBhZGRpbmctdG9wOiAuNWVtOwp9Cgp1bC5hdHRhY2htZW50cyBkaXYubm90ZSB7CgltYXJnaW4tbGVmdDogMmVtOwp9Cgp1bC5hdHRhY2htZW50cyBkaXYubm90ZSBwOmZpcnN0LWNoaWxkIHsKCW1hcmdpbi10b3A6IC43NWVtOwp9CgpkaXYgdGFibGUgewoJYm9yZGVyLWNvbGxhcHNlOiBjb2xsYXBzZTsKfQoKZGl2IHRhYmxlIHRkLCBkaXYgdGFibGUgdGggewoJYm9yZGVyOiAxcHggI2NjYyBzb2xpZDsKCWJvcmRlci1jb2xsYXBzZTogY29sbGFwc2U7Cgl3b3JkLWJyZWFrOiBicmVhay1hbGw7Cn0KCmRpdiB0YWJsZSB0ZCBwOmVtcHR5OjphZnRlciwgZGl2IHRhYmxlIHRoIHA6ZW1wdHk6OmFmdGVyIHsKCWNvbnRlbnQ6ICJcMDBhMCI7Cn0KCmRpdiB0YWJsZSB0ZCAqOmZpcnN0LWNoaWxkLCBkaXYgdGFibGUgdGggKjpmaXJzdC1jaGlsZCB7CgltYXJnaW4tdG9wOiAwOwp9CgpkaXYgdGFibGUgdGQgKjpsYXN0LWNoaWxkLCBkaXYgdGFibGUgdGggKjpsYXN0LWNoaWxkIHsKCW1hcmdpbi1ib3R0b206IDA7Cn0K">
+		<link rel="stylesheet" type="text/css" media="screen,projection" href="data:text/css;base64,LyogR2VuZXJpYyBzdHlsZXMgKi8KYm9keSB7Cglmb250OiA2Mi41JSBHZW9yZ2lhLCBUaW1lcywgc2VyaWY7Cgl3aWR0aDogNzgwcHg7CgltYXJnaW46IDAgYXV0bzsKfQoKaDIgewoJZm9udC1zaXplOiAxLjVlbTsKCWxpbmUtaGVpZ2h0OiAxLjVlbTsKCWZvbnQtZmFtaWx5OiBHZW9yZ2lhLCBUaW1lcywgc2VyaWY7Cn0KCnAgewoJbGluZS1oZWlnaHQ6IDEuNWVtOwp9CgphOmxpbmssIGE6dmlzaXRlZCB7Cgljb2xvcjogIzkwMDsKfQoKYTpob3ZlciwgYTphY3RpdmUgewoJY29sb3I6ICM3Nzc7Cn0KCgp1bC5yZXBvcnQgewoJZm9udC1zaXplOiAxLjRlbTsKCXdpZHRoOiA2ODBweDsKCW1hcmdpbjogMCBhdXRvOwoJcGFkZGluZzogMjBweCAyMHB4Owp9CgovKiBNZXRhZGF0YSB0YWJsZSAqLwp0YWJsZSB7Cglib3JkZXI6IDFweCAjY2NjIHNvbGlkOwoJb3ZlcmZsb3c6IGF1dG87Cgl3aWR0aDogMTAwJTsKCW1hcmdpbjogLjFlbSBhdXRvIC43NWVtOwoJcGFkZGluZzogMC41ZW07Cn0K">
+		<link rel="stylesheet" type="text/css" media="print" href="data:text/css;base64,Ym9keSB7Cglmb250OiAxMnB0ICJUaW1lcyBOZXcgUm9tYW4iLCBUaW1lcywgR2VvcmdpYSwgc2VyaWY7CgltYXJnaW46IDA7Cgl3aWR0aDogYXV0bzsKCWNvbG9yOiBibGFjazsKfQoKLyogUGFnZSBCcmVha3MgKHBhZ2UtYnJlYWstaW5zaWRlIG9ubHkgcmVjb2duaXplZCBieSBPcGVyYSkgKi8KaDEsIGgyLCBoMywgaDQsIGg1LCBoNiB7CglwYWdlLWJyZWFrLWFmdGVyOiBhdm9pZDsKCXBhZ2UtYnJlYWstaW5zaWRlOiBhdm9pZDsKfQoKdWwsIG9sLCBkbCB7CglwYWdlLWJyZWFrLWluc2lkZTogYXZvaWQ7Cgljb2xvci1hZGp1c3Q6IGV4YWN0Owp9CgpoMiB7Cglmb250LXNpemU6IDEuM2VtOwoJbGluZS1oZWlnaHQ6IDEuM2VtOwp9CgphIHsKCWNvbG9yOiAjMDAwOwoJdGV4dC1kZWNvcmF0aW9uOiBub25lOwp9Cg==">
+	</head>
+	<body>
+		<ul class="report combineChildItems">
+			<li id="item_DXJ2QBN5" class="item journalArticle">
+			<h2>A cnn-sequence-to-sequence network with attention for residential short-term load forecasting</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Aouad</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>H. Hajj</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>K. Shaban</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. A. Jabr</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>W. El-Hajj</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Proposes a CNN-based seq2seq architecture with attention 
+mechanisms for residential load forecasting, achieving improved accuracy
+ compared to baseline models.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2022</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>211</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>108152</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Electric Power Systems Research</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_NDIYVQKX" class="item journalArticle">
+			<h2>A comparison of univariate methods for forecasting electricity demand up to a day ahead</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. W. Taylor</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>L. M. de Menezes</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. E. McSharry</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2006</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>22</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1–16</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>International Journal of Forecasting</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.ijforecast.2005.06.006">10.1016/j.ijforecast.2005.06.006</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>1</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_U9KKF2DB" class="item journalArticle">
+			<h2>A fast estimation method for the vector autoregressive moving average model with exogenous variables</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>H. Spliid</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>1983</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>78</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>843–849</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Journal of the American Statistical Association</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>384</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_6VT42HT2" class="item journalArticle">
+			<h2>A neural network based technique for short-term forecasting of anomalous load periods</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. Lamedica</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Prudenzi</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Sforna</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Caciotta</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>V. Cencelli</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>1996</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>11</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1749–1756</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>IEEE Transactions on Power Systems</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1109/59.544638">10.1109/59.544638</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>4</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_IL2NPFGL" class="item journalArticle">
+			<h2>A new cascade NN based method to short-term load forecast in deregulated electricity market</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. Kouhi</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>F. Keynia</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2013</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>71</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>76–83</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Energy Conversion and Management</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.enconman.2013.03.014">10.1016/j.enconman.2013.03.014</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_4VM6B2ND" class="item journalArticle">
+			<h2>A novel decomposition-ensemble model for forecasting short-term load-time series with multiple seasonal patterns</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>X. Zhang</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Wang</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>Presents a novel ensemble method combining decomposition 
+techniques to handle multiple seasonalities in short-term electricity 
+load forecasting.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2018</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>65</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>478–494</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Applied Soft Computing</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_DUC2RT7G" class="item journalArticle">
+			<h2>A novel RBF training algorithm for short-term electric load forecasting and comparative studies</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. Cecati</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Kolbusz</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. Różycki</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. Siano</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>B. M. Wilamowski</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This paper introduces a new training algorithm for radial 
+basis function networks and benchmarks it against existing methods for 
+electric load prediction.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2015</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>62</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>6519–6529</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>IEEE Transactions on Industrial Electronics</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1109/TIE.2015.2424399">10.1109/TIE.2015.2424399</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>10</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_ZBB4385W" class="item journalArticle">
+			<h2>A novel RBF training algorithm for short-term electric load forecasting and comparative studies</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. Cecati</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Kolbusz</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. Różycki</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. Siano</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>B. M. Wilamowski</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2015</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>62</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>6519–6529</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>IEEE Transactions on Industrial Electronics</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1109/TIE.2015.2424399">10.1109/TIE.2015.2424399</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>10</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_ANWKRPZJ" class="item journalArticle">
+			<h2>An evaluation of Bayesian techniques for controlling model 
+complexity and selecting inputs in a neural network for short-term load 
+forecasting</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>H. S. Hippert</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. W. Taylor</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2010</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>23</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>386–395</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Neural Networks</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.neunet.2009.11.016">10.1016/j.neunet.2009.11.016</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_B4YENRD2" class="item journalArticle">
+			<h2>An evaluation of methods for very short-term load forecasting using minute-by-minute British data</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Taylor</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2008</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>24</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>645–658</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>International Journal of Forecasting</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.ijforecast.2008.07.007">10.1016/j.ijforecast.2008.07.007</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_ERN4SMRI" class="item journalArticle">
+			<h2>Application of hybrid computational intelligence models in short-term bus load forecasting</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>I. P. Panapakidis</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2016</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>54</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>105–120</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Expert Systems with Applications</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.eswa.2016.01.034">10.1016/j.eswa.2016.01.034</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_EHIZY48V" class="item journalArticle">
+			<h2>Artificial intelligence and statistical techniques in short-term load forecasting: A review</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. B. Nassif</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>B. Soudan</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Azzeh</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>I. B. Attilli</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>O. AlMulla</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2022</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>abs/2201.00437</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>CoRR</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+				<h3 class="notes">Notes :</h3>
+				<ul class="notes">
+					<li id="item_RWELVGVB">
+<div><p>Available at https://arxiv.org/abs/2201.00437</p></div>
+					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_PP4GHM6V" class="item journalArticle">
+			<h2>Artificial intelligence in short term electric load forecasting: a state-of-the-art survey for the researcher</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>K. Metaxiotis</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Kagiannas</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>D. Askounis</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Psarras</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2003</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>44</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1525–1534</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Energy Conversion and Management</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/S0196-8904(02)00148-6">10.1016/S0196-8904(02)00148-6</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>9</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_I42IURKP" class="item journalArticle">
+			<h2>Assessment of aggregation strategies for machine-learning based short-term load forecasting</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. Feng</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Zhang</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2020</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>184</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>106304</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Electric Power Systems Research</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_XEHK38GS" class="item journalArticle">
+			<h2>Automatic classification of special days for short-term load forecasting</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. López</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. Sans</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. Valero</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2022</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>202</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>107533</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Electric Power Systems Research</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.epsr.2021.107533">10.1016/j.epsr.2021.107533</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_NZRQBFZW" class="item journalArticle">
+			<h2>Automatic time series analysis for electric load forecasting via support vector regression</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. Maldonado</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. González</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. Crone</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2019</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>83</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>105616</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Applied Soft Computing</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_FR7WJ5N9" class="item journalArticle">
+			<h2>Bayesian neural network approach to short time load forecasting</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. Lauret</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>E. Fock</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. N. Randrianarivony</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J.-F. Manicom-Ramsamy</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2008</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>49</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1156–1166</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Energy Conversion and Management</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.enconman.2007.09.009">10.1016/j.enconman.2007.09.009</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>5</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_QQ3WD976" class="item journalArticle">
+			<h2>Classification of special days in short-term load forecasting: The Spanish case study</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. López</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. Sans</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. Valero</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. Senabre</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2019</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>12</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1253</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Energies</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.3390/en12071253">10.3390/en12071253</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_YGUVEHRH" class="item bookSection">
+			<h2>Cross-validation</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Chapitre de livre</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. Refaeilzadeh</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>L. Tang</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>H. Liu</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>L. Liu</td>
+					</tr>
+					<tr>
+						<th class="editor">Éditeur</th>
+						<td>M. T. Özsu</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2009</td>
+					</tr>
+					<tr>
+					<th>Maison d’édition</th>
+						<td>Springer US</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>532–538</td>
+					</tr>
+					<tr>
+					<th>Titre du livre</th>
+						<td>Encyclopedia of Database Systems</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_KC5TKEL9" class="item journalArticle">
+			<h2>Daily air temperature and electricity load in Spain</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>E. Valor</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>V. Meneu</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>V. Caselles</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2001</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>40</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1413–1421</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Journal of Applied Meteorology</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_W6CS92CF" class="item journalArticle">
+			<h2>Economic impact analysis of load forecasting</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>D. Ranaweera</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>G. Karady</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. Farmer</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>1997</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>12</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1388–1392</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>IEEE Transactions on Power Systems</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1109/59.630486">10.1109/59.630486</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_AK3FWVLE" class="item journalArticle">
+			<h2>Electricity demand load forecasting of the Hellenic power system using an ARMA model</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. Pappas</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>L. Ekonomou</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. Karampelas</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>D. Ch</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. Katsikas</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>G. Chatzarakis</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. Skafidas</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2010</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>80</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>256–264</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Electric Power Systems Research</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.epsr.2009.09.006">10.1016/j.epsr.2009.09.006</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_T77B2UVI" class="item journalArticle">
+			<h2>Forecasting at scale</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. J. Taylor</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>B. Letham</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2018</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>72</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>37–45</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>The American Statistician</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1080/00031305.2017.138">10.1080/00031305.2017.138</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>1</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_3SQ739HQ" class="item journalArticle">
+			<h2>Forecasting day-ahead electricity load using a multiple equation time series approach</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. E. Clements</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Hurn</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Z. Li</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2016</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>251</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>522–530</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>European Journal of Operational Research</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>2</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_P9GR44PU" class="item journalArticle">
+			<h2>Forecasting electricity demand using generalized long memory</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>L. J. Soares</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>L. R. Souza</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2006</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>22</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>17–28</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>International Journal of Forecasting</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.ijforecast.2005.09.004">10.1016/j.ijforecast.2005.09.004</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>1</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_FGS38DY7" class="item journalArticle">
+			<h2>Forecasting hourly electricity demand using time-varying splines</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Harvey</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. J. Koopman</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>1993</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>88</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1228–1236</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Journal of the American Statistical Association</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>424</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_MDXPY6QY" class="item journalArticle">
+			<h2>Forecasting the electricity load from one day to one week ahead for the Spanish system operator</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. R. Cancelo</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Espasa</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. Grafe</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2008</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>24</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>588–602</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>International Journal of Forecasting</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>4</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_ZMEUE9IH" class="item journalArticle">
+			<h2>Forecasting time series with multiple seasonal patterns</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. G. Gould</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. B. Koehler</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. K. Ord</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. D. Snyder</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. J. Hyndman</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>F. Vahid-Araghi</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2008</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>191</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>207–222</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>European Journal of Operational Research</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.ejor.2007.08.024">10.1016/j.ejor.2007.08.024</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>1</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_FX4H44TN" class="item report">
+			<h2>Implémentation du modèle N-BEATS pour la prévision de la demande</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Rapport</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Marchand</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Zinflou</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2021</td>
+					</tr>
+					<tr>
+					<th>Type de rapport</th>
+						<td>Rapport technique</td>
+					</tr>
+					<tr>
+					<th>Institution</th>
+						<td>Institut de recherche d’Hydro-Québec (IREQ)</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_8EHRKKFS" class="item journalArticle">
+			<h2>Improved short-term load forecasting based on two-stage predictions with artificial neural networks in a microgrid environment</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>L. Hernández</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. Baladrón</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. M. Aguiar</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>L. Calavia</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>B. Carro</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Sánchez-Esguevillas</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Sanjuán</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Á González</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Lloret</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2013</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>6</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>4489–4507</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Energies</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.3390/en6094489">10.3390/en6094489</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>9</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_BKL6JDP9" class="item journalArticle">
+			<h2>Input space to neural network based load forecasters</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. P. Alves da Silva</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>V. H. Ferreira</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. M. Velasquez</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>The authors investigate the impact of different input space 
+configurations on the performance of neural network-based electricity 
+load forecasting models.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2008</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>24</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>616–629</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>International Journal of Forecasting</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>4</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_3KF9BCPC" class="item journalArticle">
+			<h2>Intelligent short-term load forecasting in Turkey</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Topalli</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>I. Erkmen</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>I. Topalli</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2006</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>28</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>437–447</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>International Journal of Electrical Power &amp; Energy Systems</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.ijepes.2006.02.004">10.1016/j.ijepes.2006.02.004</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_UHU9Z7WB" class="item journalArticle">
+			<h2>Interval estimation for the breakpoint in segmented regression: a smoothed score-based approach</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>V. M. Muggeo</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2017</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>59</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>311–322</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Australian &amp; New Zealand Journal of Statistics</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_IRFNHS2K" class="item journalArticle">
+			<h2>Large neural networks for electricity load forecasting: Are they overfitted?</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>H. Hippert</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>D. Bunn</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. Souza</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2005</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>21</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>425–434</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>International Journal of Forecasting</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.ijforecast.2004.12.004">10.1016/j.ijforecast.2004.12.004</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>3</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_FYMWUNEI" class="item journalArticle">
+			<h2>Load forecasting using a multivariate meta-learning system</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Matijas</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Suykens</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. Krajcar</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2013</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>40</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>4427–4437</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Expert Systems with Applications</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.eswa.2013.01.047">10.1016/j.eswa.2013.01.047</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_PDRCAYH6" class="item journalArticle">
+			<h2>Mémoire sur la propagation de la chaleur dans les corps solides</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J.-B. Fourier</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>1808</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>1</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>112–116</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Nouveau Bulletin des sciences par la Société philomatique de Paris</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>6</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_E24SZDLJ" class="item journalArticle">
+			<h2>Modeling and forecasting short-term electricity load: A comparison of methods with an application to Brazilian data</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>L. J. Soares</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. C. Medeiros</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2008</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>24</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>630–644</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>International Journal of Forecasting</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>4</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_G7FFLHVD" class="item journalArticle">
+			<h2>Modeling and short-term forecasting of New South Wales electricity system load</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Smith</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2000</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>18</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>465–478</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Journal of Business &amp; Economic Statistics</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>4</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_QAWSELAB" class="item journalArticle">
+			<h2>Modeling the impact of summer temperatures on national electricity consumption</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>D. M. L. Comte</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>H. E. Warren</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>1981</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>20</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1415–1419</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Journal of Applied Meteorology and Climatology</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1175/1520-0450">10.1175/1520-0450</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>12</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_7GJQXMDE" class="item journalArticle">
+			<h2>Modelling and forecasting daily series of electricity demand</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. R. Cancelo</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Espasa</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>1996</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>20</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>359–376</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Investigacion Economica</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_UN2JDDV2" class="item journalArticle">
+			<h2>Multistage artificial neural network short-term load forecasting engine with front-end weather forecast</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>K. Methaprayoon</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>W.-J. Lee</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. Rasmiddatta</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. R. Liao</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. J. Ross</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2007</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>43</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1410–1416</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>IEEE Transactions on Industry Applications</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1109/TIA.2007.908190">10.1109/TIA.2007.908190</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>6</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_2ZGGTVUM" class="item journalArticle">
+			<h2>N-BEATS: Neural basis expansion analysis for interpretable time series forecasting</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>B. N. Oreshkin</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>D. Carpov</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>N. Chapados</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Y. Bengio</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2019</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>arXiv preprint arXiv:1905.10437</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_XNHKJ3T3" class="item document">
+			<h2>N-BEATS: Neural basis expansion analysis for interpretable time series forecasting</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Document</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. Remy</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2020</td>
+					</tr>
+					<tr>
+					<th>Extra</th>
+						<td>Published: {https://github.com/philipperemy/n-beats</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_MUH32HSQ" class="item journalArticle">
+			<h2>Neural networks for short-term load forecasting: A review and evaluation</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>H. S. Hippert</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. E. Pedreira</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. C. Souza</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2001</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>16</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>44–55</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>IEEE Transactions on Power Systems</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>1</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_J8GD5ZF9" class="item journalArticle">
+			<h2>Non-linearities in electricity demand and temperature: Parametric versus non-parametric methods</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Henley</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Peirson</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>1997</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>59</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>149–162</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Oxford Bulletin of Economics and Statistics</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>1</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_C9DLJ8G5" class="item journalArticle">
+			<h2>On the impact of urban heat island and global warming on the power demand and electricity consumption of buildings—a review</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Santamouris</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. Cartalis</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Synnefa</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>D. Kolokotsa</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2015</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>98</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>119–124</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Energy and Buildings</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_UM3SAIIS" class="item journalArticle">
+			<h2>Probabilistic load forecasting using an improved wavelet neural network trained by generalized extreme learning machine</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Rafiei</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>T. Niknam</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Aghaei</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Shafie-Khah</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. P. Catalão</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2018</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>9</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>6961–6971</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>IEEE Transactions on Smart Grid</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>6</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_XD74PXXM" class="item document">
+			<h2>python-holidays v0.14.2</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Document</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Montel</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>others</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2022</td>
+					</tr>
+					<tr>
+					<th>Extra</th>
+						<td>Published: {https://github.com/dr-prodigy/python-holidays</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_6KK6D3IL" class="item conferencePaper">
+			<h2>Rectified linear units improve restricted Boltzmann machines</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de colloque</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>V. Nair</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>G. Hinton</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2010</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>807–814</td>
+					</tr>
+					<tr>
+					<th>Titre des actes</th>
+						<td>Proceedings of the 27th International Conference on Machine Learning</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_A8UU8MRB" class="item journalArticle">
+			<h2>Reinforced deterministic and probabilistic load forecasting via Q-learning dynamic model selection</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. Feng</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Sun</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Zhang</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2019</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>11</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>1377–1386</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>IEEE Transactions on Smart Grid</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>2</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_B5XP6ABW" class="item journalArticle">
+			<h2>Short term load forecasting methods, a comparative study</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Gs</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>K. Shiruru</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2016</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>1</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>31–37</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>International Journal of Advance Research and Innovative Ideas in Education</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_CUH6GM49" class="item journalArticle">
+			<h2>Short-run forecasts of electricity loads and peaks</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. Ramanathan</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. Engle</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. W. Granger</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>F. Vahid-Araghi</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C. Brace</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>1997</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>13</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>161–174</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>International Journal of Forecasting</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>2</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_9QQLLCT8" class="item journalArticle">
+			<h2>Short-term ANN load forecasting from limited data using generalization learning strategies</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Z. S. Chan</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>H. Ngan</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. B. Rad</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. K. David</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>N. K. Kasabov</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2006</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>70</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>409–419</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Neurocomputing</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.neucom.2005.12.131">10.1016/j.neucom.2005.12.131</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>1</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_NL8H5HPJ" class="item journalArticle">
+			<h2>Short-term electricity demand forecasting using double seasonal exponential smoothing</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>J. Taylor</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2003</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>54</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>799–805</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Journal of Operational Research Society</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1057/palgrave.jors.2601589">10.1057/palgrave.jors.2601589</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_RTU5H4MH" class="item journalArticle">
+			<h2>Short-term hourly load forecasting using abductive networks</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R. Abdel-Aal</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>This paper explores the use of abductive networks for hourly 
+electricity load forecasting, demonstrating competitive performance with
+ traditional statistical approaches.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2004</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>19</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>164–173</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>IEEE Transactions on Power Systems</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1109/TPWRS.2003.820695">10.1109/TPWRS.2003.820695</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+				<h3 class="notes">Notes :</h3>
+				<ul class="notes">
+					<li id="item_F65246XC">
+<p class="plaintext"></p>
+					</li>
+				</ul>
+			</li>
+
+
+			<li id="item_QSRFW7GP" class="item journalArticle">
+			<h2>Short-term load forecasting algorithm using a similar day selection method based on reinforcement learning</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>R.-J. Park</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>K.-B. Song</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>B.-S. Kwon</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2020</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>13</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>2640</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Energies</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.3390/en13102640">10.3390/en13102640</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>10</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_XFSGHG9R" class="item conferencePaper">
+			<h2>Short-term load forecasting at Hydro-Québec TransÉnergie</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de colloque</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Grenier</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2006</td>
+					</tr>
+					<tr>
+					<th>Maison d’édition</th>
+						<td>IEEE</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>5–pp</td>
+					</tr>
+					<tr>
+					<th>Titre des actes</th>
+						<td>2006 IEEE Power Engineering Society General Meeting</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_SYAW7TAV" class="item journalArticle">
+			<h2>Short-term load forecasting of power systems by gene expression programming</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. S. Sadat Hosseini</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. H. Gandomi</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2012</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>21</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>377–389</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Neural Computing and Applications</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1007/s00521-010-0444-y">10.1007/s00521-010-0444-y</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>2</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_233HCE3S" class="item journalArticle">
+			<h2>Short-term load forecasting using a two-stage SARIMAX model</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Tarsitano</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>I. Amerise</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2017</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>133</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Energy</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.energy.2017.05.126">10.1016/j.energy.2017.05.126</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_XYN9DMBR" class="item journalArticle">
+			<h2>Short-term load forecasting using lifting scheme and ARIMA models</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C.-M. Lee</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>C.-N. Ko</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2011</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>38</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>5902–5911</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Expert Systems with Applications</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.eswa.2010.11.033">10.1016/j.eswa.2010.11.033</a></td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_WZRJMLBE" class="item journalArticle">
+			<h2>Short-term prediction of household electricity consumption: Assessing weather sensitivity in a Mediterranean area</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Beccali</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>M. Cellura</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>V. Lo Brano</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Marvuglia</td>
+					</tr>
+					<tr>
+					<th>Résumé</th>
+						<td>The study evaluates the influence of weather conditions on 
+short-term electricity demand in Mediterranean households using 
+statistical analysis.</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2008</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>12</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>2040–2065</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Renewable and Sustainable Energy Reviews</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/j.rser.2007.04.010">10.1016/j.rser.2007.04.010</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>8</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:05</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_DI4TB6DU" class="item journalArticle">
+			<h2>Spatial-temporal residential short-term load forecasting via graph neural networks</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>W. Lin</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>D. Wu</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>B. Boulet</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2021</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>12</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>5373–5384</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>IEEE Transactions on Smart Grid</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>6</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_M3VSQWXL" class="item journalArticle">
+			<h2>Temperature and seasonality influences on Spanish electricity load</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>A. Pardo</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>V. Meneu</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>E. Valor</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2002</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>24</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>55–70</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Energy Economics</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/S0140-9883(01)00082-2">10.1016/S0140-9883(01)00082-2</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>1</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_ZC67UVCS" class="item journalArticle">
+			<h2>Testing the null hypothesis of stationarity against the 
+alternative of a unit root: How sure are we that economic time series 
+have a unit root?</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>D. Kwiatkowski</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. C. Phillips</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>P. Schmidt</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>Y. Shin</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>1992</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>54</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>159–178</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>Journal of Econometrics</td>
+					</tr>
+					<tr>
+					<th>DOI</th>
+						<td><a href="http://doi.org/10.1016/0304-4076(92)90104-Y">10.1016/0304-4076(92)90104-Y</a></td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>1–3</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+
+			<li id="item_GJBWH6JD" class="item journalArticle">
+			<h2>The M4 competition: Results, findings, conclusion and way forward</h2>
+				<table>
+					<tbody><tr>
+						<th>Type de document</th>
+						<td>Article de revue</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>S. Makridakis</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>E. Spiliotis</td>
+					</tr>
+					<tr>
+						<th class="author">Auteur</th>
+						<td>V. Assimakopoulos</td>
+					</tr>
+					<tr>
+					<th>Date</th>
+						<td>2018</td>
+					</tr>
+					<tr>
+					<th>Volume</th>
+						<td>34</td>
+					</tr>
+					<tr>
+					<th>Pages</th>
+						<td>802–808</td>
+					</tr>
+					<tr>
+					<th>Publication</th>
+						<td>International Journal of Forecasting</td>
+					</tr>
+					<tr>
+					<th>Numéro</th>
+						<td>4</td>
+					</tr>
+					<tr>
+					<th>Date d'ajout</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+					<tr>
+					<th>Modifié le</th>
+						<td>20/06/2025 à 09:39:06</td>
+					</tr>
+				</tbody></table>
+			</li>
+
+		</ul>
+	
+</body></html>

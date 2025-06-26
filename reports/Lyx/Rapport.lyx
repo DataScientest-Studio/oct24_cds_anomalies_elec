@@ -1,0 +1,299 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\begin_preamble
+\usepackage{tikz} 
+
+\usetikzlibrary{arrows,snakes,backgrounds,plotmarks} 
+\renewcommand{\familydefault}{\rmdefault}
+\usepackage{cite}
+\usepackage[sectionbib]{chapterbib}
+
+
+\usepackage{fancyhdr}
+
+\usepackage{fncychap}
+
+\usepackage{fancyhdr}
+\fancyhead{} % clear all header fields
+\fancyhead[RO]{\nouppercase{\textit{\rightmark}}}
+\fancyhead[LE]{\nouppercase{\textit{\leftmark}}}
+\fancyhead[RE,LO]{\bfseries\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyfoot{} % clear all header fields
+
+
+\usepackage{minitoc} 
+
+\usepackage{algorithm}
+\usepackage{algpseudocode,float}
+
+\def\NoNumber#1{{\def\alglinenumber##1{}\State #1}\addtocounter{ALG@line}{-1}}
+
+\usepackage{etoolbox}
+\newcounter{savedchapter}% for remembering the last chapter number
+\preto\appendix{\setcounter{savedchapter}{\arabic{chapter}}}% remembering!
+\newcommand\resumechapters{% the \appendix command with some tweaks
+  \setcounter{chapter}{\arabic{savedchapter}}% restore chapter number
+  \setcounter{section}{0}% reset section counter
+  \gdef\@chapapp{\chaptername}% reset chapter name
+  \gdef\thechapter{\@arabic\c@chapter}% make chapter numbers arabic
+}
+
+
+\usepackage[frenchb]{babel}
+\addto\captionsfrench{\renewcommand{\chaptername}{Partie}}
+%\renewcommand\listfigurename{List of Figures} 
+%\renewcommand\listtablename{List of Tables} 
+%\renewcommand\bibname{Bibliography} 
+\end_preamble
+\use_default_options false
+\begin_modules
+theorems-std
+\end_modules
+\maintain_unincluded_children false
+\language french
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family rmdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\float_placement tbph
+\paperfontsize 11
+\spacing onehalf
+\use_hyperref true
+\pdf_title "Rapport Projet DS"
+\pdf_author "Youssef SERRESTOU"
+\pdf_subject "Rapport"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style french
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle empty
+\bullet 0 2 8 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{arabic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "C0-PG.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{plain}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering {roman}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{page}{1}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand
+\backslash
+contentsname{Table of contents} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tableofcontents 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset CommandInset include
+LatexCommand input
+filename "C1-Introduction.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset CommandInset include
+LatexCommand input
+filename "C2-Fromalisation.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "Biblio/load_forecasting_reference_vf"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

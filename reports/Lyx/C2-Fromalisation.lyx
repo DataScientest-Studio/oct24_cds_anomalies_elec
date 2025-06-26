@@ -1,0 +1,1500 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\begin_preamble
+\usepackage{fancyhdr}
+\fancyhead{} % clear all header fields
+\fancyhead[RO]{\nouppercase{\textit{Introduction}}}
+\fancyhead[LE]{\nouppercase{\textit{Introduction}}}
+\fancyhead[RE,LO]{\bfseries\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyfoot{} % clear all header fields
+\end_preamble
+\use_default_options false
+\master Rapport.lyx
+\maintain_unincluded_children false
+\language french
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "times" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family rmdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize 11
+\spacing onehalf
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.5cm
+\topmargin 2.5cm
+\rightmargin 2.5cm
+\bottommargin 2.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style french
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle empty
+\bullet 0 0 25 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+INTRODUCTION AUX SÉRIES TEMPORELLES
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering {arabic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%
+\backslash
+addcontentsline {toc} {chapter} {
+\backslash
+textbf{INTRODUCTION AUX SÉRIES TEMPORELLES}}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+adjustmtc
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{fancy}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[RO]{
+\backslash
+nouppercase{
+\backslash
+textit{Introduction}}} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[LE]{
+\backslash
+nouppercase{
+\backslash
+textit{Introduction}}}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nous avons opté pour une modélisation en séries temporelles de la consommation
+ d'électricité et des variables exogènes.
+ Dans ce premier chapitre, nous posons le formalisme mathématique dédié
+ à cette modélisation.
+ Nous ferons, tout d'abord, quelques rappels succincts de la notion d'une
+ série temporelle, de ses caractéristiques, de ses transformations et décomposit
+ions.
+ Dans un second temps nous aborderons les outils d’analyse de séries temporelles
+, que nous avons utilisés afin d’en extraire des statistiques et des caractérist
+iques significatives.
+ Puis nous présentons la notions de la prévision et les métriques associées
+ à l'évaluation des performances de celle-ci.
+\end_layout
+
+\begin_layout Section
+séries temporelles
+\end_layout
+
+\begin_layout Subsection
+Definitions
+\end_layout
+
+\begin_layout Standard
+Une série temporelle est une suite d'observations quantitatives ordonnées
+ dans le temps, généralement mesurées à intervalles réguliers
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hyndman2021forecasting,box2015time,hamilton1994time,shumway2017time"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Formellement, une série temporelle observée, notée 
+\begin_inset Formula $\left\{ y_{t\in\mathbb{T}}\right\} $
+\end_inset
+
+, est une réalisation d'un processus stochastique 
+\begin_inset Formula $\left\{ Y_{t\in\mathbb{T}}\right\} $
+\end_inset
+
+, où 
+\end_layout
+
+\begin_layout Itemize
+chaque observation 
+\begin_inset Formula $y_{t}$
+\end_inset
+
+ est une réalisation d'une variable aléatoire
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $Y_{t}$
+\end_inset
+
+ indexée par le temps 
+\begin_inset Formula $t$
+\end_inset
+
+ ,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $Y_{t}∈\mathbb{R^{\mathrm{d}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $𝕋⊆ℤ$
+\end_inset
+
+ (temps discret) ou 
+\begin_inset Formula $𝕋⊆ℝ$
+\end_inset
+
+ (temps continu).
+\end_layout
+
+\begin_layout Standard
+Une série temporelle est dite univariée si 
+\begin_inset Formula $Y_{t}∈\mathbb{R}\ i.e.\ d=1$
+\end_inset
+
+.
+ Il s'agit d'une séquence de valeurs observées pour une seule variable au
+ fil du temps.
+ 
+\end_layout
+
+\begin_layout Standard
+Une série temporelle est dite multivariée si si 
+\begin_inset Formula $Y_{t}∈\mathbb{R^{\mathrm{d}}}\ où.\ d>1$
+\end_inset
+
+.
+ Il s'agit de plusieurs variables observées simultanément.
+ 
+\end_layout
+
+\begin_layout Subsection
+Exemple de la consommation d'électricité
+\end_layout
+
+\begin_layout Standard
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Consommation-électrique-du"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montre une série temporelle univariée, qui représente la consommation d'électri
+cité du profile Enedis 
+\begin_inset Formula $« RES11(+RES11WE) »$
+\end_inset
+
+ dont la puissance souscrite est 
+\begin_inset Formula $]6-9]kVA$
+\end_inset
+
+.
+ Ces observations couvrent la période du 
+\begin_inset Formula $01\-01\-2023$
+\end_inset
+
+ au 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $31\-12\-2024$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ avec un pas de temps d'une demi-heure.
+ Chaque valeur de cette série temporelle correspond, donc, à la consommation
+ d'électricité de tous les points de soutirage, situés dans la région Auvergne-R
+hône-Alpes, et qui sont de même profile et de même puissance souscrite.
+ Cette consommation est mesurée en watt-heure (Wh).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Chap1/exemple_conso_RES11_6_9_ARA.pdf
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Consommation-électrique-du"
+
+\end_inset
+
+consommation d'électricité du profile RES11 (+ RES11WE) avec une puissance
+ ]6-9] kVA, dans la région Auvergne-Rhône-Alpes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:exemple_serie_multivariee"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montre un exemple de série temporelle multivariée, qui représente la série
+ de l'exemple pércédent observées simultanément avec des variables météorologiqu
+es.
+ Cette série temporelle multivariée est composée des variables suivantes
+ :
+\end_layout
+
+\begin_layout Itemize
+la consommation d'électricité de tous les points de soutirage, situés dans
+ la région Auvergne-Rhône-Alpes, et qui sont de même profile RES11 (+ RES11WE)
+ et de même puissance souscrite ]6-9] kVA, exprimée en Wh.
+\end_layout
+
+\begin_layout Itemize
+la température moyennée sur tous les départements de la région Auvergne-Rhône-Al
+pes, observée avec un pas de temps d'une demi-heure, sur la période du 
+\begin_inset Formula $01\-01\-2023$
+\end_inset
+
+ au 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $31\-12\-2024$
+\end_inset
+
+, et exprimée en °C,
+\end_layout
+
+\begin_layout Itemize
+l'humidité moyennée sur tous les départements de la région Auvergne-Rhône-Alpes,
+ observée avec un pas de temps d'une demi-heure, sur la période du 
+\begin_inset Formula $01\-01\-2023$
+\end_inset
+
+ au 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $31\-12\-2024$
+\end_inset
+
+,
+\begin_inset space ~
+\end_inset
+
+et exprimée en %,
+\end_layout
+
+\begin_layout Itemize
+la vitesse du vent moyennée sur tous les départements de la région Auvergne-Rhôn
+e-Alpes, observée avec un pas de temps d'une demi-heure, sur la période
+ du 
+\begin_inset Formula $01\-01\-2023$
+\end_inset
+
+ au 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $31\-12\-2024$
+\end_inset
+
+, et exprimée en m/s.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Chap1/exemple_conso_RES11_6_9_T_U_FF_ARA.pdf
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:exemple_serie_multivariee"
+
+\end_inset
+
+Exemple de série multivariée
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Décomposition d'une série 
+\end_layout
+
+\begin_layout Subsection
+Composantes 
+\end_layout
+
+\begin_layout Standard
+Intrinsèquement une séries temporelle est constituée de plusieurs composantes
+ qui la caractérise 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hyndman2021forecasting,hamilton1994time,box2015time"
+literal "false"
+
+\end_inset
+
+.
+ Ces composantes sont :
+\end_layout
+
+\begin_layout Itemize
+la tendance, qui est la composante à long terme représentant une évolution
+ à long terme.
+\end_layout
+
+\begin_layout Itemize
+la ou les composantes saisonnières, qui correspondent à des répétitions
+ régulières de motifs,
+\end_layout
+
+\begin_layout Itemize
+la ou les composantes cycliques, qui représentent des fluctuations se produisant
+ sur des périodes plus longues et de manière irrégulière.
+ 
+\end_layout
+
+\begin_layout Itemize
+et le résidus, dit aussi bruit, qui correspond aux restes stochastiques
+ après l'élimination des composantes déterministes.
+ Il représente les variations aléatoires et imprévisibles.
+ 
+\end_layout
+
+\begin_layout Standard
+En générale les composantes tendance et le cycle sont regroupées en une
+ seule composante cycle-tendance, qui est souvent simplement appelée la
+ tendance.
+ 
+\end_layout
+
+\begin_layout Subsection
+Décomposition additive et décomposition multiplicative
+\end_layout
+
+\begin_layout Standard
+La décomposition d'une série temporelle consiste à extraire ses composantes
+ principales.
+ Cette décomposition peut être additive ou multiplicative, selon la nature
+ des interactions entre les composantes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hyndman2021forecasting,hamilton1994time,box2015time"
+literal "false"
+
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Standard
+Dans une décomposition additive, la série temporelle 
+\begin_inset Formula $\left\{ Y_{t\in\mathbb{T}}\right\} $
+\end_inset
+
+ est exprimée comme la somme de ses composantes : 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y_{t}=T_{t}+S_{t}+C_{t}+R_{t}\label{eq:1.1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+où : 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $T_{t}$
+\end_inset
+
+ est la tendance, 
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $S_{t}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ est la saisonnalité, 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $C_{t}$
+\end_inset
+
+ est la cyclicité,
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $R_{t}$
+\end_inset
+
+ est le bruit.
+ 
+\end_layout
+
+\begin_layout Standard
+Lorque la tendance et le cycle sont regroupé en une seule composante, la
+ décomposition additive s'écrit : 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y_{t}=T_{t}+S_{t}+R_{t}\label{eq:1.2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dans une décomposition multiplicative, la série temporelle 
+\begin_inset Formula $\left\{ Y_{t\in\mathbb{T}}\right\} $
+\end_inset
+
+ est exprimée comme le produit de ses composantes : 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y_{t}=T_{t}\times S_{t}\times C_{t}\times R_{t}\label{eq:1.3}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Si la composante cyclique est incluse dans la composante tendance cette
+ décomposition s'écrit : 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Y_{t}=Y_{t}=T_{t}\times S_{t}\times R_{t}\label{eq:1.4}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Si l’amplitude des fluctuations saisonnières autour de la tendance ne varie
+ pas avec le niveau de la série temporelle, alors la décomposition additive
+ est la plus appropriée.
+ Lorsque la variation du motif saisonnier autour de la endance semble proportion
+nelle au niveau de la série temporelle, une décomposition multiplicative
+ est alors plus appropriée 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "david2023prevision,hyndman2021forecasting"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Il faut noter qu'en appliquant une transformation logarithmique (respectivement
+ exponentielle) nous pouvons passer d'une décomposition multiplicative (respecti
+vement additive) à une décompostion additive (respectivement multiplicative).
+ L’utilisation d’une décomposition additive sur une série temporelle qui
+ a d’abord subi une transformation logarithmique de manière à ce que sa
+ variation paraisse stable dans le temps équivaut à utiliser une décomposition
+ multiplicative.
+\end_layout
+
+\begin_layout Standard
+Par exemple, nous constatons pour la série de la figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Consommation-électrique-du"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ , que l'amplitude des fluctuations varie selon le niveau de la série :
+ 
+\end_layout
+
+\begin_layout Itemize
+en hiver (début et fin de l'année), la consommation est élevée avec une
+ forte variabilité,
+\end_layout
+
+\begin_layout Itemize
+en été (milieu d'année), la consommation est plus basse et plus stable.
+\end_layout
+
+\begin_layout Standard
+C’est un comportement typique du modèle multiplicatif décrit par l'équation
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:1.4"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ où :
+\end_layout
+
+\begin_layout Itemize
+les fluctuations saisonnières (et les résidus) s’amplifient avec la tendance,
+\end_layout
+
+\begin_layout Itemize
+la variance n’est pas constante, on parle dans ce cas d'une hétéroscédasticité
+ visuelle.
+\end_layout
+
+\begin_layout Standard
+Une transformation logarithmique ou une transformation de Box-Cox pourrait
+ stabiliser la variance avant la modélisation.
+\end_layout
+
+\begin_layout Standard
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:exemple_decomposition_serie-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montre la décomposition multiplicative de la série du figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Consommation-électrique-du"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ sur la période 
+\begin_inset Formula $01/01/2023$
+\end_inset
+
+ au 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $.31/01/2023$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Chap1/exemple_decomposition_conso_RES11_6_9_ARA.pdf
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:exemple_decomposition_serie-1"
+
+\end_inset
+
+Exemple de série multivariée
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:exemple_decomposition_serie-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montre la décomposition additive de la série du figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:exemple_decomposition_additive_serie-"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ après transformation logarithmique, avec un zoom sur la période 
+\begin_inset Formula $01/01/2023$
+\end_inset
+
+ au 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $.31/01/2023.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Chap1/exemple_decomposition_additive_conso_RES11_6_9_ARA.pdf
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:exemple_decomposition_additive_serie-"
+
+\end_inset
+
+Exemple de série multivariée
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nous pouvons constater aussi que le résiduel présente aussi des composante
+ saisonnière.
+ En effet notre série est multi-saisonnière.
+ 
+\end_layout
+
+\begin_layout Standard
+Dans 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hyndman2021forecasting"
+literal "false"
+
+\end_inset
+
+ les auteurs présentent des méthodes d'estimation des composantes d'une
+ série temporelle.
+ Afin de ne pas s'écarter du coeur de notre sujet, nous ne détaillerons
+ pas ici toutes méthodes, et nous envoyons le lecteur intéressé à cette
+ ouvrage disponible gratuitement.
+ Dans notre étude nous avons fait usage de la fonction 
+\begin_inset Quotes fld
+\end_inset
+
+seasonal_decompose
+\begin_inset Quotes frd
+\end_inset
+
+ de statsmodel 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "statsmodels2024"
+literal "false"
+
+\end_inset
+
+, qui repose sur un modèle de décomposition classique des séries temporelles,
+ que nous décrivons ici.
+ 
+\end_layout
+
+\begin_layout Standard
+On considère une série temporelle 
+\begin_inset Formula $\left\{ y_{t\in\mathbb{T}}\right\} $
+\end_inset
+
+, où 
+\begin_inset Formula $𝕋⊆\mathbb{Z}$
+\end_inset
+
+, qu'on peut décomposer selon l'équation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:1.2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ : 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $Y_{t}=T_{t}+S_{t}+R_{t}$
+\end_inset
+
+.
+ L'estimsation de la composante tendance est basée sur une moyenne glissante.
+ Si la 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+saisonnalité
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ est de période 
+\begin_inset Formula $p=2n+1$
+\end_inset
+
+ alors la tendance est donnée par l'équation :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\widehat{T}_{t}=\frac{1}{2n+1}\mathop{\mathop{\sum_{k=-n}^{k=n}Y_{t+k}}}\label{eq:estimation_tendance_impair}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Si la période est 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $p=2n$
+\end_inset
+
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, celle-ci est donnée 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+par l'équation :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\widehat{T}_{t+n}=\frac{1}{4n}\mathop{\mathop{\sum_{k=0}^{k=2n-1}Y_{t+k}}}+\frac{1}{4n}\mathop{\mathop{\sum_{k=0}^{k=2n-1}Y_{t+k+1}}}\label{eq:estimation_tendance_pair}
+\end{equation}
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Une fois la tendance est estimée, on peut alors estimer la saisonnalité
+ par la procédée suivante : 
+\end_layout
+
+\begin_layout Itemize
+Soustraction de la tendance pour isoler la saisonnalité: 
+\begin_inset Formula 
+\begin{equation}
+D_{t}=Y_{t}-\widehat{T}_{t}\label{eq:debruitage_tendance}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Groupement des 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $D_{t}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ selon le modulo de 
+\begin_inset Formula $t$
+\end_inset
+
+ par rapport à la période 
+\begin_inset Formula $p$
+\end_inset
+
+ , puis on moyennage sur les 
+\begin_inset Formula $N$
+\end_inset
+
+ périodes complets des données pour chaque 
+\begin_inset Formula $j\in\left\{ 1,...,p\right\} $
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\widehat{S}_{j}=\frac{1}{N}\mathop{\mathop{\sum_{k=0}^{k=N-1}D_{j+k.p}}}\label{eq:estimation_saisonnalite}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+On centre la saisonnalité pour qu'elle ait une somme nulle 
+\begin_inset Formula 
+\[
+\widehat{S}_{j}\longleftarrow\widehat{S}_{j}-\frac{1}{p}\mathop{\mathop{\sum_{k=0}^{k=p-1}\widehat{S}_{k}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\end_layout
+
+\begin_layout Section
+Modélisation 
+\end_layout
+
+\begin_layout Subsection
+Conclusion 
+\end_layout
+
+\begin_layout Standard
+En guise de conclusion 
+\end_layout
+
+\begin_layout Standard
+Autres caractéristiques sont également rapportées et classées dans la littératur
+e 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hamilton1994time,hyndman2021forecasting,box2015time,lopez2022,aouad2022cnn,shumway2017time,beccali2008short,makridakis2018,offiah2020review"
+literal "false"
+
+\end_inset
+
+ : 
+\end_layout
+
+\begin_layout Enumerate
+l'autocorrélation, qui mesure la dépendance des valeurs présentes aux valeurs
+ passées de la série,
+\end_layout
+
+\begin_layout Enumerate
+stationnarité qui caractérise la constance ou non des propriétés statistiques
+ (moyenne, variance…) dans le temps,
+\end_layout
+
+\begin_layout Enumerate
+la dynamique locale, les effets calendaires, la dépendance temporelle non
+ linéaire et les effets non linéaires des variables externes (exogènes).
+ 
+\end_layout
+
+\begin_layout Standard
+Le tableau 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Caractéristiques-typiques-des"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+suivant regroupe ces caractéristiques notre cas .
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{|p{4 cm}|p{10 cm}|} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline 
+\backslash
+textbf{Caractéristique} & 
+\backslash
+textbf{Description} 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Tendance (Trend) & Variation à moyen et long terme.
+ 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Saisonnalité (Seasonality) & Répétition régulière des motifs (quotidien,
+ hebdomadaire, annuel).
+ 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Effets calendaires & Jours fériés, week-ends, vacances.
+  
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Autocorrélation & Dépendance des valeurs présentes aux valeurs passées.
+ 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Dynamique à court terme & Fluctuations rapides et ponctuelles de la
+ consommation.
+ 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Non-stationnarité & Moyenne ou variance non constantes dans le temps
+ ; nécessite différenciation.
+ 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Influence de variables externes (Effets exogènes) & Effet des variables
+ météorologiques, économiques, événementiels, etc.
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline 
+\backslash
+end{tabular} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Caractéristiques-typiques-des"
+
+\end_inset
+
+Caractéristiques typiques des séries de consommation d'électricité
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

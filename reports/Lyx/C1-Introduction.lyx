@@ -1,0 +1,441 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\begin_preamble
+\usepackage{fancyhdr}
+\fancyhead{} % clear all header fields
+\fancyhead[RO]{\nouppercase{\textit{Introduction}}}
+\fancyhead[LE]{\nouppercase{\textit{Introduction}}}
+\fancyhead[RE,LO]{\bfseries\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyfoot{} % clear all header fields
+\end_preamble
+\use_default_options false
+\master Rapport.lyx
+\maintain_unincluded_children false
+\language french
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "times" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family rmdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize 11
+\spacing onehalf
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.5cm
+\topmargin 2.5cm
+\rightmargin 2.5cm
+\bottommargin 2.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style french
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle empty
+\bullet 0 0 25 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter*
+Introduction générale
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering {arabic}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline {toc} {chapter} {
+\backslash
+textbf{Introduction}}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+adjustmtc
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{fancy}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[RO]{
+\backslash
+nouppercase{
+\backslash
+textit{Introduction}}} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[LE]{
+\backslash
+nouppercase{
+\backslash
+textit{Introduction}}}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Contexte
+\end_layout
+
+\begin_layout Standard
+La prévision de la consommation d’électricité est capitale autant pour la
+ gestion de la production que pour la gestion de la consommation.
+ Pour les opérateurs et fournisseurs d'électricité, une prévision précise
+ de la consommation d’électricité permettrait de bien équilibrer l’offre
+ et la demande.
+ Pour le consommateur, une prévision fiable de sa consommation permet de
+ mieux gérer celle-ci et de détecter les éventuelles anomalies.
+ Nous distinguons deux catégories de prévisions 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "osunmakinde2017shortterm,ibm2024load,david2023prevision"
+literal "false"
+
+\end_inset
+
+ : 
+\end_layout
+
+\begin_layout Itemize
+la prévision de la charge électrique qui consiste à prévoir la quantité
+ d’électricité qui sera nécessaire à un moment donné.
+ Cette prévision est utilisée, par les opérateurs et fournisseurs d'électricité,
+ pour produire et transporter la quantité d’énergie suffisante pour répondre
+ aux besoins de consommation, tout en évitant une surproduction ou une sous-prod
+uction d’électricité.
+ 
+\end_layout
+
+\begin_layout Itemize
+la prévision de la consommation d’électricité qui consiste à prévoir la
+ quantité d’électricité qui sera consommée sur une période par les utilisateurs.
+ 
+\end_layout
+
+\begin_layout Standard
+En fonction de la durée de l’horizon temporel concerné, les prévisions de
+ la charge électrique et de la consommation d’électricité peut être classées
+ en trois types 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "soliman2010electric,david2023prevision"
+literal "false"
+
+\end_inset
+
+: 
+\end_layout
+
+\begin_layout Itemize
+prévision à court terme : elle couvre une période pouvant aller jusqu’à
+ une semaine.
+ Les prévisions à court terme sont particulièrement importantes pour un
+ suivi et une gestion en temps réel.
+ Dans 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "soliman2010electric"
+literal "false"
+
+\end_inset
+
+, un autre type, dit à très court terme est considéré pour des durées de
+ quelques minutes à quelques heures.
+\end_layout
+
+\begin_layout Itemize
+prévision à moyen terme : elle varie d’une semaine à un an et est utilisée
+ pour la planification de la maintenance et la gestion de la production
+ et de la consommation.
+ Cette prévision prend en compte les variations saisonnières de consommation
+ d’électricité ainsi que les interruptions planifiées.
+ 
+\end_layout
+
+\begin_layout Itemize
+prévision à long terme : elle couvre généralement une période de plus d’un
+ an et prend en compte des facteurs tels que les variations démographiques,
+ le développement urbain à grande échelle, la croissance économique et les
+ impacts de la politique énergétique.
+ La prévision de charge à long terme se concentre sur la planification et
+ l’optimisation des systèmes, aidant les opérateurs et fournisseurs de l'électri
+cité à prendre des décisions quant à l’investissement dans de nouvelles
+ capacités de production d’énergie et à la manière d’équilibrer différentes
+ sources d’énergie.
+\end_layout
+
+\begin_layout Standard
+Ces dernières années, les prévisions de la charge et de la consommation
+ d’électricité ont suscité un grand intérêt tant dans la recherche académique
+ que dans le secteur industriel.
+ Les auteurs des revues de littératures
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nassif2022,systematic_review_residential_2023"
+literal "false"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nassif2022,systematic_review_residential_2023"
+literal "false"
+
+\end_inset
+
+ ont montré une grande croissance du nombre de publications portant sur
+ des approches d’apprentissage automatique, de modélisation hybride, ou
+ encore de prévision guidée par les connaissances.
+ Cet tendance s’explique par les enjeux cruciaux liés à la transition énergétiqu
+e, à l’intégration des énergies renouvelables, à la gestion des systèmes
+ intelligents (smart grids), à la sobriété énergétique, et à la participation
+ active des consommateurs.
+ Le volume croissant de données disponibles (météo, historique de consommation,
+ caractéristiques thermiques des bâtiments, etc.) et la maturité des algorithmes
+ d’apprentissage automatique contribuent à faire de la prévision de la consommat
+ion d’électricité un champ de recherche dynamique, interdisciplinaire et
+ fortement connecté aux applications réelles.
+ Ce projet, qui s'inscrit dans ce cadre, a pour objectif établissement d’un
+ modèle de prévision de la consommation d’électricité, à court  terme, des
+ utilisateurs du réseau Enedis en France.
+ 
+\end_layout
+
+\begin_layout Subsection*
+Problématique
+\end_layout
+
+\begin_layout Standard
+Initialement, l'objectif était l'établissement d'un modèle de référence
+ pour chaque consommateur, en particulier les logements résidentiels, et
+ d'un modèle de détection des anomalies dans la consommation et d'identification
+ des éventuelles causes de celles-ci.
+ Les jeux de données publiées par Enedis 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "enedis_data_portal"
+literal "false"
+
+\end_inset
+
+ présentent des agrégats de consommation et de production d’électricité
+ des utilisateurs du réseau Enedis, et ne contiennent pas de données à l'échelle
+ d'un seul utilisateur.
+ Suite à plusieurs échanges avec Enedis, nous avons choisi le jeu de données
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "enedis_conso_inf36"
+literal "false"
+
+\end_inset
+
+ qui restitue la consommation d’électricité au pas d'une demi-heure des
+ points de soutirage raccordés au réseau Enedis, dont puissance souscrite
+ est inférieur ou égale à 36kVA.
+ Ce choix est justifié par la compatibilité de ces données avec nos objectifs
+ initiaux et avec la possibilités d'une adaptation future pour détecter
+ les anomalies dans la consommation d’électricité.
+\end_layout
+
+\begin_layout Standard
+Ce jeu de données 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "enedis_conso_inf36"
+literal "false"
+
+\end_inset
+
+ donne les volumes d'énergie soutirés, les courbes de charge moyennes de
+ clients dotés de compteurs communicants et le nombre de clients.
+ Ces agrégats sont disponibles par région, plage de puissance souscrite
+ et profil, les profils sont définis par Enedis dans 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "enedis_coefficients_profils"
+literal "false"
+
+\end_inset
+
+.
+ Nous avons, donc, cherché dans ce projet à établir un modèle fiable, robuste
+ et précis pour la prévision de la consommation d’électricité, à court 
+ termes, en fonction du profil de l'utilisateur, de la puissance souscrite,
+ de la région et des données météo de celle-ci.
+\end_layout
+
+\begin_layout Subsection*
+Contribution
+\end_layout
+
+\begin_layout Standard
+Pour atteindre les objectifs fixés et répondre à notre problématique nous
+ avons :
+\end_layout
+
+\begin_layout Itemize
+fait un état de l'art des différentes études autour de la prévision de la
+ consommation d’électricité, 
+\end_layout
+
+\begin_layout Itemize
+établi une base de données agrégeant les jeux de données d'Enedis et les
+ données météorologiques (température, humidité, rayonnement solaire et
+ vitesse du vent),
+\end_layout
+
+\begin_layout Itemize
+analysé et étudié les relations entre les différentes variables explicatives
+ de la base constituée et la consommation d’électricité,
+\end_layout
+
+\begin_layout Itemize
+et établi un nouveau modèle, basé d'une part sur la décomposition par analyse
+ spectrale de la consommation d'électricité et des différentes variables
+ explicatives, et d'autre part sur la combinaison des modèles autorégressifs
+ SARIMA 
+\begin_inset Quotes fld
+\end_inset
+
+Seasonal AutoRegressive Integrated Moving Average
+\begin_inset Quotes frd
+\end_inset
+
+ et des réseaux LSTM 
+\begin_inset Quotes fld
+\end_inset
+
+Long Short-Term Memory
+\begin_inset Quotes frd
+\end_inset
+
+ .
+ Le modèle établi a montré des performances supérieures à ce qui a ét publié
+ par la dans la littéarture et porté à notre connaissance.
+\end_layout
+
+\begin_layout Subsection*
+Organisation du document
+\end_layout
+
+\begin_layout Standard
+Dans un premier chapitre nous présentons les concepts et formalismes mathématiqu
+es de bases pour décrire, analyser et prévoir des séries temporelles.
+ Nous adoptons, dans notre approche la modélisation de la consommation d'électri
+cité, ainsi que les autres variables par des séries temporelle.
+ Le second chapitre est dédiée à la synthèse de la revue de littérature,
+ qui ne vaut pas être exhaustive, du domaine de la prévision de la consommation
+ d'électricité à court terme.
+ Le troisième chapitre présente la construction de la base de données, les
+ transformations qui lui sont appliquées et une analyse fine des différentes
+ relations entre ses variables et la variable cible.
+ Le quatrième chapitre présente notre modèle.
+ 
+\end_layout
+
+\end_body
+\end_document
