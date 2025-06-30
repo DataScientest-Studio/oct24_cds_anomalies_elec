@@ -2418,9 +2418,9 @@ La fonction d’autocorrélation d'une série temporelle
 
 \begin_layout Definition
 \begin_inset Formula 
-\[
-\rho(t,k)=\mathbb{C}orr\left(Y_{t+k},Y_{t}\right)=\frac{\mathbb{C}ov(Y_{t+k},Y_{t})}{\mathbb{V}(Y_{t})}=\frac{E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{t+k}Y_{t}}}\right)-E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{t+k}}}\right)\times E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{t}}}\right)}}}}}}}{E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{t}^{2}}}\right)-E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{t}}}\right)^{\mathit{2}}}}}}}
-\]
+\begin{equation}
+\rho(t,k)=\mathbb{C}orr\left(Y_{t+k},Y_{t}\right)=\frac{\mathbb{C}ov(Y_{t+k},Y_{t})}{\mathbb{V}(Y_{t})}=\frac{E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{t+k}Y_{t}}}\right)-E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{t+k}}}\right)\times E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{t}}}\right)}}}}}}}{E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{t}^{2}}}\right)-E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{t}}}\right)^{\mathit{2}}}}}}}\label{eq:correlation}
+\end{equation}
 
 \end_inset
 
@@ -2446,9 +2446,9 @@ stationnaire (faiblement ou strictement), cette fonction est indépendant
 
 \begin_layout Definition
 \begin_inset Formula 
-\[
-\rho(k)=\mathbb{C}orr\left(Y_{k},Y_{0}\right)=\frac{\mathbb{E}\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{k}Y_{0}}}\right)-E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{k}}}\right)\times E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{0}}}\right)}}}}}}}{\mathbb{E}\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{0}^{2}}}\right)-E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{0}}}\right)^{\mathit{2}}}}}}}
-\]
+\begin{equation}
+\rho(k)=\mathbb{C}orr\left(Y_{k},Y_{0}\right)=\frac{\mathbb{E}\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{k}Y_{0}}}\right)-E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{k}}}\right)\times E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{0}}}\right)}}}}}}}{\mathbb{E}\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{0}^{2}}}\right)-E\mathrm{\mathbb{\left(\mathrm{\mathit{Y_{0}}}\right)^{\mathit{2}}}}}}}\label{eq:ACF}
+\end{equation}
 
 \end_inset
 
@@ -2484,9 +2484,9 @@ La fonction d’autocorrélation partielle d'une série temporelle
 
 \begin_layout Definition
 \begin_inset Formula 
-\[
+\begin{equation}
 r(t,k)=\mathbb{C}orr\left(Y_{t+k}^{p},Y_{t}^{p}\right)
-\]
+\end{equation}
 
 \end_inset
 
@@ -2537,9 +2537,9 @@ stationnaire (faiblement ou strictement), cette fonction est indépendant
 
 \begin_layout Definition
 \begin_inset Formula 
-\[
-r(t,k)=r(k)=\mathbb{C}orr\left(Y_{k}^{p},Y_{0}^{p}\right)
-\]
+\begin{equation}
+r(t,k)=r(k)=\mathbb{C}orr\left(Y_{k}^{p},Y_{0}^{p}\right)\label{eq:PACF}
+\end{equation}
 
 \end_inset
 
@@ -2887,10 +2887,10 @@ noprefix "false"
 \end_inset
 
 .
- Ce spectrogramme est obtenu par SFTF avec des fenêtres de longueur de 7
+ Ce spectrogramme est obtenu par STFT avec des fenêtres de longueur de 7
  jours, i.e.
  
-\begin_inset Formula $L=8*48$
+\begin_inset Formula $L=7*48$
 \end_inset
 
 , et avec un recouvrement de deux jours (
@@ -2945,15 +2945,15 @@ noprefix "false"
 Ce spectrogramme confirme la multi-saisonnalité, montrée par les fonctions
  ACF et PACF.
  Les périodes détectés sont de 
-\begin_inset Formula $T_{1}=42pas\simeq0.875jours$
+\begin_inset Formula $T_{1}=42\ pas\simeq0.875\ jours$
 \end_inset
 
 , 
-\begin_inset Formula $T_{2}=22pas\simeq0.4375ours$
+\begin_inset Formula $T_{2}=22\ pas\simeq0.4375\ jours$
 \end_inset
 
  et 
-\begin_inset Formula $T_{3}=7jours$
+\begin_inset Formula $T_{3}=7\ jours$
 \end_inset
 
 .
@@ -2968,14 +2968,6 @@ Prévision
 \end_layout
 
 \begin_layout Standard
-Le cœur de notre sujet est la prévision de la consommation électrique à
- court terme.
- Dans cette section nous allons définir les objectifs de cette prévision
- et les métriques d'évaluations.
- 
-\end_layout
-
-\begin_layout Standard
 Dans 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2984,19 +2976,19 @@ literal "false"
 
 \end_inset
 
-, Hyndman & Athanasopoulos donnent la définition suivante à la prévision
- : "Forecasting is about predicting the future as accurately as possible,
+, Hyndman & Athanasopoulos donnent pour définition à la prévision (
+\series bold
+forecasting
+\series default
+) : "Forecasting is about predicting the future as accurately as possible,
  given all the information available, including historical data and knowledge
  of any future events that might impact the forecasts."
 \end_layout
 
 \begin_layout Standard
-Autrement dit la prévision (
-\series bold
-forecasting
-\series default
-) d'une série temporelle univariée consiste à estimer ou prédire ses valeurs
- futures, en utilisant les informations disponibles sur ses valeurs passées.
+Autrement dit la prévision d'une série temporelle univariée consiste à estimer
+ ou prédire ses valeurs futures, en utilisant les informations disponibles
+ sur ses valeurs passées.
  Si la série est multivariée, la prévision consiste à estimer ses valeurs
  futures, en utilisant ses valeurs passées et les valeurs des variables
  explicatives.
@@ -3075,14 +3067,14 @@ es.
 \noun default
 \color inherit
 
-\begin_inset Formula $\left(Y_{1,t}\right)_{t\in\mathbb{T}}$
+\begin_inset Formula $\left(Y_{1,t}\right)_{t\in\mathbb{T}}.$
 \end_inset
 
-La prévision consiste à établir un modèle 
+ La prévision consiste à établir un modèle 
 \begin_inset Formula $\mathcal{M}$
 \end_inset
 
- qui peremt d'approcher les valeurs 
+ qui peremt d'estimer le vecteur 
 \family roman
 \series medium
 \shape up
@@ -3105,9 +3097,9 @@ en fonction de
 
  :
 \begin_inset Formula 
-\[
-\left(\widehat{Y}_{1,t+1},\widehat{Y}_{1,t+2},...,\widehat{Y}_{1,t+k}\right)=\mathcal{\mathcal{M\left(\mathcal{F}_{\mathrm{t}}\right)}}
-\]
+\begin{equation}
+\left(\widehat{Y}_{1,t+1},\widehat{Y}_{1,t+2},...,\widehat{Y}_{1,t+k}\right)=\mathcal{\mathcal{M\left(\mathcal{F}_{\mathrm{t}}\right)}}\label{eq:model}
+\end{equation}
 
 \end_inset
 
@@ -3115,7 +3107,75 @@ en fonction de
 \end_layout
 
 \begin_layout Standard
-Dans notre projet, nous avons cherché à établire l'ensemble 
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\mathcal{F}_{t}\ $
+\end_inset
+
+, constitue l'ensemble de caractéristiques à utiliser pour la pérvision
+ par le modèle 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $k$
+\end_inset
+
+ détermine le type de prévision, i.e.
+ court terme, moyen terme ou long terme.
+\end_layout
+
+\begin_layout Subsubsection
+Métriques d'évaluation 
+\end_layout
+
+\begin_layout Standard
+Il existe de nombreuses métriques d’évaluation applicables aux approches
+ de prévision de séries temporelles.
+ Nous utilisons 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+MAPE
+\begin_inset space ~
+\end_inset
+
+
+\series default
+(
+\series bold
+ Mean Average Percentage Error
+\series default
+ : l’erreur percentile absolue moyenne est très utilisée dans la cadre des
+ prévisions de la consommation d'électricité.
+ En reprenant les notations de la section précédente, le score MAPE s'exprime
+ par la formule suivante :
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+MAPE=\frac{100}{k}\sum_{i=1}^{k}\left|{\displaystyle \frac{\widehat{Y}_{1,t+i}-Y_{1,t+i}}{Y_{1,t+i}}}\right|\label{eq:MAPE}
+\end{equation}
+
+\end_inset
+
+où 
 \family roman
 \series medium
 \shape up
@@ -3129,27 +3189,101 @@ Dans notre projet, nous avons cherché à établire l'ensemble
 \noun off
 \color none
 
-\begin_inset Formula $\mathcal{F}_{t}\ $
+\begin_inset Formula $Y_{1,t+i}$
 \end_inset
 
-, qui constitue les caractéristiques à utiliser pour la pérvision, et le
- modèle 
-\begin_inset Formula $\mathcal{M}$
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ est la vraie valeur au pas de temps 
+\begin_inset Formula $t+i$
 \end_inset
 
-.
- 
+,
+\begin_inset Formula $\widehat{Y}_{1,t+i}$
+\end_inset
+
+ est la prévision au pas de temps 
+\begin_inset Formula $t+i$
+\end_inset
+
+, et 
+\begin_inset Formula $k$
+\end_inset
+
+ est le nombre de prévisions évaluées.
 \end_layout
 
-\begin_layout Standard
-Pour juger les performance d'un modèle, il faut des métyriques d'évaluation.
- 
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+MAE (Mean absolute error)
+\series default
+: l'erreur absolue moyenne est également très populaire dans la cadre des
+ prévisions de la consommation d'électricitécar.
+ Cette métrique est facile à comprendre et à calculer.
+ le score MAE s'exprime par la formule suivante :
+\begin_inset Formula 
+\begin{equation}
+MAE=\frac{1}{k}\sum_{i=1}^{k}\left|\widehat{Y}_{1,t+i}-Y_{1,t+i}\right|\label{eq:MAE}
+\end{equation}
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Subsubsection
-Métriques d'évaluation 
+\begin_deeper
+\begin_layout Itemize
+Simple à interpréter.
 \end_layout
 
+\begin_layout Itemize
+Sensible aux échelles des données.
+\end_layout
+
+\begin_layout Itemize
+Même unité que la variable cible.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+RMSE (Root mean squared error) : 
+\series default
+
+\begin_inset Formula 
+\begin{equation}
+MAE=\sqrt{\frac{1}{k}\sum_{i=1}^{k}\left|\widehat{Y}_{1,t+i}-Y_{1,t+i}\right|^{2}}\label{eq:RMSE}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Même unité que la variable prédite.
+\end_layout
+
+\begin_layout Itemize
+Souvent utilisé pour comparer modèles sur la même échelle.
+\end_layout
+
+\end_deeper
 \begin_layout Section
 Conclusion 
 \end_layout
