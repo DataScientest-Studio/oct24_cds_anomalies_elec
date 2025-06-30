@@ -1,0 +1,363 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass book
+\begin_preamble
+\usepackage{fancyhdr}
+\fancyhead{} % clear all header fields
+\fancyhead[RO]{\nouppercase{\textit{Introduction}}}
+\fancyhead[LE]{\nouppercase{\textit{Introduction}}}
+\fancyhead[RE,LO]{\bfseries\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyfoot{} % clear all header fields
+\end_preamble
+\use_default_options false
+\master Rapport.lyx
+\maintain_unincluded_children false
+\language french
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "times" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family rmdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement tbph
+\paperfontsize 11
+\spacing onehalf
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.5cm
+\topmargin 2.5cm
+\rightmargin 2.5cm
+\bottommargin 2.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style french
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 2
+\paperpagestyle empty
+\bullet 0 0 25 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Construction et analyse de la base de données
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{fancy}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[RO]{
+\backslash
+nouppercase{
+\backslash
+textit{Introduction aux séries temporelles}}} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[LE]{
+\backslash
+nouppercase{
+\backslash
+textit{Introduction aux séries temporelles}}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nous avons opté pour une modélisation en séries temporelles de la consommation
+ d'électricité et des variables exogènes.
+ Dans ce premier chapitre, nous rappelons les outils mathématique dédiés
+ à cette modélisation.
+ Nous ferons, tout d'abord, quelques rappels succincts de la notion d'une
+ série temporelle, de ses caractéristiques, de ses transformations et décomposit
+ions.
+ Dans un second temps nous aborderons les outils d’analyse de séries temporelles
+, que nous avons utilisés afin d’en extraire des statistiques et des caractérist
+iques significatives.
+ Puis nous présentons la notions de la prévision et les métriques associées
+ à l'évaluation des performances de celle-ci.
+ La théorie des séries temporelle est riche et large, nous limiterons dans
+ notre présentation à quelques éléments que nous avons utilisés, et nous
+ renvoyons le lecteur intéréssé vers des références cités dans notre développeme
+nt.
+\end_layout
+
+\begin_layout Enumerate
+la dynamique locale, les effets calendaires, la dépendance temporelle non
+ linéaire et les effets non linéaires des variables externes (exogènes).
+ 
+\end_layout
+
+\begin_layout Standard
+Le tableau 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Caractéristiques-typiques-des"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+suivant regroupe ces caractéristiques notre cas .
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{|p{4 cm}|p{10 cm}|} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline 
+\backslash
+textbf{Caractéristique} & 
+\backslash
+textbf{Description} 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Tendance (Trend) & Variation à moyen et long terme.
+ 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Saisonnalité (Seasonality) & Répétition régulière des motifs (quotidien,
+ hebdomadaire, annuel).
+ 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Effets calendaires & Jours fériés, week-ends, vacances.
+  
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Autocorrélation & Dépendance des valeurs présentes aux valeurs passées.
+ 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Dynamique à court terme & Fluctuations rapides et ponctuelles de la
+ consommation.
+ 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Non-stationnarité & Moyenne ou variance non constantes dans le temps
+ ; nécessite différenciation.
+ 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline Influence de variables externes (Effets exogènes) & Effet des variables
+ météorologiques, économiques, événementiels, etc.
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline 
+\backslash
+end{tabular} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Caractéristiques-typiques-des"
+
+\end_inset
+
+Caractéristiques typiques des séries de consommation d'électricité
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

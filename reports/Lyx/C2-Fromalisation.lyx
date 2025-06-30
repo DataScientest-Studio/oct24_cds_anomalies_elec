@@ -160,7 +160,7 @@ iques significatives.
  à l'évaluation des performances de celle-ci.
  La théorie des séries temporelle est riche et large, nous limiterons dans
  notre présentation à quelques éléments que nous avons utilisés, et nous
- renvoyons le lecteur intéréssé vers des références cités dans notre développeme
+ renvoyons le lecteur intéressé vers des références cités dans notre développeme
 nt.
 \end_layout
 
@@ -169,7 +169,7 @@ Généralités
 \end_layout
 
 \begin_layout Subsection
-Definitions
+Définitions
 \end_layout
 
 \begin_layout Definition
@@ -396,7 +396,7 @@ noprefix "false"
 \end_inset
 
  montre un exemple de série temporelle multivariée, qui représente la série
- de l'exemple pércédent observées simultanément avec des variables météorologiqu
+ de l'exemple précédent observées simultanément avec des variables météorologiqu
 es.
  Cette série temporelle multivariée est composée des variables suivantes
  :
@@ -683,7 +683,7 @@ où :
 \end_layout
 
 \begin_layout Standard
-Lorque la tendance et le cycle sont regroupé en une seule composante, la
+Lorsque la tendance et le cycle sont regroupé en une seule composante, la
  décomposition additive s'écrit : 
 \end_layout
 
@@ -737,8 +737,8 @@ Y_{t}=Y_{t}=T_{t}\times S_{t}\times R_{t}\label{eq:1.4}
 Si l’amplitude des fluctuations saisonnières autour de la tendance ne varie
  pas avec le niveau de la série temporelle, alors la décomposition additive
  est la plus appropriée.
- Lorsque la variation du motif saisonnier autour de la endance semble proportion
-nelle au niveau de la série temporelle, une décomposition multiplicative
+ Lorsque la variation du motif saisonnier autour de la tendance semble proportio
+nnelle au niveau de la série temporelle, une décomposition multiplicative
  est alors plus appropriée 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -753,7 +753,7 @@ literal "false"
 \begin_layout Standard
 Il faut noter qu'en appliquant une transformation logarithmique (respectivement
  exponentielle) nous pouvons passer d'une décomposition multiplicative (respecti
-vement additive) à une décompostion additive (respectivement multiplicative).
+vement additive) à une décomposition additive (respectivement multiplicative).
  L’utilisation d’une décomposition additive sur une série temporelle qui
  a d’abord subi une transformation logarithmique de manière à ce que sa
  variation paraisse stable dans le temps équivaut à utiliser une décomposition
@@ -1009,12 +1009,12 @@ literal "false"
 
  les auteurs présentent des méthodes d'estimation des composantes d'une
  série temporelle.
- Afin de ne pas s'écarter du coeur de notre sujet, nous ne détaillerons
- pas ici toutes ces méthodes, et nous envoyons le lecteur intéressé à cette
+ Afin de ne pas s'écarter du cœur de notre sujet, nous ne détaillerons pas
+ ici toutes ces méthodes, et nous envoyons le lecteur intéressé à cette
  ouvrage disponible gratuitement.
  Dans notre étude nous avons fait usage de la fonction 
 \shape italic
-seasonal_decompose
+seasonal_décompose
 \shape default
  de statsmodel 
 \begin_inset CommandInset citation
@@ -1062,7 +1062,7 @@ noprefix "false"
 \end_inset
 
 .
- L'estimsation de la composante tendance est basée sur une moyenne glissante.
+ L'estimation de la composante tendance est basée sur une moyenne glissante.
  Si la 
 \family default
 \series default
@@ -1167,7 +1167,7 @@ par l'équation :
 
 \begin_layout Standard
 Une fois la tendance est estimée, on peut alors estimer la saisonnalité
- par la procédée suivante : 
+ par la procédé suivante : 
 \end_layout
 
 \begin_layout Standard
@@ -1389,7 +1389,7 @@ Analyse des séries temporelles
 \end_layout
 
 \begin_layout Standard
-Nous disngueons entrre deux approches compélemntaires d'analyse.
+Nous distinguons entre deux approches complémentaires d'analyse.
  L'approche temporelle et l'approche spectrale.
  La décomposition, décrite précédemment et qui fait parti de l'analyse temporell
 e, permet d'identifier les composantes de la série analysée, mais ne révèle
@@ -1399,7 +1399,7 @@ e, permet d'identifier les composantes de la série analysée, mais ne révèle
  En complément, l’analyse spectrale (de Fourier) permet de transformer la
  série pour révéler sa structure fréquentielle.
  Cependant cette analyse n'est pas adaptée pour les séries temporelles non
- stationaires, i.e.
+ stationnaires, i.e.
  dont les caractéristiques spectrales varient au cours du temps.
  Pour ce type de séries, une analyse temps-fréquence est plus adaptées.
  Dans cette section, nous présentons la notion de stationnarité, les fonctions
@@ -1409,7 +1409,7 @@ e, permet d'identifier les composantes de la série analysée, mais ne révèle
 \end_layout
 
 \begin_layout Subsection
-Sationnarité
+Stationnarité
 \end_layout
 
 \begin_layout Subsubsection
@@ -1699,7 +1699,7 @@ Y_{t}=c+Y_{t-1}+\epsilon_{t}\label{eq:non_satationaire_DS}
 \begin_inset Formula $\epsilon_{t}$
 \end_inset
 
- est un bruit blanc d'espèrance 
+ est un bruit blanc d'espérance 
 \begin_inset Formula $\mathbb{\mathit{E}}(\epsilon_{t})=0$
 \end_inset
 
@@ -1749,8 +1749,8 @@ Tests de stationnarité
 \end_layout
 
 \begin_layout Standard
-L'identification et la caractérisation de la sationnarité ou la non-stationnarit
-é peuvent être effectuées grâce à des tests statistiques.
+L'identification et la caractérisation de la stationnarité ou la non-stationnari
+té peuvent être effectuées grâce à des tests statistiques.
  Ces tests aident à déterminer s'il faut stationnariser la série, en effectuant
  des transformations.
  Il existe un grand nombre de tests 
@@ -1787,7 +1787,7 @@ literal "false"
 \end_inset
 
 .
- Dans cette section nous donnons un apperçu sur ces trois tests que nous
+ Dans cette section nous donnons un aperçu sur ces trois tests que nous
  avons utilisés dans notre projet.
  Pour expliquer rigoureusement ces tests, nous allons rappeler quelques
  notions utiles.
@@ -1823,7 +1823,7 @@ noprefix "false"
 
 \end_inset
 
-, ou de manière équivalente en utilsant l’opérateur de retard 
+, ou de manière équivalente en utilisant l’opérateur de retard 
 \begin_inset Formula $\mathbb{L}$
 \end_inset
 
@@ -1918,7 +1918,7 @@ Y_{t}^{(d)}=\text{\ensuremath{\Delta^{d}}}Y_{t}=(1-\mathbb{L})^{d}Y_{t-1}\label{
 \series bold
 Racine unitaire: 
 \series default
-pour comprendre cette notion, nécssaire à l'explication des principes de
+pour comprendre cette notion, nécessaire à l'explication des principes de
  test on considère le modèle décrit par l'équation
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1998,7 +1998,7 @@ En utilisant l'opérateur de retard
 \begin_inset Formula $\Phi$
 \end_inset
 
- est un polyôme de degré
+ est un polynôme de degré
 \begin_inset Formula $p$
 \end_inset
 
@@ -2008,7 +2008,7 @@ En utilisant l'opérateur de retard
 \end_inset
 
  les racines de ce polynôme.
- L'equation 
+ L'équation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:modele_AR-1"
@@ -2037,7 +2037,7 @@ Si une racine des
 \begin_inset Formula $\left(z_{i}\right)_{i\in\left\llbracket 1,p\right\rrbracket }$
 \end_inset
 
-est éagle à 1 alors on dit que la série à une racine unitaire.
+est égale à 1 alors on dit que la série à une racine unitaire.
 \end_layout
 
 \begin_layout Standard
@@ -2358,7 +2358,7 @@ Conclusion
  : la série différenciée est considérée comme stationnaire au seuil de 5 %,
  bien que cette stationnarité soit « faible » ou « limite » si on utilisait
  un seuil de 10 %.
- Ce test confirme la stationnarite de la série différenciée d'ordre 1 établie
+ Ce test confirme la stationnarité de la série différenciée d'ordre 1 établie
  par le test ADF.
 \end_layout
 
@@ -2377,9 +2377,9 @@ ACF
 \shape italic
 AutoCorrelation Function
 \shape default
-), mesure la corrélation entre les deux obsrevations décalées dans le temps
+), mesure la corrélation entre les deux observations décalées dans le temps
  d’une série temporelle.
- Qaund à la fonction d’autocorrélation partielle, abrégée en 
+ Quand à la fonction d’autocorrélation partielle, abrégée en 
 \series bold
 PACF
 \series default
@@ -2388,7 +2388,7 @@ PACF
 Partial AutoCorrelation Function
 \shape default
 ), elle mesure cette corrélation directe en éliminant les influences des
- observations intermédaires entre les deux observations concernées 
+ observations intermédiaires entre les deux observations concernées 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "brockwell2016,hyndman2021forecasting"
@@ -2597,7 +2597,7 @@ name "fig:ACF-et-ACP"
 
 \end_inset
 
-ACF et ACP de la série de la figure 
+ACF et PACF de la série de la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Consommation-électrique-du"
@@ -2625,7 +2625,7 @@ noprefix "false"
 \end_layout
 
 \begin_layout Example
-L'analyse des ces graphiques permettent d'identifier une saisonnalites mutliples
+L'analyse des ces graphiques permettent d'identifier une saisonnalités multiples
  (périodes de 22 et 48), une décroissance lente de la fonction d'autocorrélation.
  La fonction PACF montre un coefficient forte au décalage 
 \begin_inset Formula $k=1$
@@ -2679,7 +2679,7 @@ name "fig:ACF-et-ACP-T"
 
 \end_inset
 
-ACF et ACP de la composante tendance de la série de la figure 
+ACF et PACF de la composante tendance de la série de la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Consommation-électrique-du"
@@ -2728,7 +2728,7 @@ name "fig:ACF-et-ACP-S"
 
 \end_inset
 
-ACF et ACP de la composante saisonnalité de la série de la figure 
+ACF et PACF de la composante saisonnalité de la série de la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Consommation-électrique-du"
@@ -2777,7 +2777,7 @@ name "fig:ACF-et-ACP-R"
 
 \end_inset
 
-ACF et ACP de la composante résiduelle de la série de la figure 
+ACF et PACF de la composante résiduelle de la série de la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Consommation-électrique-du"
@@ -2805,209 +2805,109 @@ Analyse temps-fréquence
 \end_layout
 
 \begin_layout Standard
-
-\end_layout
-
-\begin_layout Section
-Modélisation
-\end_layout
-
-\begin_layout Section
-Conclusion 
-\end_layout
-
-\begin_layout Standard
-Autres caractéristiques sont également rapportées et classées dans la littératur
-e 
+Les séries temporelles de notre projet sont des séries non stationnaires.
+ Cette constatation nous a conduit à utiliser des outils spécifiques et
+ adaptés aux signaux non-stationnaires pour analyser ces séries.
+ Parmi ces outils figurent les méthodes d’analyse temps-fréquence, qui permetten
+t de représenter conjointement les informations temporelle et fréquentielle.
+ Elles fournissent une représentation qui permet d’extraire les différentes
+ saisonnalités présentes dans nos séries.
+ Les méthodes les plus utilisées, détaillées dans 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "hamilton1994time,hyndman2021forecasting,box2015time,lopez2022,aouad2022cnn,shumway2017time,beccali2008short,makridakis2018,offiah2020review"
+key "fla1998"
 literal "false"
 
 \end_inset
 
- : 
+, pour effectuer cette analyse sont :
 \end_layout
 
-\begin_layout Enumerate
-l'autocorrélation, qui mesure la dépendance des valeurs présentes aux valeurs
- passées de la série,
+\begin_layout Itemize
+Transformée de Fourier à Court Terme (Short-Time Fourier Transform (STFT))
+ qui consiste à diviser la série en fenêtres puis appliquer la transformée
+ de Fourier localement.
+ Cette transformée permet de construire une représentation temps-fréquence
+ (spectrogramme) avec une résolution temps-fréquence fixe.
 \end_layout
 
-\begin_layout Enumerate
-stationnarité qui caractérise la constance ou non des propriétés statistiques
- (moyenne, variance…) dans le temps,
-\end_layout
-
-\begin_layout Enumerate
-la dynamique locale, les effets calendaires, la dépendance temporelle non
- linéaire et les effets non linéaires des variables externes (exogènes).
+\begin_layout Itemize
+Transformée en Ondelettes (Wavelet Transform (CWT)) : utilise des fonctions
+ de base localisées en temps et en fréquence (ondelettes), en permettant
+ ainsi une résolution adaptative.
+ Elle donne une bonne résolution temporelle pour les hautes fréquences et
+ une bonne résolution fréquentielle pour les basses fréquences.
  
 \end_layout
 
+\begin_layout Itemize
+La décomposition en modes empiriques (Empirical Mode Decomposition (EMD))
+ proposée par Huang dans 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Huang98"
+literal "false"
+
+\end_inset
+
+, décompose le signal, d'une façon adaptative, en somme de composantes oscillant
+es, appelées IMF (pour intrinsic mode function en anglais).
+ Cette décomposition est adaptée pour les signaux non-stationnaires.
+ En utilisant cette décomposition nous pouvons estimer l'amplitude et la
+ fréquence instantanées et établir une représentation temps-fréquence de
+ la série 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ahmed2022emd"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Standard
-Le tableau 
+Dans notre cadre, l'objectif est d'estimer les différentes fréquences présentes
+ das nos séries.
+ Ces fréquences sont utilisées pour extraire toutes les saisonnalités.
+ La figure montre le spectrogramme de las série de la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "tab:Caractéristiques-typiques-des"
+reference "fig:Consommation-électrique-du"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-suivant regroupe ces caractéristiques notre cas .
- 
-\end_layout
+.
+ Le pas de discrétisation temporelle de la série est de 30 minutes.
+ La fréquence d'échantillonnage est 
+\begin_inset Formula $F_{s}=1/1800\ Hz$
+\end_inset
 
-\begin_layout Standard
-\begin_inset Float table
-placement h
+.
+ Ce spectrogramme est obtenu par SFTF avec des fenêtres de longueur de 7
+ jours, i.e.
+ 
+\begin_inset Formula $L=8*48$
+\end_inset
+
+, et avec un recouvrement de deux jours (
+\begin_inset Formula $2\times48=96$
+\end_inset
+
+).
+ 
+\begin_inset Float figure
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-centering 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{tabular}{|p{4 cm}|p{10 cm}|} 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline 
-\backslash
-textbf{Caractéristique} & 
-\backslash
-textbf{Description} 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline Tendance (Trend) & Variation à moyen et long terme.
- 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline Saisonnalité (Seasonality) & Répétition régulière des motifs (quotidien,
- hebdomadaire, annuel).
- 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline Effets calendaires & Jours fériés, week-ends, vacances.
-  
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline Autocorrélation & Dépendance des valeurs présentes aux valeurs passées.
- 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline Dynamique à court terme & Fluctuations rapides et ponctuelles de la
- consommation.
- 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline Non-stationnarité & Moyenne ou variance non constantes dans le temps
- ; nécessite différenciation.
- 
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline Influence de variables externes (Effets exogènes) & Effet des variables
- météorologiques, économiques, événementiels, etc.
-\backslash
-
-\backslash
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-
-\backslash
-hline 
-\backslash
-end{tabular} 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
+\begin_inset Graphics
+	filename Chap1/Spectrogramme.png
+	scale 60
 
 \end_inset
 
@@ -3018,13 +2918,17 @@ end{tabular}
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "tab:Caractéristiques-typiques-des"
+Spectrogramme de la série 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Consommation-électrique-du"
+plural "false"
+caps "false"
+noprefix "false"
 
 \end_inset
 
-Caractéristiques typiques des séries de consommation d'électricité
+
 \end_layout
 
 \end_inset
@@ -3035,6 +2939,251 @@ Caractéristiques typiques des séries de consommation d'électricité
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Ce spectrogramme confirme la multi-saisonnalité, montrée par les fonctions
+ ACF et PACF.
+ Les périodes détectés sont de 
+\begin_inset Formula $T_{1}=42pas\simeq0.875jours$
+\end_inset
+
+, 
+\begin_inset Formula $T_{2}=22pas\simeq0.4375ours$
+\end_inset
+
+ et 
+\begin_inset Formula $T_{3}=7jours$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Prévision et évaluation
+\end_layout
+
+\begin_layout Subsection
+Prévision 
+\end_layout
+
+\begin_layout Standard
+Le cœur de notre sujet est la prévision de la consommation électrique à
+ court terme.
+ Dans cette section nous allons définir les objectifs de cette prévision
+ et les métriques d'évaluations.
+ 
+\end_layout
+
+\begin_layout Standard
+Dans 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hyndman2021forecasting"
+literal "false"
+
+\end_inset
+
+, Hyndman & Athanasopoulos donnent la définition suivante à la prévision
+ : "Forecasting is about predicting the future as accurately as possible,
+ given all the information available, including historical data and knowledge
+ of any future events that might impact the forecasts."
+\end_layout
+
+\begin_layout Standard
+Autrement dit la prévision (
+\series bold
+forecasting
+\series default
+) d'une série temporelle univariée consiste à estimer ou prédire ses valeurs
+ futures, en utilisant les informations disponibles sur ses valeurs passées.
+ Si la série est multivariée, la prévision consiste à estimer ses valeurs
+ futures, en utilisant ses valeurs passées et les valeurs des variables
+ explicatives.
+ 
+\end_layout
+
+\begin_layout Standard
+Étant donnée une série temporelle 
+\begin_inset Formula $\left(Y_{t}\right)_{t\in\mathbb{T}}=\left(Y_{1,t},Y_{2,t},...Y_{d,t}\right)_{t\in\mathbb{T}}$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+, notons pour 
+\begin_inset Formula $t\in\mathbb{T},$
+\end_inset
+
+ 
+\begin_inset Formula $\mathcal{F}_{t}\ $
+\end_inset
+
+l'ensemble d'information disponible jusqu'au l'instant 
+\begin_inset Formula $t$
+\end_inset
+
+, incluant 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+les valeurs passées de la variable cible et des valeurs des variables explicativ
+es.
+ On suppose que la variable cible est
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\left(Y_{1,t}\right)_{t\in\mathbb{T}}$
+\end_inset
+
+La prévision consiste à établir un modèle 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+ qui peremt d'approcher les valeurs 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left(Y_{1,t+1},Y_{1,t+2},...,Y_{1,t+k}\right)$
+\end_inset
+
+en fonction de 
+\begin_inset Formula $\mathcal{F}_{t}$
+\end_inset
+
+ :
+\begin_inset Formula 
+\[
+\left(\widehat{Y}_{1,t+1},\widehat{Y}_{1,t+2},...,\widehat{Y}_{1,t+k}\right)=\mathcal{\mathcal{M\left(\mathcal{F}_{\mathrm{t}}\right)}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dans notre projet, nous avons cherché à établire l'ensemble 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathcal{F}_{t}\ $
+\end_inset
+
+, qui constitue les caractéristiques à utiliser pour la pérvision, et le
+ modèle 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Pour juger les performance d'un modèle, il faut des métyriques d'évaluation.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Métriques d'évaluation 
+\end_layout
+
+\begin_layout Section
+Conclusion 
+\end_layout
+
+\begin_layout Standard
+Dans ce chapitre nous avons posé les bases théoriques indispensable à la
+ compréhension du travail réalisé pendant ce projet.
+ Nous avons ainsi défini:
+\end_layout
+
+\begin_layout Enumerate
+la notion d'une série temporelle,
+\end_layout
+
+\begin_layout Enumerate
+la décomposition d'une série temporelle et ses composantes
+\end_layout
+
+\begin_layout Enumerate
+les fonctions d'autocorrélation et d'autocorrélation partielle, 
+\end_layout
+
+\begin_layout Enumerate
+la notion de stationnarité, qui caractérise la l'invariance ou non des propriété
+s statistiques dans le temps,
+\end_layout
+
+\begin_layout Enumerate
+l'analyse temps-fréquence d'une série temporelle
+\end_layout
+
+\begin_layout Standard
+Nous avons illustré ces concepts à travers des exemples de notre projet.
+ 
 \end_layout
 
 \end_body
