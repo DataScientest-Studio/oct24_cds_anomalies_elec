@@ -13,6 +13,7 @@
 \usepackage{cite}
 \usepackage[sectionbib]{chapterbib}
 
+\usepackage[frenchb]{babel}
 
 \usepackage{fancyhdr}
 
@@ -32,6 +33,8 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode,float}
 
+
+\pagenumbering{arabic}
 \def\NoNumber#1{{\def\alglinenumber##1{}\State #1}\addtocounter{ALG@line}{-1}}
 
 \usepackage{etoolbox}
@@ -43,13 +46,6 @@
   \gdef\@chapapp{\chaptername}% reset chapter name
   \gdef\thechapter{\@arabic\c@chapter}% make chapter numbers arabic
 }
-
-
-\usepackage[frenchb]{babel}
-\addto\captionsfrench{\renewcommand{\chaptername}{Partie}}
-%\renewcommand\listfigurename{List of Figures} 
-%\renewcommand\listtablename{List of Tables} 
-%\renewcommand\bibname{Bibliography} 
 \end_preamble
 \use_default_options false
 \begin_modules
@@ -161,22 +157,6 @@ pagestyle{empty}
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-pagenumbering{arabic}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
 filename "C0-PG.lyx"
@@ -187,6 +167,8 @@ filename "C0-PG.lyx"
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset ERT
 status open
 
@@ -218,21 +200,93 @@ pagenumbering {roman}
 setcounter{page}{1}
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand{
+\backslash
+chaptername}{Chapitre}
+\end_layout
+
 \begin_layout Plain Layout
 
 
 \backslash
 renewcommand
 \backslash
-contentsname{Table of contents} 
+contentsname{Table de matière} 
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-tableofcontents 
+renewcommand
+\backslash
+listfigurename{Liste de Figures} 
 \end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand
+\backslash
+listtablename{Liste de Tableaux} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand
+\backslash
+bibname{Bibliographie} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+renewcommand
+\backslash
+chaptername{Chapitre} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList table
 
 \end_inset
 
@@ -250,6 +304,45 @@ status open
 
 \backslash
 newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagestyle{plain}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering {arabic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+setcounter{page}{1}
 \end_layout
 
 \end_inset

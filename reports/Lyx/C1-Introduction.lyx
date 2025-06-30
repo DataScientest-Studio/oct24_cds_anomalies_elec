@@ -99,6 +99,8 @@ Introduction générale
 
 \begin_layout Standard
 \noindent
+
+\lang english
 \begin_inset ERT
 status open
 
@@ -115,6 +117,8 @@ pagenumbering {arabic}
 \end_layout
 
 \begin_layout Standard
+
+\lang english
 \begin_inset ERT
 status open
 
@@ -124,14 +128,7 @@ status open
 \backslash
 addcontentsline {toc} {chapter} {
 \backslash
-textbf{Introduction}}
-\end_layout
-
-\begin_layout Plain Layout
-
-%
-\backslash
-adjustmtc
+textbf{Introduction générale}}
 \end_layout
 
 \begin_layout Plain Layout
@@ -149,7 +146,7 @@ fancyhead[RO]{
 \backslash
 nouppercase{
 \backslash
-textit{Introduction}}} 
+textit{Introduction générale}}} 
 \end_layout
 
 \begin_layout Plain Layout
@@ -160,12 +157,12 @@ fancyhead[LE]{
 \backslash
 nouppercase{
 \backslash
-textit{Introduction}}}
+textit{Introduction générale}}}
 \end_layout
 
 \begin_layout Plain Layout
 
-%
+
 \backslash
 thispagestyle{empty}
 \end_layout
@@ -397,23 +394,15 @@ analysé et étudié les relations entre les différentes variables explicatives
 et établi un nouveau modèle, basé d'une part sur la décomposition par analyse
  spectrale de la consommation d'électricité et des différentes variables
  explicatives, et d'autre part sur la combinaison des modèles autorégressifs
- SARIMA 
-\begin_inset Quotes fld
-\end_inset
-
+ SARIMA (pour 
+\shape italic
 Seasonal AutoRegressive Integrated Moving Average
-\begin_inset Quotes frd
-\end_inset
-
- et des réseaux LSTM 
-\begin_inset Quotes fld
-\end_inset
-
-Long Short-Term Memory
-\begin_inset Quotes frd
-\end_inset
-
- .
+\shape default
+) et des réseaux LSTM 
+\shape italic
+( pour Long Short-Term Memory
+\shape default
+).
  Le modèle établi a montré des performances supérieures à ce qui a ét publié
  par la dans la littéarture et porté à notre connaissance.
 \end_layout
