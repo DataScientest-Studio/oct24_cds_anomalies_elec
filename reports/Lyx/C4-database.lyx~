@@ -1825,61 +1825,7 @@ Dans cette section, nous présentons une analyse et visualisation des données
 \end_layout
 
 \begin_layout Standard
-Pour mieux comprendre l'influence des facteurs décrit précédement la consommatio
-n, la figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Conso-jour-plagepuissance"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-montre l'évolution journalière de la consommation d'électricté en Auvergne-Rhône
--Alpes pour chaque jour de la semaine et chaque plage puissance souscrite.
- Et la figure 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Chap2/ConsoPlagePuissance.png
-	lyxscale 30
-	scale 35
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Conso-jour-plagepuissance"
-
-\end_inset
-
-Consommation journalière d'électricté en Auvergne-Rhône-Alpes selon la plage
- de puissance souscrite et le jour de la semaine
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+La figure 
 \end_layout
 
 \begin_layout Standard
@@ -1905,7 +1851,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Conso-jour-plagepuissance-1"
+name "fig:Conso-jour-plagepuissance"
 
 \end_inset
 

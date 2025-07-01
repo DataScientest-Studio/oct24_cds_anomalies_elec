@@ -401,8 +401,7 @@ status open
 \begin_inset Graphics
 	filename Chap2/dataframe_1.png
 	lyxscale 60
-	scale 35
-	clip
+	scale 50
 
 \end_inset
 
@@ -410,8 +409,6 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\noindent
-\align center
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
@@ -438,7 +435,7 @@ Entête d'un DataFrame de la consommation d'électricité
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1058,8 +1055,8 @@ une série temporelle qui correspond à la colonne
 \shape italic
  Total énergie soutirée (Wh)
 \shape default
- , et que nous notons 
-\begin_inset Formula $\left(Y_{k}\right)_{kT_{s}\in\mathbb{T}}$
+ , et que nous notons : 
+\begin_inset Formula $\left(Y_{k}^{g}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
 
@@ -1070,7 +1067,7 @@ une série temporelle qui réprésente
 \shape italic
  Nb points soutirage
 \shape default
- , que nous notons 
+ , que nous notons : 
 \begin_inset Formula $\left(N_{k}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
@@ -1084,23 +1081,22 @@ une série temporelle qui réprésente
 \shape default
 consommation moyenne des consommateurs de même profil et même puissances
  souscrite : 
-\begin_inset Formula $\left(\overline{Y}_{k}\right)_{kT_{s}\in\mathbb{T}}=\left(\frac{Y_{k}^{g}}{N_{k}}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(Y_{k}\right)_{kT_{s}\in\mathbb{T}}=\left(\frac{Y_{k}^{g}}{N_{k}}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
  
 \end_layout
 
 \begin_layout Standard
-Notre objectif est de faire un modèle de prévision pour ces deux séries
- 
-\begin_inset Formula $\left(\overline{Y}_{k}\right)_{kT_{s}\in\mathbb{T}}$
+Les deux séries sont 
+\begin_inset Formula $\left(Y_{k}^{g}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
 , 
 \begin_inset Formula $\left(Y_{k}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
- 
+objet de la prévision.
 \end_layout
 
 \begin_layout Subsection
@@ -1108,13 +1104,9 @@ Volumétrie des données
 \end_layout
 
 \begin_layout Standard
-Pour évaluer sur la volumétrie de cette première partie de nos données,
- i.e les données de consommation d'électricité, nous allons détaillées les
- valeurs uniques des colonnes 
-\shape italic
-Région, Profil, Plage de puissance souscrite
-\shape default
-.
+Pour évaluersur la volumétrie de cette première partie de nos données, i.e
+ les données de consommation d'électricité, nous allons détaillées les valeurs
+ uniques de chaque colonne de notre base de données.
  
 \end_layout
 
@@ -1131,7 +1123,7 @@ es-Côte d'Azur Commune.
 \end_layout
 
 \begin_layout Paragraph
-Profil et Plage de puissance souscrite
+Profil
 \end_layout
 
 \begin_layout Standard
@@ -1145,666 +1137,14 @@ literal "false"
 \end_inset
 
 .
- Dans notre base, il y 12 profils, faisant partie de trois catégories :
- résidentiel, professionne et entreprise.
- Le tableau 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:Profil et plage de puissance"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-résume ces profils et les palges de puissances souscrites associés.
- Il y a 73 configurations.
- En total nous avons donc 
-\begin_inset Formula $73\times12=876$
-\end_inset
-
- séries temporelles dont chacune est de longeur 
-\begin_inset Formula $L=(365+366)*48=35088$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Tabular
-<lyxtabular version="3" rows="13" columns="3">
-<features tabularvalignment="middle" tabularwidth="18cm">
-<column alignment="left" valignment="top" width="5cm">
-<column alignment="left" valignment="top" width="2cm">
-<column alignment="left" valignment="top" width="9cm">
-<row>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\noindent
-
-\series bold
-Profile
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Plage de puissance souscrite
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-ENT3(+ENT4+ENT5)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-PRO1(+PRO1WE)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA, P1: ]0-3] kVA, P2: ]3-6] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P3: ]6-9] kVA, P4: ]9-12] kVA, P5: ]12-15] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P6: ]15-18] kVA, P7: ]18-24] kVA, P8: ]24-30] kVA
-\end_layout
-
-\begin_layout Plain Layout
-P9: ]30-36] kVA
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-PRO2(+PRO2WE+PRO6)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA, P1: ]0-3] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P3: ]6-9] kVA, P4: ]9-12] kVA, P5: ]12-15] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P6: ]15-18] kVA, P7: ]18-24] kVA, P8: ]24-30] kVA
-\end_layout
-
-\begin_layout Plain Layout
-P9: ]30-36] kVA
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-PRO3
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA, P6: ]15-18] kVA, P7: ]18-24] kVA
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-PRO4
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA, P6: ]15-18] kVA, P7: ]18-24] kVA
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-PRO5
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA, P1: ]0-3] kVA, P2: ]3-6] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P3: ]6-9] kVA, P4: ]9-12] kVA, P5: ]12-15] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P6: ]15-18] kVA, P7: ]18-24] kVA, P9: ]30-36] kVA
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-RES1(+RES1WE)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA, P1: ]0-3] kVA, P2: ]3-6] kVA, 
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-RES11(+RES11WE)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA, P3: ]6-9] kVA, P4: ]9-12] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P5: ]12-15] kVA, P6: ]15-18] kVA, P7: ]18-24] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P9: ]30-36] kVA
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-RES2(+RES5)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA, P1: ]0-3] kVA, P3: ]6-9] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P4: ]9-12] kVA, P5: ]12-15] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P6: ]15-18] kVA, P7: ]18-24] kVA, P8: ]24-30] kVA
-\end_layout
-
-\begin_layout Plain Layout
-P9: ]30-36] kVA
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-RES2WE
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA, P1: ]0-3] kVA, P3: ]6-9] kVA, P4: ]9-12] kVA
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-RES3
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA, P1: ]0-3] kVA, P4: ]9-12] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P5: ]12-15] kVA, P6: ]15-18] kVA
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-RES4
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-P0: Total <= 36 kVA, P4: ]9-12] kVA, P5: ]12-15] kVA, 
-\end_layout
-
-\begin_layout Plain Layout
-P6: ]15-18] kVA
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "tab:Profil et plage de puissance"
-
-\end_inset
-
-Profils et plages de puissance souscrite 
-\end_layout
-
-\end_inset
-
-
-\end_layout
+ Dans notre base, les profils listés sont :
+\begin_inset Formula 
+\[
+\begin{array}{c}
+'ENT3(+ENT4+ENT5)','PRO1(+PRO1WE)','PRO2(+PRO2WE+PRO6)','PRO3','PRO4',\\
+'PRO5',,'RES1(+RES1WE)','RES11(+RES11WE)','RES2(+RES5)','RES2WE','RES3','RES4'
+\end{array}
+\]
 
 \end_inset
 
@@ -1817,110 +1157,11 @@ Analyse et visulaisation
 
 \begin_layout Standard
 Dans cette section, nous présentons une analyse et visualisation des données
- , que nous avons effectuées lors de la première phase des projet.
+ primitives, que nous avons effectuées lors de la première phase des projet.
  Celle-ci a permet d'identifier les colonnes à garder pour notre projet
  et définir la modélisation approprié à notre problématique.
  Par souci de synthèse, nous ne présentons pas toute l'analyse effectuée
  mais seulement une partie qui nous semble la plus pertinente.
-\end_layout
-
-\begin_layout Standard
-Pour mieux comprendre l'influence des facteurs décrit précédement la consommatio
-n, la figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Conso-jour-plagepuissance"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-montre l'évolution journalière de la consommation d'électricté en Auvergne-Rhône
--Alpes pour chaque jour de la semaine et chaque plage puissance souscrite.
- Et la figure 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Chap2/ConsoPlagePuissance.png
-	lyxscale 30
-	scale 35
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Conso-jour-plagepuissance"
-
-\end_inset
-
-Consommation journalière d'électricté en Auvergne-Rhône-Alpes selon la plage
- de puissance souscrite et le jour de la semaine
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Chap2/ConsoPlagePuissance.png
-	lyxscale 30
-	scale 35
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Conso-jour-plagepuissance-1"
-
-\end_inset
-
-Consommation journalière d'électricté en Auvergne-Rhône-Alpes selon la plage
- de puissance souscrite et le jour de la semaine
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \end_body
