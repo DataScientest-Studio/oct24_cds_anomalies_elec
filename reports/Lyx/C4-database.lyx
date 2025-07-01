@@ -116,7 +116,7 @@ fancyhead[RO]{
 \backslash
 nouppercase{
 \backslash
-textit{Introduction aux séries temporelles}}} 
+textit{Construction et analyse de la base de données}}} 
 \end_layout
 
 \begin_layout Plain Layout
@@ -127,7 +127,7 @@ fancyhead[LE]{
 \backslash
 nouppercase{
 \backslash
-textit{Introduction aux séries temporelles}}}
+textit{Construction et analyse de la base de données}}}
 \end_layout
 
 \begin_layout Plain Layout
@@ -199,8 +199,8 @@ literal "false"
  qui restitue la consommation d’électricité au pas d'une demi-heure des
  points de soutirage raccordés au réseau Enedis, dont puissance souscrite
  est inférieur ou égale à 36kVA.
- Ces agrégats sont disponibles par région, plage de puissance souscrite
- et profil, les profils sont définis par Enedis dans 
+ Ces données sont agrégées par région, plage de puissance souscrite et profil
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "enedis_coefficients_profils"
@@ -209,13 +209,13 @@ literal "false"
 \end_inset
 
 .
- Ce jeux contient également des informations calendaires.
+ Elles contiennent également des informations calendaires.
  
 \end_layout
 
 \begin_layout Standard
-Pour compléter la base de données avec les différents facteurs potentiellement
- influants sur la varaible cible, nous avons téléchargé, réechantillonné,
+Pour compléter la base de données avec les autres facteurs potentiellement
+ influants sur la varaible cible, nous avons collecté, réechantillonné et
  nettoyé les données météorologiques
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -224,8 +224,8 @@ literal "false"
 
 \end_inset
 
- puis fusionné avec les données de consommation pour la période de deux
- années consécutives (20023 et 2024).
+ afin de les fusionner avec les données de consommation pour la période
+ de deux années consécutives (20023 et 2024).
 \end_layout
 
 \begin_layout Standard
@@ -236,7 +236,751 @@ Dans ce chapitre, nous présentons notre base de données en expliquant toutes
 \end_layout
 
 \begin_layout Section
-Donnée de consommation d'électricité 
+Données de consommation d'électricité des utilisateurs du réseau Enedis
+\end_layout
+
+\begin_layout Subsection
+Collection et description 
+\end_layout
+
+\begin_layout Standard
+Pour répondre à l'obligation (L111-73-1) créée dans le cadre de la Loi Pour
+ une République Numérique, et conféremement au décret 2017-486 et son arrêté
+ d’application paru le 29 décembre 2017, qui fixent les modalités détaillées
+ de mise en Open Data de données de consommation et production par les GRD
+ et GRT, Electricité et Gaz , Enedis publie les données de consommation
+ et de production d'électricité en France trimestriellement (30 jours après
+ la fin de chaque trimestre) sur deux années glissantes.
+ Les jeux de données publiés présentent des agrégats de consommation et
+ de production d’électricité des utilisateurs du réseau Enedis au pas ½
+ h
+\begin_inset CommandInset citation
+LatexCommand cite
+key "enedis_nb_clients"
+literal "false"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Ces jeux de données contiennent 3 familles d’agrégats : 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Le nombre de points de soutirage
+\series default
+ / d’injection 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L’énergie totale soutirée
+\series default
+ / injectée 
+\end_layout
+
+\begin_layout Itemize
+Les courbes moyennes de consommation / production
+\end_layout
+
+\begin_layout Standard
+Leur publication est faite au travers de trois jeux de données principaux
+ contenant les croisements attendus pour les différents segments d’utilisateurs
+ du réseau Enedis : 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Consommateurs <= 36 kVA
+\series default
+ : agrégats publiés par 
+\series bold
+Profil
+\series default
+ et 
+\series bold
+Plage de puissance souscrite 
+\end_layout
+
+\begin_layout Itemize
+Consommateurs > 36 kVA : agrégats publiés par Profil, Plage de puissance
+ souscrite et Secteur d’activité 
+\end_layout
+
+\begin_layout Itemize
+Producteurs : agrégats publiés par Filière de production et Plage de puissance
+ d’injection
+\end_layout
+
+\begin_layout Standard
+Les profils types définis par Enedis sont également publiés et détaillés
+ dans 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "enedis_coefficients_profils"
+literal "false"
+
+\end_inset
+
+.
+ Ces agrégats sont fournis à la maille nationale et régionale (12 régions
+ administratives métropolitaines).
+ 
+\end_layout
+
+\begin_layout Standard
+Comme nous l'avons mentionné dans l'introduction générale, nous avons collecté
+ parmi ces données, le jeux le plus compatible avec nos objectifs initiaux
+ et dont l'usage pour notre modèle offre la possibilités d'une adaptation
+ future pour détecter les anomalies dans la consommation d’électricité à
+ l'echelle résidentielle.
+\end_layout
+
+\begin_layout Standard
+Nous avons, donc, collecté le jeu de données restituant 
+\series bold
+l’énergie totale soutirée
+\series default
+ au pas 1/2h 
+\series bold
+des points de soutirage
+\series default
+ pour des 
+\series bold
+consommateurs
+\series default
+ avec une puissance totale 
+\series bold
+inférieure à 36kVA
+\series default
+.
+ Le tableau 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Dictionnaire-des-données"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+résume les champs de ce jeux avec une edscription détaillées.
+ Le tableau 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Entête-d'un-DataFrame"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+donne un apperçu de l'entête du dataframe correspondant avec les différentes
+ colonnes avent tout traitement.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Chap2/dataframe_1.png
+	lyxscale 60
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Entête-d'un-DataFrame"
+
+\end_inset
+
+Entête d'un DataFrame de la consommation d'électricité
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="14" columns="3">
+<features tabularvalignment="middle" tabularwidth="18cm">
+<column alignment="left" valignment="top" width="5cm">
+<column alignment="left" valignment="top" width="2cm">
+<column alignment="left" valignment="top" width="9cm">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+
+\series bold
+Nom de la colonne
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+
+\series bold
+Format
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+
+\series bold
+Desciption
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Horodate
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Objet
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Date-Heure au pas 
+\begin_inset Formula $½\ h$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Région
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Objet
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Nom de la région
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Profil
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Objet
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Profil type au sens de la Recoflux
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Plage de puissance souscrite
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Objet
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+La puissance électrique souscrite par l’utilisateur dans son contrat de
+ fourniture.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Nb points soutirage
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+int64
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Nombre de sites avec un contrat actif sur le réseau Enedis
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Total énergie soutirée (Wh)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+float64
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Volume d’électricité consommée sur la 
+\begin_inset Formula $½\ h$
+\end_inset
+
+ donnée par l’ensemble des sites du profil et de la plage de puissance considéré
+e.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Courbe Moyenne n°1 (Wh)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+float64
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+La moyenne des volumes d’électricité consommés sur la 
+\begin_inset Formula $½\ h$
+\end_inset
+
+ donnée par des sites équipés de compteurs communicants et faisant partie
+ du groupe dont le ratio (Conso 8h-20h)/(Conso totale) est le plus élevé
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Indice représentativité Courbe n° 1 (%)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+float64
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Le ratio entre le nombre de points sur la Courbe Moyenne 1 et le nombre
+ de points total de la même catégorie de client (même profil, même plage
+ de puissance souscrite)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Courbe Moyenne n°2 (Wh)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+float64
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+La Courbe Moyenne 2 correspond à la moyenne des volumes d’électricité consommés
+ sur la 
+\begin_inset Formula $½\ h$
+\end_inset
+
+ , donnée par des sites équipés de compteurs communicants et faisant partie
+ du groupe dont le ratio (Conso 8h-20h)/(Conso totale) est le plus bas
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Courbe Moyenne n°1 + n°2 (Wh)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+float64
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+La Courbe Moyenne n°1 + n°2 correspond à la moyenne des volumes d’électricité
+ consommés sur la 
+\begin_inset Formula $½\ h$
+\end_inset
+
+ donnée par tous les sites équipés de compteurs communicants pris en compte
+ dans les courbes 1 et 2.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Indice représentativité Courbe n° 1 + n° 2 (%)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+float64
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Le ratio entre le nombre de points sur lesquels a été basé le calcul de
+ la Courbe Moyenne n°1 + n°2 et le nombre de points total de la même catégorie
+ de client (même profil, même plage de puissance souscrite)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Jour Max du mois (0/1)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+float64
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Elle indique si la 
+\begin_inset Formula $½\ h$
+\end_inset
+
+ considérée fait partie du jour qui a vu le pic de consommation d’énergie
+ du mois, en France métropolitaine.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Semaine Max du mois (0/1)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+float64
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\noindent
+Elle indique si la 
+\begin_inset Formula $½\ h$
+\end_inset
+
+ considérée fait partie de la semaine qui contient le jour max du mois.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Dictionnaire-des-données"
+
+\end_inset
+
+Dictionnaire des données Enedis
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Analyse et visulaisation
+\end_layout
+
+\begin_layout Standard
+Dans cette section, nous présentons une analyse et visualisation des données
+ primitives, que nous avons effectuées lors de la première phase des projet.
+ Celle-ci a permet d'identifier les colonnes à garder pour notre projet
+ et définir la modélisation approprié à notre problématique.
+ Par souci de synthèse, nous ne présentons pas toute l'analyse effectuée
+ mais seulement ula partie qui nous semble la plus pertinente.
 \end_layout
 
 \end_body
