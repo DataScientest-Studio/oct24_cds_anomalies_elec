@@ -143,9 +143,9 @@ thispagestyle{empty}
 \end_layout
 
 \begin_layout Standard
-La consommation électrique est influencée par des facteurs météorologiques
- tels que la température, la vitesse du vent, le rayonnement solaire, l'humidité
-, la couverture nuageuse, le type et l’intensité des précipitations
+La consommation électrique est influencée, d'une part par des facteurs météorolo
+giques tels que la température, la vitesse du vent, le rayonnement solaire,
+ l'humidité, la couverture nuageuse, le type et l’intensité des précipitations
 \begin_inset CommandInset citation
 LatexCommand cite
 key "grenier2006"
@@ -154,27 +154,11 @@ literal "false"
 \end_inset
 
 .
- L’effet peut être assez important : par exemple, une augmentation de 
-\begin_inset Formula $1°C$
-\end_inset
-
- de la température ambiante peut avoir un impact sur le pic de consommation
- d’électricité de plus de 4 % 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "santamouris2015"
-literal "false"
-
-\end_inset
-
-.
- De plus, la consommation d’éléctricité n’est pas seulement liée aux conditions
- météorologiques et peut être influencée par autres facteurs, tels que les
- comportements des consommateurs (té- létravail, client autoproducteur,
- rôle actif des consommateurs, etc.
- ), des informations calendaires (jour de la semaine, jours spéciaux et
- fériés), les propriétés thermiques des bâtiments et éventuellement le prix
- de l’électricité
+ Et d'autre part elle peut être influencée par autres facteurs, tels que
+ les comportements des consommateurs (té- létravail, autoproduction, contrôle
+ actif de la consommation, etc.
+ ), les informations calendaires (jour de la semaine, jours spéciaux et
+ fériés), les propriétés thermiques des bâtiments, le prix de l’électricité
 \begin_inset CommandInset citation
 LatexCommand cite
 key "cancelo2008,grenier2006,david2023prevision"
@@ -186,9 +170,8 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Pour traiter notre problème de prévision de la consommation d'éléctricité,
- nous avons opté dans pour une représentation en séries temporelle multivariée.
- La variable cible de cette série est issue du jeu de données 
+Notre bases de données est issues des jeux de données publiés par Enedis
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "enedis_conso_inf36"
@@ -196,9 +179,7 @@ literal "false"
 
 \end_inset
 
- qui restitue la consommation d’électricité au pas d'une demi-heure des
- points de soutirage raccordés au réseau Enedis, dont puissance souscrite
- est inférieur ou égale à 36kVA.
+.
  Ces données sont agrégées par région, plage de puissance souscrite et profil
  
 \begin_inset CommandInset citation
@@ -210,11 +191,8 @@ literal "false"
 
 .
  Elles contiennent également des informations calendaires.
- 
-\end_layout
-
-\begin_layout Standard
-Pour compléter la base de données avec les autres facteurs potentiellement
+ Cependant elles ne contiennent pas de données météorologiques.
+ Pour compléter notre base de données avec les autres facteurs potentiellement
  influants sur la varaible cible, nous avons collecté, réechantillonné et
  nettoyé les données météorologiques
 \begin_inset CommandInset citation
@@ -224,14 +202,15 @@ literal "false"
 
 \end_inset
 
- afin de les fusionner avec les données de consommation pour la période
+ afin de les fusionner avec les données de consommation pour une période
  de deux années consécutives (20023 et 2024).
 \end_layout
 
 \begin_layout Standard
 Dans ce chapitre, nous présentons notre base de données en expliquant toutes
  les étapes : télechargement et construction de la base de données, nettoyage
- de celle-ci, fusion, analyse et sélection des varaibles exogènes à garder.
+ de celle-ci, fusion, analyse et sélection des varaibles exogènes à garder
+ pour la modélisation.
  
 \end_layout
 
@@ -244,13 +223,24 @@ Collection et description générale
 \end_layout
 
 \begin_layout Standard
+Enedis publie les données de consommation et de production d'électricité
+ en France trimestriellement (30 jours après la fin de chaque trimestre)
+ sur deux années glissantes
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
 Pour répondre à l'obligation (L111-73-1) créée dans le cadre de la Loi Pour
  une République Numérique, et conféremement au décret 2017-486 et son arrêté
  d’application paru le 29 décembre 2017, qui fixent les modalités détaillées
  de mise en Open Data de données de consommation et production par les GRD
- et GRT, Electricité et Gaz , Enedis publie les données de consommation
- et de production d'électricité en France trimestriellement (30 jours après
- la fin de chaque trimestre) sur deux années glissantes.
+ et GRT, Electricité et Gaz.
+ 
+\end_layout
+
+\end_inset
+
+.
  Les jeux de données publiés présentent des agrégats de consommation et
  de production d’électricité des utilisateurs du réseau Enedis au pas ½
  h
@@ -262,6 +252,8 @@ literal "false"
 \end_inset
 
 .
+ Ces agrégats sont fournis à la maille nationale et régionale (12 régions
+ administratives métropolitaines).
  
 \end_layout
 
@@ -270,19 +262,11 @@ Ces jeux de données contiennent 3 familles d’agrégats :
 \end_layout
 
 \begin_layout Itemize
-
-\series bold
-Le nombre de points de soutirage
-\series default
- / d’injection 
+Le nombre de points de soutirage / d’injection 
 \end_layout
 
 \begin_layout Itemize
-
-\series bold
-L’énergie totale soutirée
-\series default
- / injectée 
+L’énergie totale soutirée / injectée 
 \end_layout
 
 \begin_layout Itemize
@@ -296,17 +280,8 @@ Leur publication est faite au travers de trois jeux de données principaux
 \end_layout
 
 \begin_layout Itemize
-
-\series bold
-Consommateurs <= 36 kVA
-\series default
- : agrégats publiés par 
-\series bold
-Profil
-\series default
- et 
-\series bold
-Plage de puissance souscrite 
+Consommateurs <= 36 kVA : agrégats publiés par Profil et Plage de puissance
+ souscrite 
 \end_layout
 
 \begin_layout Itemize
@@ -330,8 +305,6 @@ literal "false"
 \end_inset
 
 .
- Ces agrégats sont fournis à la maille nationale et régionale (12 régions
- administratives métropolitaines).
  
 \end_layout
 
@@ -339,8 +312,8 @@ literal "false"
 Comme nous l'avons mentionné dans l'introduction générale, nous avons collecté
  parmi ces données, le jeux le plus compatible avec nos objectifs initiaux
  et dont l'usage pour notre modèle offre la possibilités d'une adaptation
- future pour détecter les anomalies dans la consommation d’électricité à
- l'echelle résidentielle.
+ future pour détecter d'éventuelles anomalies dans la consommation d’électricité
+ à l'echelle résidentielle.
 \end_layout
 
 \begin_layout Standard
@@ -375,7 +348,7 @@ noprefix "false"
 
 \end_inset
 
-résume les champs de ce jeux avec une edscription détaillées.
+résume les champs de ce jeux avec une dscription détaillée.
  Le tableau 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -387,7 +360,7 @@ noprefix "false"
 \end_inset
 
 donne un apperçu de l'entête du dataframe correspondant avec les différentes
- colonnes avent tout traitement.
+ colonnes avant la fusion avec les données météorologique.
  
 \end_layout
 
@@ -977,8 +950,12 @@ Dictionnaire des données Enedis
 
 \end_layout
 
+\begin_layout Subsection
+Représentation en séries temporelles
+\end_layout
+
 \begin_layout Standard
-Dans notre étude, nous avons besoin des colonnes : 
+Pour notre problématique de pérvision nous avons besoin des colonnes : 
 \shape italic
 Horodate, Région, Profil, Plage de puissance souscrite, Nb points soutirage
  et Total énergie soutirée (Wh)
@@ -1001,24 +978,20 @@ Nb points soutirage
 \end_inset
 
  d’une même journée.
- Celle-ci peut être utilisée pour calcule consommation moyenne d'un profil
- à toute les 
+ Celle-ci peut être utilisée pour calculer la consommation moyenne d'un
+ profil au pas d'une 
 \begin_inset Formula $½\ h$
 \end_inset
 
- et faire la prévision de celle-ci à la place de consommation totale.
- Cela contribue à la limitation de la dynamique de la série temporelle et
- à l'amélioration de la précision du modèle.
+ et faire la prévision de celle-ci à la place de la consommation totale.
+ Cette normalisation permet de réduire la dynamique de la série temporelle
+ et améliorer la précision du modèle.
  Nous discuterons ce point dans le chapitre dédiée à la prévision.
-\end_layout
-
-\begin_layout Subsection
-Représentation en séries temporelles
 \end_layout
 
 \begin_layout Standard
 Pour une région donnée, un profil et une puissance souscrite données, nous
- avons :
+ avons donc :
 \end_layout
 
 \begin_layout Itemize
@@ -1026,11 +999,11 @@ un ensemble d'instants d'observation, issue de la colonne
 \shape italic
 Horodate
 \shape default
-, et que nous réprésentons par 
+, que nous réprésentons par 
 \begin_inset Formula $\mathbb{T}=\left\{ kT_{s},k\in\left\{ 0,...,L\right\} \right\} $
 \end_inset
 
-où:
+ où:
 \end_layout
 
 \begin_deeper
@@ -1083,7 +1056,7 @@ une série temporelle qui réprésente
  
 \shape default
 consommation moyenne des consommateurs de même profil et même puissances
- souscrite : 
+ souscrite 
 \begin_inset Formula $\left(\overline{Y}_{k}\right)_{kT_{s}\in\mathbb{T}}=\left(\frac{Y_{k}^{g}}{N_{k}}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
@@ -1091,8 +1064,7 @@ consommation moyenne des consommateurs de même profil et même puissances
 \end_layout
 
 \begin_layout Standard
-Notre objectif est de faire un modèle de prévision pour ces deux séries
- 
+Notre objectif est de faire un modèle de prévision pour les séries 
 \begin_inset Formula $\left(\overline{Y}_{k}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
@@ -1108,11 +1080,10 @@ Volumétrie des données
 \end_layout
 
 \begin_layout Standard
-Pour évaluer sur la volumétrie de cette première partie de nos données,
- i.e les données de consommation d'électricité, nous allons détaillées les
- valeurs uniques des colonnes 
+Pour donner une idée sur la volumétrie de cette base de données,nous analysons
+ les colonnes 
 \shape italic
-Région, Profil, Plage de puissance souscrite
+Région, Profil et Plage de puissance souscrite
 \shape default
 .
  
@@ -1123,11 +1094,10 @@ Région
 \end_layout
 
 \begin_layout Standard
-Pour les régions nous avons restreint notre étude aux 12 régions de la Fance
- métropolitaine : Bretagne, Normandie, Pays de la Loire Nouvelle Acquitaine,
- Centre Vale de Loire , Ile de France Commune , Hauts de France, Grand Est,
- Bourgogne-Franche-Comté , Auvergne-Rhone-Alpes, Occitanie Commune, Provence-Alp
-es-Côte d'Azur Commune.
+Les données sont publié par région pour les 12 régions administratives métropoli
+taines : Bretagne, Normandie, Pays de la Loire, Nouvelle Acquitaine, Centre
+ Vale de Loire , Ile de France , Hauts de France, Grand Est, Bourgogne-Franche-C
+omté , Auvergne-Rhone-Alpes, Occitanie , Provence-Alpes-Côte d'Azur.
 \end_layout
 
 \begin_layout Paragraph
@@ -1135,7 +1105,7 @@ Profil et Plage de puissance souscrite
 \end_layout
 
 \begin_layout Standard
-L'ensemble des profils et la méthode utilisé pour profiler les consommateurs
+L'ensemble des profils et les méthodes utilisées pour profiler les consommateurs
  sont détaillés dans le document réglementaire RTE
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1157,9 +1127,9 @@ noprefix "false"
 
 \end_inset
 
-résume ces profils et les palges de puissances souscrites associés.
- Il y a 73 configurations.
- En total nous avons donc 
+résume ces profils et les palges de puissances souscrites associées.
+ Il y a 73 configurations en total.
+ Nous avons donc 
 \begin_inset Formula $73\times12=876$
 \end_inset
 
@@ -1816,17 +1786,32 @@ Analyse et visulaisation
 \end_layout
 
 \begin_layout Standard
-Dans cette section, nous présentons une analyse et visualisation des données
- , que nous avons effectuées lors de la première phase des projet.
- Celle-ci a permet d'identifier les colonnes à garder pour notre projet
- et définir la modélisation approprié à notre problématique.
+Dans cette section, nous présentons l'analyse et la visualisation des données,
+ que nous avons effectuées lors de la première phase des projet.
+ Celle-ci a permet d'identifier l'importance de chaque facteurs et la manière
+ dont elle influence sur la variable cible.
  Par souci de synthèse, nous ne présentons pas toute l'analyse effectuée
  mais seulement une partie qui nous semble la plus pertinente.
+ Pour toute les courbes que nous montrons ici, nous avons utilisé la consommatio
+n moyenné par rapport au nombre de points de soutirage 
+\begin_inset Formula $\left(\overline{Y}_{k}\right)_{kT_{s}\in\mathbb{T}}=\left(\frac{Y_{k}}{N_{k}}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+ pour la région Auvergne-Rhône-Alpes.
+ Nous rappelons que pour chaque profile et chaque plage de puisaance souscrite
+ nous avons une série temporelle 
+\begin_inset Formula $\left(\overline{Y}_{k}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+ qui reflète la consommation de cette catégorie de clients Enedis.
+\end_layout
+
+\begin_layout Paragraph
+Saisonnalité intra-journalière
 \end_layout
 
 \begin_layout Standard
-Pour mieux comprendre l'influence des facteurs décrit précédement la consommatio
-n, la figure 
+Les courbes de la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Conso-jour-plagepuissance"
@@ -1836,9 +1821,33 @@ noprefix "false"
 
 \end_inset
 
-montre l'évolution journalière de la consommation d'électricté en Auvergne-Rhône
--Alpes pour chaque jour de la semaine et chaque plage puissance souscrite.
- Et la figure 
+ montrent l'évolution par heure de la consommation d'électricté pour chaque
+ jour de la semaine et chaque plage puissance souscrite.
+ Les courbes de la figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Conso-jour-plagepuissance-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montrent l'évolution par heure de la consommation d'électricté en Auvergne-Rhôn
+e-Alpes pour chaque jour de la semaine et chaque Profil.
+ 
+\end_layout
+
+\begin_layout Standard
+Ces figures nous permettent de constater la présence de saisonnalité multiple
+ qui dépend de la plage de puissance souscrite et du profil.
+ Ceci est en accord avec l'analyse temps-fréquence que nous avons montrée
+ dans le chapitre 2.
+ Elle montrent aussi l'effet hebdomadaire, i.e.
+ la consommation dépend du jours de la semaine (jours ouvrés et week-ends).
+ Cependant dans la plmupart des cas la cyclicité intra-journalière ne dépend
+ pas du jour de la semaine.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1886,11 +1895,11 @@ Consommation journalière d'électricté en Auvergne-Rhône-Alpes selon la plage
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename Chap2/ConsoPlagePuissance.png
+	filename Chap2/ConsoProfil.png
 	lyxscale 30
 	scale 35
 
@@ -1909,8 +1918,8 @@ name "fig:Conso-jour-plagepuissance-1"
 
 \end_inset
 
-Consommation journalière d'électricté en Auvergne-Rhône-Alpes selon la plage
- de puissance souscrite et le jour de la semaine
+Consommation journalière d'électricté en Auvergne-Rhône-Alpes selon le profil
+ et le jour de la semaine
 \end_layout
 
 \end_inset
@@ -1921,6 +1930,349 @@ Consommation journalière d'électricté en Auvergne-Rhône-Alpes selon la plage
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Ces analyse justifient la modélisation multi-niveaux (par région, par profil
+ et par plage de puissance souscrite) basées sur des séries temporelles
+ multivariées et hiérarchiques.
+\end_layout
+
+\begin_layout Paragraph
+Saisonnalité annuelle
+\end_layout
+
+\begin_layout Standard
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:SaisonnaliteAnnuelle"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+montre la saisonnalité annuelle de nos séries temporelles.
+ Dans ce graphique, on note une saisonnalité intra-annuelle prononcéedifférencia
+nt l'éte et l’hiver.
+ Pour une catégorie résidentielle, on peut stipuler que cette saisonnalité
+ est principalement causée par la consommation électrique des appareils
+ de chauffage et de climatisation, et dépend donc principalement de la températu
+re.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Chap2/SaisonnaliteAnnuelle.png
+	lyxscale 30
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SaisonnaliteAnnuelle"
+
+\end_inset
+
+Saisonnalité annuelle de la consommation d'électricté en Auvergne-Rhône-Alpes
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dans notre modélisation cette saisonnalité sera incluse dans la tendance
+ de la série objet de prévision.
+\end_layout
+
+\begin_layout Section
+Données météorologiques
+\end_layout
+
+\begin_layout Standard
+Les variables météorologiques que nous avons besoins sont: 
+\end_layout
+
+\begin_layout Itemize
+la température 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+exprimée en °C
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, 
+\end_layout
+
+\begin_layout Itemize
+la vitesse du vent 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+exprimée 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+en 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+m/s
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ (ou en km/h),
+\end_layout
+
+\begin_layout Itemize
+l'humidité 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+exprimée en %,
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+le rayonnement solaire global
+\begin_inset space ~
+\end_inset
+
+exprimée 
+\begin_inset Formula $W/m^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La temépratures, la vitesse du vent et l'humidité sont publié par Météo-France
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meteofrance_data_portail"
+literal "false"
+
+\end_inset
+
+au pas d'un heure et ceci avec un maillage départementale.
+ Quand au rayonnement
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ solaire global
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, les données disponibles sont régionales mais avec un pas horaire de 3
+ heures.
+ Pour fusionner ces données avec la base de donnés de consommation d'éléctricité
+ nous sommes affronté à deux problèmes :
+\end_layout
+
+\begin_layout Itemize
+échantillonnage temporelle : les bases sont cadencés diiféremment.
+ Nous avons des pas de 30 minutes, d'une heure et de trois heures.
+ Nous avons gardé le pas de la consommation d'électricité qui est de 30
+ minutes pour référence.
+ Puis nous avons reéchantillonnées en utilisant une fenêtre glissante.
+ 
+\end_layout
+
+\begin_layout Itemize
+les données météo sont publié par département et pour chaque département
+ les donnés sont issue de plusieurs stations météorologiques alors que la
+ consommation est maillée régionalement.
+ Après études du problèmes nous considéré la moyenne chaque varaible par
+ région au pas de 30 minutes.
+ 
+\end_layout
+
+\begin_layout Standard
+Nous expliquons ici notre démarche pour analyser et construire cette base
+ de données L'objectif de cette partie est de faire une analyse des données
+ météo pour les différentes régions de France.
+ On se limite aux régions métropolitaines et à la mesure de température
+ pour cette analyse.
+ Les données : pour chaque région nous avions assemblé les données météo
+ des différents postes entre 01/01/2023 au 31/12/2024, ces mesures sont
+ effectuées au pas d'une heures.
+\end_layout
+
+\begin_layout Standard
+Notation : pour une région 
+\begin_inset Formula $i$
+\end_inset
+
+, un poste 
+\begin_inset Formula $j$
+\end_inset
+
+ on note 
+\begin_inset Formula $T_{ij}(t,\omega)$
+\end_inset
+
+ (noté simplment 
+\begin_inset Formula $T_{ij}(t)$
+\end_inset
+
+ ) le processus aléatoire, qui correspond à la mesure de la température
+ à la date 
+\begin_inset Formula $t$
+\end_inset
+
+, t mesurée en heures de 01/01/2023 au 31/12/2024.
+\end_layout
+
+\begin_layout Standard
+Ce processus faiblement stationnaire, voir non-stationnaire.
+ Pour faire correctement l'analyse, une différentiation du premier et/ou
+ second ordre permet de supprimer cette non-stationnarité.
+ On peut aussi utiliser la décomposition des séries temporelles (tendance,
+ saisonnalité et résidu).
+\end_layout
+
+\begin_layout Standard
+Pour chaque région $i$ cette analyse consiste à étudier : - la distribution
+ de chaque processus $T_{ij}(t)$ - les distributions des processus issues
+ de la différentiation du premier et du second ordre : $
+\backslash
+Delta{T_{ij}(t)}$ et ${
+\backslash
+Delta^2}{T_{ij}(t)}$ - Les corrélations entre ces processus : pour éviter
+ la complexité calculatoire et d'affichage, un sous-ensemble est étudié,
+ on se limite à 10 postes par région - la distribution du processus moyenne
+ : $T_{i}(t) = 
+\backslash
+frac{1}{N_i}
+\backslash
+sum_{i=1}^{N_i}T_{ij}(t) $ où $N_i$ est le nombre de poste pour la région
+ $i$ - la distribution du processus moyenne du déparetement centre géographique
+ de la région : $T_{C_i}(t) = 
+\backslash
+frac{1}{N_{C_i}}
+\backslash
+sum_{i=1}^{N_{C_i}}T_{ij}(t) $, où $N_{C_i}$ est le nombre de postes du
+ département centre de la région $i$ - les distributions des processus issues
+ de la différentiation du premier et second ordre pour $T_{i}(t)$ et $T_{C_i}(t)
+$ - la corrélation entre ces mesures avec les autres régions
 \end_layout
 
 \end_body
