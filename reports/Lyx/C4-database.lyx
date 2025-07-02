@@ -365,7 +365,7 @@ donne un apperçu de l'entête du dataframe correspondant avec les différentes
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float table
+\begin_inset Float figure
 wide false
 sideways false
 status collapsed
@@ -1144,7 +1144,7 @@ résume ces profils et les palges de puissances souscrites associées.
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -2440,7 +2440,7 @@ T_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}T_{k}^{(i,j)}
 \begin_inset Formula $N_{i}$
 \end_inset
 
- est le nombre de postes de la région 
+ est le nombre de postes météo de la région 
 \begin_inset Formula $i$
 \end_inset
 
@@ -2547,18 +2547,20 @@ la matrice de corréelation entre les stations de la région Auvergne-Rhône-Alp
 \end_layout
 
 \begin_layout Standard
-Nous avons donc pour variables météorologiques : 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-T_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}T_{k}^{(i,j)},\ U_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}U_{k}^{(i,j)},\ V_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}V_{k}^{(i,j)},\,R_{k}^{i}
-\]
-
-\end_inset
-
- où 
+En admettant l'hypothèse d'ergodicité spatiale, nous avons calculé et retenu
+ pour chaque facteur (température, humidité et vitesse du vent) des statistiques
+ spatiales de sa distribution au niveau d'une région.
+ Ces statistiques sont : les moyennes, les écart-types, les quartiles, les
+ extremums, le coefficient d'asymétrie (
+\shape italic
+skewness en anglais
+\shape default
+) et le coefficient d'aplatissement (
+\shape italic
+kurtosis en anglais
+\shape default
+).
+ Nous gardons la notation 
 \family roman
 \series medium
 \shape up
@@ -2575,94 +2577,78 @@ T_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}T_{k}^{(i,j)},\ U_{k}^{i}=\frac{1}{N_
 \begin_inset Formula $kT_{s}\in\mathbb{T}$
 \end_inset
 
- indique la demi-heure d'observation et 
+pour l'instant d'observation, 
+\begin_inset Formula $i\in{1,..,12}$
+\end_inset
+
+ pour la région,
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $N_{i}$
+\end_inset
+
+ pour le nombre de postes de la région 
 \begin_inset Formula $i$
 \end_inset
 
- indique la région.
+, et 
+\begin_inset Formula $j$
+\end_inset
+
+ pour numéroter les postes (station) météo.
  
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename Chap2/correl_diff_1_temp_stat_meteo_ARA.png
-	lyxscale 30
-	scale 35
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Correl-ARA-1"
-
-\end_inset
-
-la matrice de corréelation entre les stations de la région Auvergne-Rhône-Alpes
- après différentiation du premier ordre 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+\begin_layout Itemize
+Moyennes spatiales :
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename Chap2/correl_diff_2_temp_stat_meteo_ARA.png
-	lyxscale 30
-	scale 35
+\begin_inset Formula 
+\[
+T_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}T_{k}^{(i,j)},\ U_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}U_{k}^{(i,j)},\ V_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}V_{k}^{(i,j)},\ R_{k}^{i}
+\]
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Correl-ARA-2"
-
-\end_inset
-
-la matrice de corréelation entre les stations de la région Auvergne-Rhône-Alpes
- après différentiation du second ordre
+\begin_layout Itemize
+Ecart-type :
 \end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\sigma T_{k}^{i}=\sqrt{\frac{1}{N_{i}-1}\sum_{j=1}^{N_{i}}\left(T_{k}^{(i,j)}-T_{k}^{i}\right)^{2}},\ \sigma U_{k}^{i}=\sqrt{\frac{1}{N_{i}-1}\sum_{j=1}^{N_{i}}\left(U_{k}^{(i,j)}-U_{k}^{i}\right)^{2}},\ \sigma V_{k}^{i}=\sqrt{\frac{1}{N_{i}-1}\sum_{j=1}^{N_{i}}\left(U_{k}^{(i,j)}-U_{k}^{i}\right)^{2}}
+\]
 
 \end_inset
 
 
 \end_layout
+
+\begin_layout Itemize
+Extremums :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+minT_{k}^{i}=\underset{j\in\{1,..,N_{i}\}}{min}(T_{k}^{(i,j)}),\ minU_{k}^{i}=\underset{j\in\{1,..,N_{i}\}}{min}(U_{k}^{(i,j)}),\ minV_{k}^{i}=\underset{j\in\{1,..,N_{i}\}}{min}(V_{k}^{(i,j)})
+\]
 
 \end_inset
 
@@ -2670,28 +2656,76 @@ la matrice de corréelation entre les stations de la région Auvergne-Rhône-Alp
 \end_layout
 
 \begin_layout Standard
-Les figures 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Correl-ARA-1"
-plural "false"
-caps "false"
-noprefix "false"
+\begin_inset Formula 
+\[
+maxT_{k}^{i}=\underset{j\in\{1,..,N_{i}\}}{max}(T_{k}^{(i,j)}),\ maxU_{k}^{i}=\underset{j\in\{1,..,N_{i}\}}{max}(U_{k}^{(i,j)}),\ maxV_{k}^{i}=\underset{j\in\{1,..,N_{i}\}}{max}(V_{k}^{(i,j)})
+\]
 
 \end_inset
 
-et 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Correl-ARA-2"
-plural "false"
-caps "false"
-noprefix "false"
+
+\end_layout
+
+\begin_layout Itemize
+Le coefficient d'asymétrie évalue le défaut de symétrie de la distribution.
+ Il est nul pour une distribution symétrique.
+ Il est positif pour une distribution "étalée à droite".
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{c}
+ST_{k}^{i}=\frac{1}{\left(\sigma T_{k}^{i}\right)^{3}N_{i}}\sum_{j=1}^{N_{i}}\left(T_{k}^{(i,j)}-T_{k}^{i}\right)^{3}\\
+SU_{k}^{i}=\frac{1}{\left(\sigma U_{k}^{i}\right)^{3}N_{i}}\sum_{j=1}^{N_{i}}\left(U_{k}^{(i,j)}-U_{k}^{i}\right)^{3}\\
+SV_{k}^{i}=\frac{1}{\left(\sigma V_{k}^{i}\right)^{3}N_{i}}\sum_{j=1}^{N_{i}}\left(V_{k}^{(i,j)}-V_{k}^{i}\right)^{3}
+\end{array}
+\]
 
 \end_inset
 
-montrent cette matrice de corrélation après différentiation du premier ordre
- 
+
+\end_layout
+
+\begin_layout Itemize
+Le coefficient d'aplatissement évalue la dispersion des valeurs "extrêmes"
+ par référence à la loi normale.
+ Il est nul pour une distribution normale, négatif pour une distribution
+ moins "aplatie" qu'une distribution normale et positif sur une distribution
+ plus aplatie qu'une distribution normale.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{array}{c}
+KT_{k}^{i}=\frac{1}{\left(\sigma T_{k}^{i}\right)^{4}N_{i}}\sum_{j=1}^{N_{i}}\left(T_{k}^{(i,j)}-T_{k}^{i}\right)^{4}-3\\
+KU_{k}^{i}=\frac{1}{\left(\sigma U_{k}^{i}\right)^{4}N_{i}}\sum_{j=1}^{N_{i}}\left(U_{k}^{(i,j)}-U_{k}^{i}\right)^{4}-3\\
+KV_{k}^{i}=\frac{1}{\left(\sigma V_{k}^{i}\right)^{4}N_{i}}\sum_{j=1}^{N_{i}}\left(V_{k}^{(i,j)}-V_{k}^{i}\right)^{4}-3
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Les quartiles (premier quartile , médiane, et trosième quartile).
+ Notons 
+\begin_inset Formula $F_{T_{k}^{i}}$
+\end_inset
+
+, 
+\begin_inset Formula $F_{T_{k}^{i}}$
+\end_inset
+
+ et 
+\begin_inset Formula $F_{T_{k}^{i}}$
+\end_inset
+
+ les fonction de répartition spatiales de la température, de l'humidité
+ et la vitesse du vent à l'instant 
 \family roman
 \series medium
 \shape up
@@ -2705,7 +2739,7 @@ montrent cette matrice de corrélation après différentiation du premier ordre
 \noun off
 \color none
 
-\begin_inset Formula $\left(\Delta T_{k}^{(1,j)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $kT_{s}$
 \end_inset
 
 
@@ -2721,38 +2755,40 @@ montrent cette matrice de corrélation après différentiation du premier ordre
 \uwave default
 \noun default
 \color inherit
- et du second ordre 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
+ 
+\end_layout
 
-\begin_inset Formula $\left(\Delta^{2}T_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Q_{0.25}T_{k}^{i}=inf\left\{ x:F_{T_{k}^{i}}(x)\geq0.25\right\} ,\ Q_{0.5}T_{k}^{i}=inf\left\{ x:F_{T_{k}^{i}}(x)\geq0.5\right\} ,\ Q_{0.75}T_{k}^{i}=inf\left\{ x:F_{T_{k}^{i}}(x)\geq0.75\right\} 
+\]
+
 \end_inset
 
 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\xout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-.
- 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Q_{0.25}U_{k}^{i}=inf\left\{ x:F_{U_{k}^{i}}(x)\geq0.25\right\} ,\ Q_{0.5}U_{k}^{i}=inf\left\{ x:F_{U_{k}^{i}}(x)\geq0.5\right\} ,\ Q_{0.75}U_{k}^{i}=inf\left\{ x:F_{U_{k}^{i}}(x)\geq0.75\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Q_{0.25}V_{k}^{i}=inf\left\{ x:F_{V_{k}^{i}}(x)\geq0.25\right\} ,\ Q_{0.5}V_{k}^{i}=inf\left\{ x:F_{V_{k}^{i}}(x)\geq0.5\right\} ,\ Q_{0.75}V_{k}^{i}=inf\left\{ x:F_{V_{k}^{i}}(x)\geq0.75\right\} 
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -2846,11 +2882,129 @@ R_{6k+j}^{i}=T_{6k}+j\frac{T_{6k+6}^{i}-T_{6k}^{i}}{2},j\in\left\{ 1,..,5\right\
 \end_layout
 
 \begin_layout Section
+Fusion des bases de données
+\end_layout
+
+\begin_layout Standard
+Après avoir analysée, netoyé, traité et construit les deux bases de données,
+ i.e.
+ la base de données de consommation d'éléctricité et la base de données
+ météorologiques, nous avons fusionnées les deux.
+ Nous avons également ajouté des champs nécessaires à notre analyse : jour
+ de la semaine, mois , année, heure, minutes, ...La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Entête-d'un-DataFrame-2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montres les différents colonnes de la base de données construites.
+ Dans la section suivant nous allons étudié l'influences de chaque facteur
+ météorologique sur la consommation électrique.
+ A noter que les colonnes de nom débutant par 
+\begin_inset Formula $FF$
+\end_inset
+
+ sont les statistiques de la vitesse du vent que nous vaons noté 
+\begin_inset Formula $V$
+\end_inset
+
+ dans nos équations.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/dataframe_final.png
+	lyxscale 60
+	scale 35
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Entête-d'un-DataFrame-2"
+
+\end_inset
+
+Entête du DataFrame final
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Influence des facteurs météorologiques 
 \end_layout
 
-\begin_layout Subsection
-Fusion des deux bases
+\begin_layout Standard
+La figure présente les effets des facteurs météorologiques sur la consommation
+ électrique de tous les profiles et toute les puissances dans la région
+ Auvergne-Rhône-Alpes.
+ La figure présente les effets des facteurs météorologiques sur la consommation
+ électrique pour un profile et une puissance spécifique dans la région Auvergne-
+Rhône-Alpes.
+ Les valeurs en ordonnée sont en Wh.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Corrélation des facteurs météorologiques avec la consommation électrique
+ dans la région Auvergne-Rhône-Alpes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
