@@ -3003,7 +3003,7 @@ présente les effets ces facteurs sur la consommation électrique pour un
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -3048,7 +3048,7 @@ Corrélation des facteurs météorologiques avec la consommation électrique
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -3095,17 +3095,104 @@ Influence de la température
 \end_layout
 
 \begin_layout Standard
-La figure 1.13 montre la relation entre la température moyenne et la consommation
- électrique observée entre 2023 et 2024.
- En dessous de 15 ◦C, plus la température est basse, plus la charge électrique
- est élevée, ce qui s’explique par le fait que plus de 80 % des ménages
- du Québec utilisent l’électricité pour se chauffer.
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Corrélationtemp-conso-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+montre la corrélation entre la température moyenne et la consommation électrique
+ observée entre 2023 et 2024.
+ Elle présente aussi une segmentation linéaire par morceaux des effets de
+ la température.
+ Les points de rupture détectés dans cette exemple sont :
+\begin_inset Formula $-6.72\°C,\ 11.27\°C,\ 15.54\°C,\ 34.92\°C$
+\end_inset
+
+.
+ On observe que en dessous de 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11.27
+\backslash
+°C
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, la pente de la droite de regression est forte, ce qui s’explique par le
+ l'utilisation de l’électricité pour se chauffer.
  De même, au-dessus de 20 ◦C, nous observons que la charge électrique commence
  à augmenter, possiblement en raison de l’augmentation de l’utilisation
  des dispositifs de refroidissement.
- Par conséquent, il est important que les modèles de prévision soient en
- mesure de traiter un profil de charge sensible à la température et dépendant
- des saisons
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/RegLinMorceauxTempConso.png
+	lyxscale 70
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Corrélationtemp-conso-1"
+
+\end_inset
+
+Corrélation entre la température avec la consommation électrique dans la
+ région Auvergne-Rhône-Alpes 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection

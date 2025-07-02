@@ -2966,28 +2966,52 @@ Influence des facteurs météorologiques
 \end_layout
 
 \begin_layout Standard
-La figure présente les effets des facteurs météorologiques sur la consommation
- électrique de tous les profiles et toute les puissances dans la région
- Auvergne-Rhône-Alpes.
- La figure présente les effets des facteurs météorologiques sur la consommation
- électrique pour un profile et une puissance spécifique dans la région Auvergne-
-Rhône-Alpes.
- Les valeurs en ordonnée sont en Wh.
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Corrélation-des-facteurs"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ présente les effets des facteurs météorologiques sur la consommation électrique
+ total pour la région Auvergne-Rhône-Alpes.
+ La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Corrélation-des-facteurs-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+présente les effets ces facteurs sur la consommation électrique pour un
+ profile et une puissance spécifiques dans la région Auvergne-Rhône-Alpes.
+ Les valeurs en ordonnée correspondent à la consommation en Wh et en abscisse
+ aux différents facteurs.
+ Ces figures confirment le fait que la température est le facteur le plus
+ influent.
+ Elles montrent aussi que certaines statistiques, comme l'écart type spatiale
+ des facteurs n'ont pas beaucoup d'intérêt.
+ La vitesse du vent n'a pas non plus un grand impacte sur la consommation.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
-	filename Chap2/InfluenceFactoMeteo.png
-	lyxscale 50
-	scale 35
+	filename Chap2/InfluenceFactoMeteoTotal.png
+	lyxscale 70
+	scale 30
 
 \end_inset
 
@@ -3000,6 +3024,12 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Corrélation-des-facteurs"
+
+\end_inset
+
 Corrélation des facteurs météorologiques avec la consommation électrique
  dans la région Auvergne-Rhône-Alpes
 \end_layout
@@ -3014,8 +3044,154 @@ Corrélation des facteurs météorologiques avec la consommation électrique
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/InfluenceFactoMeteoProfil.png
+	lyxscale 70
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Corrélation-des-facteurs-1"
+
+\end_inset
+
+Corrélation des facteurs météorologiques avec la consommation électrique
+ dans la région Auvergne-Rhône-Alpes pour pour le profile RES11 (+ RES11WE)
+ et la plage de puisance P3: ]6-9] kVA
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Influence de la température
+\end_layout
+
+\begin_layout Standard
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Corrélationtemp-conso-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+montre la corrélation entre la température moyenne et la consommation électrique
+ observée entre 2023 et 2024.
+ Elle présente aussi une segmentation linéaire par morceaux des effets de
+ la température.
+ Les points de rupture détectés dans cette exemple sont :
+\begin_inset Formula $,\ 11.27°C,\ 15.54°C$
+\end_inset
+
+.
+ On observe que en dessous de 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+11.27
+\backslash
+°C
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, la pente de la droite de regression est forte, ce qui s’explique par le
+ l'utilisation de l’électricité pour se chauffer.
+ De même, au-dessus de 16◦C, nous observons que la consommation d'électricité
+ commence à augmenter.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/RegLinMorceauxTempConso.png
+	lyxscale 70
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Corrélationtemp-conso-1"
+
+\end_inset
+
+Corrélation entre la température avec la consommation électrique dans la
+ région Auvergne-Rhône-Alpes 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
