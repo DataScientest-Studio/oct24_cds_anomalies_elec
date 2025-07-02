@@ -368,9 +368,11 @@ donne un apperçu de l'entête du dataframe correspondant avec les différentes
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename Chap2/dataframe_1.png
 	lyxscale 60
@@ -414,10 +416,8 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="14" columns="3">
 <features tabularvalignment="middle" tabularwidth="18cm">
@@ -1144,9 +1144,11 @@ résume ces profils et les palges de puissances souscrites associées.
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="13" columns="3">
 <features tabularvalignment="middle" tabularwidth="18cm">
@@ -1547,6 +1549,8 @@ RES11(+RES11WE)
 \begin_inset Text
 
 \begin_layout Plain Layout
+\noindent
+\align center
 P0: Total <= 36 kVA, P3: ]6-9] kVA, P4: ]9-12] kVA, 
 \end_layout
 
@@ -1857,6 +1861,8 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename Chap2/ConsoPlagePuissance.png
 	lyxscale 30
@@ -1898,10 +1904,12 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename Chap2/ConsoProfil.png
-	lyxscale 30
-	scale 35
+	lyxscale 20
+	scale 20
 
 \end_inset
 
@@ -1966,9 +1974,11 @@ re.
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename Chap2/SaisonnaliteAnnuelle.png
 	lyxscale 30
@@ -2012,8 +2022,79 @@ Dans notre modélisation cette saisonnalité sera incluse dans la tendance
 Données météorologiques
 \end_layout
 
+\begin_layout Subsection
+Facteurs météorologiques 
+\end_layout
+
 \begin_layout Standard
-Les variables météorologiques que nous avons besoins sont: 
+Plusieurs études 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "comte1981,henley1997,pardo2002,valor2001,taylor2003weather,beccali2008short,grenier2006,david2023prevision,hong2014gefcom"
+literal "false"
+
+\end_inset
+
+montrent que les facteurs météorologiques qui influent sur la consommation
+ d'éléctricité sont la température, l'humidité, la vitesse du vent et la
+ nébulosité (couverture nuageuse).
+ Ces études s'accordent sur le fait que la température est le facteur le
+ plus influant.
+ Dans 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "beccali2008short,fan2012additive"
+literal "false"
+
+\end_inset
+
+ les auteurs montrent l'impact de la température et de l’humidité sur la
+ consommation résidentielle.
+ L'étude
+\begin_inset CommandInset citation
+LatexCommand cite
+key "david2023prevision"
+literal "false"
+
+\end_inset
+
+ montre l'impact de la température, de la vistesse du vent et de la nébulosité
+ sur la consommation d'éléctricité au Quebec.
+ Il faut noter que la plupart de ces études sont faite sur des données de
+ pays étrangers (Canda, Espagne, Angletterre, ..).
+ Pour étudier l'impact de ces facteurs sur la consommation d'électricité
+ en France, et établir un nouveau modèle, nous avons chercher à les collecter
+ à partir des données publiés par Météo-France 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meteofrance_data_portail"
+literal "false"
+
+\end_inset
+
+ .
+ Ces données climatologiques regroupent les mesures effectuées par toutes
+ les stations de métropole et outre-mer depuis leur ouverture.
+ Les différents facteurs météorologiques disponibles sont décrit dans 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meteofrance_climatologiques_horaires"
+literal "false"
+
+\end_inset
+
+.
+ Il s'avère que les données sur la nébulosité ne sont disponibles, nous
+ avons choisi d'étudier l'impact du rayonnement solaire global 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "meteofrance_rayon_vent_2024"
+literal "false"
+
+\end_inset
+
+.
+ Nous avons, donc, à notre disposition :
 \end_layout
 
 \begin_layout Itemize
@@ -2145,16 +2226,8 @@ exprimée
 \end_layout
 
 \begin_layout Standard
-La temépratures, la vitesse du vent et l'humidité sont publié par Météo-France
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "meteofrance_data_portail"
-literal "false"
-
-\end_inset
-
-au pas d'un heure et ceci avec un maillage départementale.
+La temépratures, la vitesse du vent et l'humidité sont mesurées au pas d'un
+ heure et ceci avec un maillage départementale.
  Quand au rayonnement
 \family roman
 \series medium
@@ -2183,94 +2256,309 @@ au pas d'un heure et ceci avec un maillage départementale.
 \color inherit
 , les données disponibles sont régionales mais avec un pas horaire de 3
  heures.
- Pour fusionner ces données avec la base de donnés de consommation d'éléctricité
- nous sommes affronté à deux problèmes :
-\end_layout
-
-\begin_layout Itemize
-échantillonnage temporelle : les bases sont cadencés diiféremment.
- Nous avons des pas de 30 minutes, d'une heure et de trois heures.
- Nous avons gardé le pas de la consommation d'électricité qui est de 30
- minutes pour référence.
- Puis nous avons reéchantillonnées en utilisant une fenêtre glissante.
- 
-\end_layout
-
-\begin_layout Itemize
-les données météo sont publié par département et pour chaque département
- les donnés sont issue de plusieurs stations météorologiques alors que la
- consommation est maillée régionalement.
- Après études du problèmes nous considéré la moyenne chaque varaible par
- région au pas de 30 minutes.
- 
+ Pour fusionner ces données avec notre base de donnés de consommation d'éléctric
+ité, qui est donnée au pas d'une demi-heure, nous avons réglés les deux
+ problèmes spatio-temporelles.
 \end_layout
 
 \begin_layout Standard
-Nous expliquons ici notre démarche pour analyser et construire cette base
- de données L'objectif de cette partie est de faire une analyse des données
- météo pour les différentes régions de France.
- On se limite aux régions métropolitaines et à la mesure de température
- pour cette analyse.
- Les données : pour chaque région nous avions assemblé les données météo
- des différents postes entre 01/01/2023 au 31/12/2024, ces mesures sont
- effectuées au pas d'une heures.
-\end_layout
-
-\begin_layout Standard
-Notation : pour une région 
+Pour une région 
 \begin_inset Formula $i$
 \end_inset
 
-, un poste 
+ et une station météo 
 \begin_inset Formula $j$
 \end_inset
 
- on note 
-\begin_inset Formula $T_{ij}(t,\omega)$
-\end_inset
-
- (noté simplment 
-\begin_inset Formula $T_{ij}(t)$
-\end_inset
-
- ) le processus aléatoire, qui correspond à la mesure de la température
- à la date 
-\begin_inset Formula $t$
-\end_inset
-
-, 
-\begin_inset Formula $t$
-\end_inset
-
- mesurée en heures de 01/01/2023 au 31/12/2024.
+ de celle-ci, notons les processus aléatoires, qui correspondent respectivement
+ aux mesures de la température, de l'humidité, de la vitesse du vent et
+ du 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+rayonnement solaire
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ par :
 \end_layout
 
 \begin_layout Standard
-Ce processus est non-stationnaire.
- Pour faire correctement l'analyse, une différentiation du premier ordre
- permet de supprimer cette non-stationnarité.
+\begin_inset Formula 
+\[
+\left(T_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T}},\left(U_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T}},\left(V_{t}^{(i,j)}\right)_{t\in\mathbb{T}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+et pour le rayonnement 
+\begin_inset Formula 
+\[
+\left(R_{k}^{i}\right)_{kT_{s}\in\mathbb{T}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+où 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\mathbb{T}=\left\{ 2kT_{s},k\in\left\{ 0,...,L\right\} \right\} $
+\end_inset
+
+ où 
+\begin_inset Formula $L=(365+366)*24=17544$
+\end_inset
+
+ (période de 01-01-2023 au 31-12-2024) et 
+\begin_inset Formula $T_{s}=1800s$
+\end_inset
+
+.
  
 \end_layout
 
-\begin_layout Standard
-Pour chaque région 
-\begin_inset Formula $i$
-\end_inset
-
- cette analyse consiste à étudier : 
+\begin_layout Subsection
+Analyse
 \end_layout
 
 \begin_layout Standard
-la distribution de chaque processus 
-\begin_inset Formula $T_{ij}(t)$
+Pour résoudre le problème spatiale, nous devons trouver une solution pour
+ passer de l'echelle d'une station météo à l'échelle d'une région pour les
+ données météorologique : temépratures, vitesse du vent et humidité.
+ Pour y remédier à ce problème nous avons étudié :
+\end_layout
+
+\begin_layout Itemize
+les distributions des processus
+\begin_inset Formula $\left(T_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
- les distributions des processus issues de la différentiation du premier
- et du second ordre :
-\begin_inset Formula $\Delta T(t)$
+ , 
+\begin_inset Formula $\left(U_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
- et 
+, 
+\begin_inset Formula $\left(V_{t}^{(i,j)}\right)_{t\in\mathbb{T},}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+les distributions des moyennes spatiales au niveau du centre géographique
+ d'une région.
+ Pour la température par exemple ce processus est définie par :
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T_{k}^{C_{i}}=\frac{1}{N_{C_{i}}}\sum_{j=1}^{N_{C_{i}}}T_{k}^{(i,j)}
+\]
+
+\end_inset
+
+ où 
+\begin_inset Formula $C_{i}$
+\end_inset
+
+ est le département centre géographique de la région 
+\begin_inset Formula $i$
+\end_inset
+
+, et 
+\begin_inset Formula $N_{C_{i}}$
+\end_inset
+
+ est le nombre de postes de ce département.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+les distributions des moyennes spatiales au niveau de toute la région.
+ Pour la température par exemple ce processus est définie par :
+\begin_inset Formula 
+\[
+T_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}T_{k}^{(i,j)}
+\]
+
+\end_inset
+
+ où 
+\begin_inset Formula $N_{i}$
+\end_inset
+
+ est le nombre de postes de la région 
+\begin_inset Formula $i$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+la stationnarité et l'ergodicité de ces processus et des processus issues
+ de la différentiation du premier et du second ordre.
+ 
+\end_layout
+
+\begin_layout Itemize
+les corrélations intrarégionales et interégionales entre ces processus.
+\end_layout
+
+\begin_layout Subsubsection
+Ergodicité spatiale
+\end_layout
+
+\begin_layout Standard
+L’ergodicité spatiale suppose qu’on peut estimer des propriétés statistiques
+ globales en utilisant uniquement les mesures d’un grand nombre de stations
+ météo dispersées.
+ L'intérêt de cette hypothèse est de savoir si nous pouvons considérer que
+ les processus moyennes, décrites pérécedemment, sont représentives de toutes
+ les mesures des stations d'une région.
+ Cette hypothèse n'est pas démontrée théoriquement, mais en pratique, la
+ moyenne spatiale des températures sur un réseau de stations est utilsé
+ comme approximation de leur comportement temporel moyen 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "brunet2007spatial,cornes2018ensemble,quintana2008safran,meteofrance2021normales"
+literal "false"
+
+\end_inset
+
+.
+ Dans notre étude nous admettons cette hypothèse en la soutenant par les
+ corrélations élevées entre les stations d'une même région.
+ La figure
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Correl-ARA"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montre à titre d'exemple la matrice de corrélation entre les processus
+ 
+\begin_inset Formula $\left(T_{k}^{(1,j)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+ issues des différentes stations méteo de la région Auvergne-Rhône-Alpes
+ (numéroté par 
+\begin_inset Formula $i=1$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/correl_temp_stat_meteo_ARA.png
+	lyxscale 30
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Correl-ARA"
+
+\end_inset
+
+la matrice de corréelation entre les stations de la région Auvergne-Rhône-Alpes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nous avons donc pour variables météorologiques : 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+T_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}T_{k}^{(i,j)},\ U_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}U_{k}^{(i,j)},\ V_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}V_{k}^{(i,j)},\,R_{k}^{i}
+\]
+
+\end_inset
+
+ où 
 \family roman
 \series medium
 \shape up
@@ -2284,41 +2572,301 @@ la distribution de chaque processus
 \noun off
 \color none
 
-\begin_inset Formula $\Delta^{2}T_{ij}(t)$
+\begin_inset Formula $kT_{s}\in\mathbb{T}$
+\end_inset
+
+ indique la demi-heure d'observation et 
+\begin_inset Formula $i$
+\end_inset
+
+ indique la région.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/correl_diff_1_temp_stat_meteo_ARA.png
+	lyxscale 30
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Correl-ARA-1"
+
+\end_inset
+
+la matrice de corréelation entre les stations de la région Auvergne-Rhône-Alpes
+ après différentiation du premier ordre 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-Les corrélations entre ces processus : pour éviter la complexité calculatoire
- et d'affichage, un sous-ensemble est étudié, on se limite à 10 postes par
- région 
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/correl_diff_2_temp_stat_meteo_ARA.png
+	lyxscale 30
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Correl-ARA-2"
+
+\end_inset
+
+la matrice de corréelation entre les stations de la région Auvergne-Rhône-Alpes
+ après différentiation du second ordre
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-la distribution du processus moyenne : $T_{i}(t) = 
-\backslash
-frac{1}{N_i}
-\backslash
-sum_{i=1}^{N_i}T_{ij}(t) $ où $N_i$ est le nombre de poste pour la région
- $i$ 
+Les figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Correl-ARA-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+et 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Correl-ARA-2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+montrent cette matrice de corrélation après différentiation du premier ordre
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left(\Delta T_{k}^{(1,j)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ et du second ordre 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left(\Delta^{2}T_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Suréchantillonnage temporelle
 \end_layout
 
 \begin_layout Standard
-la distribution du processus moyenne du déparetement centre géographique
- de la région : $T_{C_i}(t) = 
-\backslash
-frac{1}{N_{C_i}}
-\backslash
-sum_{i=1}^{N_{C_i}}T_{ij}(t) $, où $N_{C_i}$ est le nombre de postes du
- département centre de la région $i$ 
+Pour l'échantillonnage temporelle, nous avons gardé le pas 
+\begin_inset Formula $T_{s}=30min=1800s$
+\end_inset
+
+ de référence.
+ Puis nous avons effectué un sur-échantillonnée par interpolation linéaire
+ des données météorologiques.
+ On considère
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\mathbb{T}=\left\{ kT_{s},k\in\left\{ 0,...,L\right\} \right\} $
+\end_inset
+
+avec 
+\begin_inset Formula $L=(365+366)*48=35088$
+\end_inset
+
+ .
+ 
 \end_layout
 
 \begin_layout Standard
-les distributions des processus issues de la différentiation du premier
- et second ordre pour $T_{i}(t)$ et $T_{C_i}(t)$ - la corrélation entre
- ces mesures avec les autres régions
+Par exemple pour la température les valeurs d'indices impaires sont calculées
+ par l'équation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:interpolationT"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+: 
+\begin_inset Formula 
+\begin{equation}
+T_{2k+1}^{i}=\frac{T_{2k}^{i}+T_{2k+2}^{i}}{2},k\in\left\{ 0,...,\left[\nicefrac{L}{2}\right]\right\} \label{eq:interpolationT}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Le calcul est le même pour les deux autres variables : humidité et vistesse
+ du vent.
+ Pour le rayonnement la formule est différentes :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+R_{6k+j}^{i}=T_{6k}+j\frac{T_{6k+6}^{i}-T_{6k}^{i}}{2},j\in\left\{ 1,..,5\right\} ,k\in\left\{ 0,...,\left[\nicefrac{L}{6}\right]\right\} \label{eq:interpolationR}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Influence des facteurs météorologiques 
+\end_layout
+
+\begin_layout Subsection
+Fusion des deux bases
+\end_layout
+
+\begin_layout Subsection
+Influence de la température
+\end_layout
+
+\begin_layout Subsection
+Influence de l'humidité
+\end_layout
+
+\begin_layout Subsection
+Influence du rayonnement solaire
+\end_layout
+
+\begin_layout Subsection
+Influence de la vitesse du vent
 \end_layout
 
 \end_body
