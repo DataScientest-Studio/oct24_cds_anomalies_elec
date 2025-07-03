@@ -3107,14 +3107,9 @@ noprefix "false"
 
 montre la corrélation entre la température moyenne et la consommation électrique
  observée entre 2023 et 2024.
- Elle présente aussi une segmentation linéaire par morceaux des effets de
- la température.
- Les points de rupture détectés dans cette exemple sont :
-\begin_inset Formula $,\ 11.27°C,\ 15.54°C$
-\end_inset
-
-.
- On observe que en dessous de 
+ Elle présente une segmentation linéaire par morceaux des effets de la températu
+re moyenne et la température maximale.
+ Les principaux points de rupture détectés sont 11.27°C
 \family roman
 \series medium
 \shape up
@@ -3127,9 +3122,7 @@ montre la corrélation entre la température moyenne et la consommation électri
 \uwave off
 \noun off
 \color none
-11.27
-\backslash
-°C
+ et 15.54°C
 \family default
 \series default
 \shape default
@@ -3142,10 +3135,27 @@ montre la corrélation entre la température moyenne et la consommation électri
 \uwave default
 \noun default
 \color inherit
-, la pente de la droite de regression est forte, ce qui s’explique par le
- l'utilisation de l’électricité pour se chauffer.
- De même, au-dessus de 16◦C, nous observons que la consommation d'électricité
- commence à augmenter.
+ pour la moyenne et 17.3°C et 22.3°C pour le maximum.
+ Qaund les températures maximales sont inféieures à 17.3°C, la pente de la
+ droite de regression est forte, ce qui s’explique par le l'utilisation
+ de l’électricité pour se chauffer.
+ De même, au-dessus de 22.3°C, la consommation d'électricité commence à augmenter
+, probabelement à cause de l'utilisation de la climatisation.
+ Ces points de ruptures sont très utiles pour l’élaboration d’une spécification
+ linéaire par morceaux appropriée
+\begin_inset CommandInset citation
+LatexCommand cite
+key "david2023prevision,clements2016"
+literal "false"
+
+\end_inset
+
+.
+\begin_inset space ~
+\end_inset
+
+Ces courbes confirme que la consommation d'électricité est fortement liée
+ au facteur température, et que cette realtion est non linéaire.
  
 \end_layout
 
@@ -3153,7 +3163,7 @@ montre la corrélation entre la température moyenne et la consommation électri
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -3161,7 +3171,15 @@ status open
 \begin_inset Graphics
 	filename Chap2/RegLinMorceauxTempConso.png
 	lyxscale 70
-	scale 70
+	scale 35
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename Chap2/RegLinMorceauxTempMaxConso.png
+	lyxscale 70
+	scale 35
 
 \end_inset
 
@@ -3194,16 +3212,125 @@ Corrélation entre la température avec la consommation électrique dans la
 
 \end_layout
 
+\begin_layout Standard
+Nous raffiné notre analyse en observant les relations entre les composantes
+ respectives des deux séries temporelles représentant la température et
+ la consommation d'électricté.
+ la figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Corrélationtemp-conso-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+montre la corrélation entre la tendance de la température et la tendance
+ de la consommation électrique observée entre 2023 et 2024 pour la région
+ Auvergne-Rhône-Alpes.
+ Ces courbes confirme que la tendance la consommation d'électricité est
+ fortement liée à la tendance de la température, et que cette realtion est
+ non linéaire.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/CorrelationTendance.png
+	lyxscale 80
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Corrélation_tendance"
+
+\end_inset
+
+Corrélation entre la température avec la consommation électrique dans la
+ région Auvergne-Rhône-Alpes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/CorrelationTendance_inverse.png
+	lyxscale 80
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Corrélation_tendance-1"
+
+\end_inset
+
+Corrélation entre la température avec la consommation électrique dans la
+ région Auvergne-Rhône-Alpes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Influence de l'humidité
 \end_layout
 
 \begin_layout Subsection
 Influence du rayonnement solaire
-\end_layout
-
-\begin_layout Subsection
-Influence de la vitesse du vent
 \end_layout
 
 \end_body
