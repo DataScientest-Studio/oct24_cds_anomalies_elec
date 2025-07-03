@@ -1851,7 +1851,7 @@ Ces figures nous permettent de constater la présence de saisonnalité multiple
  dans le chapitre 2.
  Elle montrent aussi l'effet hebdomadaire, i.e.
  la consommation dépend du jours de la semaine (jours ouvrés et week-ends).
- Cependant dans la plmupart des cas la cyclicité intra-journalière ne dépend
+ Cependant dans la plupart des cas la cyclicité intra-journalière ne dépend
  pas du jour de la semaine.
  
 \end_layout
@@ -2015,9 +2015,81 @@ Saisonnalité annuelle de la consommation d'électricté en Auvergne-Rhône-Alpe
 
 \end_layout
 
+\begin_layout Paragraph
+Influence du jour de la semaine
+\end_layout
+
 \begin_layout Standard
-Dans notre modélisation cette saisonnalité sera incluse dans la tendance
- de la série objet de prévision.
+Certaines études affirment que la distinction entyre jours ouvrés, week-end
+ et jours spéciaux (jours fériés, jours de fêtes,...) est importante dans le
+ domaine de la prévision de la consommation électrique à court terme 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cancelo2008,clements2016,nassif2022"
+literal "false"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cancelo2008,clements2016,nassif2022"
+literal "false"
+
+\end_inset
+
+.
+ Nous avons constaté que la différence entre jours ouvrés et week-end n'est
+ significative que pour certaines profiles de catégorie professionnelle
+ ou entreprise.
+ La figure illustre le fait que les profils résidentiels conservent un usage
+ plus stable contrairement aux profils professionnels.
+ De plus la sélection et le traitement des jours spéciaux étant un sujet
+ assez large pour pouvoir former un projet àpart, nous n'avons pas intégrée
+ cette composante à notre modèle.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/effetjour.png
+	lyxscale 20
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Conso-jour-plagepuissance-1-1"
+
+\end_inset
+
+Distribution de la consommation d'électricité en Auvergne-Rhône-Alpes selon
+ les jours de la semaine et profile
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -4207,20 +4279,21 @@ Influence du rayonnement solaire
 La figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Corrélation-U-conso-1"
+reference "fig:Corrélationtemp-conso-1-1"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-montre la corrélation entre l'humidité et la consommation électrique observée
- entre 2023 et 2024.
- Elle présente une segmentation linéaire par morceaux des effets de l'humidité
- moyenne et maximale.
- Ces courbes révèle une légère dépendance de la consommation d'électricité
- au facteur d'humidité.
- Les principaux points de rupture détectés sont 93%
+montre relation entre le rayonnement solaire global et la consommation électriqu
+e observée entre 2023 et 2024, avec une segmentation linéaire par morceaux
+ des effets.
+ Ces courbes confirme que la consommation d'électricité est fortement liée
+ au rayonnement solaire global.
+ Cette relation s'explique par le besoin d'éclairage qaund le rayonnement
+ solaire est faible ou nul.
+ Le principaux point de rupture détecté 
 \family roman
 \series medium
 \shape up
@@ -4233,7 +4306,7 @@ montre la corrélation entre l'humidité et la consommation électrique observé
 \uwave off
 \noun off
 \color none
- et 96%
+est
 \family default
 \series default
 \shape default
@@ -4246,9 +4319,16 @@ montre la corrélation entre l'humidité et la consommation électrique observé
 \uwave default
 \noun default
 \color inherit
- pour les températures moyennes et 93% et 95% pour températures maximales.
- Quand les l'humdité dépasse le seuil de 95%, la consommation tende vers
- une grande augmentation.
+ 
+\begin_inset Formula $63W/m^{2}$
+\end_inset
+
+.
+ Quand le rayonnement sont inféieures à cette valeur l'utilisation de l’électric
+ité pour l'éclairage augmente la consommation, et plus le rayonnement augmente
+ plus la consommation diminue.
+ Ce lien entre le rayonnement solaire et la consommation, pourtant évident,
+ n'est pas étudié dans la littérature contrairrement aux autre facteurs.
  
 \end_layout
 
@@ -4262,17 +4342,7 @@ status collapsed
 \noindent
 \align center
 \begin_inset Graphics
-	filename Chap2/RegLinMorceauxUConso.png
-	lyxscale 70
-	scale 35
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename Chap2/RegLinMorceauxUmaxConso.png
-	lyxscale 70
-	scale 35
+	filename Chap2/RegLinMorceauxRConso.png
 
 \end_inset
 
@@ -4287,12 +4357,12 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Corrélation-U-conso-1"
+name "fig:Corrélationtemp-conso-1-1"
 
 \end_inset
 
-Corrélation de l'humidité avec la consommation d'électricité dans la région
- Auvergne-Rhône-Alpes pour 2023-2024
+Corrélation de la température avec la consommation électrique dans la région
+ Auvergne-Rhône-Alpes
 \end_layout
 
 \end_inset
@@ -4309,34 +4379,32 @@ Corrélation de l'humidité avec la consommation d'électricité dans la région
 La figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Corrélation_tendanceU2-1"
+reference "fig:Corrélation_tendanceR"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-montre les tendances de l'humidité et de la consommation électrique observée
- entre 2023 et 2024 pour la région Auvergne-Rhône-Alpes.
- Ces tendances sont obtenues par une moyenne glissante sur une semaine puis
- centrées et réduites.
- Nous constatons que la tendance de la consommation d'élecricité est corrélée
- avec la tendance de l'humidité pendant la période hivernale, et elle est
- corrélée avec l'inverse de la tendance de l'humidité pendant la période
- estivale.
- les tableau 
+montre la relation entre la tendance du rayonnement solaire global et la
+ tendance de la consommation électrique observée entre 2023 et 2024 pour
+ la région Auvergne-Rhône-Alpes.
+ Nous constatons que la tendance de la consommation d'élecricité est fortement
+ corrélée avec l'inverse de la tendance du rayonnement.
+ La figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "tab:Corrélation-tendance"
+reference "fig:Corrélation_tendanceR-1"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
-donnes les cofficients de corrélation, calculé par la pméthode de Pearson.
- Le premier tableau donne ces coefficients pour toutes les saisons et le
- duxièmes en séprant les saisons.
+et le tableau montre cette corrélation après inversion et standarisation.
+ Les composantes saisonières sont décorrélées et les composant résiduelles
+ sont faiblement corrélées.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -4349,7 +4417,7 @@ status collapsed
 \noindent
 \align center
 \begin_inset Graphics
-	filename Chap2/CorrelationTendanceU.png
+	filename Chap2/CorrelationTendanceR.png
 	lyxscale 80
 	scale 50
 
@@ -4366,12 +4434,12 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Corrélation_tendanceU2-1"
+name "fig:Corrélation_tendanceR"
 
 \end_inset
 
-Corrélation entre la tendance de l'humidité et la tendance de la consommation
- électrique dans la région Auvergne-Rhône-Alpes
+Corrélation entre la tendance du rayonnement solaire global et la tendance
+ de la consommation électrique dans la région Auvergne-Rhône-Alpes
 \end_layout
 
 \end_inset
@@ -4385,7 +4453,7 @@ Corrélation entre la tendance de l'humidité et la tendance de la consommation
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float table
+\begin_inset Float figure
 wide false
 sideways false
 status collapsed
@@ -4393,203 +4461,10 @@ status collapsed
 \begin_layout Plain Layout
 \noindent
 \align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-(a)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Tendance de la consommation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Tendance de l'humidité
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Tendance de la consommation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1.000000
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.19
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Tendance de l'humidité
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.19
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1.000000
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-(b)
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Tendance de la consommation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Tendance de l'humidité
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Tendance de la consommation
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1.000000
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.29
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-tendance de l'humidité
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0.29
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1.000000
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
+\begin_inset Graphics
+	filename Chap2/CorrelationTendance_R_inverse.png
+	lyxscale 80
+	scale 50
 
 \end_inset
 
@@ -4604,13 +4479,12 @@ tendance de l'humidité
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "tab:Corrélation-saisonnalite-resid-1-1"
+name "fig:Corrélation_tendanceR-1"
 
 \end_inset
 
-Coefficients de Corrélation entre la tendance de l'humidité et la tendance
- de la consommation électrique dans la région Auvergne-Rhône-Alpes.
- (a) Pour toutes les saisons, (b) Pour toutes les saisons printemps et été.
+Corrélation entre la tendance du rayonnement solaire global et la tendance
+ de la consommation électrique dans la région Auvergne-Rhône-Alpes
 \end_layout
 
 \end_inset
@@ -4620,6 +4494,31 @@ Coefficients de Corrélation entre la tendance de l'humidité et la tendance
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+Dans ce chapitre nous avons présenté notre démarche pour collecter, analyser,
+ fusioner et traiter les bases de données dont nous avions besoin pour mener
+ ce projet.
+ Nous avons étudiers les relations entre les variables exogènes et la varaible
+ cible.
+ 
+\end_layout
+
+\begin_layout Standard
+décomposition 
+\end_layout
+
+\begin_layout Standard
+modèle pour chaque composante, variable exogènes liées
+\end_layout
+
+\begin_layout Standard
 
 \end_layout
 

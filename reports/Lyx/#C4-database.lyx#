@@ -1851,7 +1851,7 @@ Ces figures nous permettent de constater la présence de saisonnalité multiple
  dans le chapitre 2.
  Elle montrent aussi l'effet hebdomadaire, i.e.
  la consommation dépend du jours de la semaine (jours ouvrés et week-ends).
- Cependant dans la plmupart des cas la cyclicité intra-journalière ne dépend
+ Cependant dans la plupart des cas la cyclicité intra-journalière ne dépend
  pas du jour de la semaine.
  
 \end_layout
@@ -2015,9 +2015,79 @@ Saisonnalité annuelle de la consommation d'électricté en Auvergne-Rhône-Alpe
 
 \end_layout
 
+\begin_layout Paragraph
+Influence du jour de la semaine
+\end_layout
+
 \begin_layout Standard
-Dans notre modélisation cette saisonnalité sera incluse dans la tendance
- de la série objet de prévision.
+Certaines études affirment que la distinction entyre jours ouvrés, week-end
+ et jours spéciaux (jours fériés, jours de fêtes,...) est importante dans le
+ domaine de la prévision de la consommation électrique à court terme 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cancelo2008,clements2016,nassif2022"
+literal "false"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cancelo2008,clements2016,nassif2022"
+literal "false"
+
+\end_inset
+
+.
+ La sélection et le traitement des jours spéciaux étant un sujet assez large
+ pour pouvoir former un projet en entier, nous ne l’avonspas abordé.
+ Nous avons constaté que la différence entre jours ouvrés et week-end n'est
+ significative que pour certaines profiles de catégorie professionnelle
+ ou entreprise.
+ La figure illustre ceci.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/effetjour.png
+	lyxscale 20
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Conso-jour-plagepuissance-1-1"
+
+\end_inset
+
+Distribution de la consommation d'électricité en Auvergne-Rhône-Alpes selon
+ les jours de la semaine et profile
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -3144,7 +3214,7 @@ literal "false"
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -3339,7 +3409,7 @@ Corrélation entre la température avec la consommation électrique dans la
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -3384,7 +3454,7 @@ n électrique dans la région Auvergne-Rhône-Alpes
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -3519,7 +3589,7 @@ n électrique dans la région Auvergne-Rhône-Alpes
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -3811,7 +3881,7 @@ montre la corrélation entre l'humidité et la consommation électrique observé
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -3879,7 +3949,7 @@ montre les tendances de l'humidité et de la consommation électrique observée
  avec la tendance de l'humidité pendant la période hivernale, et elle est
  corrélée avec l'inverse de la tendance de l'humidité pendant la période
  estivale.
- le tableau 
+ les tableau 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:Corrélation-tendance"
@@ -3890,13 +3960,15 @@ noprefix "false"
 \end_inset
 
 donnes les cofficients de corrélation, calculé par la pméthode de Pearson.
+ Le premier tableau donne ces coefficients pour toutes les saisons et le
+ duxièmes en séprant les saisons.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -3941,7 +4013,7 @@ Corrélation entre la tendance de l'humidité et la tendance de la consommation
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -3957,7 +4029,7 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+(a)
 \end_layout
 
 \end_inset
@@ -3966,7 +4038,7 @@ status open
 \begin_inset Text
 
 \begin_layout Plain Layout
-Résidus de la consommation
+Tendance de la consommation
 \end_layout
 
 \end_inset
@@ -3975,7 +4047,7 @@ Résidus de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Résidus de la teméprature
+Tendance de l'humidité
 \end_layout
 
 \end_inset
@@ -3986,7 +4058,7 @@ Résidus de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
-Résidus de la consommation
+Tendance de la consommation
 \end_layout
 
 \end_inset
@@ -4004,7 +4076,7 @@ Résidus de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.38548
+0.19
 \end_layout
 
 \end_inset
@@ -4015,7 +4087,7 @@ Résidus de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Résidus de la teméprature
+Tendance de l'humidité
 \end_layout
 
 \end_inset
@@ -4024,7 +4096,7 @@ Résidus de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.38548
+0.19
 \end_layout
 
 \end_inset
@@ -4060,7 +4132,7 @@ Résidus de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+(b)
 \end_layout
 
 \end_inset
@@ -4069,7 +4141,7 @@ Résidus de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
-Saisonnalité de la consommation
+Tendance de la consommation
 \end_layout
 
 \end_inset
@@ -4078,7 +4150,7 @@ Saisonnalité de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Saisonnalité de la teméprature
+Tendance de l'humidité
 \end_layout
 
 \end_inset
@@ -4089,7 +4161,7 @@ Saisonnalité de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
-Saisonnalité de la consommation
+Tendance de la consommation
 \end_layout
 
 \end_inset
@@ -4107,7 +4179,7 @@ Saisonnalité de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.031113
+0.29
 \end_layout
 
 \end_inset
@@ -4118,7 +4190,7 @@ Saisonnalité de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Saisonnalité de la teméprature
+tendance de l'humidité
 \end_layout
 
 \end_inset
@@ -4127,7 +4199,7 @@ Saisonnalité de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.031113
+0.29
 \end_layout
 
 \end_inset
@@ -4163,8 +4235,8 @@ name "tab:Corrélation-saisonnalite-resid-1"
 
 Coefficients de Corrélation entre la tendance de l'humidité et la tendance
  de la consommation électrique dans la région Auvergne-Rhône-Alpes.
- Le premier tableau donne ces coefficients pour toutes les saisons.
- Le
+ (a) Pour toutes les saisons, (b) Pour toutes les saisons printemps et été.
+ 
 \end_layout
 
 \end_inset
@@ -4175,10 +4247,263 @@ Coefficients de Corrélation entre la tendance de l'humidité et la tendance
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+La composantes saisonière de
+\begin_inset space ~
+\end_inset
+
+la consommation d'électricité est décorrélée de la composante saisonière
+ de l'humidité, avec un coefficient de corrélation de 
+\begin_inset Formula $0.032$
+\end_inset
+
+.
+ Par contre leurs composantes résiduelles sont faiblement corrélée avec
+ un coefficient fde corrélation de 
+\begin_inset Formula $-0.34$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Subsection
 Influence du rayonnement solaire
+\end_layout
+
+\begin_layout Standard
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Corrélationtemp-conso-1-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+montre relation entre le rayonnement solaire global et la consommation électriqu
+e observée entre 2023 et 2024, avec une segmentation linéaire par morceaux
+ des effets.
+ Ces courbes confirme que la consommation d'électricité est fortement liée
+ au rayonnement solaire global.
+ Cette relation s'explique par le besoin d'éclairage qaund le rayonnement
+ solaire est faible ou nul.
+ Le principaux point de rupture détecté 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+est
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $63W/m^{2}$
+\end_inset
+
+.
+ Quand le rayonnement sont inféieures à cette valeur l'utilisation de l’électric
+ité pour l'éclairage augmente la consommation, et plus le rayonnement augmente
+ plus la consommation diminue.
+ Ce lien entre le rayonnement solaire et la consommation, pourtant évident,
+ n'est pas étudié dans la littérature contrairrement aux autre facteurs.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/RegLinMorceauxRConso.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Corrélationtemp-conso-1-1"
+
+\end_inset
+
+Corrélation de la température avec la consommation électrique dans la région
+ Auvergne-Rhône-Alpes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Corrélation_tendanceR"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+montre la relation entre la tendance du rayonnement solaire global et la
+ tendance de la consommation électrique observée entre 2023 et 2024 pour
+ la région Auvergne-Rhône-Alpes.
+ Nous constatons que la tendance de la consommation d'élecricité est fortement
+ corrélée avec l'inverse de la tendance du rayonnement.
+ La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Corrélation_tendanceR-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+et le tableau montre cette corrélation après inversion et standarisation.
+ Les composantes saisonières sont décorrélées et les composant résiduelles
+ sont faiblement corrélées.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/CorrelationTendanceR.png
+	lyxscale 80
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Corrélation_tendanceR"
+
+\end_inset
+
+Corrélation entre la tendance du rayonnement solaire global et la tendance
+ de la consommation électrique dans la région Auvergne-Rhône-Alpes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap2/CorrelationTendance_R_inverse.png
+	lyxscale 80
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Corrélation_tendanceR-1"
+
+\end_inset
+
+Corrélation entre la tendance du rayonnement solaire global et la tendance
+ de la consommation électrique dans la région Auvergne-Rhône-Alpes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+Dans ce chapitre nous avons présenté notre démarche pour collecter, analyser,
+ fusioner et traiter les bases de données dont nous avions besoin pour menés
+ ce projet.
+ Nous avons montrer à travers notre analyse 
 \end_layout
 
 \end_body
