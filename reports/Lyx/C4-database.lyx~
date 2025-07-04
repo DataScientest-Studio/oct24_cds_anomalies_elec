@@ -1143,7 +1143,7 @@ résume ces profils et les palges de puissances souscrites associées.
 
 \begin_layout Standard
 \begin_inset Float table
-placement t
+placement h
 wide false
 sideways false
 status collapsed
@@ -1974,9 +1974,10 @@ re.
 
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -2039,12 +2040,14 @@ literal "false"
 \end_inset
 
 .
- La sélection et le traitement des jours spéciaux étant un sujet assez large
- pour pouvoir former un projet en entier, nous ne l’avonspas abordé.
  Nous avons constaté que la différence entre jours ouvrés et week-end n'est
  significative que pour certaines profiles de catégorie professionnelle
  ou entreprise.
- La figure illustre ceci.
+ La figure illustre le fait que les profils résidentiels conservent un usage
+ plus stable contrairement aux profils professionnels.
+ De plus la sélection et le traitement des jours spéciaux étant un sujet
+ assez large pour pouvoir former un projet àpart, nous n'avons pas intégrée
+ cette composante à notre modèle.
 \end_layout
 
 \begin_layout Standard
@@ -2058,7 +2061,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename Chap2/effetjour.png
-	lyxscale 20
+	lyxscale 30
 	scale 20
 
 \end_inset
@@ -2978,7 +2981,7 @@ status open
 \begin_inset Graphics
 	filename Chap2/dataframe_final.png
 	lyxscale 60
-	scale 35
+	scale 50
 	clip
 
 \end_inset
@@ -3054,7 +3057,7 @@ présente les effets ces facteurs sur la consommation électrique pour un
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -3062,7 +3065,7 @@ status collapsed
 \begin_inset Graphics
 	filename Chap2/InfluenceFactoMeteoTotal.png
 	lyxscale 70
-	scale 30
+	scale 35
 
 \end_inset
 
@@ -3099,7 +3102,7 @@ Corrélation des facteurs météorologiques avec la consommation électrique
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -3107,7 +3110,7 @@ status collapsed
 \begin_inset Graphics
 	filename Chap2/InfluenceFactoMeteoProfil.png
 	lyxscale 70
-	scale 30
+	scale 35
 
 \end_inset
 
@@ -3364,7 +3367,7 @@ et
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -3409,7 +3412,7 @@ Corrélation entre la température avec la consommation électrique dans la
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -3881,7 +3884,7 @@ montre la corrélation entre l'humidité et la consommation électrique observé
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -3968,7 +3971,7 @@ donnes les cofficients de corrélation, calculé par la pméthode de Pearson.
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -4334,13 +4337,15 @@ ité pour l'éclairage augmente la consommation, et plus le rayonnement augmente
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
 	filename Chap2/RegLinMorceauxRConso.png
+	lyxscale 40
+	scale 60
 
 \end_inset
 
@@ -4501,9 +4506,19 @@ Conclusion
 
 \begin_layout Standard
 Dans ce chapitre nous avons présenté notre démarche pour collecter, analyser,
- fusioner et traiter les bases de données dont nous avions besoin pour menés
+ fusioner et traiter les bases de données dont nous avions besoin pour mener
  ce projet.
- Nous avons montrer à travers notre analyse 
+ Nous avons étudiers les relations entre les variables exogènes et la varaible
+ cible.
+ 
+\end_layout
+
+\begin_layout Standard
+décomposition 
+\end_layout
+
+\begin_layout Standard
+modèle pour chaque composante, variable exogènes liées
 \end_layout
 
 \end_body

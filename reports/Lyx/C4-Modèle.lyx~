@@ -152,9 +152,10 @@ Dans ce chapitre nous décrivons l'approche qu nous proposons pour effectuer
  problématique de prévision pour une série multivariée.
  Nous transposant celle-ci sur notre série, définie et décrite dans le chapitre
  2.
- Avant de présenter notre approche, nous dressons une synthèse de la revue
- de littérature générale, qui ne vaut pas être exhaustive, du domaine de
- la prévision de la consommation d'électricité à court terme.
+ Afin de comparer notre approche avec d'autres travaux, nous dressons ici
+ une synthèse de la revue de littérature générale, qui ne vaut pas être
+ exhaustive, du domaine de la prévision de la consommation d'électricité
+ à court terme.
  Nous renvoyons le lecteur intéréssé aux récents travaux
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -170,7 +171,7 @@ literal "false"
 \end_layout
 
 \begin_layout Section
-Modélisation
+Formalisation de notre problème
 \end_layout
 
 \begin_layout Subsection
@@ -178,16 +179,17 @@ Notation
 \end_layout
 
 \begin_layout Standard
-Avant détailler notre modélisation nous rappelons les notations utilisées
- dans ce chapitre :
+Avant de décrire formellement le problème posé nous rappelons les notations
+ utilisées dans ce chapitre :
 \end_layout
 
 \begin_layout Itemize
 \begin_inset Formula $\mathbb{T}=\left\{ kT_{s},k\in\left\{ 0,...,L\right\} \right\} $
 \end_inset
 
- l'ensemble d'instants d'observation qui couvre la période du 01-01-2023
- au 31-12-2024 où:
+ l'ensemble d'instants d'observation disponibla dans notre base.
+ Cette ensemble couvre la période du 01-01-2023 au 31-12-2024.
+ On rappelle que :
 \end_layout
 
 \begin_deeper
@@ -199,10 +201,6 @@ Avant détailler notre modélisation nous rappelons les notations utilisées
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $L$
-\end_inset
-
- le nombre d'observation: 
 \begin_inset Formula $L=(365+366)*48=35088$
 \end_inset
 
@@ -210,6 +208,96 @@ Avant détailler notre modélisation nous rappelons les notations utilisées
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+\begin_inset Formula $\mathbb{T_{\mathrm{m}}}=\left\{ kT_{s},k\in\left\{ m,...,\tau\right\} \right\} $
+\end_inset
+
+ l'ensemble d'instants d'observation pour l'entrainement 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+qui débute à 
+\begin_inset Formula $mT_{s}$
+\end_inset
+
+ , où 
+\begin_inset Formula $m\in\left\{ 0,...,L/2-1\right\} $
+\end_inset
+
+est choisi aléatoirement à chaque entrainement du modèle, et se termine
+ a 
+\begin_inset Formula $\tau=m-1+L/2$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathbb{T_{\mathrm{v}}}=\left\{ kT_{s},k\in\left\{ \tau+1,\tau+h\right\} \right\} $
+\end_inset
+
+ l'ensemble d'instants d'observation pour le test 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+des performances du modèle à l'horizon 
+\begin_inset Formula $h$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\mathbb{T_{\mathrm{1}}}=\mathbb{T_{\mathrm{m}}}\bigcup\mathbb{T_{\mathrm{v}}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ l'ensemble d'instants d'observation pour l'entrainement et le test
+\end_layout
+
 \begin_layout Itemize
 \begin_inset Formula $\mathscr{\mathit{\mathit{\mathcal{R}}}\mathrm{=\left\{ 11,24,27,28,32,44,52,53,75,76,93,84\right\} }}$
 \end_inset
@@ -223,9 +311,11 @@ désigne l'ensemble de régions métropolitaines de France encodées par leur
 \begin_inset Float table
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="13" columns="2">
 <features tabularvalignment="middle">
@@ -601,12 +691,421 @@ est la série temporelle qui coressponde au rayonnement solaire global de
 \end_layout
 
 \begin_layout Subsection
-Principe fondamental 
+Hypothèses validées 
 \end_layout
 
 \begin_layout Standard
-Dans le chapitre nous avons démontré que 
+Dans les précedents chapitres nous avons validé statistiquement les hypothèse
+ suivantes :
 \end_layout
 
+\begin_layout Itemize
+la série
+\begin_inset space ~
+\end_inset
+
+temporelle de la consommation d'électricité est une série multi-saisonnières,
+ 
+\end_layout
+
+\begin_layout Itemize
+l'analyse spéctrale permet de déterminer les saisonnalités dominante de
+ la consommation d'électricité
+\end_layout
+
+\begin_layout Itemize
+la consommation d'électricités est non stationnaire et ceci est dû à la
+ tendance, 
+\end_layout
+
+\begin_layout Itemize
+les composantes saisonnières et résiduelles de la consommation d'électricités
+ sont stationnaires,
+\end_layout
+
+\begin_layout Itemize
+Les composantes saisonnières de la consommation d'électricités sont indépandante
+s des varaibles exogènes, 
+\end_layout
+
+\begin_layout Itemize
+ilexiste une relation non linéaire entre la tendance de la consommation
+ d'électricité et les tendances des variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+la tendance de la consommation d'électricité est fortement corrélée aux
+ séries obtenues par transformation des tendances des variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+l'existance d'une relation non linéaire entre la résidus de la consommation
+ d'électricité et les résidus des variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+le résidus de la consommation d'électricité est fortement corrélée aux séries
+ obtenues par transformation des résidus des variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+le résidus de la consommation d'électricité les composantes résiduelles
+ des variables météorologiques et dépendent uniquement de la configuration
+ profile-puissance souscrite.
+ 
+\end_layout
+
+\begin_layout Subsection
+Formalisation 
+\end_layout
+
+\begin_layout Standard
+Pour toute configuration profile-plage de puissance 
+\begin_inset Formula $q\in\mathcal{Q}$
+\end_inset
+
+ dans une région 
+\begin_inset Formula $r\in\mathit{\mathcal{R}}$
+\end_inset
+
+, nous cherchons un modèle 
+\begin_inset Formula $\mathcal{M^{\mathit{(q,r)}}}$
+\end_inset
+
+ qui peremt d'estimer les valeurs future 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left(Y_{k}\right)_{kT_{s}\in\mathbb{T_{\mathrm{v}}}},$
+\end_inset
+
+pour l'horizon 
+\begin_inset Formula $h$
+\end_inset
+
+, en fonction 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+de 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathcal{F_{\tau}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+l'ensemble d'information disponible jusqu'au l'instant 
+\begin_inset Formula $\tau$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+sur les valeurs passées de la série cible et sur les variables exogènes.
+
+\begin_inset Formula 
+\[
+\mathcal{F_{\tau}}\mathit{=\left\{ \left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}},\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}},\left(U_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}},\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}\right\} }
+\]
+
+\end_inset
+
+
+
+\begin_inset Formula 
+\begin{equation}
+\left(\widehat{Y}_{\tau+1},\widehat{Y}_{\tau+2},...,\widehat{Y}_{\tau+h}\right)=\mathcal{\mathcal{\mathcal{M^{\mathit{(q,r)}}\left(\mathrm{\mathcal{F_{\tau}}}\right)}}}\label{eq:model-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Modèles proposés dans la littérature
+\end_layout
+
+\begin_layout Standard
+Les études 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "hyndman2021forecasting,box2015time,taylor2006"
+literal "false"
+
+\end_inset
+
+montrent que le modèle SARIMA
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Seasonal AutoRegressive Integrated Moving Average
+\end_layout
+
+\end_inset
+
+, i.e.
+ modèles autorégressifs intégrés à moyenne mobile saisonnière, est le modèle
+ le plus adapté pour les séries cycliques/saisonnières avec des saisonnalités
+ stable.
+ L'analyse spectrale des séries temporelles de la consommation d'électricité
+ montre qu'elles sont multi-saisonnières et que leurs saisonnalités sont
+ stables dans le temps.
+ Autrement dit, l'analyse spectrale par transformée de Fourier à court terme,
+ montre la présence de périodes dominantes et que celles-ci sont invariant
+ dans le temps.
+ Ces périodes, détectées par cette analyse, sont utilisée pour décomposer
+ la série temporelle de la consommation d'électricité (en Wh) ainsi que
+ les séries temporelles représentant les varaibles météorologiques.
+\end_layout
+
+\begin_layout Standard
+la figure
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Spectrogramme-de-la"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ illsutre la présence de trois saisonnnalités demi-journalière (21 pas =
+ 10,5 heures), presque-journalière (42 pas =21 heures) et hebdomadaire (336
+ pas =7 jours).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/Consommation-ARA.png
+	lyxscale 70
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Spectrogramme-de-la"
+
+\end_inset
+
+Spectrogramme de la série temporelle de consommation d'électricité sur toute
+ la région Auvergne-Rhône-Alpes 
+\begin_inset Formula $\left(\stackrel[q\in Q]{}{\sum}Y_{k}^{(84,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nous avons constaté que la tendance de la consommation d'électricité, dans
+ sa relation avec les tendances des variables météorologiques, présente
+ a un effet dynamique reflétant le fait que les individus s’adaptent aux
+ conditions météorologiques changeantes avec un certain retard.
+ La tendance de la consommation dépend pas uniquement de la température
+ à l'instant présent, mais aussi des températures des jours précédents.
+ Ceci est également confirmé par d'autres études 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "comte1981,hyndman2021forecasting,gould2008,taylor2008"
+literal "false"
+
+\end_inset
+
+.
+ Nous fait les mêmes constations pour la composante résiduelle.
+ 
+\end_layout
+
+\begin_layout Standard
+Les valeurs de la tendance de la série de consommation sont donc dépendant
+ de ses valeurs passées, des valeurs pérsentes et passées des variables
+ métorologiques.
+ Le modèle que nous avons jugé le plus adapté pour capter cette effet de
+ mémoire est le modèle LSTM.
+ Nous adoptons donc ce modèle pour les composantes tendance et résidus.
+\end_layout
+
+\begin_layout Section
+Modèle proposé
+\end_layout
+
+\begin_layout Itemize
+Déméarche 
+\end_layout
+
+\begin_layout Itemize
+Vue globale du modèle
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Partitionnement entrainement/test
+\end_layout
+
+\begin_layout Itemize
+Analyse spectrale
+\end_layout
+
+\begin_layout Itemize
+Décomposition
+\end_layout
+
+\begin_layout Itemize
+modèles
+\end_layout
+
+\begin_layout Itemize
+recomposition
+\end_layout
+
+\begin_layout Itemize
+évaluation
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+SARIMA 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Principe
+\end_layout
+
+\begin_layout Itemize
+Prediction des composantes saisonnière SARIMA
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Prédiction par LSTM des composantes tendance et résidus/ transformation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+principe
+\end_layout
+
+\begin_layout Itemize
+transformation
+\end_layout
+
+\begin_layout Itemize
+prévision
+\end_layout
+
+\end_deeper
 \end_body
 \end_document

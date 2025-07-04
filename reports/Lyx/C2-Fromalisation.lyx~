@@ -216,11 +216,11 @@ où :
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $𝕋=\mathbb{N}$
+\begin_inset Formula $𝕋\subseteq\mathbb{N}$
 \end_inset
 
  ou 
-\begin_inset Formula $𝕋=\mathbb{Z}$
+\begin_inset Formula $𝕋\subseteq\mathbb{Z}$
 \end_inset
 
  ,
@@ -2867,10 +2867,189 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-Dans notre cadre, l'objectif est d'estimer les différentes fréquences présentes
- das nos séries.
- Ces fréquences sont utilisées pour extraire toutes les saisonnalités.
- La figure montre le spectrogramme de las série de la figure 
+Nous nous limitons ici à l'explication du principe du STFT que nous avons
+ utilisée pour estimer les différentes fréquences présentes das nos séries.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Transformée de Fourier à Court Terme
+\end_layout
+
+\begin_layout Standard
+Son principe consiste à diviser la série en 
+\begin_inset Formula $\mathrm{\mathit{P}}$
+\end_inset
+
+ segments de longeur 
+\begin_inset Formula $\mathit{N}$
+\end_inset
+
+ et avec un recouvrement 
+\begin_inset Formula $\mathrm{\mathit{R}}$
+\end_inset
+
+ donnée, les pondérer par une une fonction localisée en temps 
+\begin_inset Formula $w$
+\end_inset
+
+ (fenêtre), puis appliquer la transformée de Fourier sur chaque segment
+ fenêtré (pondéré).
+ Pour une série temporelle 
+\begin_inset Formula $\left(Y_{n}\right)_{n\in\mathbb{T}}$
+\end_inset
+
+, après fenêtrage on obtient la série 
+\begin_inset Formula $\left(Y_{1,n},\ldots,Y_{P,n}\right)_{n\in\mathbb{T}}$
+\end_inset
+
+issues de la pondération par 
+\begin_inset Formula $w$
+\end_inset
+
+.
+ 
+\begin_inset Formula $\left(Y_{p,n}\right)_{n\in\mathbb{T}}$
+\end_inset
+
+, qui correspond à la pondération de la 
+\begin_inset Formula $𝑝^{éme}$
+\end_inset
+
+ segment par 
+\begin_inset Formula $w$
+\end_inset
+
+ , est définie par : 
+\begin_inset Formula 
+\begin{equation}
+Y_{p,n}=Y_{(N/2-1)\times p+n}\times w_{n}\label{eq:pondération}
+\end{equation}
+
+\end_inset
+
+L'équation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:fenetre"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+donne un exemple classique de 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $w.$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ Si 
+\begin_inset Formula $𝑎=0,56$
+\end_inset
+
+ il s'agit d'une fenêtre d'Hamming, et si 
+\begin_inset Formula $𝑎_{0}=0,5$
+\end_inset
+
+ il s'agit d'une fenêtre de Hann .
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+w_{n}=a_{0}-(1-a_{0})cos\left(2\pi n/N\right)\label{eq:fenetre}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La transformée de Fourier à court terme est l'esnemble des segments, notée
+\begin_inset Formula $\left(X_{1,k},\ldots,X_{P,k}\right)_{k\in\left\{ 0,...,K\right\} }$
+\end_inset
+
+, où 
+\begin_inset Formula $\left(X_{p,k}\right)_{k\in\left\{ 0,...,K\right\} }$
+\end_inset
+
+, la transformée de Fouriée de la 
+\begin_inset Formula $𝑝^{éme}$
+\end_inset
+
+ segment pondérée est définie par :
+\begin_inset Formula 
+\begin{equation}
+𝑋_{𝑝,k}=\sum_{t=0}^{K-1}Y_{p,n}e^{-\frac{j2\pi kn}{K}}\label{eq:STFT}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+où 
+\begin_inset Formula $K$
+\end_inset
+
+ est le nombre de points pour le calcul de la transfomée de Fourier.
+ 
+\end_layout
+
+\begin_layout Standard
+Le spectrogramme est 
+\begin_inset Formula 
+\begin{equation}
+S=\left\{ \left|X_{p,k}\right|^{2},(p,k)\in\left\{ 0,..,P-1\right\} \times\left\{ 0,...,K\right\} \right\} \label{eq:Spectrogramme}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dans notre cadre, l'objectif de cette analyse est d'extraire les fréquences
+ dominantes pour identifier toutes les saisonnalités.
+ La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Spectrogramme-de-la-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+montre le spectrogramme de las série de la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Consommation-électrique-du"
@@ -2898,13 +3077,15 @@ noprefix "false"
 \end_inset
 
 ).
- 
+ La pondération est faite par une fen^tre de Hamming.
 \begin_inset Float figure
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename Chap1/Spectrogramme.png
 	scale 60
@@ -2915,9 +3096,17 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Spectrogramme-de-la-1"
+
+\end_inset
+
 Spectrogramme de la série 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3013,16 +3202,16 @@ Autrement dit la prévision d'une série temporelle univariée consiste à estim
 \uwave off
 \noun off
 \color none
-, notons pour 
-\begin_inset Formula $t\in\mathbb{T},$
+, notons 
+\begin_inset Formula $\tau=\mathbb{\mathrm{max(\mathbb{T})}},$
 \end_inset
 
  
-\begin_inset Formula $\mathcal{F}_{t}\ $
+\begin_inset Formula $\mathcal{F}_{\tau}\ $
 \end_inset
 
 l'ensemble d'information disponible jusqu'au l'instant 
-\begin_inset Formula $t$
+\begin_inset Formula $\tau$
 \end_inset
 
 , incluant 
@@ -3088,17 +3277,17 @@ es.
 \noun off
 \color none
 
-\begin_inset Formula $\left(Y_{1,t+1},Y_{1,t+2},...,Y_{1,t+k}\right)$
+\begin_inset Formula $\left(Y_{1,\tau+1},Y_{1,\tau+2},...,Y_{1,\tau+k}\right)$
 \end_inset
 
 en fonction de 
-\begin_inset Formula $\mathcal{F}_{t}$
+\begin_inset Formula $\mathcal{F}_{\tau}$
 \end_inset
 
  :
 \begin_inset Formula 
 \begin{equation}
-\left(\widehat{Y}_{1,t+1},\widehat{Y}_{1,t+2},...,\widehat{Y}_{1,t+k}\right)=\mathcal{\mathcal{M\left(\mathcal{F}_{\mathrm{t}}\right)}}\label{eq:model}
+\left(\widehat{Y}_{1,\tau+1},\widehat{Y}_{1,\tau+2},...,\widehat{Y}_{1,\tau+k}\right)=\mathcal{\mathcal{M\left(\mathcal{F}_{\mathrm{\tau}}\right)}}\label{eq:model}
 \end{equation}
 
 \end_inset
@@ -3129,11 +3318,11 @@ en fonction de
 \end_inset
 
 .
- 
+ le nombre 
 \begin_inset Formula $k$
 \end_inset
 
- détermine le type de prévision, i.e.
+, dit horizon, détermine le type de prévision, i.e.
  court terme, moyen terme ou long terme.
 \end_layout
 

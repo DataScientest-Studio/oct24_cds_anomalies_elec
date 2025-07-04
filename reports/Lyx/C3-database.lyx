@@ -1143,7 +1143,7 @@ résume ces profils et les palges de puissances souscrites associées.
 
 \begin_layout Standard
 \begin_inset Float table
-placement t
+placement h
 wide false
 sideways false
 status collapsed
@@ -1974,9 +1974,10 @@ re.
 
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -2060,7 +2061,7 @@ status open
 \align center
 \begin_inset Graphics
 	filename Chap2/effetjour.png
-	lyxscale 20
+	lyxscale 30
 	scale 20
 
 \end_inset
@@ -2980,7 +2981,7 @@ status open
 \begin_inset Graphics
 	filename Chap2/dataframe_final.png
 	lyxscale 60
-	scale 35
+	scale 50
 	clip
 
 \end_inset
@@ -3064,7 +3065,7 @@ status collapsed
 \begin_inset Graphics
 	filename Chap2/InfluenceFactoMeteoTotal.png
 	lyxscale 70
-	scale 30
+	scale 35
 
 \end_inset
 
@@ -3109,7 +3110,7 @@ status collapsed
 \begin_inset Graphics
 	filename Chap2/InfluenceFactoMeteoProfil.png
 	lyxscale 70
-	scale 30
+	scale 35
 
 \end_inset
 
@@ -3883,7 +3884,7 @@ montre la corrélation entre l'humidité et la consommation électrique observé
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -3970,7 +3971,7 @@ donnes les cofficients de corrélation, calculé par la pméthode de Pearson.
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -4336,13 +4337,15 @@ ité pour l'éclairage augmente la consommation, et plus le rayonnement augmente
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
 	filename Chap2/RegLinMorceauxRConso.png
+	lyxscale 60
+	scale 60
 
 \end_inset
 
