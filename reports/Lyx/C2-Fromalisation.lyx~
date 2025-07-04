@@ -725,7 +725,7 @@ Si la composante cyclique est incluse dans la composante tendance cette
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-Y_{t}=T_{t}\times S_{t}\times R_{t}\label{eq:1.4}
+Y_{t}=Y_{t}=T_{t}\times S_{t}\times R_{t}\label{eq:1.4}
 \end{equation}
 
 \end_inset

@@ -97,7 +97,7 @@ theorems-std
 \begin_body
 
 \begin_layout Chapter
-Introduction aux séries temporelles
+Modéèle proposé
 \end_layout
 
 \begin_layout Standard
@@ -146,133 +146,445 @@ thispagestyle{empty}
 \end_layout
 
 \begin_layout Standard
-Nous avons opté pour une modélisation en séries temporelles de la consommation
- d'électricité et des variables exogènes.
- Dans ce premier chapitre, nous rappelons les outils mathématique dédiés
- à cette modélisation.
- Nous ferons, tout d'abord, quelques rappels succincts de la notion d'une
- série temporelle, de ses caractéristiques, de ses transformations et décomposit
-ions.
- Dans un second temps nous aborderons les outils d’analyse de séries temporelles
-, que nous avons utilisés afin d’en extraire des statistiques et des caractérist
-iques significatives.
- Puis nous présentons la notions de la prévision et les métriques associées
- à l'évaluation des performances de celle-ci.
- La théorie des séries temporelle est riche et large, nous limiterons dans
- notre présentation à quelques éléments que nous avons utilisés, et nous
- renvoyons le lecteur intéressé vers des références cités dans notre développeme
-nt.
-\end_layout
-
-\begin_layout Section
-Généralités
-\end_layout
-
-\begin_layout Subsection
-Définitions
-\end_layout
-
-\begin_layout Definition
-On appelle processus stochastique toute famille 
-\begin_inset Formula $\left(Y_{t}\right)_{t\in\mathbb{T}}$
-\end_inset
-
- de variables aléatoires définies sur un même espace de probabilité 
-\begin_inset Formula $\mathit{(\mathit{\Omega},A,\mathbb{P})}$
-\end_inset
-
-, indexées par l’espace des temps
-\begin_inset Formula $\mathbb{T}$
-\end_inset
-
- et à valeurs dans un même espace des états 
-\begin_inset Formula $\mathit{(E,\mathfrak{\mathscr{E}})}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Separator plain
-\end_inset
-
-
-\end_layout
-
-\begin_layout Definition
-On appelle série temporelle tout processus stochastique 
-\begin_inset Formula $\left(Y_{t}\right)_{t\in\mathbb{T}}$
-\end_inset
-
-où :
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\begin_inset Formula $Y_{t}∈\mathbb{R^{\mathrm{d}}}(d\geq1)$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $𝕋=\mathbb{N}$
-\end_inset
-
- ou 
-\begin_inset Formula $𝕋=\mathbb{Z}$
-\end_inset
-
- ,
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $\forall\in\mathbb{T\ }\mathbb{E}\mathbb{\mathit{\left(Y_{t}^{2}\right)<+\infty}}$
-\end_inset
-
-(on parle de processus du second ordre)
-\end_layout
-
-\end_deeper
-\begin_layout Standard
-\begin_inset Separator plain
-\end_inset
-
-
-\end_layout
-
-\begin_layout Definition
-Autrement dit une série temporelle est une suite d'observations quantitatives
- ordonnées dans le temps, généralement mesurées à intervalles réguliers
+Dans ce chapitre nous décrivons l'approche qu nous proposons pour effectuer
+ la prévision de la consommation d'éléctricité.
+ Dans le premier chapitre nous avons formalisé, dans le cas général, la
+ problématique de prévision pour une série multivariée.
+ Nous transposant celle-ci sur notre série, définie et décrite dans le chapitre
+ 2.
+ Avant de présenter notre approche, nous dressons une synthèse de la revue
+ de littérature générale, qui ne vaut pas être exhaustive, du domaine de
+ la prévision de la consommation d'électricité à court terme.
+ Nous renvoyons le lecteur intéréssé aux récents travaux
 \begin_inset CommandInset citation
 LatexCommand cite
-key "hyndman2021forecasting,box2015time,hamilton1994time,shumway2017time"
+key "nassif2022,su2025systematic,systematic_review_residential_2023"
 literal "false"
 
 \end_inset
 
-.
+ qui ont présentés des méta-analyse des articles publiés au sujet de la
+ prévision de la consommation électrique à court terme.
+ Dans la suite nous présentons notre modèle en détails et nous treminons
+ par une analyse de ses performances.
 \end_layout
 
-\begin_layout Definition
-Une série temporelle est dite univariée si 
-\begin_inset Formula $Y_{t}∈\mathbb{R}\ i.e.\ d=1$
+\begin_layout Section
+Modélisation
+\end_layout
+
+\begin_layout Subsection
+Notation
+\end_layout
+
+\begin_layout Standard
+Avant détailler notre modélisation nous rappelons les notations utilisées
+ dans ce chapitre :
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathbb{T}=\left\{ kT_{s},k\in\left\{ 0,...,L\right\} \right\} $
+\end_inset
+
+ l'ensemble d'instants d'observation qui couvre la période du 01-01-2023
+ au 31-12-2024 où:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $T_{s}=30\ min$
+\end_inset
+
+ est la période d'échantillonnage
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $L$
+\end_inset
+
+ le nombre d'observation: 
+\begin_inset Formula $L=(365+366)*48=35088$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Formula $\mathscr{\mathit{\mathit{\mathcal{R}}}\mathrm{=\left\{ 11,24,27,28,32,44,52,53,75,76,93,84\right\} }}$
+\end_inset
+
+désigne l'ensemble de régions métropolitaines de France encodées par leur
+ code officiel : 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="13" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Région
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+code
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Auvergne-Rhône-Alpes,
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+84
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bourgogne-Franche-Comté
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+27
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bretagne
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+53
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Grand-Est
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+44
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Centre-Val-de-Loire
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+24
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Hauts-de-France
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+32
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Normandie
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+28
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Nouvelle-Aquitaine
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+75
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Occitanie
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+76
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Pays-de-la-Loire
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+52
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Provence-Alpes-Côte-d'Azur
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+93
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Île-de-France
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+11
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Liste des régions et leurs codes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{Q}$
+\end_inset
+
+ désigne l'ensemble de configurations associant profiles Enedis et plages
+ de puissance souscrites.
+ Cet ensemble est décrite dans le tableau 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Profil et plage de puissance"
+plural "false"
+caps "false"
+noprefix "false"
+
 \end_inset
 
 .
- Il s'agit d'une séquence de valeurs observées pour une seule variable au
- fil du temps.
- 
 \end_layout
 
-\begin_layout Definition
-Une série temporelle est dite multivariée si si 
-\begin_inset Formula $Y_{t}∈\mathbb{R^{\mathrm{d}}}\ où.\ d>1$
+\begin_layout Itemize
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{r\in\mathit{\mathcal{R}},q\in\mathcal{Q},kT_{s}\in\mathbb{T}}$
+\end_inset
+
+est la série temporelle de la consommation d'électricité (en Wh) de la configura
+tion profile-plage de puissance 
+\begin_inset Formula $q$
+\end_inset
+
+ dans la région 
+\begin_inset Formula $r$
 \end_inset
 
 .
- Il s'agit de plusieurs variables observées simultanément.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+est la série temporelle qui coressponde à la température moyenne de la régions
  
+\begin_inset Formula $r$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left(U_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+est la série temporelle qui coressponde à l'humidité moyenne de la régions
+ 
+\begin_inset Formula $r$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+est la série temporelle qui coressponde au rayonnement solaire global de
+ la régions 
+\begin_inset Formula $r$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -725,7 +1037,7 @@ Si la composante cyclique est incluse dans la composante tendance cette
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-Y_{t}=T_{t}\times S_{t}\times R_{t}\label{eq:1.4}
+Y_{t}=Y_{t}=T_{t}\times S_{t}\times R_{t}\label{eq:1.4}
 \end{equation}
 
 \end_inset

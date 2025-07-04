@@ -3216,7 +3216,7 @@ literal "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -3883,7 +3883,7 @@ montre la corrélation entre l'humidité et la consommation électrique observé
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -4516,10 +4516,6 @@ décomposition
 
 \begin_layout Standard
 modèle pour chaque composante, variable exogènes liées
-\end_layout
-
-\begin_layout Standard
-
 \end_layout
 
 \end_body
