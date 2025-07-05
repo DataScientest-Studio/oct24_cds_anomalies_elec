@@ -846,26 +846,18 @@ Dans les précedents chapitres nous avons validé statistiquement les hypothèse
 \end_layout
 
 \begin_layout Itemize
-les série
-\begin_inset space ~
-\end_inset
-
-temporelles de la consommation d'électricité sont des séries multi-saisonnières,
- 
+les séries temporelles de la consommation d'électricité sont des séries
+ multi-saisonnières, 
 \end_layout
 
 \begin_layout Itemize
 l'analyse spéctrale permet de déterminer les saisonnalités dominantes de
- celles-ci,
+ celles-ci, 
 \end_layout
 
 \begin_layout Itemize
-les série
-\begin_inset space ~
-\end_inset
-
-temporelles de la consommation d'électricité sont non stationnaire et ceci
- est dû à leurs tendances, 
+les série temporelles de la consommation d'électricité sont non stationnaire
+ et ceci est dû à leurs tendances, 
 \end_layout
 
 \begin_layout Itemize
@@ -1036,7 +1028,13 @@ ues, dont l’intégration améliore significativement la qualité des prévisio
  En conclusion, les auteurs affirment qu’aucun modèle universel ne se distingue
  nettement : le choix dépend du contexte, de l’horizon de prévision et des
  données disponibles.
+ Cette étude confirme que les métrique les plus utilisées sont MAPE, RMSE
+ et MAE.
  
+\end_layout
+
+\begin_layout Standard
+Autre Prophet ....
 \end_layout
 
 \begin_layout Section
@@ -1044,7 +1042,40 @@ Modèle proposé
 \end_layout
 
 \begin_layout Subsection
-Déméarche : comment arraiver à ce modèle ?
+Le concept générale
+\end_layout
+
+\begin_layout Standard
+L'analyse que nous avons effectuée et les hypothèses que nous avons validées
+ montre qu'il faut effectuer analyse spectrale de la variable cible pour
+ générer ses périodes, décomposer 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+la variable cible ainsi que les variables exogènes selon ces périodes, puis
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ établir un modèle adapté à chaque composante.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1056,7 +1087,8 @@ literal "false"
 
 \end_inset
 
-montrent que le modèle SARIMA
+montrent que le modèle autorégressif intégré à moyenne mobile saisonnière
+ SARIMA
 \begin_inset Foot
 status open
 
@@ -1066,10 +1098,8 @@ Seasonal AutoRegressive Integrated Moving Average
 
 \end_inset
 
-, i.e.
- modèles autorégressifs intégrés à moyenne mobile saisonnière, est le modèle
- le plus adapté pour les séries cycliques/saisonnières avec des saisonnalités
- stable.
+, est le plus adapté pour les séries cycliques/saisonnières avec des saisonnalit
+és stables.
  L'analyse spectrale des séries temporelles de la consommation d'électricité
  montre qu'elles sont multi-saisonnières et que leurs saisonnalités sont
  stables dans le temps.
@@ -1079,10 +1109,7 @@ Seasonal AutoRegressive Integrated Moving Average
  Ces périodes, détectées par cette analyse, sont utilisée pour décomposer
  la série temporelle de la consommation d'électricité (en Wh) ainsi que
  les séries temporelles représentant les varaibles météorologiques.
-\end_layout
-
-\begin_layout Standard
-la figure
+ La figure
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Spectrogramme-de-la"
@@ -1150,9 +1177,9 @@ Spectrogramme de la série temporelle de consommation d'électricité sur toute
 \begin_layout Standard
 Nous avons constaté que la tendance de la consommation d'électricité, dans
  sa relation avec les tendances des variables météorologiques, présente
- a un effet dynamique reflétant le fait que les individus s’adaptent aux
- conditions météorologiques changeantes avec un certain retard.
- La tendance de la consommation dépend pas uniquement de la température
+ un effet dynamique reflétant le fait que les individus s’adaptent aux condition
+s météorologiques changeantes avec un certain retard.
+ La tendance de la consommation ne dépend pas uniquement de la température
  à l'instant présent, mais aussi des températures des jours précédents.
  Ceci est également confirmé par d'autres études 
 \begin_inset CommandInset citation
@@ -1163,21 +1190,71 @@ literal "false"
 \end_inset
 
 .
- Nous fait les mêmes constations pour la composante résiduelle.
- 
-\end_layout
-
-\begin_layout Standard
-Les valeurs de la tendance de la série de consommation sont donc dépendant
- de ses valeurs passées, des valeurs pérsentes et passées des variables
- métorologiques.
- Le modèle que nous avons jugé le plus adapté pour capter cette effet de
- mémoire est le modèle LSTM.
+ Nous avons fait les mêmes constations pour la composante résiduelle.
+ Les valeurs de la tendance de la série de consommation dépendent don de
+ ses valeurs passées, des valeurs présentes et passées des variables métorologiq
+ues.
+ Le modèle le plus adapté pour capter cette effet de mémoire est le modèle
+ LSTM.
  Nous adoptons donc ce modèle pour les composantes tendance et résidus.
 \end_layout
 
 \begin_layout Subsection
-Vue globale du modèle
+Architecture générale
+\end_layout
+
+\begin_layout Standard
+L'architecture général de notre approche est donnée par le schéma de la
+ figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Architecture-générale"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Lafigure illustre le pipeline qui correspond à l'implémentation de ce schéma.
+ Dans cette figures 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Chap3/Archi.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Architecture-générale"
+
+\end_inset
+
+Architecture générale
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -1248,6 +1325,14 @@ test
 
 \begin_layout Itemize
 Comparaison
+\end_layout
+
+\begin_layout Standard
+: la regression liénaire, la regression basée sur XGBoost, Prophet, NeuralProphe
+t, et le modèle deep learning N-BEATS.
+ Les résultats obtenus par les modèles de regression était médiocres, les
+ résultas de Prohpet aussi n'éatit pas convaincantes.
+ et les modèles NeuralProphet et N-BEATS 
 \end_layout
 
 \end_body

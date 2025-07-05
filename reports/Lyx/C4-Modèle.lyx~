@@ -846,26 +846,18 @@ Dans les précedents chapitres nous avons validé statistiquement les hypothèse
 \end_layout
 
 \begin_layout Itemize
-les série
-\begin_inset space ~
-\end_inset
-
-temporelles de la consommation d'électricité sont des séries multi-saisonnières,
- 
+les séries temporelles de la consommation d'électricité sont des séries
+ multi-saisonnières, 
 \end_layout
 
 \begin_layout Itemize
 l'analyse spéctrale permet de déterminer les saisonnalités dominantes de
- celles-ci,
+ celles-ci, 
 \end_layout
 
 \begin_layout Itemize
-les série
-\begin_inset space ~
-\end_inset
-
-temporelles de la consommation d'électricité sont non stationnaire et ceci
- est dû à leurs tendances, 
+les série temporelles de la consommation d'électricité sont non stationnaire
+ et ceci est dû à leurs tendances, 
 \end_layout
 
 \begin_layout Itemize
@@ -914,9 +906,9 @@ Avant de faire la synthèse de notre revue de littérature, nous tenons à
  souligner que la majorité des études publiées traitent de la prévision
  de la charge électrique qui consiste à prévoir la quantité d’électricité
  demandée à un moment donné.
- Dans notre étude nous intéressons à la prévision de la consommation d’électrici
-té, qui consiste à prévoir la quantité d’électricité qui sera consommée
- sur une période par un agrégat d'utilisateurs Enedis.
+ Alors que Dans notre étude nous intéressons à la prévision de la consommation
+ d’électricité, qui consiste à prévoir la quantité d’électricité qui sera
+ consommée sur une période par un agrégat d'utilisateurs.
  Malgrè cette différence point de vue (production vs consommation) le paradigme
  est le même.
 \end_layout
@@ -945,19 +937,16 @@ est une méta-analyse de 240 articles publiés sur sujet de la prévision de
 STLF pour Short-Term Load Forecasting
 \shape default
 ) entre 2000 et 2019.
- Selon cette étude, 87% des études traite le problème
-\begin_inset space ~
-\end_inset
-
-prévision de la charge d'électricité à court terme, par des techniques de
- regression alors que 13% le traite par des technique de classification.
- L’utilisation de réseaux de neurones artificiels (ANN), d'un manière exclusive,
- représente 21 % des modèles proposés dans la littérature, et en hybridation
- avec d'autres modèles ce taux d'utilisation passe à 45 % .
- Ils sont suivis, avec 10% d'utilisation, par des modèles de série temporelle,
- incluant les modèles autorégressifs à moyenne mobile (ARIMA).
- Les modèles de régression représente 9 % des modèles proposés, alors que
- les modèles basée sur la logique floue représentent 4% et la régression
+ Selon cette étude, 87% des études traite ce problème de prévision par des
+ techniques de regression alors que 13% le traite par des techniques de
+ classification.
+ L’utilisation de réseaux de neurones artificiels (ANN) représente 21 %
+ des modèles proposés dans la littérature, et en combinaison avec d'autres
+ modèles ce taux passe à 45 % .
+ Ils sont suivis des modèles de série temporelle, incluant les modèles autorégre
+ssifs à moyenne mobile (ARIMA), représentent 10% des publications analysées.
+ Les modèles de régression représentent 9 % des modèles proposés, alors
+ que les modèles basés sur la logique floue représentent 4% et la régression
  à vecteurs de support (SVR) est autour de 4 % des modèles proposés aussi.
  L'étude cite également d'autre modèle comme les modèles d'optimisation
  par essaims particulaires (particle swarm optimization ou PSO), les vecteurs
@@ -1015,46 +1004,37 @@ issage automatique, tels que la régression du vecteur de support (SVR) et
  Quand aux ANN le problème convergence vers des optimums locaux entraîne
  une grande erreur entre la valeur prédite et la valeur réelle.
  Les auteurs souligne que des améliorations significatives des performances
- grâce d'apprentissage profond.
- Les solutions les plus performantes et les plus réussies sont les modèles
- DL qui intègrent des réseaux neuronaux à convolution (CNN) [ 10 ,21 - 25]
- et des mémoires à court terme (LSTM) [24 ,26 ,29 ], avec des données à
- grande échelle provenant des données historiques de Energies 2023, 16,
- 4098 16 of 26 de 2 semaines à 10 ans.
- Les approches DL intégrées aux modèles CNN ont été étudiées pour prédire
- la consommation d'énergie quotidienne ou horaire, tandis que les architectures
- LSTM ont été étudiées pour prédire la consommation d'énergie sur différentes
- périodes, à savoir à court terme, c'est-à-dire 7 jours ou 1 mois, parce
- qu'elles peuvent capturer les dépendances à long terme dans les séries
- temporelles.
- Le troisième type d'approche axée sur les données pour les solutions STLF
- est appelé méthode hybride, , qui vise à intégrer divers types de techniques
- qui exploitent la force de différentes techniques statistiques ou d'apprentissa
-ge automatique , et qui surpasse les modèles classiques ou récents.
- Les auteurs des études analysées ont cherché à hybrider deux ou plusieurs
- techniques d'apprentissage automatique [ 8, 10, 25 ] et statistiques [28-30]
- afin d'améliorer la précision des prévisions de leur modèle
-\end_layout
-
-\begin_layout Standard
-Les auteurs soulignent que les méthodes statistiques offrent simplicité
- et transparence mais peinent face aux dynamiques non linéaires et aux données
- bruitées, tandis que les modèles d'apprentissage automatique, plus performants
- pour capturer des patterns complexes, nécessitent un réglage soigné et
- de larges volumes de données.
-\end_layout
-
-\begin_layout Standard
-Ils relèvent également l’intérêt croissant pour des approches hybrides,
- combinant modèles statistiques et réseaux de neurones pour pallier leurs
- faiblesses respectives.
+ ont été constaté dans les études utilisant l'apprentissage profond.
+ Il affirme que les solutions les plus performantes et les plus réussies
+ sont les modèles qui intègrent des réseaux neuronaux à convolution (CNN)
+ et des mémoires à court terme (LSTM).
+ Les approches basées sur des modèles CNN ont de meilleurs performance pour
+ des prévisions à court treme avec un horizon d'une heure à un jour, tandis
+ que les architectures LSTM permettent de faire des prévisions à court treme
+ avec des horizons plus longs allant de 7 jours à 1 mois, grâce à leur capacité
+ de capturer les dépendances à long terme dans les séries temporelles.
+ Les approches hybrides combinent les avantages d'une ou plusieurs techniques
+ pour réduire les erreurs de prévision..
+ Ces modèles surmontent les inconvénients présentés par les structures non
+ hybrides dans la recherche d'une meilleure précision de prévision en augmentant
+ la robustesse et l'efficacité d'un modèle hybride.
+ La plupart des modèles hybrides présentés combinent des modèles linéaires
+ et non linéaires pour une prévision efficace.
+ Les auteurs relèvent l’intérêt croissant pour ces approches hybrides, combinant
+ modèles statistiques et réseaux de neurones pour pallier leurs faiblesses
+ respectives.
  L’étude insiste sur l’importance des variables exogènes, notamment météorologiq
 ues, dont l’intégration améliore significativement la qualité des prévisions.
  En conclusion, les auteurs affirment qu’aucun modèle universel ne se distingue
  nettement : le choix dépend du contexte, de l’horizon de prévision et des
  données disponibles.
- Ils appellent ainsi à des recherches futures visant des modèles plus généraux,
- transférables et intégrant davantage de facteurs comportementaux et contextuels.
+ Cette étude confirme que les métrique les plus utilisées sont MAPE, RMSE
+ et MAE.
+ 
+\end_layout
+
+\begin_layout Standard
+Autre Prophet ....
 \end_layout
 
 \begin_layout Section
@@ -1062,7 +1042,40 @@ Modèle proposé
 \end_layout
 
 \begin_layout Subsection
-Déméarche : comment arraiver à ce modèle ?
+Le concept générale
+\end_layout
+
+\begin_layout Standard
+L'analyse que nous avons effectuée et les hypothèses que nous avons validées
+ montre qu'il faut effectuer analyse spectrale de la variable cible pour
+ générer ses périodes, décomposer 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+la variable cible ainsi que les variables exogènes selon ces périodes, puis
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ établir un modèle adapté à chaque composante.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1074,7 +1087,8 @@ literal "false"
 
 \end_inset
 
-montrent que le modèle SARIMA
+montrent que le modèle autorégressif intégré à moyenne mobile saisonnière
+ SARIMA
 \begin_inset Foot
 status open
 
@@ -1084,10 +1098,8 @@ Seasonal AutoRegressive Integrated Moving Average
 
 \end_inset
 
-, i.e.
- modèles autorégressifs intégrés à moyenne mobile saisonnière, est le modèle
- le plus adapté pour les séries cycliques/saisonnières avec des saisonnalités
- stable.
+, est le plus adapté pour les séries cycliques/saisonnières avec des saisonnalit
+és stables.
  L'analyse spectrale des séries temporelles de la consommation d'électricité
  montre qu'elles sont multi-saisonnières et que leurs saisonnalités sont
  stables dans le temps.
@@ -1097,10 +1109,7 @@ Seasonal AutoRegressive Integrated Moving Average
  Ces périodes, détectées par cette analyse, sont utilisée pour décomposer
  la série temporelle de la consommation d'électricité (en Wh) ainsi que
  les séries temporelles représentant les varaibles météorologiques.
-\end_layout
-
-\begin_layout Standard
-la figure
+ La figure
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Spectrogramme-de-la"
@@ -1168,9 +1177,9 @@ Spectrogramme de la série temporelle de consommation d'électricité sur toute
 \begin_layout Standard
 Nous avons constaté que la tendance de la consommation d'électricité, dans
  sa relation avec les tendances des variables météorologiques, présente
- a un effet dynamique reflétant le fait que les individus s’adaptent aux
- conditions météorologiques changeantes avec un certain retard.
- La tendance de la consommation dépend pas uniquement de la température
+ un effet dynamique reflétant le fait que les individus s’adaptent aux condition
+s météorologiques changeantes avec un certain retard.
+ La tendance de la consommation ne dépend pas uniquement de la température
  à l'instant présent, mais aussi des températures des jours précédents.
  Ceci est également confirmé par d'autres études 
 \begin_inset CommandInset citation
@@ -1181,21 +1190,57 @@ literal "false"
 \end_inset
 
 .
- Nous fait les mêmes constations pour la composante résiduelle.
- 
-\end_layout
-
-\begin_layout Standard
-Les valeurs de la tendance de la série de consommation sont donc dépendant
- de ses valeurs passées, des valeurs pérsentes et passées des variables
- métorologiques.
- Le modèle que nous avons jugé le plus adapté pour capter cette effet de
- mémoire est le modèle LSTM.
+ Nous avons fait les mêmes constations pour la composante résiduelle.
+ Les valeurs de la tendance de la série de consommation dépendent don de
+ ses valeurs passées, des valeurs présentes et passées des variables métorologiq
+ues.
+ Le modèle le plus adapté pour capter cette effet de mémoire est le modèle
+ LSTM.
  Nous adoptons donc ce modèle pour les composantes tendance et résidus.
 \end_layout
 
 \begin_layout Subsection
-Vue globale du modèle
+Architecture 
+\end_layout
+
+\begin_layout Standard
+L'architecture général de notre approche est donnée par le schéma de la
+ figure ...
+ .
+ LA figure illustre le pipeline qui correspond à l'implémentation de ce
+ schéma.
+ Dans cette figures 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Chap3/Archi.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Architecture générale
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Itemize
@@ -1266,6 +1311,14 @@ test
 
 \begin_layout Itemize
 Comparaison
+\end_layout
+
+\begin_layout Standard
+: la regression liénaire, la regression basée sur XGBoost, Prophet, NeuralProphe
+t, et le modèle deep learning N-BEATS.
+ Les résultats obtenus par les modèles de regression était médiocres, les
+ résultas de Prohpet aussi n'éatit pas convaincantes.
+ et les modèles NeuralProphet et N-BEATS 
 \end_layout
 
 \end_body
