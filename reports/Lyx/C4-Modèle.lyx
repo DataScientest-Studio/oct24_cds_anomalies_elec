@@ -97,7 +97,7 @@ theorems-std
 \begin_body
 
 \begin_layout Chapter
-Modéèle proposé
+Modèle proposé
 \end_layout
 
 \begin_layout Standard
@@ -164,8 +164,7 @@ literal "false"
 
 \end_inset
 
- qui ont présentés des méta-analyse des articles publiés au sujet de la
- prévision de la consommation électrique à court terme.
+ qui ont présentés des méta-analyse des articles publiés sur le sujet .
  Dans la suite nous présentons notre modèle en détails et nous treminons
  par une analyse de ses performances.
 \end_layout
@@ -691,71 +690,6 @@ est la série temporelle qui coressponde au rayonnement solaire global de
 \end_layout
 
 \begin_layout Subsection
-Hypothèses validées 
-\end_layout
-
-\begin_layout Standard
-Dans les précedents chapitres nous avons validé statistiquement les hypothèse
- suivantes :
-\end_layout
-
-\begin_layout Itemize
-la série
-\begin_inset space ~
-\end_inset
-
-temporelle de la consommation d'électricité est une série multi-saisonnières,
- 
-\end_layout
-
-\begin_layout Itemize
-l'analyse spéctrale permet de déterminer les saisonnalités dominante de
- la consommation d'électricité
-\end_layout
-
-\begin_layout Itemize
-la consommation d'électricités est non stationnaire et ceci est dû à la
- tendance, 
-\end_layout
-
-\begin_layout Itemize
-les composantes saisonnières et résiduelles de la consommation d'électricités
- sont stationnaires,
-\end_layout
-
-\begin_layout Itemize
-Les composantes saisonnières de la consommation d'électricités sont indépandante
-s des varaibles exogènes, 
-\end_layout
-
-\begin_layout Itemize
-ilexiste une relation non linéaire entre la tendance de la consommation
- d'électricité et les tendances des variables exogènes,
-\end_layout
-
-\begin_layout Itemize
-la tendance de la consommation d'électricité est fortement corrélée aux
- séries obtenues par transformation des tendances des variables exogènes,
-\end_layout
-
-\begin_layout Itemize
-l'existance d'une relation non linéaire entre la résidus de la consommation
- d'électricité et les résidus des variables exogènes,
-\end_layout
-
-\begin_layout Itemize
-le résidus de la consommation d'électricité est fortement corrélée aux séries
- obtenues par transformation des résidus des variables exogènes,
-\end_layout
-
-\begin_layout Itemize
-le résidus de la consommation d'électricité les composantes résiduelles
- des variables météorologiques et dépendent uniquement de la configuration
- profile-puissance souscrite.
- 
-\end_layout
-
-\begin_layout Subsection
 Formalisation 
 \end_layout
 
@@ -900,8 +834,135 @@ sur les valeurs passées de la série cible et sur les variables exogènes.
 
 \end_layout
 
+\begin_layout Subsection
+Hypothèses validées 
+\end_layout
+
+\begin_layout Standard
+Dans les précedents chapitres nous avons validé statistiquement les hypothèse
+ suivantes :
+\end_layout
+
+\begin_layout Itemize
+les série
+\begin_inset space ~
+\end_inset
+
+temporelles de la consommation d'électricité sont des séries multi-saisonnières,
+ 
+\end_layout
+
+\begin_layout Itemize
+l'analyse spéctrale permet de déterminer les saisonnalités dominantes de
+ celles-ci,
+\end_layout
+
+\begin_layout Itemize
+les série
+\begin_inset space ~
+\end_inset
+
+temporelles de la consommation d'électricité sont non stationnaire et ceci
+ est dû à leurs tendances, 
+\end_layout
+
+\begin_layout Itemize
+les composantes saisonnières et résiduelles sont stationnaires,
+\end_layout
+
+\begin_layout Itemize
+Les composantes saisonnières sont indépandantes des varaibles exogènes,
+ 
+\end_layout
+
+\begin_layout Itemize
+il existe une relation non linéaire entre la tendance de la consommation
+ d'électricité et les tendances des variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+la tendance de la consommation d'électricité est fortement corrélée aux
+ séries obtenues par des transformations bien établies des tendances des
+ variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+l'existance d'une relation non linéaire entre le résidus de la consommation
+ d'électricité et les résidus des variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+le résidus de la consommation d'électricité est fortement corrélée aux séries
+ obtenues par transformation des résidus des variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+le résidus de la consommation d'électricité les composantes résiduelles
+ des variables météorologiques et dépendent uniquement de la configuration
+ profile-puissance souscrite.
+ 
+\end_layout
+
 \begin_layout Section
 Modèles proposés dans la littérature
+\end_layout
+
+\begin_layout Standard
+Dans cette section nous synthèstisons la revue de littérature.
+ Nous nous sommes appyé sur les dernière revues de littératures publiés.
+ 
+\end_layout
+
+\begin_layout Standard
+Une méta-analyse de 240 articles publiés au sujet de la prévision de la
+ consommation électrique à court terme entre 2000 et 2019 (Nassif et al.,
+ 2022)
+\end_layout
+
+\begin_layout Standard
+Une méta-analyse de 240 articles publiés au sujet de la prévision de la
+ consommation électrique à court terme entre 2000 et 2019 (Nassif et al.,
+ 2022) a démontré que la classe de méthodes la plus populaire est de loin
+ l’utilisation de réseaux de neurones artificiels avec 21 % des modèles
+ proposés dans la littérature qui en font un usage exclusif, un nombre qui
+ monte à 45 % lorsqu’on compte aussi les modèles hybrides qui en font usage.
+ Ils sont suivis des modèles de série temporelle, incluant les modèles autorégre
+ssifs à moyenne mobile (ARIMA), comptant pour 10 % des modèles proposés
+ ; des modèles de régression, pour 9 % des modèles proposés ; et des modèles
+ de logique floue et de régression à vecteurs de support (SVR), pour autour
+ de 4 % des modèles proposés chacun.
+ D’autres modèles employés sont les optimisations par essaims particulaires
+ (particle swarm optimization ou PSO), les vecteurs autorégressifs bayésiens
+ (Bayesian vector autoregression ou BVAR), les modèles de décomposition,
+ les filtres de Kalman, les cartes autoadaptatives ou cartes de Kohonen
+ (self organizing maps ou SOM), Grey Prediction, les algorithmes de colonies
+ de fourmis (ant colony optimization ou ACO), et les algorithmes génétiques
+ (GA).
+ Dans l’ensemble, les techniques d’apprentissage automatique ont été utilisées
+ dans environ 43 % des travaux, les techniques hybrides employant plusieurs
+ modèles dans 44 %, et les méthodes statistiques dans environ 13 %
+\end_layout
+
+\begin_layout Standard
+Étant donné le fait que l’on comprend généralement bien les facteurs qui
+ influencent la demande électrique au jour le jour, la quantité de données
+ généralement disponibles, et l’assurance de pouvoir supposer que son comporteme
+nt dans un futur proche sera similaire à celui récemment observé, les modèles
+ de pré- vision à court terme de la consommation électrique peuvent obtenir
+ des résultats remarquablement précis.
+ En ce sens, Nassif et al.
+ (2022) suggèrent qu’un score MAPE compétitif avec les méthodes les plus
+ récentes est un score qui ne dépasse pas 1 % (Nassif et al., 2022).
+ Un score MAPE entre 1 % et 2 % peut cependant encore être qualifié d’intéressan
+t
+\end_layout
+
+\begin_layout Section
+Modèle proposé
+\end_layout
+
+\begin_layout Subsection
+Déméarche : comment arraiver à ce modèle ?
 \end_layout
 
 \begin_layout Standard
@@ -991,15 +1052,11 @@ Spectrogramme de la série temporelle de consommation d'électricité sur toute
 \begin_inset Formula $\left(\stackrel[q\in Q]{}{\sum}Y_{k}^{(84,q)}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
- 
+
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
@@ -1037,23 +1094,15 @@ Les valeurs de la tendance de la série de consommation sont donc dépendant
  Nous adoptons donc ce modèle pour les composantes tendance et résidus.
 \end_layout
 
-\begin_layout Section
-Modèle proposé
-\end_layout
-
-\begin_layout Itemize
-Déméarche : comment arraiver à ce modèle ?
-\end_layout
-
-\begin_layout Itemize
+\begin_layout Subsection
 Vue globale du modèle
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 Partitionnement entrainement/test
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 Analyse spectrale
 \end_layout
@@ -1075,29 +1124,29 @@ recomposition
 \end_layout
 
 \end_deeper
-\begin_layout Itemize
+\begin_layout Subsection
 SARIMA 
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 Principe
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 Prediction des composantes saisonnière SARIMA
 \end_layout
 
 \end_deeper
-\begin_layout Itemize
+\begin_layout Subsection
 Prédiction par LSTM des composantes tendance et résidus/ transformation
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 principe
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
 transformation
 \end_layout
@@ -1107,22 +1156,16 @@ prévision
 \end_layout
 
 \end_deeper
-\begin_layout Itemize
+\begin_layout Subsection
 Evaluation 
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
 test
 \end_layout
 
 \begin_layout Itemize
 Comparaison
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Problème rencontrés
 \end_layout
 
 \end_body
