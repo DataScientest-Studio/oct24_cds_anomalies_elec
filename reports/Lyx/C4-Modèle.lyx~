@@ -154,8 +154,7 @@ Dans ce chapitre nous décrivons l'approche qu nous proposons pour effectuer
  2.
  Afin de comparer notre approche avec d'autres travaux, nous dressons ici
  une synthèse de la revue de littérature générale, qui ne vaut pas être
- exhaustive, du domaine de la prévision de la consommation d'électricité
- à court terme.
+ exhaustive.
  Nous renvoyons le lecteur intéréssé aux récents travaux
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -164,9 +163,12 @@ literal "false"
 
 \end_inset
 
- qui ont présentés des méta-analyse des articles publiés sur le sujet .
- Dans la suite nous présentons notre modèle en détails et nous treminons
- par une analyse de ses performances.
+ qui ont présentés des méta-analyse des articles publiés sur le sujet.
+ Il faut noter qu'il y a une différence entre la charge et la consommation.
+ Dans notre cas, nous nous intéressons à la prévision de la consommation
+ réels des clients Enedis et non pas à la charge éléctrique.
+ A la suite de cette revue de littérature nous présentons notre modèle en
+ détails et nous treminons par une analyse de ses performances.
 \end_layout
 
 \begin_layout Section
@@ -690,75 +692,6 @@ est la série temporelle qui coressponde au rayonnement solaire global de
 \end_layout
 
 \begin_layout Subsection
-Hypothèses validées 
-\end_layout
-
-\begin_layout Standard
-Dans les précedents chapitres nous avons validé statistiquement les hypothèse
- suivantes :
-\end_layout
-
-\begin_layout Itemize
-les série
-\begin_inset space ~
-\end_inset
-
-temporelles de la consommation d'électricité sont des séries multi-saisonnières,
- 
-\end_layout
-
-\begin_layout Itemize
-l'analyse spéctrale permet de déterminer les saisonnalités dominantes de
- celles-ci,
-\end_layout
-
-\begin_layout Itemize
-les série
-\begin_inset space ~
-\end_inset
-
-temporelles de la consommation d'électricité sont non stationnaire et ceci
- est dû à la tendance, 
-\end_layout
-
-\begin_layout Itemize
-les composantes saisonnières et résiduelles de la consommation d'électricités
- sont stationnaires,
-\end_layout
-
-\begin_layout Itemize
-Les composantes saisonnières de la consommation d'électricités sont indépandante
-s des varaibles exogènes, 
-\end_layout
-
-\begin_layout Itemize
-ilexiste une relation non linéaire entre la tendance de la consommation
- d'électricité et les tendances des variables exogènes,
-\end_layout
-
-\begin_layout Itemize
-la tendance de la consommation d'électricité est fortement corrélée aux
- séries obtenues par transformation des tendances des variables exogènes,
-\end_layout
-
-\begin_layout Itemize
-l'existance d'une relation non linéaire entre la résidus de la consommation
- d'électricité et les résidus des variables exogènes,
-\end_layout
-
-\begin_layout Itemize
-le résidus de la consommation d'électricité est fortement corrélée aux séries
- obtenues par transformation des résidus des variables exogènes,
-\end_layout
-
-\begin_layout Itemize
-le résidus de la consommation d'électricité les composantes résiduelles
- des variables météorologiques et dépendent uniquement de la configuration
- profile-puissance souscrite.
- 
-\end_layout
-
-\begin_layout Subsection
 Formalisation 
 \end_layout
 
@@ -903,58 +836,225 @@ sur les valeurs passées de la série cible et sur les variables exogènes.
 
 \end_layout
 
+\begin_layout Subsection
+Hypothèses validées 
+\end_layout
+
+\begin_layout Standard
+Dans les précedents chapitres nous avons validé statistiquement les hypothèse
+ suivantes :
+\end_layout
+
+\begin_layout Itemize
+les série
+\begin_inset space ~
+\end_inset
+
+temporelles de la consommation d'électricité sont des séries multi-saisonnières,
+ 
+\end_layout
+
+\begin_layout Itemize
+l'analyse spéctrale permet de déterminer les saisonnalités dominantes de
+ celles-ci,
+\end_layout
+
+\begin_layout Itemize
+les série
+\begin_inset space ~
+\end_inset
+
+temporelles de la consommation d'électricité sont non stationnaire et ceci
+ est dû à leurs tendances, 
+\end_layout
+
+\begin_layout Itemize
+les composantes saisonnières et résiduelles sont stationnaires,
+\end_layout
+
+\begin_layout Itemize
+Les composantes saisonnières sont indépandantes des varaibles exogènes,
+ 
+\end_layout
+
+\begin_layout Itemize
+il existe une relation non linéaire entre la tendance de la consommation
+ d'électricité et les tendances des variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+la tendance de la consommation d'électricité est fortement corrélée aux
+ séries obtenues par des transformations bien établies des tendances des
+ variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+l'existance d'une relation non linéaire entre le résidus de la consommation
+ d'électricité et les résidus des variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+le résidus de la consommation d'électricité est fortement corrélée aux séries
+ obtenues par transformation des résidus des variables exogènes,
+\end_layout
+
+\begin_layout Itemize
+le résidus de la consommation d'électricité les composantes résiduelles
+ des variables météorologiques et dépendent uniquement de la configuration
+ profile-puissance souscrite.
+ 
+\end_layout
+
 \begin_layout Section
 Modèles proposés dans la littérature
 \end_layout
 
 \begin_layout Standard
-Dans cette section nous synthèstisons la revue de littérature.
- Nous nous sommes appyé sur les dernière revues de littératures publiés.
+Avant de faire la synthèse de notre revue de littérature, nous tenons à
+ souligner que la majorité des études publiées traitent de la prévision
+ de la charge électrique qui consiste à prévoir la quantité d’électricité
+ demandée à un moment donné.
+ Dans notre étude nous intéressons à la prévision de la consommation d’électrici
+té, qui consiste à prévoir la quantité d’électricité qui sera consommée
+ sur une période par un agrégat d'utilisateurs Enedis.
+ Malgrè cette différence point de vue (production vs consommation) le paradigme
+ est le même.
+\end_layout
+
+\begin_layout Standard
+Notre synthèse s'appye sur les dernière revues de littératures publiés 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nassif2022,su2025systematic,systematic_review_residential_2023"
+literal "false"
+
+\end_inset
+
+.
+ La première 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nassif2022"
+literal "false"
+
+\end_inset
+
+est une méta-analyse de 240 articles publiés sur sujet de la prévision de
+ la charge électrique à court terme (
+\shape italic
+STLF pour Short-Term Load Forecasting
+\shape default
+) entre 2000 et 2019.
+ Selon cette étude, 87% des études traite le problème
+\begin_inset space ~
+\end_inset
+
+prévision de la charge d'électricité à court terme, par des techniques de
+ regression alors que 13% le traite par des technique de classification.
+ L’utilisation de réseaux de neurones artificiels (ANN), d'un manière exclusive,
+ représente 21 % des modèles proposés dans la littérature, et en hybridation
+ avec d'autres modèles ce taux d'utilisation passe à 45 % .
+ Ils sont suivis, avec 10% d'utilisation, par des modèles de série temporelle,
+ incluant les modèles autorégressifs à moyenne mobile (ARIMA).
+ Les modèles de régression représente 9 % des modèles proposés, alors que
+ les modèles basée sur la logique floue représentent 4% et la régression
+ à vecteurs de support (SVR) est autour de 4 % des modèles proposés aussi.
+ L'étude cite également d'autre modèle comme les modèles d'optimisation
+ par essaims particulaires (particle swarm optimization ou PSO), les vecteurs
+ autorégressifs bayésiens (Bayesian vector autoregression ou BVAR), les
+ modèles de décomposition, les filtres de Kalman, les cartes autoadaptatives
+ ou cartes de Kohonen (self organizing maps ou SOM), Grey Prediction, les
+ algorithmes de colonies de fourmis (ant colony optimization ou ACO), et
+ les algorithmes génétiques (GA).
+ Dans l’ensemble, les techniques d’apprentissage automatique ont été utilisées
+ dans environ 43 % des travaux, les techniques hybrides employant plusieurs
+ modèles dans 44 %, et les méthodes statistiques dans environ 13 %.
+ Les métrique les plus utilisées sont l'ordre : MAPE (Mean Absolute Percentage
+ Error) dans 62 % d''études, MSE (Mean Squared Error – MSE ) dans 34% d'études,
+ RMSE(Root Mean Squared Error) dans 26%, MAE (Mean Absolute Error) dans
+ 25 % et l'APE (Average Percentage Error) dans 6% des cas.
+ L'étude souligne que pour une prévsion à court terme, d'horizon d'un jour
+ et avec un pas d'une heure, les meilleurs score sont un MAPE entre 1% et
+ 2%, et dans quelque rare cas ce score passe sous la barre de 1%.
  
 \end_layout
 
 \begin_layout Standard
-Une méta-analyse de 240 articles publiés au sujet de la prévision de la
- consommation électrique à court terme entre 2000 et 2019 (Nassif et al.,
- 2022)
+L'étude 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "systematic_review_residential_2023"
+literal "false"
+
+\end_inset
+
+ analyse 38 travaux de recherche, publiés entre 2011 et 2022, sur la prévision
+ de la charge d'électricité à court terme (STLF) appliquées au secteur résidenti
+el.
+ Elle affirme que dans le monde, la consommation d'électricité des bâtiments
+ résidentiel représente 39 % de la consommation mondiale d'électricité ,
+ et qu'en Europe, cette proportion passe à 40 % .
+ Le nombre d'articles publiés au cours des dernières décennies sur le STLF
+ pour le secteur résidentieltémoigne de l'intérêt croissant de la communauté
+ scientifique sur ce sujet.
+ Les approches présentées dans ces 38 articles se fondent sur des méthodes
+ d'apprentissage automatique (ANN, LSTM, SVR, ANN, CFNN, MLP, CNN-LSTM),
+ des méthodes statistiques (ARIMA, SARIMA, Optimisation bayésienne , Processus
+ gaussiens (GP)) ou sur les combinaisons des deux.
+ L'apprentissage automatique est utilisée dans 57.9% des articles analysées,
+ les méthodes statistiques sont utilisées dans 18.4 % et la combinaison dans
+ 23.7%.
+ Les auteurs soulèvent le fait que les les performances des méthodes statistique
+s sont limités à cause de la non-linéarité du comportement de la consommation
+ d'éléctricité dans les batiments résidentielle et que les algorithmes d'apprent
+issage automatique, tels que la régression du vecteur de support (SVR) et
+ les réseaux neuronaux artificiels (ANN), peuvent remédier à cette non-linéarité.
+ Cependant pour la régression du vecteur de support, une sélection inappropriée
+ de la fonction noyau ou des hyperparamètres dégrades les performances de
+ la prévision.
+ Quand aux ANN le problème convergence vers des optimums locaux entraîne
+ une grande erreur entre la valeur prédite et la valeur réelle.
+ Les auteurs souligne que des améliorations significatives des performances
+ grâce d'apprentissage profond.
+ Les solutions les plus performantes et les plus réussies sont les modèles
+ DL qui intègrent des réseaux neuronaux à convolution (CNN) [ 10 ,21 - 25]
+ et des mémoires à court terme (LSTM) [24 ,26 ,29 ], avec des données à
+ grande échelle provenant des données historiques de Energies 2023, 16,
+ 4098 16 of 26 de 2 semaines à 10 ans.
+ Les approches DL intégrées aux modèles CNN ont été étudiées pour prédire
+ la consommation d'énergie quotidienne ou horaire, tandis que les architectures
+ LSTM ont été étudiées pour prédire la consommation d'énergie sur différentes
+ périodes, à savoir à court terme, c'est-à-dire 7 jours ou 1 mois, parce
+ qu'elles peuvent capturer les dépendances à long terme dans les séries
+ temporelles.
+ Le troisième type d'approche axée sur les données pour les solutions STLF
+ est appelé méthode hybride, , qui vise à intégrer divers types de techniques
+ qui exploitent la force de différentes techniques statistiques ou d'apprentissa
+ge automatique , et qui surpasse les modèles classiques ou récents.
+ Les auteurs des études analysées ont cherché à hybrider deux ou plusieurs
+ techniques d'apprentissage automatique [ 8, 10, 25 ] et statistiques [28-30]
+ afin d'améliorer la précision des prévisions de leur modèle
 \end_layout
 
 \begin_layout Standard
-Une méta-analyse de 240 articles publiés au sujet de la prévision de la
- consommation électrique à court terme entre 2000 et 2019 (Nassif et al.,
- 2022) a démontré que la classe de méthodes la plus populaire est de loin
- l’utilisation de réseaux de neurones artificiels avec 21 % des modèles
- proposés dans la littérature qui en font un usage exclusif, un nombre qui
- monte à 45 % lorsqu’on compte aussi les modèles hybrides qui en font usage.
- Ils sont suivis des modèles de série temporelle, incluant les modèles autorégre
-ssifs à moyenne mobile (ARIMA), comptant pour 10 % des modèles proposés
- ; des modèles de régression, pour 9 % des modèles proposés ; et des modèles
- de logique floue et de régression à vecteurs de support (SVR), pour autour
- de 4 % des modèles proposés chacun.
- D’autres modèles employés sont les optimisations par essaims particulaires
- (particle swarm optimization ou PSO), les vecteurs autorégressifs bayésiens
- (Bayesian vector autoregression ou BVAR), les modèles de décomposition,
- les filtres de Kalman, les cartes autoadaptatives ou cartes de Kohonen
- (self organizing maps ou SOM), Grey Prediction, les algorithmes de colonies
- de fourmis (ant colony optimization ou ACO), et les algorithmes génétiques
- (GA).
- Dans l’ensemble, les techniques d’apprentissage automatique ont été utilisées
- dans environ 43 % des travaux, les techniques hybrides employant plusieurs
- modèles dans 44 %, et les méthodes statistiques dans environ 13 %
+Les auteurs soulignent que les méthodes statistiques offrent simplicité
+ et transparence mais peinent face aux dynamiques non linéaires et aux données
+ bruitées, tandis que les modèles d'apprentissage automatique, plus performants
+ pour capturer des patterns complexes, nécessitent un réglage soigné et
+ de larges volumes de données.
 \end_layout
 
 \begin_layout Standard
-Étant donné le fait que l’on comprend généralement bien les facteurs qui
- influencent la demande électrique au jour le jour, la quantité de données
- généralement disponibles, et l’assurance de pouvoir supposer que son comporteme
-nt dans un futur proche sera similaire à celui récemment observé, les modèles
- de pré- vision à court terme de la consommation électrique peuvent obtenir
- des résultats remarquablement précis.
- En ce sens, Nassif et al.
- (2022) suggèrent qu’un score MAPE compétitif avec les méthodes les plus
- récentes est un score qui ne dépasse pas 1 % (Nassif et al., 2022).
- Un score MAPE entre 1 % et 2 % peut cependant encore être qualifié d’intéressan
-t
+Ils relèvent également l’intérêt croissant pour des approches hybrides,
+ combinant modèles statistiques et réseaux de neurones pour pallier leurs
+ faiblesses respectives.
+ L’étude insiste sur l’importance des variables exogènes, notamment météorologiq
+ues, dont l’intégration améliore significativement la qualité des prévisions.
+ En conclusion, les auteurs affirment qu’aucun modèle universel ne se distingue
+ nettement : le choix dépend du contexte, de l’horizon de prévision et des
+ données disponibles.
+ Ils appellent ainsi à des recherches futures visant des modèles plus généraux,
+ transférables et intégrant davantage de facteurs comportementaux et contextuels.
 \end_layout
 
 \begin_layout Section

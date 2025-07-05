@@ -415,14 +415,14 @@ Organisation du document
 Dans un premier chapitre nous présentons les concepts et formalismes mathématiqu
 es de bases pour décrire, analyser et prévoir des séries temporelles.
  Nous adoptons, dans notre approche la modélisation de la consommation d'électri
-cité, ainsi que les autres variables par des séries temporelle.
- Le second chapitre est dédiée à la synthèse de la revue de littérature,
- qui ne vaut pas être exhaustive, du domaine de la prévision de la consommation
- d'électricité à court terme.
- Le troisième chapitre présente la construction de la base de données, les
- transformations qui lui sont appliquées et une analyse fine des différentes
+cité, ainsi que les autres variables par des séries temporelles.
+ Le deuxième chapitre présente la construction de la base de données, les
+ transformations qui lui sont appliquées et une analyse des différentes
  relations entre ses variables et la variable cible.
- Le quatrième chapitre présente notre modèle.
+ Le dernier chapitre présente notre modèle.
+ Afin de comparer nos résultats aves d'autre travaux, nous dressons une
+ synthèse de la revue de littérature, qui ne vaut pas être exhaustive, du
+ domaine de la prévision de la consommation d'électricité à court terme.
  
 \end_layout
 

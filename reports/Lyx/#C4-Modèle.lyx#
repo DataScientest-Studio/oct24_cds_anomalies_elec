@@ -154,19 +154,8 @@ Dans ce chapitre nous décrivons l'approche qu nous proposons pour effectuer
  2.
  Afin de comparer notre approche avec d'autres travaux, nous dressons ici
  une synthèse de la revue de littérature générale, qui ne vaut pas être
- exhaustive, du domaine de la prévision de la charge d'électricité à court
- terme (
-\shape italic
-STLF pour Short-Term Load Forecasting
-\shape default
-).
- Il faut noter qu'il y a une différence entre la charge et la consommation.
- Dans notre cas, nous nous intéressons à la prévision de la consommation
- réels de clients 
-\end_layout
-
-\begin_layout Standard
-Nous renvoyons le lecteur intéréssé aux récents travaux
+ exhaustive.
+ Nous renvoyons le lecteur intéréssé aux récents travaux
 \begin_inset CommandInset citation
 LatexCommand cite
 key "nassif2022,su2025systematic,systematic_review_residential_2023"
@@ -174,9 +163,12 @@ literal "false"
 
 \end_inset
 
- qui ont présentés des méta-analyse des articles publiés sur le sujet .
- Dans la suite nous présentons notre modèle en détails et nous treminons
- par une analyse de ses performances.
+ qui ont présentés des méta-analyse des articles publiés sur le sujet.
+ Il faut noter qu'il y a une différence entre la charge et la consommation.
+ Dans notre cas, nous nous intéressons à la prévision de la consommation
+ réels des clients Enedis et non pas à la charge éléctrique.
+ A la suite de cette revue de littérature nous présentons notre modèle en
+ détails et nous treminons par une analyse de ses performances.
 \end_layout
 
 \begin_layout Section
@@ -918,9 +910,19 @@ Modèles proposés dans la littérature
 \end_layout
 
 \begin_layout Standard
-Dans cette section nous synthèstisons la revue de littérature.
- Nous nous sommes appyés sur les dernière revues de littératures publiés
- 
+Avant de faire la synthèse de notre revue de littérature, nous tenons à
+ souligner que la majorité des études publiées traitent de la prévision
+ de la charge électrique qui consiste à prévoir la quantité d’électricité
+ demandée à un moment donné.
+ Alors que Dans notre étude nous intéressons à la prévision de la consommation
+ d’électricité, qui consiste à prévoir la quantité d’électricité qui sera
+ consommée sur une période par un agrégat d'utilisateurs.
+ Malgrè cette différence point de vue (production vs consommation) le paradigme
+ est le même.
+\end_layout
+
+\begin_layout Standard
+Notre synthèse s'appye sur les dernière revues de littératures publiés 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "nassif2022,su2025systematic,systematic_review_residential_2023"
@@ -937,21 +939,22 @@ literal "false"
 
 \end_inset
 
-est ne méta-analyse de 240 articles publiés au sujet de la prévision de
- la consommation électrique à court terme entre 2000 et 2019.
- Selon cette étude, 87% des études traite le problème
-\begin_inset space ~
-\end_inset
-
-prévision de la consommation d'électricité à court terme, par des techniques
- de regression alors que 13% le traite par des technique de classification.
- L’utilisation de réseaux de neurones artificiels (ANN), d'un manière exclusive,
- représente 21 % des modèles proposés dans la littérature, et en hybridation
- avec d'autres modèles ce taux d'utilisation passe à 45 % .
- Ils sont suivis, avec 10% d'utilisation, par des modèles de série temporelle,
- incluant les modèles autorégressifs à moyenne mobile (ARIMA).
- Les modèles de régression représente 9 % des modèles proposés, alors que
- les modèles basée sur la logique floue représentent 4% et la régression
+est une méta-analyse de 240 articles publiés sur sujet de la prévision de
+ la charge électrique à court terme (
+\shape italic
+STLF pour Short-Term Load Forecasting
+\shape default
+) entre 2000 et 2019.
+ Selon cette étude, 87% des études traite ce problème de prévision par des
+ techniques de regression alors que 13% le traite par des techniques de
+ classification.
+ L’utilisation de réseaux de neurones artificiels (ANN) représente 21 %
+ des modèles proposés dans la littérature, et en combinaison avec d'autres
+ modèles ce taux passe à 45 % .
+ Ils sont suivis des modèles de série temporelle, incluant les modèles autorégre
+ssifs à moyenne mobile (ARIMA), représentent 10% des publications analysées.
+ Les modèles de régression représentent 9 % des modèles proposés, alors
+ que les modèles basés sur la logique floue représentent 4% et la régression
  à vecteurs de support (SVR) est autour de 4 % des modèles proposés aussi.
  L'étude cite également d'autre modèle comme les modèles d'optimisation
  par essaims particulaires (particle swarm optimization ou PSO), les vecteurs
@@ -982,45 +985,58 @@ literal "false"
 
 \end_inset
 
- donne une revue de littérature des travaux de recherche, effectéues entre
- 2011 et 2022, sur la prévision de la consommation d'électricité à court
- terme (STLF) appliquées au secteur résidentiel.
- Leur analyse confirme 
-\end_layout
-
-\begin_layout Standard
-met en évidence la diversité des approches, depuis les méthodes statistiques
- classiques (ARIMA/SARIMA, lissage exponentiel) jusqu’aux techniques avancées
- d’intelligence artificielle (ANN, LSTM, SVM, Random Forest).
- Les auteurs soulignent que les méthodes statistiques offrent simplicité
- et transparence mais peinent face aux dynamiques non linéaires et aux données
- bruitées, tandis que les modèles d’IA, plus performants pour capturer des
- patterns complexes, nécessitent un réglage soigné et de larges volumes
- de données.
- Ils relèvent également l’intérêt croissant pour des approches hybrides,
- combinant modèles statistiques et réseaux de neurones pour pallier leurs
- faiblesses respectives.
+ analyse 38 travaux de recherche, publiés entre 2011 et 2022, sur la prévision
+ de la charge d'électricité à court terme (STLF) appliquées au secteur résidenti
+el.
+ Elle affirme que dans le monde, la consommation d'électricité des bâtiments
+ résidentiel représente 39 % de la consommation mondiale d'électricité ,
+ et qu'en Europe, cette proportion passe à 40 % .
+ Le nombre d'articles publiés au cours des dernières décennies sur le STLF
+ pour le secteur résidentieltémoigne de l'intérêt croissant de la communauté
+ scientifique sur ce sujet.
+ Les approches présentées dans ces 38 articles se fondent sur des méthodes
+ d'apprentissage automatique (ANN, LSTM, SVR, ANN, CFNN, MLP, CNN-LSTM),
+ des méthodes statistiques (ARIMA, SARIMA, Optimisation bayésienne , Processus
+ gaussiens (GP)) ou sur les combinaisons des deux.
+ L'apprentissage automatique est utilisée dans 57.9% des articles analysées,
+ les méthodes statistiques sont utilisées dans 18.4 % et la combinaison dans
+ 23.7%.
+ Les auteurs soulèvent le fait que les les performances des méthodes statistique
+s sont limités à cause de la non-linéarité du comportement de la consommation
+ d'éléctricité dans les batiments résidentielle et que les algorithmes d'apprent
+issage automatique, tels que la régression du vecteur de support (SVR) et
+ les réseaux neuronaux artificiels (ANN), peuvent remédier à cette non-linéarité.
+ Cependant pour la régression du vecteur de support, une sélection inappropriée
+ de la fonction noyau ou des hyperparamètres dégrades les performances de
+ la prévision.
+ Quand aux ANN le problème convergence vers des optimums locaux entraîne
+ une grande erreur entre la valeur prédite et la valeur réelle.
+ Les auteurs souligne que des améliorations significatives des performances
+ ont été constaté dans les études utilisant l'apprentissage profond.
+ Il affirme que les solutions les plus performantes et les plus réussies
+ sont les modèles qui intègrent des réseaux neuronaux à convolution (CNN)
+ et des mémoires à court terme (LSTM).
+ Les approches basées sur des modèles CNN ont de meilleurs performance pour
+ des prévisions à court treme avec un horizon d'une heure à un jour, tandis
+ que les architectures LSTM permettent de faire des prévisions à court treme
+ avec des horizons plus longs allant de 7 jours à 1 mois, grâce à leur capacité
+ de capturer les dépendances à long terme dans les séries temporelles.
+ Les approches hybrides combinent les avantages d'une ou plusieurs techniques
+ pour réduire les erreurs de prévision..
+ Ces modèles surmontent les inconvénients présentés par les structures non
+ hybrides dans la recherche d'une meilleure précision de prévision en augmentant
+ la robustesse et l'efficacité d'un modèle hybride.
+ La plupart des modèles hybrides présentés combinent des modèles linéaires
+ et non linéaires pour une prévision efficace.
+ Les auteurs relèvent l’intérêt croissant pour ces approches hybrides, combinant
+ modèles statistiques et réseaux de neurones pour pallier leurs faiblesses
+ respectives.
  L’étude insiste sur l’importance des variables exogènes, notamment météorologiq
 ues, dont l’intégration améliore significativement la qualité des prévisions.
  En conclusion, les auteurs affirment qu’aucun modèle universel ne se distingue
  nettement : le choix dépend du contexte, de l’horizon de prévision et des
  données disponibles.
- Ils appellent ainsi à des recherches futures visant des modèles plus généraux,
- transférables et intégrant davantage de facteurs comportementaux et contextuels.
-\end_layout
-
-\begin_layout Standard
-Étant donné le fait que l’on comprend généralement bien les facteurs qui
- influencent la demande électrique au jour le jour, la quantité de données
- généralement disponibles, et l’assurance de pouvoir supposer que son comporteme
-nt dans un futur proche sera similaire à celui récemment observé, les modèles
- de prévision à court terme de la consommation électrique peuvent obtenir
- des résultats remarquablement précis.
- En ce sens, Nassif et al.
- (2022) suggèrent qu’un score MAPE compétitif avec les méthodes les plus
- récentes est un score qui ne dépasse pas 1 % (Nassif et al., 2022).
- Un score MAPE entre 1 % et 2 % peut cependant encore être qualifié d’intéressan
-t
+ 
 \end_layout
 
 \begin_layout Section
