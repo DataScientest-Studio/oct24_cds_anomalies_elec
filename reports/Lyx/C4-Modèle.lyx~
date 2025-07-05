@@ -1109,7 +1109,172 @@ Seasonal AutoRegressive Integrated Moving Average
  Ces périodes, détectées par cette analyse, sont utilisée pour décomposer
  la série temporelle de la consommation d'électricité (en Wh) ainsi que
  les séries temporelles représentant les varaibles météorologiques.
- La figure
+ 
+\end_layout
+
+\begin_layout Standard
+Nous avons constaté que la tendance de la consommation d'électricité, dans
+ sa relation avec les tendances des variables météorologiques, présente
+ un effet dynamique reflétant le fait que les individus s’adaptent aux condition
+s météorologiques changeantes avec un certain retard.
+ La tendance de la consommation ne dépend pas uniquement de la température
+ à l'instant présent, mais aussi des températures des jours précédents.
+ Ceci est également confirmé par d'autres études 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "comte1981,hyndman2021forecasting,gould2008,taylor2008"
+literal "false"
+
+\end_inset
+
+.
+ Nous avons fait les mêmes constations pour la composante résiduelle.
+ Les valeurs de la tendance de la série de consommation dépendent don de
+ ses valeurs passées, des valeurs présentes et passées des variables métorologiq
+ues.
+ Le modèle le plus adapté pour capter cette effet de mémoire est le modèle
+ LSTM.
+ Nous adoptons donc ce modèle pour les composantes tendance et résidus.
+\end_layout
+
+\begin_layout Subsection
+Architecture générale
+\end_layout
+
+\begin_layout Standard
+L'architecture général de notre approche est donnée par le schéma de la
+ figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Architecture-générale"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ La figure illustre l'implémentation de ce schéma en pipeline.
+ Chaque partie de cette architecture sera décrites dans les sections suivantes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Chap3/PipeLineGeneral.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Architecture-générale-1"
+
+\end_inset
+
+Architecture générale en pipeline
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Détection des saisonnalités et décomposition
+\end_layout
+
+\begin_layout Standard
+L'analyse spectrale est effectué par la Transformée de Fourier à Court Terme
+ (Short-Time Fourier Transform (STFT)) que nous avons décrit dnas le chapitre
+ de formalisation.
+ La méthode de détection des saisonnalités est également décrite par l'équation
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:detectionperiodes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+dans ce chapitre.
+ La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:SpectroDdcompoPipeline"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+montre un exemple de pipeline généré à partir de l'implémentation des l'analyse
+ sepctrale de la vraible cible et de la décomposition de celle-ci ainsi
+ que des autres variables exogènes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/SpectroDecompPipeline.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SpectroDdcompoPipeline"
+
+\end_inset
+
+Pipeline d'analyse spectrale et décomposition des séries temporelles 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La figure
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Spectrogramme-de-la"
@@ -1119,10 +1284,8 @@ noprefix "false"
 
 \end_inset
 
- illsutre la présence de trois saisonnnalités demi-journalière (21 pas =
- 10,5 heures), presque-journalière (42 pas =21 heures) et hebdomadaire (336
- pas =7 jours).
- 
+ illsutre un exemple d'analyse spectrale où trois saisonnnalités de 21 pas
+ ( 10,5 heures), de 42 pas (21 heures) et de 336 pas (7 jours) sont détectés.
 \end_layout
 
 \begin_layout Standard
@@ -1174,101 +1337,6 @@ Spectrogramme de la série temporelle de consommation d'électricité sur toute
 
 \end_layout
 
-\begin_layout Standard
-Nous avons constaté que la tendance de la consommation d'électricité, dans
- sa relation avec les tendances des variables météorologiques, présente
- un effet dynamique reflétant le fait que les individus s’adaptent aux condition
-s météorologiques changeantes avec un certain retard.
- La tendance de la consommation ne dépend pas uniquement de la température
- à l'instant présent, mais aussi des températures des jours précédents.
- Ceci est également confirmé par d'autres études 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "comte1981,hyndman2021forecasting,gould2008,taylor2008"
-literal "false"
-
-\end_inset
-
-.
- Nous avons fait les mêmes constations pour la composante résiduelle.
- Les valeurs de la tendance de la série de consommation dépendent don de
- ses valeurs passées, des valeurs présentes et passées des variables métorologiq
-ues.
- Le modèle le plus adapté pour capter cette effet de mémoire est le modèle
- LSTM.
- Nous adoptons donc ce modèle pour les composantes tendance et résidus.
-\end_layout
-
-\begin_layout Subsection
-Architecture 
-\end_layout
-
-\begin_layout Standard
-L'architecture général de notre approche est donnée par le schéma de la
- figure ...
- .
- LA figure illustre le pipeline qui correspond à l'implémentation de ce
- schéma.
- Dans cette figures 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Chap3/Archi.png
-	lyxscale 50
-	scale 50
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Architecture générale
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Partitionnement entrainement/test
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Analyse spectrale
-\end_layout
-
-\begin_layout Itemize
-Décomposition
-\end_layout
-
-\begin_layout Itemize
-modèles
-\end_layout
-
-\begin_layout Itemize
-recomposition
-\end_layout
-
-\begin_layout Itemize
-évaluation
-\end_layout
-
-\end_deeper
 \begin_layout Subsection
 SARIMA 
 \end_layout

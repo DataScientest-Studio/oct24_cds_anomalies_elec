@@ -1109,69 +1109,7 @@ Seasonal AutoRegressive Integrated Moving Average
  Ces périodes, détectées par cette analyse, sont utilisée pour décomposer
  la série temporelle de la consommation d'électricité (en Wh) ainsi que
  les séries temporelles représentant les varaibles météorologiques.
- La figure
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Spectrogramme-de-la"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- illsutre la présence de trois saisonnnalités demi-journalière (21 pas =
- 10,5 heures), presque-journalière (42 pas =21 heures) et hebdomadaire (336
- pas =7 jours).
  
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename Chap3/Consommation-ARA.png
-	lyxscale 70
-	scale 70
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Spectrogramme-de-la"
-
-\end_inset
-
-Spectrogramme de la série temporelle de consommation d'électricité sur toute
- la région Auvergne-Rhône-Alpes 
-\begin_inset Formula $\left(\stackrel[q\in Q]{}{\sum}Y_{k}^{(84,q)}\right)_{kT_{s}\in\mathbb{T}}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1216,9 +1154,8 @@ noprefix "false"
 \end_inset
 
 .
- La figure illustre le pipeline qui correspond à l'implémentation de ce
- schéma.
- 
+ La figure illustre l'implémentation de ce schéma en pipeline.
+ Chaque partie de cette architecture sera décrites dans les sections suivantes.
 \end_layout
 
 \begin_layout Standard
@@ -1226,43 +1163,6 @@ noprefix "false"
 wide false
 sideways false
 status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Chap3/Archi.png
-	lyxscale 50
-	scale 50
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Architecture-générale"
-
-\end_inset
-
-Architecture générale
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1283,6 +1183,148 @@ name "fig:Architecture-générale-1"
 \end_inset
 
 Architecture générale en pipeline
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Détection des saisonnalités et décomposition
+\end_layout
+
+\begin_layout Standard
+L'analyse spectrale est effectué par la Transformée de Fourier à Court Terme
+ (Short-Time Fourier Transform (STFT)) que nous avons décrit dnas le chapitre
+ de formalisation.
+ La méthode de détection des saisonnalités est également décrite par l'équation
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:detectionperiodes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+dans ce chapitre te la décompistion des séries temporelle aussi.
+ La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:SpectroDdcompoPipeline"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+montre un exemple de pipeline généré à partir de l'implémentation des l'analyse
+ sepctrale de la vraible cible et de la décomposition de celle-ci ainsi
+ que des autres variables exogènes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/SpectroDecompPipeline.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SpectroDdcompoPipeline"
+
+\end_inset
+
+Pipeline d'analyse spectrale et décomposition des séries temporelles 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La figure
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Spectrogramme-de-la"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ illsutre un exemple d'analyse spectrale où trois saisonnnalités de 21 pas
+ ( 10,5 heures), de 42 pas (21 heures) et de 336 pas (7 jours) sont détectés.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/Consommation-ARA.png
+	lyxscale 70
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Spectrogramme-de-la"
+
+\end_inset
+
+Spectrogramme de la série temporelle de consommation d'électricité sur toute
+ la région Auvergne-Rhône-Alpes 
+\begin_inset Formula $\left(\stackrel[q\in Q]{}{\sum}Y_{k}^{(84,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+
 \end_layout
 
 \end_inset

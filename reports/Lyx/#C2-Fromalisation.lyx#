@@ -3037,9 +3037,24 @@ S=\left\{ \left|X_{p,k}\right|^{2},(p,k)\in\left\{ 0,..,P-1\right\} \times\left\
 \end_layout
 
 \begin_layout Standard
-Dans notre cadre, l'objectif de cette analyse est d'extraire les fréquences
+Dans notre cadre, l'objectif de cette analyse est d'extraire les périodes
  dominantes pour identifier toutes les saisonnalités.
- La figure 
+ L'ensemble de ces périodes pour un seuil de détection donné est :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathcal{P_{\mathrm{S}}}=\left\{ \frac{K}{k}T_{s}\ tel\ que\ \forall p\in\left\{ 0,..,P-1\right\} \ \frac{\left|X_{p,k}\right|^{2}}{\underset{l\in\left\{ 0,...,K\right\} }{max}\sum\left|X_{p,l}\right|^{2}}\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Spectrogramme-de-la-1"
@@ -3049,7 +3064,7 @@ noprefix "false"
 
 \end_inset
 
-montre le spectrogramme de las série de la figure 
+montre le spectrogramme de la série de la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Consommation-électrique-du"
@@ -3202,8 +3217,8 @@ Autrement dit la prévision d'une série temporelle univariée consiste à estim
 \uwave off
 \noun off
 \color none
-, notons pour 
-\begin_inset Formula $\tau\in\mathbb{T},$
+, notons 
+\begin_inset Formula $\tau=\mathbb{\mathrm{max(\mathbb{T})}},$
 \end_inset
 
  
@@ -3277,17 +3292,17 @@ es.
 \noun off
 \color none
 
-\begin_inset Formula $\left(Y_{1,t+1},Y_{1,t+2},...,Y_{1,t+k}\right)$
+\begin_inset Formula $\left(Y_{1,\tau+1},Y_{1,\tau+2},...,Y_{1,\tau+h}\right)$
 \end_inset
 
 en fonction de 
-\begin_inset Formula $\mathcal{F}_{t}$
+\begin_inset Formula $\mathcal{F}_{\tau}$
 \end_inset
 
  :
 \begin_inset Formula 
 \begin{equation}
-\left(\widehat{Y}_{1,t+1},\widehat{Y}_{1,t+2},...,\widehat{Y}_{1,t+k}\right)=\mathcal{\mathcal{M\left(\mathcal{F}_{\mathrm{t}}\right)}}\label{eq:model}
+\left(\widehat{Y}_{1,\tau+1},\widehat{Y}_{1,\tau+2},...,\widehat{Y}_{1,\tau+h}\right)=\mathcal{\mathcal{M\left(\mathcal{F}_{\mathrm{\tau}}\right)}}\label{eq:model}
 \end{equation}
 
 \end_inset
@@ -3309,7 +3324,7 @@ en fonction de
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\mathcal{F}_{t}\ $
+\begin_inset Formula $\mathcal{F}_{\tau}\ $
 \end_inset
 
 , constitue l'ensemble de caractéristiques à utiliser pour la pérvision
@@ -3318,11 +3333,11 @@ en fonction de
 \end_inset
 
 .
- 
-\begin_inset Formula $k$
+ Le nombre 
+\begin_inset Formula $h$
 \end_inset
 
- détermine le type de prévision, i.e.
+, dit horizon, détermine le type de prévision, i.e.
  court terme, moyen terme ou long terme.
 \end_layout
 

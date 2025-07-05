@@ -3037,9 +3037,35 @@ S=\left\{ \left|X_{p,k}\right|^{2},(p,k)\in\left\{ 0,..,P-1\right\} \times\left\
 \end_layout
 
 \begin_layout Standard
-Dans notre cadre, l'objectif de cette analyse est d'extraire les fréquences
+Dans notre cadre, l'objectif de cette analyse est d'extraire les périodes
  dominantes pour identifier toutes les saisonnalités.
- La figure 
+ L'ensemble de ces périodes pour un seuil de détection donné est par l'équation
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:detectionperiodes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\mathcal{P_{\mathrm{S}}}=\left\{ \frac{K}{k}T_{s}\ tel\ que\ \forall p\in\left\{ 0,..,P-1\right\} \ \frac{\left|X_{p,k}\right|^{2}}{\underset{l\in\left\{ 0,...,K\right\} }{max}\frac{1}{P}\stackrel[m=0]{P-1}{\sum}\left|X_{m,l}\right|^{2}}\geq S\right\} \label{eq:detectionperiodes}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Spectrogramme-de-la-1"
@@ -3049,7 +3075,7 @@ noprefix "false"
 
 \end_inset
 
-montre le spectrogramme de las série de la figure 
+montre le spectrogramme de la série de la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Consommation-électrique-du"
