@@ -1154,7 +1154,17 @@ noprefix "false"
 \end_inset
 
 .
- La figure illustre l'implémentation de ce schéma en pipeline.
+ La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Architecture-générale-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+illustre l'implémentation de ce schéma en pipeline.
  Chaque partie de cette architecture sera décrites dans les sections suivantes.
 \end_layout
 
@@ -1162,7 +1172,44 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Chap3/Archi.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Architecture-générale"
+
+\end_inset
+
+Architecture générale en pipeline
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1199,6 +1246,10 @@ Architecture générale en pipeline
 Détection des saisonnalités et décomposition
 \end_layout
 
+\begin_layout Subsubsection
+Principe
+\end_layout
+
 \begin_layout Standard
 L'analyse spectrale est effectué par la Transformée de Fourier à Court Terme
  (Short-Time Fourier Transform (STFT)) que nous avons décrit dnas le chapitre
@@ -1215,7 +1266,15 @@ noprefix "false"
 \end_inset
 
 dans ce chapitre te la décompistion des séries temporelle aussi.
- La figure 
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Implémentation 
+\end_layout
+
+\begin_layout Standard
+La figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:SpectroDdcompoPipeline"
@@ -1271,6 +1330,10 @@ Pipeline d'analyse spectrale et décomposition des séries temporelles
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsubsection
+Exemple
 \end_layout
 
 \begin_layout Standard
