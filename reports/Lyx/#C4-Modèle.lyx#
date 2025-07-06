@@ -1188,7 +1188,7 @@ literal "false"
  ses valeurs passées, des valeurs présentes et passées des variables métorologiq
 ues.
  Le modèle le plus adapté pour capter cette effet de mémoire est le modèle
- LSTM.
+ LSTM (Long Short Term Memory).
  Nous adoptons donc ce modèle pour les composantes tendance et résidus.
 \end_layout
 
@@ -1329,7 +1329,7 @@ noprefix "false"
 \begin_inset Float algorithm
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Itemize
 Analyse spectrale (SpectrogramAnalysis)
@@ -1649,7 +1649,7 @@ es, décrite dans le chapitre 1.
 \begin_inset Float algorithm
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Itemize
 Decomposition (DecompositionSerieTemporelle)
@@ -2025,7 +2025,10 @@ Nous utilisons un modèle
  qu'on peut décrire par l'équation :
 \begin_inset Formula 
 \begin{equation}
-Y_{k}-Y_{k-s}-\phi\left(Y_{k-1}-Y_{k-s-1}\right)-\Phi_{1}\left(Y_{k-1}-Y_{k-2s}\right)+\phi_{1}\Phi_{1}\left(Y_{k-s-1}-Y_{k-2s-1}\right)=b_{k}+\theta_{1}b_{k-1}+\Theta_{1}b_{k-s}+\theta_{1}\Theta_{1}b_{k-s-1}
+\begin{array}{c}
+Y_{k}-Y_{k-s}-\phi\left(Y_{k-1}-Y_{k-s-1}\right)-\Phi_{1}\left(Y_{k-1}-Y_{k-2s}\right)+\phi_{1}\Phi_{1}\left(Y_{k-s-1}-Y_{k-2s-1}\right)=\\
+b_{k}+\theta_{1}b_{k-1}+\Theta_{1}b_{k-s}+\theta_{1}\Theta_{1}b_{k-s-1}
+\end{array}
 \end{equation}
 
 \end_inset
@@ -2034,7 +2037,7 @@ Y_{k}-Y_{k-s}-\phi\left(Y_{k-1}-Y_{k-s-1}\right)-\Phi_{1}\left(Y_{k-1}-Y_{k-2s}\
 \begin_inset Formula $\phi_{1},\Phi_{1},\theta_{1},\Theta_{1}$
 \end_inset
 
-sont les paramètres a estimer la prévision et 
+sont les paramètres a estimer pour la prévision et 
 \family roman
 \series medium
 \shape up
@@ -2114,7 +2117,7 @@ où
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -2214,7 +2217,7 @@ Prévsion par
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -2293,22 +2296,25 @@ Prévsion par
 \end_layout
 
 \begin_layout Subsection
-Modèles LSTM pour les composantes tendance et résidu
+Modèles basée sur les réseaux LSTM pour les composantes tendance et résidu
 \end_layout
 
 \begin_layout Standard
-Ces deux modèles sont similaire.
+La prévision de la tendance et du résidus sont effectuée par le même type
+ de modèle, basée sur LSTM(Long Short Term Memory).
  La figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Architecture-générale-lstm"
+reference "fig:Architecture-pipelin-lstm -residu"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
- donne le schéma générale de ces modèles ainsi que leur implémentation pipeline.
+ donne une vue globale de ce type de modèle avce un exemple de pipeline
+ pour la composante résiduelle.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2321,19 +2327,17 @@ status open
 \noindent
 \align center
 \begin_inset Graphics
-	filename Chap3/LSTM.png
+	filename Chap3/LSTM_pipeline_res.png
+	lyxscale 50
+	scale 50
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\noindent
-\align center
+ 
 \begin_inset Graphics
-	filename Chap3/LSTM_pipeline.png
-	scale 50
+	filename Chap3/LSTM.png
+	lyxscale 57
+	scale 57
 
 \end_inset
 
@@ -2346,11 +2350,11 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Architecture-générale-lstm"
+name "fig:Architecture-pipelin-lstm -residu"
 
 \end_inset
 
-Architecture des modèles LSTM en pipeline
+Les étape du pipeline pour le modèle de prévision du résidu
 \end_layout
 
 \end_inset
@@ -2364,10 +2368,13 @@ Architecture des modèles LSTM en pipeline
 \end_layout
 
 \begin_layout Standard
-La transformations opérée sur les tendances et résidus des varaibles exogènes
- est justifiées et expliquées dans le chapitre 2.
+Nous avons démontré dans le chapitre 2 que la tendance (respectivement le
+ résidus) de la variable cible est corrélée avec les inverses des tendances
+ (respectivement les résidus) des variables exogènes.
+ Cette transformation opérée sur les tendances et les résidus est argumentée
+ dans le chapitre 2.
  Nous rappelons que celle-ci consite à appliquer une translation, pour éviter
- des dévision par zréos, suivie d'une inversion :
+ des dévisions par zéros, suivie d'une inversion :
 \end_layout
 
 \begin_layout Standard
@@ -2376,7 +2383,7 @@ La transformations opérée sur les tendances et résidus des varaibles exogène
 \begin{array}{cc}
 f & :\end{array}\begin{array}{cccc}
 \mathbb{R} & \rightarrow & R\\
-X & \rightarrow f(X)= & \frac{1}{X+C}
+X & \rightarrow & f(X)= & \frac{1}{X+C}
 \end{array}
 \end{equation}
 
@@ -2386,28 +2393,407 @@ X & \rightarrow f(X)= & \frac{1}{X+C}
 \end_layout
 
 \begin_layout Standard
-Les variables sont standardisées.
- Elle peuvet être aussi normalisées, en effet en comparant la standarisation
- et la normalisation et il n'y a pas de différences significatives en terme
- de résultats.
+Après transformation les nouvelles composantes (inverse des tendances ou
+ inverses des résidus), ainsi que la composante de la variable cible, sont
+ normalisées.
+ Ces données normalisées nécessitent une transformation en séquences adaptées
+ au traitement séquentiel.
+ Cette étape consiste à les structurer en sous-séquences d'entrée de longueur
+ fixe (fenêtres glissantes) associées aux valeurs cibles.
+ La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Transformation-en-séquences"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ illustre cette structuration.
 \end_layout
 
 \begin_layout Standard
-La préparation des données pour un réseau LSTM repose sur la transformation
- des séries temporelles en séquences supervisées adaptées au traitement
- séquentiel.
- Cette étape consiste à structurer les données en sous-séquences d'entrée
- de longueur fixe (fenêtres glissantes) associées à leurs valeurs cibles
- futures.
- La figure illustre cette structuration.
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/Seq_lstm.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Transformation-en-séquences"
+
+\end_inset
+
+Transformation en séquences des données pour LSTM
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+Enfin le modèle est basée sur l'empilement de plusieurs couche LSTM.
+ Pour déterminer la meilleure architecture, le nombre de couches ainsi que
+ le nombre de neurones par couche ont été intégrés aux hypermaramètres du
+ modèle.
+ L'architecture typique que nous avons identifiées est illustrées dans la
+ figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Transformation-en-séquences-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/Archi_lstm_multicouche.png
+	lyxscale 70
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Transformation-en-séquences-1"
+
+\end_inset
+
+Architecture typique de notre modèle basé sur des réseaux LSTM
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Les figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Prévsion-par-P1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ et 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Prévsion-par-P2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montrent un exemple de prévision des composantes tendance et résidu de
+ la série 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+où 
+\begin_inset Formula $r=84$
+\end_inset
+
+ (région Auvergne-Rhône -Alpes) et la configuration profile_plage de puissance
+ est 
+\begin_inset Formula $q=\left(RES11(+RES11WE),P4:]9-12]kVA\right)$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/prevision_res.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/prevision_tes_pred_res.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Prévsion-par-P1-1"
+
+\end_inset
+
+Prévsion du résidu
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/prevision_tendance.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/prevision_tes_pred_tend.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Prévsion-par-P2-1"
+
+\end_inset
+
+Prévsion 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+de la tendance
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
 \begin_layout Subsection
+Réalisation
+\end_layout
+
+\begin_layout Standard
+Nous avons tout d'abord developpé une première version sur notebook.
+ Celle-ci nous a permi de valider.
+ Dans cette version chaque étape est modèlisé par un pipeline.
+ Puis nous avons developpées une versions notebook avec un pipeline intégrale.
+ Nous avons constaté une dégradation dans les performance que nous n'avons
+ pas su exliqué.
+ Nous avons don cdeveloppée un script qui traite toutes les configurations
+ en se basant sur la version avec pipelines séparées.
+ Nous avons intégré du parallélèlisme pour accélérer le calcul.
+ Cependat nous étions affronter à le lenteur de notre machine.
+ Nous avons pu traité une région et nous espérons pouvoir faire autant pour
+ ls autres régions.
+\end_layout
+
+\begin_layout Subsection
 Evaluation 
+\end_layout
+
+\begin_layout Subsubsection
+Séparation des données 
+\end_layout
+
+\begin_layout Standard
+Afin de tester la robustesse du modèle, nous utilisons les données d'une
+ année glissante.
+ En effet notre base de données contient les données de 2023 et 2024.
+ A chaque exécution les données d'une années, qui débute à une date entre
+ le 01/01/2023 et le 31/12/2023 chosie aléatoirement, sont sélectionnés.
+ Dans la présentation pour ce rapport nous avons choisi un horizon d'une
+ semaine pour la prévison.
+ Ainsi les données de la dernière semaine des donnés sélectionnées sont
+ gardées pourle test.
+ Les autres données sont utilisées pour l'entraienemnt.
+ Dans le cas d'optimisation et et d’ajustement des hyperparamètres, ces
+ données sont aussi divisée à leur tour données d'entrainement et de validations.
+ Le figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:spération données train test"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+schématise cette séparation pour les données d'entrainement et de test.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/train_test.png
+	lyxscale 70
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:spération données train test"
+
+\end_inset
+
+Séparation des données
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Métriques d'évaluation
+\end_layout
+
+\begin_layout Standard
+Les études méntionnées dans notre état de l'art confirment toute que les
+ métriques les plus utilisées, dans la cadre de notre problèmatique, sont
+ MAPE, RMSE et MAE.
+ Ces métriques nous les avons présentés dans le premier chapitre.
+ Ici nous synthétisons les résultats obtenus à ce jour.
 \end_layout
 
 \end_body
