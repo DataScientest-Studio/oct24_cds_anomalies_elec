@@ -2993,7 +2993,8 @@ w_{n}=a_{0}-(1-a_{0})cos\left(2\pi n/N\right)\label{eq:fenetre}
 
 \begin_layout Standard
 La transformée de Fourier à court terme est l'esnemble des segments, notée
-\begin_inset Formula $\left(X_{1,k},\ldots,X_{P,k}\right)_{k\in\left\{ 0,...,K\right\} }$
+ 
+\begin_inset Formula $STFT\left(\left(Y_{n}\right)_{n\in\mathbb{T}}\right)=\left(X_{1,k},\ldots,X_{P,k}\right)_{k\in\left\{ 0,...,K\right\} }$
 \end_inset
 
 , où 
@@ -3028,7 +3029,7 @@ où
 Le spectrogramme est 
 \begin_inset Formula 
 \begin{equation}
-S=\left\{ \left|X_{p,k}\right|^{2},(p,k)\in\left\{ 0,..,P-1\right\} \times\left\{ 0,...,K\right\} \right\} \label{eq:Spectrogramme}
+\mathbb{S}=\left\{ \left|X_{p,k}\right|^{2},(p,k)\in\left\{ 0,..,P-1\right\} \times\left\{ 0,...,K\right\} \right\} \label{eq:Spectrogramme}
 \end{equation}
 
 \end_inset
@@ -3039,14 +3040,28 @@ S=\left\{ \left|X_{p,k}\right|^{2},(p,k)\in\left\{ 0,..,P-1\right\} \times\left\
 \begin_layout Standard
 Dans notre cadre, l'objectif de cette analyse est d'extraire les périodes
  dominantes pour identifier toutes les saisonnalités.
- L'ensemble de ces périodes pour un seuil de détection donné est :
+ L'ensemble de ces périodes pour un seuil 
+\begin_inset Formula $\delta$
+\end_inset
+
+ de détection donné est par l'équation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:detectionperiodes"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
-\mathcal{P_{\mathrm{S}}}=\left\{ \frac{K}{k}T_{s}\ tel\ que\ \forall p\in\left\{ 0,..,P-1\right\} \ \frac{\left|X_{p,k}\right|^{2}}{\underset{l\in\left\{ 0,...,K\right\} }{max}\sum\left|X_{p,l}\right|^{2}}\right\} 
-\]
+\begin{equation}
+\mathcal{\mathrm{P}_{\delta}}=\left\{ \frac{K}{k}T_{s}\ tel\ que\ \forall p\in\left\{ 0,..,P-1\right\} \ \frac{\left|X_{p,k}\right|^{2}}{\underset{l\in\left\{ 0,...,K\right\} }{max}\frac{1}{P}\stackrel[m=0]{P-1}{\sum}\left|X_{m,l}\right|^{2}}\geq\delta\right\} \label{eq:detectionperiodes}
+\end{equation}
 
 \end_inset
 

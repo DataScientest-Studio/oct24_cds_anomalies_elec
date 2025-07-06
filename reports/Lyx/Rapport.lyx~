@@ -379,7 +379,19 @@ filename "C2-Fromalisation.lyx"
 \lang english
 \begin_inset CommandInset include
 LatexCommand input
-filename "C4-database.lyx"
+filename "C3-database.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+\begin_inset CommandInset include
+LatexCommand input
+filename "C4-Modèle.lyx"
 
 \end_inset
 

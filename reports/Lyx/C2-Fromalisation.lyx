@@ -1171,22 +1171,9 @@ Une fois la tendance est estimée, on peut alors estimer la saisonnalité
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
+\begin_inset Float algorithm
+wide false
+sideways false
 status open
 
 \begin_layout Itemize
@@ -1271,6 +1258,18 @@ On centre la saisonnalité pour qu'elle ait une somme nulle
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Estimation de la saisonnalité d'une série temporelle
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
@@ -1295,22 +1294,9 @@ Dans le cas d'une décomposition multiplicative, une transformation logarithmiqu
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Boxed
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-thickness "0.4pt"
-separation "3pt"
-shadowsize "4pt"
-framecolor "black"
-backgroundcolor "none"
+\begin_inset Float algorithm
+wide false
+sideways false
 status open
 
 \begin_layout Itemize
@@ -1376,6 +1362,22 @@ log(Y_{t})=T_{t}^{1}+S_{t}^{1}+R_{t}^{1}\Rightarrow Y_{t}=\underset{T_{t}}{\unde
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Décomposition multiplicative d'une série temporelle
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -2886,7 +2888,7 @@ Son principe consiste à diviser la série en
 \end_inset
 
  et avec un recouvrement 
-\begin_inset Formula $\mathrm{\mathit{R}}$
+\begin_inset Formula $\mathrm{\mathit{\rho}}$
 \end_inset
 
  donnée, les pondérer par une une fonction localisée en temps 
@@ -2923,7 +2925,7 @@ issues de la pondération par
  , est définie par : 
 \begin_inset Formula 
 \begin{equation}
-Y_{p,n}=Y_{(N/2-1)\times p+n}\times w_{n}\label{eq:pondération}
+Y_{p,n}=Y_{((1-\rho)N-1)\times p+n}\times w_{n}\label{eq:pondération}
 \end{equation}
 
 \end_inset
@@ -2993,7 +2995,8 @@ w_{n}=a_{0}-(1-a_{0})cos\left(2\pi n/N\right)\label{eq:fenetre}
 
 \begin_layout Standard
 La transformée de Fourier à court terme est l'esnemble des segments, notée
-\begin_inset Formula $\left(X_{1,k},\ldots,X_{P,k}\right)_{k\in\left\{ 0,...,K\right\} }$
+ 
+\begin_inset Formula $STFT\left(\left(Y_{n}\right)_{n\in\mathbb{T}}\right)=\left(X_{1,k},\ldots,X_{P,k}\right)_{k\in\left\{ 0,...,K\right\} }$
 \end_inset
 
 , où 
@@ -3028,7 +3031,7 @@ où
 Le spectrogramme est 
 \begin_inset Formula 
 \begin{equation}
-S=\left\{ \left|X_{p,k}\right|^{2},(p,k)\in\left\{ 0,..,P-1\right\} \times\left\{ 0,...,K\right\} \right\} \label{eq:Spectrogramme}
+\mathbb{S}=\left\{ \left|X_{p,k}\right|^{2},(p,k)\in\left\{ 0,..,P-1\right\} \times\left\{ 0,...,K\right\} \right\} \label{eq:Spectrogramme}
 \end{equation}
 
 \end_inset
@@ -3039,8 +3042,11 @@ S=\left\{ \left|X_{p,k}\right|^{2},(p,k)\in\left\{ 0,..,P-1\right\} \times\left\
 \begin_layout Standard
 Dans notre cadre, l'objectif de cette analyse est d'extraire les périodes
  dominantes pour identifier toutes les saisonnalités.
- L'ensemble de ces périodes pour un seuil de détection donné est par l'équation
- 
+ L'ensemble de ces périodes pour un seuil 
+\begin_inset Formula $\delta$
+\end_inset
+
+ de détection donné est par l'équation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:detectionperiodes"
@@ -3056,12 +3062,26 @@ noprefix "false"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\mathcal{P_{\mathrm{S}}}=\left\{ \frac{K}{k}T_{s}\ tel\ que\ \forall p\in\left\{ 0,..,P-1\right\} \ \frac{\left|X_{p,k}\right|^{2}}{\underset{l\in\left\{ 0,...,K\right\} }{max}\frac{1}{P}\stackrel[m=0]{P-1}{\sum}\left|X_{m,l}\right|^{2}}\geq S\right\} \label{eq:detectionperiodes}
+\mathcal{\mathrm{\mathbb{P}}_{\delta}}=\left\{ \frac{K}{k}T_{s}\ tel\ que\ \forall p\in\left\{ 0,..,P-1\right\} \ \frac{\left|X_{p,k}\right|^{2}}{\underset{l\in\left\{ 0,...,K\right\} }{max}\frac{1}{P}\stackrel[m=0]{P-1}{\sum}\left|X_{m,l}\right|^{2}}\geq\delta\right\} \label{eq:detectionperiodes}
 \end{equation}
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+où 
+\begin_inset Formula $T_{s}=\frac{1}{F_{s}}$
+\end_inset
+
+ est la période d'échantillonnage, ou le pas de discrétisation temporelle
+ de la série, et 
+\begin_inset Formula $F_{s}$
+\end_inset
+
+dénote sa fréquence d'échantillonnage.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3159,7 +3179,7 @@ noprefix "false"
 \begin_layout Standard
 Ce spectrogramme confirme la multi-saisonnalité, montrée par les fonctions
  ACF et PACF.
- Les périodes détectés sont de 
+ Les périodes détectés sont 
 \begin_inset Formula $T_{1}=42\ pas\simeq0.875\ jours$
 \end_inset
 
@@ -3352,7 +3372,7 @@ en fonction de
  court terme, moyen terme ou long terme.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Métriques d'évaluation 
 \end_layout
 

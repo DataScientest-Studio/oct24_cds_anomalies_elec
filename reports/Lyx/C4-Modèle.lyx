@@ -680,15 +680,67 @@ est la série temporelle qui coressponde au rayonnement solaire global de
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $P^{(r,q)}$
+\begin_inset Formula $\mathbb{S}^{(r,q)}(N,\rho,w)$
+\end_inset
+
+ le spectrogramme de la série 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{r\in\mathit{\mathcal{R}},q\in\mathcal{Q},kT_{s}\in\mathbb{T}}$
+\end_inset
+
+obtenu en utilsant la fenêtre 
+\begin_inset Formula $w$
+\end_inset
+
+ de longeur 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $N$
+\end_inset
+
+ et avec un recouvrement 
+\begin_inset Formula $\rho$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathbb{P}_{\delta}^{(r,q)}$
 \end_inset
 
  l'ensemble des périodes détectés par analyse spétrale de la série 
 \begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{r\in\mathit{\mathcal{R}},q\in\mathcal{Q},kT_{s}\in\mathbb{T}}$
 \end_inset
 
+avec un seuil 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\delta$
+\end_inset
+
 .
- Cette analyse est détaillée dans le chapitre de formalisation.
 \end_layout
 
 \begin_layout Subsection
@@ -1028,13 +1080,16 @@ ues, dont l’intégration améliore significativement la qualité des prévisio
  En conclusion, les auteurs affirment qu’aucun modèle universel ne se distingue
  nettement : le choix dépend du contexte, de l’horizon de prévision et des
  données disponibles.
- Cette étude confirme que les métrique les plus utilisées sont MAPE, RMSE
+ Cette étude confirme que les métriques les plus utilisées sont MAPE, RMSE
  et MAE.
  
 \end_layout
 
 \begin_layout Standard
-Autre Prophet ....
+Dans la littérature très récente, d'autre modèles ont eu le jour comme Prophet,
+ NeuralProphet et le modèle deep learning N-BEATS.
+ Les résultas de Prohpet aussi n'éatit pas convaincantes.
+ et les modèles NeuralProphet et N-BEATS 
 \end_layout
 
 \begin_layout Section
@@ -1042,7 +1097,7 @@ Modèle proposé
 \end_layout
 
 \begin_layout Subsection
-Le concept générale
+Architecture générale
 \end_layout
 
 \begin_layout Standard
@@ -1135,10 +1190,6 @@ ues.
  Le modèle le plus adapté pour capter cette effet de mémoire est le modèle
  LSTM.
  Nous adoptons donc ce modèle pour les composantes tendance et résidus.
-\end_layout
-
-\begin_layout Subsection
-Architecture générale
 \end_layout
 
 \begin_layout Standard
@@ -1243,7 +1294,7 @@ Architecture générale en pipeline
 \end_layout
 
 \begin_layout Subsection
-Détection des saisonnalités et décomposition
+Etape de détection des saisonnalités par analyse spectrale
 \end_layout
 
 \begin_layout Subsubsection
@@ -1251,11 +1302,174 @@ Principe
 \end_layout
 
 \begin_layout Standard
-L'analyse spectrale est effectué par la Transformée de Fourier à Court Terme
- (Short-Time Fourier Transform (STFT)) que nous avons décrit dnas le chapitre
+L'objectif de cette étape est d'extraire les périodes dominantes pour identifier
+ toutes les saisonnalités des séries 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+.
+ Cette extraction est faite par analyse spectrale, basée sur la Transformée
+ de Fourier à Court Terme (Short-Time Fourier Transform (STFT)).
+ Les fondements téhéoriques de cette étapes ont été décrites dans le chapitre
  de formalisation.
- La méthode de détection des saisonnalités est également décrite par l'équation
+ Le principe de l'implémentation est décrit par 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Analyse-spectrale-algo"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Itemize
+Analyse spectrale (SpectrogramAnalysis)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Entrée:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $w$
+\end_inset
+
+ : fenêtre de lissage par défaut 
+\begin_inset Formula $hann$
+\end_inset
+
  
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $N$
+\end_inset
+
+ : longueur de la fênetre 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\rho$
+\end_inset
+
+ : longueur du recouvrement 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\delta$
+\end_inset
+
+ : seuil de detection 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $F_{s}$
+\end_inset
+
+ : fréquence d'échantillonnage 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Sortie:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\mathcal{\mathrm{\mathbb{P}}_{\delta}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ : vecteur de périodes dominantes relativement au seuil 
+\begin_inset Formula $\delta$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+fit : 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Entrée : une série temporelle 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Action : 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Calcul du spectrogramme 
+\begin_inset Formula $\mathbb{S}^{(r,q)}(N,\rho,w)$
+\end_inset
+
+ (voir l'équation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Spectrogramme"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Detection des périodes dominantes 
+\begin_inset Formula $\mathbb{P}_{\delta}^{(r,q)}$
+\end_inset
+
+ au seuil 
+\begin_inset Formula $\delta$
+\end_inset
+
+ (voir l'équation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:detectionperiodes"
@@ -1265,61 +1479,69 @@ noprefix "false"
 
 \end_inset
 
-dans ce chapitre te la décompistion des séries temporelle aussi.
- 
+)
 \end_layout
 
-\begin_layout Subsubsection
-Implémentation 
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+transform : 
 \end_layout
 
-\begin_layout Standard
-La figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:SpectroDdcompoPipeline"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-montre un exemple de pipeline généré à partir de l'implémentation des l'analyse
- sepctrale de la vraible cible et de la décomposition de celle-ci ainsi
- que des autres variables exogènes.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename Chap3/SpectroDecompPipeline.png
-	scale 70
-
+\begin_deeper
+\begin_layout Itemize
+Entrée : une série temporelle 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
 
 \end_layout
 
+\begin_layout Itemize
+Action : retourne les périodes dominantes 
+\begin_inset Formula $\mathbb{P}_{\delta}^{(r,q)}$
+\end_inset
+
+ au seuil 
+\begin_inset Formula $\delta$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+fit_transform : 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Combinaison de fit et transform
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+plot :
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Affichage du spectrogramme avec marquage des périodes détectées
+\end_layout
+
+\end_deeper
+\end_deeper
 \begin_layout Plain Layout
-\noindent
-\align center
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:SpectroDdcompoPipeline"
+name "alg:Analyse-spectrale-algo"
 
 \end_inset
 
-Pipeline d'analyse spectrale et décomposition des séries temporelles 
+Analyse spectrale et détection des périodes dominantes
 \end_layout
 
 \end_inset
@@ -1347,15 +1569,26 @@ noprefix "false"
 
 \end_inset
 
- illsutre un exemple d'analyse spectrale où trois saisonnnalités de 21 pas
- ( 10,5 heures), de 42 pas (21 heures) et de 336 pas (7 jours) sont détectés.
+ illsutre un exemple d'analyse spectrale où trois saisonnnalités de 
+\begin_inset Formula $P_{1}=21\times T_{s}=10,5\ heures$
+\end_inset
+
+, de 
+\begin_inset Formula $P_{2}=42\times T_{s}=21\ heures$
+\end_inset
+
+et de 
+\begin_inset Formula $336\times T_{s}=7\ jours$
+\end_inset
+
+ sont détectés.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -1401,55 +1634,821 @@ Spectrogramme de la série temporelle de consommation d'électricité sur toute
 \end_layout
 
 \begin_layout Subsection
-SARIMA 
-\end_layout
-
-\begin_layout Itemize
-Principe
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Prediction des composantes saisonnière SARIMA
-\end_layout
-
-\end_deeper
-\begin_layout Subsection
-Prédiction par LSTM des composantes tendance et résidus/ transformation
-\end_layout
-
-\begin_layout Itemize
-principe
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-transformation
-\end_layout
-
-\begin_layout Itemize
-prévision
-\end_layout
-
-\end_deeper
-\begin_layout Subsection
-Evaluation 
-\end_layout
-
-\begin_layout Itemize
-test
-\end_layout
-
-\begin_layout Itemize
-Comparaison
+Decomposition des séries temporelles
 \end_layout
 
 \begin_layout Standard
-: la regression liénaire, la regression basée sur XGBoost, Prophet, NeuralProphe
-t, et le modèle deep learning N-BEATS.
- Les résultats obtenus par les modèles de regression était médiocres, les
- résultas de Prohpet aussi n'éatit pas convaincantes.
- et les modèles NeuralProphet et N-BEATS 
+La décomposition est basée sur le principe de décomposition de séeries temporell
+es, décrite dans le chapitre 1.
+ Ce principe a été adapté pour effectuer une décomposition en cascade modifiée
+ pour éxtraire les différentes composantes.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Itemize
+Decomposition (DecompositionSerieTemporelle)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Entrée:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Formula $\mathbb{P}_{\delta}^{(r,q)}=\left\{ p_{1},p_{2,}...,p_{M}\right\} $
+\end_inset
+
+ : périodes dominantes d'une série 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $forme$
+\end_inset
+
+ : additive ou multiplicative
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $colonne$
+\end_inset
+
+: la colonne cible de la dataframe d'entrée à décomposer
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Sortie:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ : un dataframe contenant les composantes saionnières, la tendance et le
+ résidus 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+fit:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Entrée : un dataframe contenant les colonnes 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+
+\begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(U_{k}^{(r)}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+fait rien
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+transform :
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Entrée : un dataframe contenant les colonnes 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+
+\begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(U_{k}^{(r)}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Action :
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Selection de la colonne à décomposer 
+\begin_inset Formula $\left(C_{k}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Pour chauque 
+\begin_inset Formula $\ p\in\mathbb{P}_{\delta}^{(r,q)}$
+\end_inset
+
+ : 
+\end_layout
+
+\begin_deeper
+\begin_layout Plain Layout
+Extraire la composante saisonnière 
+\begin_inset Formula $\left(S_{p,k}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+de période 
+\begin_inset Formula $p$
+\end_inset
+
+ , la tendence 
+\begin_inset Formula $\left(\Gamma_{p,k}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+ et le résidu 
+\begin_inset Formula $\left(\epsilon_{p,k}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+associés
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{equation}
+forme\ multiplicative:C_{k}=\Gamma_{p,k}\times S_{p,k}\times\epsilon_{p,k}\ 
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+forme\ additive:C_{k}=\Gamma_{p,k}+S_{p,k}+\epsilon_{p,k}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Extraire la tendence 
+\begin_inset Formula $\left(\Gamma_{k}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+ et le résidu 
+\begin_inset Formula $\left(\epsilon_{k}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+de 
+\begin_inset Formula $\left(C_{k}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+forme\ multiplicative:\begin{array}{c}
+\Gamma_{k}=\Gamma_{p_{m},k}\\
+\epsilon_{k}=\frac{C_{k}}{\Gamma_{k}\times\underset{p\in\mathbb{P}_{\delta}^{(r,q)}}{\prod}S_{p,k}}
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+forme\ additive:\begin{array}{c}
+\Gamma_{k}=\Gamma_{p_{m},k}\\
+\epsilon_{k}=C_{k}-\Gamma_{k}-\underset{p\in\mathbb{P}_{\delta}^{(r,q)}}{\sum}S_{p,k}
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+Retourne un dataframe contenant les composantes saisonnières 
+\begin_inset Formula $\left(S_{p,k}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+, la tendence 
+\begin_inset Formula $\left(\Gamma_{k}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+ et le résidu 
+\begin_inset Formula $\left(\epsilon_{k}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+ de la colonne cible
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+fit_transform :
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Combinaison de fit et transform
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:decomposition-algo-1"
+
+\end_inset
+
+Décomposition en cascade des séries temporelles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Implémentation 
+\end_layout
+
+\begin_layout Standard
+L'analyse spectrale, la détection des périodes domianantes et la décomposition
+ de la vraible cible et des variables exogènes est pipeliné comme le montre
+ la figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:SpectroDdcompoPipeline"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/SpectroDecompPipeline.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SpectroDdcompoPipeline"
+
+\end_inset
+
+Pipeline d'analyse spectrale et décomposition des séries temporelles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Modèles SARIMA pour la prévision des composantes saisonnières
+\end_layout
+
+\begin_layout Standard
+Nous utilisons un modèle 
+\begin_inset Formula $SARIMA(p,d,q)(P,D,Q)_{s}$
+\end_inset
+
+ pourla prévision de chaque composante saisonnière, de période 
+\begin_inset Formula $s$
+\end_inset
+
+.
+ Une recherche du meilleur modèle, en utilisant une cross-validation adaptée
+ aux des séries temporells, est intégré au modèle.
+ Avant d'entrainer le modèle, une vérification par analyse spectrale de
+ la saisonnalité est effectué.
+ En effet après décompoistion certaines composantes saisonnières n'ont pas
+ une seule période pure, l'intérêt de cette nouvelle analyse est d'entrainer
+ SARIMA avec la période fondementale de la composante.
+ Per exemple parmi les modèles qui permet une meilleur prévision est 
+\begin_inset Formula $SARIMA(1,0,1)(1,1,1)_{s}$
+\end_inset
+
+ qu'on peut décrire par l'équation :
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{c}
+Y_{k}-Y_{k-s}-\phi\left(Y_{k-1}-Y_{k-s-1}\right)-\Phi_{1}\left(Y_{k-1}-Y_{k-2s}\right)+\phi_{1}\Phi_{1}\left(Y_{k-s-1}-Y_{k-2s-1}\right)=\\
+b_{k}+\theta_{1}b_{k-1}+\Theta_{1}b_{k-s}+\theta_{1}\Theta_{1}b_{k-s-1}
+\end{array}
+\end{equation}
+
+\end_inset
+
+ où 
+\begin_inset Formula $\phi_{1},\Phi_{1},\theta_{1},\Theta_{1}$
+\end_inset
+
+sont les paramètres a estimer la prévision et 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $b_{k}$
+\end_inset
+
+est une bruit blanc gaussien.
+\end_layout
+
+\begin_layout Standard
+Ceci est cohérent avec le fait que les composantes saisonnières que nous
+ traitons sont cyclostationnaires.
+ La différenciation saisonnière permet rendre la série stationnaire afin
+ d'appliquer le modèle SARIMA.
+ Dans notre implémentation nous avons intégré aussi ke traitement des cas
+ de séries non stationnaires.
+\end_layout
+
+\begin_layout Standard
+Les figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Prévsion-par-P1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ et 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Prévsion-par-P2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montrent un exemple de prévision des composantes saisonnières de périodes
+ 
+\begin_inset Formula $P_{1}=22\times T_{s}=11\ heures$
+\end_inset
+
+, de 
+\begin_inset Formula $P_{2}=44\times T_{s}=22\ heures$
+\end_inset
+
+ de la série 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+où 
+\begin_inset Formula $r=84$
+\end_inset
+
+ (région Auvergne-Rhône -Alpes) et la configuration profile_plage de puissance
+ est 
+\begin_inset Formula $q=\left(RES11(+RES11WE),P4:]9-12]kVA\right)$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/prevision_p22.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/prevision_tes_pred_p22.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Prévsion-par-P1"
+
+\end_inset
+
+Prévsion par 
+\begin_inset Formula $SARIMA(1,0,1)(1,1,1)_{22}$
+\end_inset
+
+ de la composante saisonnière de période
+\begin_inset space ~
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $P_{1}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/prevision_p44.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/prevision_tes_pred_p44.png
+	lyxscale 50
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Prévsion-par-P2"
+
+\end_inset
+
+Prévsion par 
+\begin_inset Formula $SARIMA(1,0,1)(1,1,1)_{44}$
+\end_inset
+
+ de la composante saisonnière de période
+\begin_inset space ~
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $P_{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Modèles LSTM pour les composantes tendance et résidu
+\end_layout
+
+\begin_layout Standard
+Ces deux modèles sont similaire.
+ La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Architecture-générale-lstm"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ donne le schéma générale de ces modèles ainsi que leur implémentation pipeline.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/LSTM.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/LSTM_pipeline.png
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Architecture-générale-lstm"
+
+\end_inset
+
+Architecture des modèles LSTM en pipeline
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La transformations opérée sur les tendances et résidus des varaibles exogènes
+ est justifiées et expliquées dans le chapitre 2.
+ Nous rappelons que celle-ci consite à appliquer une translation, pour éviter
+ des dévision par zéros, suivie d'une inversion :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{array}{cc}
+f & :\end{array}\begin{array}{cccc}
+\mathbb{R} & \rightarrow & R\\
+X & \rightarrow f(X)= & \frac{1}{X+C}
+\end{array}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Les variables sont standardisées.
+ Elle peuvet être aussi normalisées, en effet en comparant la standarisation
+ et la normalisation et il n'y a pas de différences significatives en terme
+ de résultats.
+\end_layout
+
+\begin_layout Standard
+La préparation des données pour un réseau LSTM repose sur la transformation
+ des séries temporelles en séquences supervisées adaptées au traitement
+ séquentiel.
+ Cette étape consiste à structurer les données en sous-séquences d'entrée
+ de longueur fixe (fenêtres glissantes) associées à leurs valeurs cibles
+ futures.
+ La figure illustre cette structuration.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/Seq_lstm.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Transformation en séquences des données pour LSTM
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Evaluation 
 \end_layout
 
 \end_body

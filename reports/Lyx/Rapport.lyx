@@ -131,6 +131,9 @@ theorems-std
 \papersides 1
 \paperpagestyle empty
 \bullet 0 2 8 -1
+\bullet 1 0 7 -1
+\bullet 2 0 24 -1
+\bullet 3 0 8 -1
 \tracking_changes false
 \output_changes false
 \html_math_output 0
