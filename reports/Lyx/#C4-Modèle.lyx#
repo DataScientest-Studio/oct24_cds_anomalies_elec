@@ -646,6 +646,42 @@ tion profile-plage de puissance
 \end_layout
 
 \begin_layout Itemize
+\begin_inset Formula $\left(N_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+est la série temporelle qui réprésente le nombre de point de soutirage de
+ la configuration profile-plage de puissance 
+\begin_inset Formula $q\in\mathcal{Q}$
+\end_inset
+
+ dans la région 
+\begin_inset Formula $r\in\mathit{\mathcal{R}.}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\left(\overline{Y}_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}=\left(\frac{Y_{k}^{g}}{N_{k}}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+ est la série temporelle qui qui réprésente
+\shape italic
+ 
+\shape default
+la consommation moyenne des utilisateurs de la configuration profile-plage
+ de puissance 
+\begin_inset Formula $q\in\mathcal{Q}$
+\end_inset
+
+ dans la région 
+\begin_inset Formula $r\in\mathit{\mathcal{R}.}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
 \begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
@@ -2716,13 +2752,90 @@ de la tendance
 
 \end_layout
 
+\begin_layout Standard
+Les figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Prévsion-par-P1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montrent la prévision de la série utilisée dans les exmples précédents
+ après recomposition.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/PredictionConso_RES11(+RES11WE)._P4_9_12.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+prévision de la série 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+où 
+\begin_inset Formula $r=84$
+\end_inset
+
+ (région Auvergne-Rhône -Alpes) et la configuration profile - plage de puissance
+ est 
+\begin_inset Formula $q=\left(RES11(+RES11WE),P4:]9-12]kVA\right)$
+\end_inset
+
+ .
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Réalisation
 \end_layout
 
 \begin_layout Standard
-Le script finale que nous avons développé peut être synthétisé par l'algorithme
- suivant:
+Le script finale que nous avons développé est décrit par l'algorithme 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:script géneral"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2756,6 +2869,10 @@ Base de données :
 
 , 
 \begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(N_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
 
@@ -2957,19 +3074,27 @@ Données de test :
 
 \end_deeper
 \begin_layout Itemize
-Analyse temps-fréquence et extraction des périodes dominantes de 
-\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+Calculer 
+\begin_inset Formula $\left(\overline{Y}_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{\mathbb{T_{\mathrm{m}}}}}=\left(\frac{Y_{k}^{(r,q)}}{N_{k}^{^{(r,q)}}}\right)_{kT_{s}\in\mathbb{\mathbb{T_{\mathrm{m}}}}}$
 \end_inset
 
- 
+
 \end_layout
 
 \begin_layout Itemize
-Décomposition des séries 
-\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+Analyse temps-fréquence et extraction des périodes dominantes de 
+\begin_inset Formula $\left(\overline{Y}_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{\mathbb{T_{\mathrm{m}}}}}$
 \end_inset
 
 
+\end_layout
+
+\begin_layout Itemize
+Décomposition des séries
+\begin_inset Formula $\left(\overline{Y}_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{\mathbb{T_{\mathrm{m}}}}}$
+\end_inset
+
+,
 \begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
 \end_inset
 
@@ -2977,7 +3102,7 @@ Décomposition des séries
 \begin_inset Formula $\left(U_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
 \end_inset
 
-, 
+et 
 \begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
 \end_inset
 
@@ -3031,7 +3156,7 @@ Si la recherche automatique du meilleur modèle est activé, chercher la meilleu
 Sinon appliquer le modèle par défaut 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Transformation-en-séquences-1"
+reference "eq:sarima"
 plural "false"
 caps "false"
 noprefix "false"
@@ -3046,6 +3171,51 @@ Sauvegarder le modèle
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+Pour le résidu 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Si la recherche automatique du meilleur modèle est activé, chercher la meilleur
+ architecture
+\end_layout
+
+\begin_layout Itemize
+Sinon appliquer le modèle par défaut 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:sarima"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Sauvegarder le modèle
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Recomposition et calcul de 
+\begin_inset Formula $\left(N_{k}^{^{(r,q)}}\times\overline{Y}_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{\mathbb{T_{\mathrm{m}}}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Evaluation
+\end_layout
+
+\begin_layout Itemize
+Sauvegarde des résultats
+\end_layout
+
 \end_deeper
 \end_deeper
 \begin_layout Plain Layout
@@ -3054,7 +3224,7 @@ Sauvegarder le modèle
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "alg:decomposition-algo-1-1"
+name "alg:script géneral"
 
 \end_inset
 
@@ -3071,47 +3241,8 @@ Décomposition en cascade des séries temporelles
 
 \end_layout
 
-\begin_layout Paragraph
-Remarques 
-\end_layout
-
 \begin_layout Standard
-Nous avons tout d'abord developpé une première version sur notebook.
- Celle-ci nous a permi de valider.
- Dans cette version chaque étape est modèlisé par un pipeline.
- Puis nous avons developpées une versions notebook avec un pipeline intégrale.
- Nous avons constaté une dégradation dans les performance que nous n'avons
- pas su exliqué.
- Nous avons don cdeveloppée un script qui traite toutes les configurations
- en se basant sur la version avec pipelines séparées.
- Nous avons intégré du parallélèlisme pour accélérer le calcul.
- Cependat nous étions affronter à le lenteur de notre machine.
- Nous avons pu traité une région et nous espérons pouvoir faire autant pour
- ls autres régions.
-\end_layout
-
-\begin_layout Subsection
-Evaluation 
-\end_layout
-
-\begin_layout Subsubsection
-Séparation des données 
-\end_layout
-
-\begin_layout Standard
-Afin de tester la robustesse du modèle, nous utilisons les données d'une
- année glissante.
- En effet notre base de données contient les données de 2023 et 2024.
- A chaque exécution les données d'une années, qui débute à une date entre
- le 01/01/2023 et le 31/12/2023 chosie aléatoirement, sont sélectionnés.
- Dans la présentation pour ce rapport nous avons choisi un horizon d'une
- semaine pour la prévison.
- Ainsi les données de la dernière semaine des donnés sélectionnées sont
- gardées pourle test.
- Les autres données sont utilisées pour l'entraienemnt.
- Dans le cas d'optimisation et et d’ajustement des hyperparamètres, ces
- données sont aussi divisée à leur tour données d'entrainement et de validations.
- Le figure 
+Le figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:spération données train test"
@@ -3121,7 +3252,18 @@ noprefix "false"
 
 \end_inset
 
-schématise cette séparation pour les données d'entrainement et de test.
+schématise la séparation des données d'entrainement et de test décrite dans
+ l'algorithme 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:script géneral"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -3168,8 +3310,47 @@ Séparation des données
 
 \end_layout
 
-\begin_layout Subsubsection
-Métriques d'évaluation
+\begin_layout Standard
+Nous avons tout d'abord developpé une première version sur notebook.
+ Celle-ci nous a permi de valider le concept.
+ Dans celle-ci chaque étape est modèlisé par un pipeline.
+ Puis nous avons developpées une versions notebook avec un pipeline intégrale.
+ Nous avons constaté une dégradation dans les performances que nous n'avons
+ pas su exliquer.
+ Nous avons donc developpée le script décrit précédement, qui traite toutes
+ les configurations en se basant sur la version avec pipelines séparées.
+ Nous avons intégré du parallélèlisme pour accélérer le calcul.
+ Cependat nous étions affronter aux limitations de la puissance de calcul
+ de notre machine.
+ Nous avons pu traité une région et nous espérons pouvoir faire autant pour
+ ls autres régions.
+\end_layout
+
+\begin_layout Subsection
+Evaluation 
+\end_layout
+
+\begin_layout Standard
+La base de données contient les données de 2023 et 2024.
+ A chaque exécution les données d'une années, qui débute à une date entre
+ le 01/01/2023 et le 31/12/2023 chosie aléatoirement, sont sélectionnés
+ (cf.
+ l'algorithme 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:script géneral"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Nous avons choisi un horizon d'une semaine pour la prévison.
+ Dans le cas d'optimisation et et d’ajustement des hyperparamètres, les
+ données d'entrainement sont aussi divisée à leur tour en données d'entrainement
+ et de validation.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3177,7 +3358,11 @@ Les études méntionnées dans notre état de l'art confirment toute que les
  métriques les plus utilisées, dans la cadre de notre problèmatique, sont
  MAPE, RMSE et MAE.
  Ces métriques nous les avons présentés dans le premier chapitre.
- Ici nous synthétisons les résultats obtenus à ce jour.
+ 
+\end_layout
+
+\begin_layout Standard
+Nous présentons ici les résultats obtenus pour la région Auvergne-Rhône-Alpes.
 \end_layout
 
 \end_body
