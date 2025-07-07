@@ -100,13 +100,6 @@ titlepage
 \end_layout
 
 \begin_layout Standard
-\begin_inset Graphics
-	filename logos/Datascientest.jpg
-	lyxscale 40
-	scale 20
-
-\end_inset
-
 
 \family roman
 \series medium
@@ -117,7 +110,6 @@ titlepage
 \noun off
 \color none
 \lang english
-
 \begin_inset ERT
 status open
 
@@ -125,12 +117,56 @@ status open
 
 
 \backslash
-hspace{11cm}
+hspace{6cm}
 \end_layout
 
 \end_inset
 
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+\lang french
 
+\begin_inset Graphics
+	filename logos/Datascientest.jpg
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+\lang english
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace{5cm}
+\end_layout
+
+\end_inset
+
+ DataScientest
 \end_layout
 
 \begin_layout Standard

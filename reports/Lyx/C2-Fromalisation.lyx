@@ -856,7 +856,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
 status open
@@ -943,7 +943,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
 status open
@@ -1178,6 +1178,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
 status open
@@ -1317,6 +1318,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
 status open
@@ -2607,6 +2609,7 @@ différenciée.
 
 \begin_layout Example
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -2730,6 +2733,7 @@ noprefix "false"
 
 \begin_layout Example
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -2828,6 +2832,7 @@ noprefix "false"
 
 \begin_layout Example
 \begin_inset Float figure
+placement h
 wide false
 sideways false
 status open
@@ -3198,6 +3203,7 @@ noprefix "false"
 ).
  La pondération est faite par une fenêtre de Hann.
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -3602,11 +3608,11 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-Dans ce chapitre nous avons posé les bases théoriques indispensables à la
- compréhension, à l'analyse et à la modélisation dans le travail réalisé
+Dans ce chapitre nous avons posé les bases théoriques indispensables, à
+ la compréhension, à l'analyse et à la modélisation, pour le travail réalisé
  pendant ce projet.
  Nous avons ainsi défini et illustré à travers des exemples de notre projet
- les ces concepts suivant :
+ les concepts suivants :
 \end_layout
 
 \begin_layout Enumerate

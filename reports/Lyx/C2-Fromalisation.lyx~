@@ -3448,7 +3448,16 @@ Métriques d'évaluation
 \begin_layout Standard
 Il existe de nombreuses métriques d’évaluation applicables aux approches
  de prévision de séries temporelles.
- Nous utilisons 
+ Nous adoptons dans notre projets sont les métriques les plus utilisées
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nassif2022,su2023systematic,systematic_review_residential_2023"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Itemize
@@ -3584,7 +3593,7 @@ Même unité que la variable prédite.
 \end_layout
 
 \begin_layout Itemize
-Souvent utilisé pour comparer modèles sur la même échelle.
+Souvent utilisé pour comparer des modèles sur une même échelle.
 \end_layout
 
 \end_deeper
@@ -3593,9 +3602,11 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-Dans ce chapitre nous avons posé les bases théoriques indispensable à la
- compréhension du travail réalisé pendant ce projet.
- Nous avons ainsi défini:
+Dans ce chapitre nous avons posé les bases théoriques indispensables, à
+ la compréhension, à l'analyse et à la modélisation, pour le travail réalisé
+ pendant ce projet.
+ Nous avons ainsi défini et illustré à travers des exemples de notre projet
+ les concepts suivants :
 \end_layout
 
 \begin_layout Enumerate
@@ -3603,7 +3614,7 @@ la notion d'une série temporelle,
 \end_layout
 
 \begin_layout Enumerate
-la décomposition d'une série temporelle et ses composantes
+la décomposition d'une série temporelle et ses composantes,
 \end_layout
 
 \begin_layout Enumerate
@@ -3616,12 +3627,11 @@ s statistiques dans le temps,
 \end_layout
 
 \begin_layout Enumerate
-l'analyse temps-fréquence d'une série temporelle
+l'analyse temps-fréquence d'une série temporelle,
 \end_layout
 
-\begin_layout Standard
-Nous avons illustré ces concepts à travers des exemples de notre projet.
- 
+\begin_layout Enumerate
+et les métriques d'évaluation.
 \end_layout
 
 \end_body

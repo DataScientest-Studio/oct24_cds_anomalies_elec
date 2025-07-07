@@ -369,10 +369,10 @@ donne un apperçu de l'entête du dataframe correspondant avec les différentes
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -415,7 +415,7 @@ Entête d'un DataFrame de la consommation d'électricité
 
 \begin_layout Standard
 \begin_inset Float table
-placement th
+placement H
 wide false
 sideways false
 status open
@@ -1147,7 +1147,7 @@ résume ces profils et les palges de puissances souscrites associées.
 
 \begin_layout Standard
 \begin_inset Float table
-placement h
+placement H
 wide false
 sideways false
 status open
@@ -1862,9 +1862,10 @@ Ces figures nous permettent de constater la présence de saisonnalité multiple
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -1905,9 +1906,10 @@ Consommation journalière d'électricté en Auvergne-Rhône-Alpes selon la plage
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -2056,6 +2058,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -2065,8 +2068,8 @@ status open
 \align center
 \begin_inset Graphics
 	filename Chap2/effetjour.png
-	lyxscale 30
-	scale 20
+	lyxscale 40
+	scale 35
 
 \end_inset
 
@@ -2559,6 +2562,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
@@ -2961,6 +2965,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -3046,6 +3051,7 @@ s.
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
@@ -3091,6 +3097,7 @@ Corrélation des facteurs météorologiques avec la consommation électrique
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
@@ -3206,6 +3213,7 @@ literal "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
@@ -3279,7 +3287,7 @@ montre la corrélation entre la tendance de la température et la tendance
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
 status collapsed
@@ -3354,10 +3362,10 @@ montrent cette corrélation après inversion et standarisation.
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -3400,20 +3408,20 @@ n électrique dans la région Auvergne-Rhône-Alpes
 
 \begin_layout Standard
 \begin_inset Float table
-placement h
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
+<features tabularvalignment="middle" tabularwidth="15cm">
+<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="5cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -3457,7 +3465,7 @@ Tendance de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.000000
+1.00
 \end_layout
 
 \end_inset
@@ -3466,7 +3474,7 @@ Tendance de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.911098
+0.91
 \end_layout
 
 \end_inset
@@ -3486,7 +3494,7 @@ Inverse de la tendance de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.911098
+0.91
 \end_layout
 
 \end_inset
@@ -3495,7 +3503,7 @@ Inverse de la tendance de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.000000
+1.00
 \end_layout
 
 \end_inset
@@ -3596,19 +3604,20 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float table
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
+<features tabularvalignment="middle" tabularwidth="15cm">
+<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="5cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -3652,7 +3661,7 @@ Résidus de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.000000
+1.00
 \end_layout
 
 \end_inset
@@ -3661,7 +3670,7 @@ Résidus de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.38548
+0.39
 \end_layout
 
 \end_inset
@@ -3681,7 +3690,7 @@ Résidus de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
-0.38548
+0.39
 \end_layout
 
 \end_inset
@@ -3690,7 +3699,7 @@ Résidus de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.000000
+1.0
 \end_layout
 
 \end_inset
@@ -3708,10 +3717,10 @@ Résidus de la teméprature
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
+<features tabularvalignment="middle" tabularwidth="15cm">
+<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="5cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -3755,7 +3764,7 @@ Saisonnalité de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.000000
+1.00
 \end_layout
 
 \end_inset
@@ -3764,7 +3773,7 @@ Saisonnalité de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.031113
+-0.03
 \end_layout
 
 \end_inset
@@ -3784,7 +3793,7 @@ Saisonnalité de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
--0.031113
+-0.03
 \end_layout
 
 \end_inset
@@ -3793,7 +3802,7 @@ Saisonnalité de la teméprature
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.000000
+1.00
 \end_layout
 
 \end_inset
@@ -3888,6 +3897,7 @@ montre la corrélation entre l'humidité et la consommation électrique observé
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -3954,28 +3964,12 @@ montre les tendances de l'humidité et de la consommation électrique observée
  entre 2023 et 2024 pour la région Auvergne-Rhône-Alpes.
  Ces tendances sont obtenues par une moyenne glissante sur une semaine puis
  centrées et réduites.
- Nous constatons que la tendance de la consommation d'élecricité est corrélée
- avec la tendance de l'humidité pendant la période hivernale, et elle est
- corrélée avec l'inverse de la tendance de l'humidité pendant la période
- estivale.
- les tableau 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "tab:Corrélation-tendance"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-donnes les cofficients de corrélation, calculé par la méthode de Pearson.
- Le premier tableau donne ces coefficients pour toutes les saisons et le
- deuxièmes en séprant les saisons.
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
 status open
@@ -4020,21 +4014,41 @@ Corrélation entre la tendance de l'humidité et la tendance de la consommation
 \end_layout
 
 \begin_layout Standard
+Nous constatons que la tendance de la consommation d'élecricité est corrélée
+ avec la tendance de l'humidité pendant la période hivernale, et elle est
+ corrélée avec l'inverse de la tendance de l'humidité pendant la période
+ estivale.
+ les tableau 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Corrélation-tendance"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+donne les cofficients de corrélation, calculés par la méthode de Pearson.
+ Le premier tableau donne ces coefficients pour toutes les saisons et le
+ deuxièmes en séprant les saisons.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float table
-placement h
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
+<features tabularvalignment="middle" tabularwidth="15cm">
+<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="5cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -4078,7 +4092,7 @@ Tendance de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.000000
+1.00
 \end_layout
 
 \end_inset
@@ -4116,7 +4130,7 @@ Tendance de l'humidité
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.000000
+1.00
 \end_layout
 
 \end_inset
@@ -4134,10 +4148,10 @@ Tendance de l'humidité
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top">
+<features tabularvalignment="middle" tabularwidth="15cm">
+<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="5cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -4181,7 +4195,7 @@ Tendance de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.000000
+1.00
 \end_layout
 
 \end_inset
@@ -4219,7 +4233,7 @@ tendance de l'humidité
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.000000
+1.00
 \end_layout
 
 \end_inset
@@ -4246,8 +4260,7 @@ name "tab:Corrélation-saisonnalite-resid-1"
 
 Coefficients de Corrélation entre la tendance de l'humidité et la tendance
  de la consommation électrique dans la région Auvergne-Rhône-Alpes.
- (a) Pour toutes les saisons, (b) Pour toutes les saisons printemps et été.
- 
+ (a) Pour toutes les saisons, (b) En séparant les saisons
 \end_layout
 
 \end_inset
@@ -4343,6 +4356,7 @@ est
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -4402,25 +4416,11 @@ montre la relation entre la tendance du rayonnement solaire global et la
  la région Auvergne-Rhône-Alpes.
  Nous constatons que la tendance de la consommation d'élecricité est fortement
  corrélée avec l'inverse de la tendance du rayonnement.
- La figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Corrélation_tendanceR-1"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-et le tableau montre cette corrélation après inversion et standarisation.
- Les composantes saisonières sont décorrélées et les composant résiduelles
- sont faiblement corrélées.
- 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
 status collapsed
@@ -4465,11 +4465,26 @@ Corrélation entre la tendance du rayonnement solaire global et la tendance
 \end_layout
 
 \begin_layout Standard
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Corrélation_tendanceR-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+montre cette corrélation après inversion et standarisation.
+ 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -4518,19 +4533,13 @@ Conclusion
 Dans ce chapitre nous avons présenté notre démarche pour collecter, analyser,
  fusioner et traiter les bases de données dont nous avions besoin pour mener
  ce projet.
- Nous avons étudiers les relations entre les variables exogènes et la varaible
+ Nous avons étudié les relations entre les variables exogènes et la varaible
  cible.
- Nous avons démontré que les composantes saisonnières de la consommation
+ Nous avons ainsi démontré que les composantes saisonnières de la consommation
  d'électricité sont indépandantes des varaibles exogènes.
- Nous avons formalisé la relation non linéaire qui existe entre la tendance
- (respectivement le résidu) de la consommation d'électricité et les tendances
- (respectivement les résidus) des variables exogènes.
-\end_layout
-
-\begin_layout Itemize
-le résidus de la consommation d'électricité les composantes résiduelles
- des variables météorologiques et dépendent uniquement de la configuration
- profile-puissance souscrite.
+ Nous avons aussi formalisé la relation non linéaire qui existe entre la
+ tendance (respectivement le résidu) de la consommation d'électricité et
+ les tendances (respectivement les résidus) des variables météorologiques.
  
 \end_layout
 

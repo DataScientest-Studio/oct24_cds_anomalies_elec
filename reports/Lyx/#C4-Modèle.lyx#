@@ -309,12 +309,12 @@ désigne l'ensemble de régions métropolitaines de France encodées par leur
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
+\begin_layout Standard
 \begin_inset Float table
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -1243,10 +1243,7 @@ s.
  Le modèle le plus adapté pour capter cet effet de mémoire doit être basée
  sur des architectures LSTM (Long Short Term Memory).
  Nous adoptons donc ce modèle pour les composantes tendance et résidus.
-\end_layout
-
-\begin_layout Standard
-L'architecture général de notre approche est donnée par le schéma de la
+ L'architecture général de notre approche est donnée par le schéma de la
  figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1258,31 +1255,23 @@ noprefix "false"
 \end_inset
 
 .
- La figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Architecture-générale-1"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-illustre l'implémentation de ce schéma en pipeline.
- Chaque partie de cette architecture sera décrite dans les sections suivantes.
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename Chap3/Archi.png
 	lyxscale 70
-	scale 50
+	scale 60
 
 \end_inset
 
@@ -1310,12 +1299,30 @@ Architecture générale
 \end_layout
 
 \begin_layout Standard
+La figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Architecture-générale-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ illustre l'implémentation de ce schéma en pipeline.
+ Chaque partie de cette architecture sera décrite dans les sections suivantes.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename Chap3/PipeLineGeneral.png
 	lyxscale 50
@@ -1380,9 +1387,10 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Itemize
 Analyse temps-fréquence (SpectrogramAnalysis)
@@ -1640,6 +1648,7 @@ et de
 
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
 status open
@@ -1711,9 +1720,10 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Itemize
 Decomposition (DecompositionSerieTemporelle)
@@ -2020,6 +2030,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -2180,10 +2191,10 @@ où
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
+placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -2280,10 +2291,10 @@ Prévsion par
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
+placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -2385,6 +2396,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -2480,9 +2492,10 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -2543,6 +2556,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -2625,7 +2639,7 @@ où
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
+placement h
 wide false
 sideways false
 status open
@@ -2668,7 +2682,20 @@ name "fig:Prévsion-par-P1-1"
 
 \end_inset
 
-Prévsion du résidu
+Prévsion du résidu de la série 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+où 
+\begin_inset Formula $r=84$
+\end_inset
+
+ (région Auvergne-Rhône -Alpes) et la configuration profile_plage de puissance
+ est 
+\begin_inset Formula $q=\left(RES11(+RES11WE),P4:]9-12]kVA\right)$
+\end_inset
+
+.
 \end_layout
 
 \end_inset
@@ -2683,7 +2710,7 @@ Prévsion du résidu
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
+placement h
 wide false
 sideways false
 status open
@@ -2739,7 +2766,33 @@ Prévsion
 \uwave off
 \noun off
 \color none
-de la tendance
+de la tendance 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+de la série 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\end_inset
+
+où 
+\begin_inset Formula $r=84$
+\end_inset
+
+ (région Auvergne-Rhône -Alpes) et la configuration profile_plage de puissance
+ est 
+\begin_inset Formula $q=\left(RES11(+RES11WE),P4:]9-12]kVA\right)$
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2763,12 +2816,13 @@ noprefix "false"
 
 \end_inset
 
- montrent la prévision de la série utilisée dans les exmples précédents
+ montrent la prévision de la série utilisée dans les exemples précédents
  après recomposition.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -2778,6 +2832,8 @@ status open
 \align center
 \begin_inset Graphics
 	filename Chap3/PredictionConso_RES11(+RES11WE)._P4_9_12.png
+	lyxscale 50
+	scale 40
 
 \end_inset
 
@@ -2840,6 +2896,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
 status open
@@ -3003,12 +3060,16 @@ Tirer aléatoirement un
  
 \end_layout
 
-\begin_layout Itemize
-Définir
+\begin_deeper
+\begin_layout Plain Layout
+\begin_inset Formula $\longrightarrow$
+\end_inset
+
+
 \begin_inset Formula $\mathbb{T_{\mathrm{m}}}=\left\{ kT_{s},k\in\left\{ m,...,\tau=m-1+L/2\right\} \right\} $
 \end_inset
 
- l'ensemble d'instants d'observation pour l'entrainement
+ : l'ensemble d'instants d'observation pour l'entrainement
 \family roman
 \series medium
 \shape up
@@ -3024,16 +3085,16 @@ Définir
  
 \end_layout
 
-\begin_layout Itemize
-Définir
-\begin_inset Formula $\mathbb{T_{\mathrm{test}}}=\left\{ kT_{s},k\in\left\{ \tau+1,\tau+h\right\} \right\} $
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbb{\longrightarrow T_{\mathrm{test}}}=\left\{ kT_{s},k\in\left\{ \tau+1,\tau+h\right\} \right\} $
 \end_inset
 
- l'ensemble d'instants d'observation pour le test 
+ : l'ensemble d'instants d'observation pour le test 
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
-Données d'entrainement :
+Extraire les données d'entrainement :
 \begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
 \end_inset
 
@@ -3053,7 +3114,7 @@ Données d'entrainement :
 \end_layout
 
 \begin_layout Itemize
-Données de test : 
+Extraire les données de test : 
 \begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{test}}}}$
 \end_inset
 
@@ -3201,15 +3262,45 @@ Sauvegarder le modèle
 
 \end_deeper
 \begin_layout Itemize
-Recomposition et calcul de 
-\begin_inset Formula $\left(N_{k}^{^{(r,q)}}\times\overline{Y}_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{\mathbb{T_{\mathrm{m}}}}}$
+Recomposition et calcul de la prévision 
+\begin_inset Formula $\left(\widehat{Y}_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{test}}}}=\left(N_{k}^{^{(r,q)}}\times\widehat{\overline{Y}}_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{\mathbb{T_{\mathrm{test}}}}}$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Itemize
-Evaluation
+Calcul des métriques MAPE (équation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:MAPE"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), MAE ( équation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:MAE"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) et RMSE (équation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:RMSE"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Itemize
@@ -3228,7 +3319,7 @@ name "alg:script géneral"
 
 \end_inset
 
-Décomposition en cascade des séries temporelles
+Le script final
 \end_layout
 
 \end_inset
@@ -3268,6 +3359,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -3313,7 +3405,7 @@ Séparation des données
 \begin_layout Standard
 Nous avons tout d'abord developpé une première version sur notebook.
  Celle-ci nous a permi de valider le concept.
- Dans celle-ci chaque étape est modèlisé par un pipeline.
+ Dans celle-ci chaque étape est modèlisée par un pipeline.
  Puis nous avons developpées une versions notebook avec un pipeline intégrale.
  Nous avons constaté une dégradation dans les performances que nous n'avons
  pas su exliquer.
@@ -3322,8 +3414,8 @@ Nous avons tout d'abord developpé une première version sur notebook.
  Nous avons intégré du parallélèlisme pour accélérer le calcul.
  Cependat nous étions affronter aux limitations de la puissance de calcul
  de notre machine.
- Nous avons pu traité une région et nous espérons pouvoir faire autant pour
- ls autres régions.
+ Nous avons traité une région et nous espérons pouvoir traiter les autres
+ régions avant la présentation finale.
 \end_layout
 
 \begin_layout Subsection
@@ -3331,38 +3423,373 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
-La base de données contient les données de 2023 et 2024.
- A chaque exécution les données d'une années, qui débute à une date entre
- le 01/01/2023 et le 31/12/2023 chosie aléatoirement, sont sélectionnés
- (cf.
- l'algorithme 
+Dans cette section nous présentons et analysons les résultats de notre modèle
+ sur les données de la région Auvergne-Rhône-Alpes.
+ Nous avons choisi un horizon d'une semaine pour la prévison.
+ Nous avons effectué une simulation avec l'option d'optimisation et et d’ajustem
+ent des hyperparamètres.
+ Malgrè le traitement en parrallèle des configurations profil - plage de
+ puissance, les temps sont de l'odre de 20 à 40 minutes par configuration.
+\end_layout
+
+\begin_layout Subsubsection
+Analyse des résultats par rapport à la métrique MAPE
+\end_layout
+
+\begin_layout Standard
+Les figures 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "alg:script géneral"
+reference "fig:Distribution-d'erreur-MAPE-Profil"
 plural "false"
 caps "false"
 noprefix "false"
 
 \end_inset
 
+ et 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Distribution-d'erreur-MAPE-PlagePuissance"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montrent pour chaque profil la distribution de la métrique MAPE en fonction
+ ses plages de puissance souscrite.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/MAPE_ARA_boxenplot.png
+	lyxscale 35
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Distribution-d'erreur-MAPE-Profil"
+
+\end_inset
+
+Distribution d'erreur MAPE pour les différents profils en fonction des plages
+ de puissance souscrite.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Les figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Distribution-d'erreur-MAPE-PlagePuissance"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montre pour chaque plage de puissance souscrite la distribution de la métrique
+ MAPE en fonction des profils.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/MAPE_ARA_puissance_boxenplot.png
+	lyxscale 80
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Distribution-d'erreur-MAPE-PlagePuissance"
+
+\end_inset
+
+Distribution d'erreur MAPE pour chaque plage de puissance souscrite en fonction
+ des profils 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nous constatons que pour les plages de puissance souscrite P6 : [15-18[
+ KVA et P3:]6-9[ KVA pour toutes les puissances, le MAPE dépassent dans
+ certain cas les 2% Contrairement aux autres plages.
+ La figure montre en nuage de point la métrique MAPE pour chaque configuration
+ 
+\begin_inset Formula $\mathcal{\mathrm{\mathit{q}}\in Q}$
+\end_inset
+
+dans la région Auvergne-Rhône-Alpes (
+\begin_inset Formula $r=84$
+\end_inset
+
 ).
- Nous avons choisi un horizon d'une semaine pour la prévison.
- Dans le cas d'optimisation et et d’ajustement des hyperparamètres, les
- données d'entrainement sont aussi divisée à leur tour en données d'entrainement
- et de validation.
+ Ce graphique nous permet d'identifier les configurations qui nécessite
+ un examen de près pour identifier les raison des valeurs elevée de la métrique
+ MAPE.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/MAPE_ARA_Puissance_scatter.png
+	lyxscale 80
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Distribution-d'erreur-MAPE-PlagePuissance-1"
+
+\end_inset
+
+Distribution d'erreur MAPE pour chaque plage de puissance souscrite en fonction
+ des profils
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Analyse des résultats par rapport aux métriques MAE et RSME
+\end_layout
+
+\begin_layout Standard
+Les figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Distribution-d'erreur-MAE-Profil-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ et 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Distribution-d'erreur-MAE-PlagePuissance-2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montrent pour chaque profil la distribution de la métrique MAPE en fonction
+ ses plages de puissance souscrite.
  
 \end_layout
 
 \begin_layout Standard
-Les études méntionnées dans notre état de l'art confirment toute que les
- métriques les plus utilisées, dans la cadre de notre problèmatique, sont
- MAPE, RMSE et MAE.
- Ces métriques nous les avons présentés dans le premier chapitre.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/RMSE_MAE_ARA_profil_boxenplot.png
+	lyxscale 60
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Distribution-d'erreur-MAE-Profil-1"
+
+\end_inset
+
+Distribution des métriques MAE et RMSE pour les différents profils en fonction
+ des plages de puissance souscrite.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Les figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Distribution-d'erreur-MAE-PlagePuissance-2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montre pour chaque plage de puissance souscrite la distribution de la métrique
+ MAPE en fonction des profils.
  
 \end_layout
 
 \begin_layout Standard
-Nous présentons ici les résultats obtenus pour la région Auvergne-Rhône-Alpes.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/RMSE_MAE_ARA_puissance_boxenplot.png
+	lyxscale 80
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Distribution-d'erreur-MAE-PlagePuissance-2"
+
+\end_inset
+
+Distributions des métriques MAE et RMSE pour chaque plage de puissance souscrite
+ en fonction des profils
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nous constatons que pour les plages de puissance souscrite P6 : [15-18[
+ KVA et P3:]6-9[ KVA pour toutes les puissances, le MAPE dépassent dans
+ certain cas les 2% Contrairement aux autres plages.
+ La figure montre en nuage de point la métrique MAPE pour chaque configuration
+ 
+\begin_inset Formula $\mathcal{\mathrm{\mathit{q}}\in Q}$
+\end_inset
+
+dans la région Auvergne-Rhône-Alpes (
+\begin_inset Formula $r=84$
+\end_inset
+
+).
+ Ce graphique nous permet d'identifier les configurations qui nécessite
+ un examen de près pour identifier les raison des valeurs elevée de la métrique
+ MAPE.
 \end_layout
 
 \end_body
