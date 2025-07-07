@@ -3641,5 +3641,145 @@ Distribution d'erreur MAPE pour chaque plage de puissance souscrite en fonction
 Analyse des résultats par rapport aux métriques MAE et RSME
 \end_layout
 
+\begin_layout Standard
+Les figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Distribution-d'erreur-MAE-Profil-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montre pour chaque profil la distribution des métriques MAE et RMSE en
+ fonction de ses plages de puissance souscrite.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/RMSE_MAE_ARA_profil_boxenplot.png
+	lyxscale 60
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Distribution-d'erreur-MAE-Profil-1"
+
+\end_inset
+
+Distribution des métriques MAE et RMSE pour les différents profils en fonction
+ des plages de puissance souscrite.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Les figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Distribution-d'erreur-MAE-PlagePuissance-2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montre pour chaque plage de puissance souscrite la distribution des métriques
+ MAE et RMSE en fonction des profils.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Chap3/RMSE_MAE_ARA_puissance_boxenplot.png
+	lyxscale 80
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Distribution-d'erreur-MAE-PlagePuissance-2"
+
+\end_inset
+
+Distributions des métriques MAE et RMSE pour chaque plage de puissance souscrite
+ en fonction des profils
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ces graphiques confirme le fait que les résultats des configuration RES11(+RES11
+WE) - P3 et RES11(+RES11WE) - P6, 
+\begin_inset space ~
+\end_inset
+
+ PRO5 - P3 et PRO5- P6, RES2(+RS5)-P3 sont très mauvais.
+ Pour toute les autres ocnfigurations nous avons des MAPE inférieurs à la
+ barre de 2% .
+ Pour certaines configurations MAPE est inférieure à 1%.
+ Dans la suite de notre travail, nous allons examiner les causes de ces
+ faibles les score pour ces configurations.
+\end_layout
+
+\begin_layout Section
+Conclusion 
+\end_layout
+
 \end_body
 \end_document

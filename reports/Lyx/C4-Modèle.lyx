@@ -3652,18 +3652,8 @@ noprefix "false"
 
 \end_inset
 
- et 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Distribution-d'erreur-MAE-PlagePuissance-2"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
- montrent pour chaque profil la distribution de la métrique MAPE en fonction
- ses plages de puissance souscrite.
+ montre pour chaque profil la distribution des métriques MAE et RMSE en
+ fonction de ses plages de puissance souscrite.
  
 \end_layout
 
@@ -3723,8 +3713,8 @@ noprefix "false"
 
 \end_inset
 
- montre pour chaque plage de puissance souscrite la distribution de la métrique
- MAPE en fonction des profils.
+ montre pour chaque plage de puissance souscrite la distribution des métriques
+ MAE et RMSE en fonction des profils.
  
 \end_layout
 
@@ -3774,22 +3764,33 @@ Distributions des métriques MAE et RMSE pour chaque plage de puissance souscrit
 \end_layout
 
 \begin_layout Standard
-Nous constatons que pour les plages de puissance souscrite P6 : [15-18[
- KVA et P3:]6-9[ KVA pour toutes les puissances, le MAPE dépassent dans
- certain cas les 2% Contrairement aux autres plages.
- La figure montre en nuage de point la métrique MAPE pour chaque configuration
+Ces graphiques confirme le fait que les résultats des configuration RES11(+RES11
+WE) - P3 et RES11(+RES11WE) - P6, 
+\begin_inset space ~
+\end_inset
+
+ PRO5 - P3 et PRO5- P6, RES2(+RS5)-P3 sont très mauvais.
+ Pour toute les autres ocnfigurations nous avons des MAPE inférieurs à la
+ barre de 2% .
+ Pour certaines configurations MAPE est inférieure à 1%.
+ Dans la suite de notre travail, nous allons examiner les causes de ces
+ faibles les score pour ces configurations.
+\end_layout
+
+\begin_layout Section
+Conclusion 
+\end_layout
+
+\begin_layout Standard
+Dans ce chapitre nous avons présenté une nouvelle approche pour la prévision
+ de la consommation d'électricité à court-terme.
+ Cet présentation etait accompgner par un exposé de notre démarche scientifique,
+ qui nous a conduit à élaborer cette approche.
+ Nous avons également montré la réalisation de cette approche et son évaluation
+ avec les bases de données que nous avions construites.
+ Les premiers résultats obtenus sont très encouragentes pour un grand ensemble
+ de configurations.
  
-\begin_inset Formula $\mathcal{\mathrm{\mathit{q}}\in Q}$
-\end_inset
-
-dans la région Auvergne-Rhône-Alpes (
-\begin_inset Formula $r=84$
-\end_inset
-
-).
- Ce graphique nous permet d'identifier les configurations qui nécessite
- un examen de près pour identifier les raison des valeurs elevée de la métrique
- MAPE.
 \end_layout
 
 \end_body
