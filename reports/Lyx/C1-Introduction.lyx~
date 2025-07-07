@@ -177,11 +177,11 @@ Contexte
 \end_layout
 
 \begin_layout Standard
-La prévision de la consommation d’électricité est capitale autant pour la
- gestion de la production que pour la gestion de la consommation.
+La prévision est capitale autant pour la gestion de la production d'électricité
+ que pour la gestion de sa consommation.
  Pour les opérateurs et fournisseurs d'électricité, une prévision précise
- de la consommation d’électricité permettrait de bien équilibrer l’offre
- et la demande.
+ de la quantité d’électricité à produire permettrait de bien équilibrer
+ l’offre et la demande.
  Pour le consommateur, une prévision fiable de sa consommation permet de
  mieux gérer celle-ci et de détecter les éventuelles anomalies.
  Nous distinguons deux catégories de prévisions 
@@ -268,14 +268,6 @@ Ces dernières années, les prévisions de la charge et de la consommation
  d’électricité ont suscité un grand intérêt tant dans la recherche académique
  que dans le secteur industriel.
  Les auteurs des revues de littératures
-\begin_inset CommandInset citation
-LatexCommand cite
-key "nassif2022,systematic_review_residential_2023"
-literal "false"
-
-\end_inset
-
-
 \begin_inset CommandInset citation
 LatexCommand cite
 key "nassif2022,systematic_review_residential_2023"

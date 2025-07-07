@@ -150,7 +150,7 @@ Dans ce chapitre nous décrivons l'approche qu nous proposons pour effectuer
  la prévision de la consommation d'éléctricité.
  Dans le premier chapitre nous avons formalisé, dans le cas général, la
  problématique de prévision pour une série multivariée.
- Nous transposant celle-ci sur notre série, définie et décrite dans le chapitre
+ Nous transposons celle-ci sur notre série, définie et décrite dans le chapitre
  2.
  Afin de comparer notre approche avec d'autres travaux, nous dressons ici
  une synthèse de la revue de littérature générale, qui ne vaut pas être
@@ -164,11 +164,12 @@ literal "false"
 \end_inset
 
  qui ont présentés des méta-analyse des articles publiés sur le sujet.
- Il faut noter qu'il y a une différence entre la charge et la consommation.
- Dans notre cas, nous nous intéressons à la prévision de la consommation
- réels des clients Enedis et non pas à la charge éléctrique.
  A la suite de cette revue de littérature nous présentons notre modèle en
  détails et nous treminons par une analyse de ses performances.
+ Nous tenons à noter que dans notre cas, nous nous intéressons à la prévision
+ de la consommation réelle des clients Enedis et non pas à la prévision
+ de la charge éléctrique.
+ 
 \end_layout
 
 \begin_layout Section
@@ -188,7 +189,7 @@ Avant de décrire formellement le problème posé nous rappelons les notations
 \begin_inset Formula $\mathbb{T}=\left\{ kT_{s},k\in\left\{ 0,...,L\right\} \right\} $
 \end_inset
 
- l'ensemble d'instants d'observation disponibla dans notre base.
+ l'ensemble d'instants d'observation disponibles dans notre base.
  Cette ensemble couvre la période du 01-01-2023 au 31-12-2024.
  On rappelle que :
 \end_layout
@@ -198,14 +199,14 @@ Avant de décrire formellement le problème posé nous rappelons les notations
 \begin_inset Formula $T_{s}=30\ min$
 \end_inset
 
- est la période d'échantillonnage
+ est la période d'échantillonnage.
 \end_layout
 
 \begin_layout Itemize
 \begin_inset Formula $L=(365+366)*48=35088$
 \end_inset
 
-
+ est le nombre d'observations disponibles.
 \end_layout
 
 \end_deeper
@@ -239,11 +240,11 @@ est choisi aléatoirement à chaque entrainement du modèle, et se termine
 \begin_inset Formula $\tau=m-1+L/2$
 \end_inset
 
- 
+ .
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $\mathbb{T_{\mathrm{v}}}=\left\{ kT_{s},k\in\left\{ \tau+1,\tau+h\right\} \right\} $
+\begin_inset Formula $\mathbb{T_{\mathrm{test}}}=\left\{ kT_{s},k\in\left\{ \tau+1,\tau+h\right\} \right\} $
 \end_inset
 
  l'ensemble d'instants d'observation pour le test 
@@ -280,7 +281,7 @@ des performances du modèle à l'horizon
 \uwave off
 \noun off
 \color none
-\begin_inset Formula $\mathbb{T_{\mathrm{1}}}=\mathbb{T_{\mathrm{m}}}\bigcup\mathbb{T_{\mathrm{v}}}$
+\begin_inset Formula $\mathbb{T_{\mathrm{1}}}=\mathbb{T_{\mathrm{m}}}\bigcup\mathbb{T_{\mathrm{teste}}}$
 \end_inset
 
 
@@ -296,7 +297,7 @@ des performances du modèle à l'horizon
 \uwave default
 \noun default
 \color inherit
- l'ensemble d'instants d'observation pour l'entrainement et le test
+ l'ensemble d'instants d'observation pour l'entrainement et le test.
 \end_layout
 
 \begin_layout Itemize
@@ -310,9 +311,10 @@ désigne l'ensemble de régions métropolitaines de France encodées par leur
 \begin_deeper
 \begin_layout Itemize
 \begin_inset Float table
+placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -760,7 +762,7 @@ Pour toute configuration profile-plage de puissance
 \begin_inset Formula $\mathcal{M^{\mathit{(q,r)}}}$
 \end_inset
 
- qui peremt d'estimer les valeurs future 
+ qui peremt d'estimer les valeurs futures 
 \family roman
 \series medium
 \shape up
@@ -774,7 +776,7 @@ Pour toute configuration profile-plage de puissance
 \noun off
 \color none
 
-\begin_inset Formula $\left(Y_{k}\right)_{kT_{s}\in\mathbb{T_{\mathrm{v}}}},$
+\begin_inset Formula $\left(Y_{k}\right)_{kT_{s}\in\mathbb{T_{\mathrm{test}}}},$
 \end_inset
 
 pour l'horizon 
@@ -893,7 +895,7 @@ Hypothèses validées
 \end_layout
 
 \begin_layout Standard
-Dans les précedents chapitres nous avons validé statistiquement les hypothèse
+Dans les précedents chapitres nous avons validé statistiquement les hypothèses
  suivantes :
 \end_layout
 
@@ -908,7 +910,7 @@ l'analyse spéctrale permet de déterminer les saisonnalités dominantes de
 \end_layout
 
 \begin_layout Itemize
-les série temporelles de la consommation d'électricité sont non stationnaire
+les série temporelles de la consommation d'électricité sont non stationnaires
  et ceci est dû à leurs tendances, 
 \end_layout
 
@@ -917,7 +919,8 @@ les composantes saisonnières et résiduelles sont stationnaires,
 \end_layout
 
 \begin_layout Itemize
-Les composantes saisonnières sont indépandantes des varaibles exogènes,
+Les composantes saisonnières sont indépandantes des varaibles exogènes et
+ dépendent uniquement de la configuration profil - plage de puissance souscrite.
  
 \end_layout
 
@@ -928,25 +931,18 @@ il existe une relation non linéaire entre la tendance de la consommation
 
 \begin_layout Itemize
 la tendance de la consommation d'électricité est fortement corrélée aux
- séries obtenues par des transformations bien établies des tendances des
- variables exogènes,
+ séries obtenues par des translation et inversion des tendances des variables
+ exogènes,
 \end_layout
 
 \begin_layout Itemize
-l'existance d'une relation non linéaire entre le résidus de la consommation
+il existe une relation non linéaire entre le résidus de la consommation
  d'électricité et les résidus des variables exogènes,
 \end_layout
 
 \begin_layout Itemize
 le résidus de la consommation d'électricité est fortement corrélée aux séries
  obtenues par transformation des résidus des variables exogènes,
-\end_layout
-
-\begin_layout Itemize
-le résidus de la consommation d'électricité les composantes résiduelles
- des variables météorologiques et dépendent uniquement de la configuration
- profile-puissance souscrite.
- 
 \end_layout
 
 \begin_layout Section
@@ -958,15 +954,15 @@ Avant de faire la synthèse de notre revue de littérature, nous tenons à
  souligner que la majorité des études publiées traitent de la prévision
  de la charge électrique qui consiste à prévoir la quantité d’électricité
  demandée à un moment donné.
- Alors que Dans notre étude nous intéressons à la prévision de la consommation
+ Alors que dans notre étude nous intéressons à la prévision de la consommation
  d’électricité, qui consiste à prévoir la quantité d’électricité qui sera
  consommée sur une période par un agrégat d'utilisateurs.
- Malgrè cette différence point de vue (production vs consommation) le paradigme
- est le même.
+ Malgrè cette différence de point de vue (production vs consommation) le
+ paradigme reste le même.
 \end_layout
 
 \begin_layout Standard
-Notre synthèse s'appye sur les dernière revues de littératures publiés 
+Notre synthèse s'appye sur les dernières revues de littérature publiés 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "nassif2022,su2025systematic,systematic_review_residential_2023"
@@ -983,15 +979,15 @@ literal "false"
 
 \end_inset
 
-est une méta-analyse de 240 articles publiés sur sujet de la prévision de
- la charge électrique à court terme (
+est une méta-analyse de 240 articles publiés sur le sujet de la prévision
+ de la charge électrique à court terme (
 \shape italic
 STLF pour Short-Term Load Forecasting
 \shape default
 ) entre 2000 et 2019.
- Selon cette étude, 87% des études traite ce problème de prévision par des
- techniques de regression alors que 13% le traite par des techniques de
- classification.
+ Selon cette étude, 87% des études traitent ce problème de prévision par
+ des techniques de regression alors que 13% le traitent par des techniques
+ de classification.
  L’utilisation de réseaux de neurones artificiels (ANN) représente 21 %
  des modèles proposés dans la littérature, et en combinaison avec d'autres
  modèles ce taux passe à 45 % .
@@ -999,7 +995,7 @@ STLF pour Short-Term Load Forecasting
 ssifs à moyenne mobile (ARIMA), représentent 10% des publications analysées.
  Les modèles de régression représentent 9 % des modèles proposés, alors
  que les modèles basés sur la logique floue représentent 4% et la régression
- à vecteurs de support (SVR) est autour de 4 % des modèles proposés aussi.
+ à vecteurs de support (SVR) est utilisée dans 4 % des publications.
  L'étude cite également d'autre modèle comme les modèles d'optimisation
  par essaims particulaires (particle swarm optimization ou PSO), les vecteurs
  autorégressifs bayésiens (Bayesian vector autoregression ou BVAR), les
@@ -1010,11 +1006,31 @@ ssifs à moyenne mobile (ARIMA), représentent 10% des publications analysées.
  Dans l’ensemble, les techniques d’apprentissage automatique ont été utilisées
  dans environ 43 % des travaux, les techniques hybrides employant plusieurs
  modèles dans 44 %, et les méthodes statistiques dans environ 13 %.
- Les métrique les plus utilisées sont l'ordre : MAPE (Mean Absolute Percentage
- Error) dans 62 % d''études, MSE (Mean Squared Error – MSE ) dans 34% d'études,
- RMSE(Root Mean Squared Error) dans 26%, MAE (Mean Absolute Error) dans
- 25 % et l'APE (Average Percentage Error) dans 6% des cas.
- L'étude souligne que pour une prévsion à court terme, d'horizon d'un jour
+ Les métriques les plus utilisées sont dans l'ordre : 
+\end_layout
+
+\begin_layout Itemize
+MAPE (Mean Absolute Percentage Error) utlisée dans 62 % des cas, 
+\end_layout
+
+\begin_layout Itemize
+MSE (Mean Squared Error – MSE ) utlisée dans 34% des cas, 
+\end_layout
+
+\begin_layout Itemize
+RMSE(Root Mean Squared Error) utlisée dans 26% des cas, 
+\end_layout
+
+\begin_layout Itemize
+MAE (Mean Absolute Error) utlisée dans 25 % des cas, 
+\end_layout
+
+\begin_layout Itemize
+et l'APE (Average Percentage Error) utlisée dans 6% des cas.
+\end_layout
+
+\begin_layout Standard
+L'étude souligne que pour une prévsion à court terme, d'horizon d'un jour
  et avec un pas d'une heure, les meilleurs score sont un MAPE entre 1% et
  2%, et dans quelque rare cas ce score passe sous la barre de 1%.
  
@@ -1033,16 +1049,16 @@ literal "false"
  de la charge d'électricité à court terme (STLF) appliquées au secteur résidenti
 el.
  Elle affirme que dans le monde, la consommation d'électricité des bâtiments
- résidentiel représente 39 % de la consommation mondiale d'électricité ,
- et qu'en Europe, cette proportion passe à 40 % .
+ résidentiels représente 39 % de la consommation mondiale d'électricité
+ , et qu'en Europe, cette proportion passe à 40 % .
  Le nombre d'articles publiés au cours des dernières décennies sur le STLF
- pour le secteur résidentieltémoigne de l'intérêt croissant de la communauté
- scientifique sur ce sujet.
+ pour le secteur résidentiel témoigne de l'intérêt croissant de la communauté
+ scientifique pour ce sujet.
  Les approches présentées dans ces 38 articles se fondent sur des méthodes
  d'apprentissage automatique (ANN, LSTM, SVR, ANN, CFNN, MLP, CNN-LSTM),
  des méthodes statistiques (ARIMA, SARIMA, Optimisation bayésienne , Processus
- gaussiens (GP)) ou sur les combinaisons des deux.
- L'apprentissage automatique est utilisée dans 57.9% des articles analysées,
+ Gaussiens (GP)) ou sur les combinaisons des deux.
+ L'apprentissage automatique est utilisée dans 57.9% des articles analysés,
  les méthodes statistiques sont utilisées dans 18.4 % et la combinaison dans
  23.7%.
  Les auteurs soulèvent le fait que les les performances des méthodes statistique
@@ -1051,22 +1067,22 @@ s sont limités à cause de la non-linéarité du comportement de la consommatio
 issage automatique, tels que la régression du vecteur de support (SVR) et
  les réseaux neuronaux artificiels (ANN), peuvent remédier à cette non-linéarité.
  Cependant pour la régression du vecteur de support, une sélection inappropriée
- de la fonction noyau ou des hyperparamètres dégrades les performances de
+ de la fonction noyau ou des hyperparamètres dégrade les performances de
  la prévision.
- Quand aux ANN le problème convergence vers des optimums locaux entraîne
- une grande erreur entre la valeur prédite et la valeur réelle.
+ Quand aux ANN le problème de convergence vers des optimums locaux entraîne
+ une des grands écarts entre les valeurs prédites et les valeurs réelles.
  Les auteurs souligne que des améliorations significatives des performances
- ont été constaté dans les études utilisant l'apprentissage profond.
+ ont été constatées dans les études utilisant l'apprentissage profond.
  Il affirme que les solutions les plus performantes et les plus réussies
  sont les modèles qui intègrent des réseaux neuronaux à convolution (CNN)
- et des mémoires à court terme (LSTM).
+ et des réseaux LSTM.
  Les approches basées sur des modèles CNN ont de meilleurs performance pour
  des prévisions à court treme avec un horizon d'une heure à un jour, tandis
  que les architectures LSTM permettent de faire des prévisions à court treme
  avec des horizons plus longs allant de 7 jours à 1 mois, grâce à leur capacité
  de capturer les dépendances à long terme dans les séries temporelles.
  Les approches hybrides combinent les avantages d'une ou plusieurs techniques
- pour réduire les erreurs de prévision..
+ pour réduire les erreurs de prévision.
  Ces modèles surmontent les inconvénients présentés par les structures non
  hybrides dans la recherche d'une meilleure précision de prévision en augmentant
  la robustesse et l'efficacité d'un modèle hybride.
@@ -1088,8 +1104,9 @@ ues, dont l’intégration améliore significativement la qualité des prévisio
 \begin_layout Standard
 Dans la littérature très récente, d'autre modèles ont eu le jour comme Prophet,
  NeuralProphet et le modèle deep learning N-BEATS.
- Les résultas de Prohpet aussi n'éatit pas convaincantes.
- et les modèles NeuralProphet et N-BEATS 
+ Nous avons évalués ces modèles, mais en plus de l'instabilité et des problèmes
+ d'environement, les résultats obtenu pour quelques tests n'éataient pas
+ convainquantes.
 \end_layout
 
 \begin_layout Section
@@ -1102,8 +1119,8 @@ Architecture générale
 
 \begin_layout Standard
 L'analyse que nous avons effectuée et les hypothèses que nous avons validées
- montre qu'il faut effectuer analyse spectrale de la variable cible pour
- générer ses périodes, décomposer 
+ montre qu'il faut effectuer une analyse temps-fréquence de la variable
+ cible pour générer ses périodes, décomposer 
 \family roman
 \series medium
 \shape up
@@ -1129,7 +1146,7 @@ la variable cible ainsi que les variables exogènes selon ces périodes, puis
 \uwave default
 \noun default
 \color inherit
- établir un modèle adapté à chaque composante.
+ établir un modèle adapté pour chaque composante.
  
 \end_layout
 
@@ -1155,13 +1172,13 @@ Seasonal AutoRegressive Integrated Moving Average
 
 , est le plus adapté pour les séries cycliques/saisonnières avec des saisonnalit
 és stables.
- L'analyse spectrale des séries temporelles de la consommation d'électricité
- montre qu'elles sont multi-saisonnières et que leurs saisonnalités sont
+ L'analyse temps-fréquence des séries temporelles de la consommation d'électrici
+té montre qu'elles sont multi-saisonnières et que leurs saisonnalités sont
  stables dans le temps.
- Autrement dit, l'analyse spectrale par transformée de Fourier à court terme,
- montre la présence de périodes dominantes et que celles-ci sont invariant
- dans le temps.
- Ces périodes, détectées par cette analyse, sont utilisée pour décomposer
+ Autrement dit, l'analyse temps-fréquence par transformée de Fourier à court
+ terme, montre la présence de périodes dominantes et que celles-ci sont
+ invariant dans le temps.
+ Ces périodes, détectées par cette analyse, sont utilisées pour décomposer
  la série temporelle de la consommation d'électricité (en Wh) ainsi que
  les séries temporelles représentant les varaibles météorologiques.
  
@@ -1184,11 +1201,11 @@ literal "false"
 
 .
  Nous avons fait les mêmes constations pour la composante résiduelle.
- Les valeurs de la tendance de la série de consommation dépendent don de
- ses valeurs passées, des valeurs présentes et passées des variables métorologiq
-ues.
- Le modèle le plus adapté pour capter cette effet de mémoire est le modèle
- LSTM (Long Short Term Memory).
+ Les valeurs de la tendance de la série de consommation dépendent de ses
+ valeurs passées et des valeurs présentes et passées des variables métorologique
+s.
+ Le modèle le plus adapté pour capter cet effet de mémoire doit être basée
+ sur des architectures LSTM (Long Short Term Memory).
  Nous adoptons donc ce modèle pour les composantes tendance et résidus.
 \end_layout
 
@@ -1216,7 +1233,7 @@ noprefix "false"
 \end_inset
 
 illustre l'implémentation de ce schéma en pipeline.
- Chaque partie de cette architecture sera décrites dans les sections suivantes.
+ Chaque partie de cette architecture sera décrite dans les sections suivantes.
 \end_layout
 
 \begin_layout Standard
@@ -1228,7 +1245,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename Chap3/Archi.png
-	lyxscale 50
+	lyxscale 70
 	scale 50
 
 \end_inset
@@ -1243,7 +1260,7 @@ name "fig:Architecture-générale"
 
 \end_inset
 
-Architecture générale en pipeline
+Architecture générale 
 \end_layout
 
 \end_inset
@@ -1280,7 +1297,7 @@ name "fig:Architecture-générale-1"
 
 \end_inset
 
-Architecture générale en pipeline
+Pipeline de l'architecture générale 
 \end_layout
 
 \end_inset
@@ -1294,7 +1311,7 @@ Architecture générale en pipeline
 \end_layout
 
 \begin_layout Subsection
-Etape de détection des saisonnalités par analyse spectrale
+Etape de détection des saisonnalités par analyse temps-fréquence
 \end_layout
 
 \begin_layout Subsubsection
@@ -1304,15 +1321,15 @@ Principe
 \begin_layout Standard
 L'objectif de cette étape est d'extraire les périodes dominantes pour identifier
  toutes les saisonnalités des séries 
-\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
 \end_inset
 
 .
- Cette extraction est faite par analyse spectrale, basée sur la Transformée
- de Fourier à Court Terme (Short-Time Fourier Transform (STFT)).
- Les fondements téhéoriques de cette étapes ont été décrites dans le chapitre
+ Cette extraction est faite par analyse temps-fréquence, basée sur la Transformé
+e de Fourier à Court Terme (Short-Time Fourier Transform (STFT)).
+ Les fondements théoriques de cette étapes ont été décrites dans le chapitre
  de formalisation.
- Le principe de l'implémentation est décrit par 
+ Le principe de l'implémentation est décrit par l'algorithme 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "alg:Analyse-spectrale-algo"
@@ -1329,10 +1346,10 @@ noprefix "false"
 \begin_inset Float algorithm
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Itemize
-Analyse spectrale (SpectrogramAnalysis)
+Analyse temps-fréquence (SpectrogramAnalysis)
 \end_layout
 
 \begin_deeper
@@ -1431,7 +1448,7 @@ fit :
 \begin_deeper
 \begin_layout Itemize
 Entrée : une série temporelle 
-\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
 \end_inset
 
 
@@ -1491,7 +1508,7 @@ transform :
 \begin_deeper
 \begin_layout Itemize
 Entrée : une série temporelle 
-\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
 \end_inset
 
 
@@ -1541,7 +1558,7 @@ name "alg:Analyse-spectrale-algo"
 
 \end_inset
 
-Analyse spectrale et détection des périodes dominantes
+analyse temps-fréquence et détection des périodes dominantes
 \end_layout
 
 \end_inset
@@ -1569,11 +1586,12 @@ noprefix "false"
 
 \end_inset
 
- illsutre un exemple d'analyse spectrale où trois saisonnnalités de 
+ illsutre un exemple d'analyse temps-fréquence où trois saisonnnalités de
+ 
 \begin_inset Formula $P_{1}=21\times T_{s}=10,5\ heures$
 \end_inset
 
-, de 
+, 
 \begin_inset Formula $P_{2}=42\times T_{s}=21\ heures$
 \end_inset
 
@@ -1638,10 +1656,20 @@ Decomposition des séries temporelles
 \end_layout
 
 \begin_layout Standard
-La décomposition est basée sur le principe de décomposition de séeries temporell
-es, décrite dans le chapitre 1.
- Ce principe a été adapté pour effectuer une décomposition en cascade modifiée
- pour éxtraire les différentes composantes.
+Cette étape est basée sur le principe de décomposition de séries temporelles,
+ décrit dans le chapitre 1.
+ L'algorithme 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:decomposition-algo-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ explicite l'adaptation de ce principe pour effectuer une décomposition
+ en cascade et éxtraire les différentes composantes.
  
 \end_layout
 
@@ -1649,7 +1677,7 @@ es, décrite dans le chapitre 1.
 \begin_inset Float algorithm
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Itemize
 Decomposition (DecompositionSerieTemporelle)
@@ -1734,19 +1762,19 @@ fit:
 \begin_deeper
 \begin_layout Itemize
 Entrée : un dataframe contenant les colonnes 
-\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}$
 \end_inset
 
 
-\begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
-\end_inset
-
-, 
-\begin_inset Formula $\left(U_{k}^{(r)}\right)$
+\begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}$
 \end_inset
 
 , 
-\begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(U_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}$
 \end_inset
 
 
@@ -1764,19 +1792,19 @@ transform :
 \begin_deeper
 \begin_layout Itemize
 Entrée : un dataframe contenant les colonnes 
-\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}$
 \end_inset
 
 
-\begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
-\end_inset
-
-, 
-\begin_inset Formula $\left(U_{k}^{(r)}\right)$
+\begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}$
 \end_inset
 
 , 
-\begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(U_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}$
 \end_inset
 
 
@@ -1939,9 +1967,9 @@ Implémentation
 \end_layout
 
 \begin_layout Standard
-L'analyse spectrale, la détection des périodes domianantes et la décomposition
- de la vraible cible et des variables exogènes est pipeliné comme le montre
- la figure 
+L'analyse temps-fréquence, la détection des périodes dominantes et la décomposit
+ion de la variable cible et des variables exogènes est pipeliné comme le
+ montre la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:SpectroDdcompoPipeline"
@@ -1984,7 +2012,7 @@ name "fig:SpectroDdcompoPipeline"
 
 \end_inset
 
-Pipeline d'analyse spectrale et décomposition des séries temporelles
+Pipeline d'analyse temps-fréquence et décomposition des séries temporelles
 \end_layout
 
 \end_inset
@@ -2006,19 +2034,19 @@ Nous utilisons un modèle
 \begin_inset Formula $SARIMA(p,d,q)(P,D,Q)_{s}$
 \end_inset
 
- pourla prévision de chaque composante saisonnière, de période 
+ pour la prévision de chaque composante saisonnière, de période 
 \begin_inset Formula $s$
 \end_inset
 
 .
  Une recherche du meilleur modèle, en utilisant une cross-validation adaptée
- aux des séries temporells, est intégré au modèle.
- Avant d'entrainer le modèle, une vérification par analyse spectrale de
- la saisonnalité est effectué.
- En effet après décompoistion certaines composantes saisonnières n'ont pas
+ aux des séries temporells, est intégrée au modèle.
+ Avant d'entrainer le modèle, une vérification par analyse temps-fréquence
+ de la saisonnalité est effectuée.
+ En effet après décomposition certaines composantes saisonnières n'ont pas
  une seule période pure, l'intérêt de cette nouvelle analyse est d'entrainer
  SARIMA avec la période fondementale de la composante.
- Per exemple parmi les modèles qui permet une meilleur prévision est 
+ Parmi les modèles qui permet une meilleur prévision nous avons 
 \begin_inset Formula $SARIMA(1,0,1)(1,1,1)_{s}$
 \end_inset
 
@@ -2028,7 +2056,7 @@ Nous utilisons un modèle
 \begin{array}{c}
 Y_{k}-Y_{k-s}-\phi\left(Y_{k-1}-Y_{k-s-1}\right)-\Phi_{1}\left(Y_{k-1}-Y_{k-2s}\right)+\phi_{1}\Phi_{1}\left(Y_{k-s-1}-Y_{k-2s-1}\right)=\\
 b_{k}+\theta_{1}b_{k-1}+\Theta_{1}b_{k-s}+\theta_{1}\Theta_{1}b_{k-s-1}
-\end{array}
+\end{array}\label{eq:sarima}
 \end{equation}
 
 \end_inset
@@ -2054,7 +2082,7 @@ sont les paramètres a estimer pour la prévision et
 \begin_inset Formula $b_{k}$
 \end_inset
 
-est une bruit blanc gaussien.
+est un bruit blanc gaussien.
 \end_layout
 
 \begin_layout Standard
@@ -2062,7 +2090,7 @@ Ceci est cohérent avec le fait que les composantes saisonnières que nous
  traitons sont cyclostationnaires.
  La différenciation saisonnière permet rendre la série stationnaire afin
  d'appliquer le modèle SARIMA.
- Dans notre implémentation nous avons intégré aussi ke traitement des cas
+ Dans notre implémentation nous avons intégré aussi le traitement des cas
  de séries non stationnaires.
 \end_layout
 
@@ -2110,6 +2138,8 @@ où
 \end_inset
 
  .
+ L'erreur dans ces cas est nulle.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2300,8 +2330,8 @@ Modèles basée sur les réseaux LSTM pour les composantes tendance et résidu
 \end_layout
 
 \begin_layout Standard
-La prévision de la tendance et du résidus sont effectuée par le même type
- de modèle, basée sur LSTM(Long Short Term Memory).
+La prévision de la tendance et du résidus est effectué un modèle basée sur
+ des LSTM(Long Short Term Memory).
  La figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2312,8 +2342,8 @@ noprefix "false"
 
 \end_inset
 
- donne une vue globale de ce type de modèle avce un exemple de pipeline
- pour la composante résiduelle.
+ donne une vue globale de ce de modèle avec un exemple de pipeline pour
+ la composante résiduelle.
  
 \end_layout
 
@@ -2394,8 +2424,7 @@ X & \rightarrow & f(X)= & \frac{1}{X+C}
 
 \begin_layout Standard
 Après transformation les nouvelles composantes (inverse des tendances ou
- inverses des résidus), ainsi que la composante de la variable cible, sont
- normalisées.
+ inverses des résidus) et la composante de la variable cible sont normalisées.
  Ces données normalisées nécessitent une transformation en séquences adaptées
  au traitement séquentiel.
  Cette étape consiste à les structurer en sous-séquences d'entrée de longueur
@@ -2480,7 +2509,7 @@ noprefix "false"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -2541,8 +2570,8 @@ noprefix "false"
 
 \end_inset
 
- montrent un exemple de prévision des composantes tendance et résidu de
- la série 
+ montrent un exemple de prévision de la tendance et le résidu de la série
+ 
 \begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
@@ -2569,7 +2598,7 @@ status open
 \noindent
 \align center
 \begin_inset Graphics
-	filename Chap3/prevision_p22.png
+	filename Chap3/prevision_res.png
 	lyxscale 50
 	scale 40
 
@@ -2582,7 +2611,7 @@ status open
 \noindent
 \align center
 \begin_inset Graphics
-	filename Chap3/prevision_tes_pred_p22.png
+	filename Chap3/prevision_tes_pred_res.png
 	lyxscale 50
 	scale 40
 
@@ -2603,32 +2632,7 @@ name "fig:Prévsion-par-P1-1"
 
 \end_inset
 
-Prévsion par 
-\begin_inset Formula $SARIMA(1,0,1)(1,1,1)_{22}$
-\end_inset
-
- de la composante saisonnière de période
-\begin_inset space ~
-\end_inset
-
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\xout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $P_{1}$
-\end_inset
-
-
+Prévsion du résidu
 \end_layout
 
 \end_inset
@@ -2646,13 +2650,13 @@ Prévsion par
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
-	filename Chap3/prevision_p44.png
+	filename Chap3/prevision_tendance.png
 	lyxscale 50
 	scale 40
 
@@ -2665,7 +2669,7 @@ status collapsed
 \noindent
 \align center
 \begin_inset Graphics
-	filename Chap3/prevision_tes_pred_p44.png
+	filename Chap3/prevision_tes_pred_tend.png
 	lyxscale 50
 	scale 40
 
@@ -2686,15 +2690,7 @@ name "fig:Prévsion-par-P2-1"
 
 \end_inset
 
-Prévsion par 
-\begin_inset Formula $SARIMA(1,0,1)(1,1,1)_{44}$
-\end_inset
-
- de la composante saisonnière de période
-\begin_inset space ~
-\end_inset
-
-
+Prévsion 
 \family roman
 \series medium
 \shape up
@@ -2707,11 +2703,7 @@ Prévsion par
 \uwave off
 \noun off
 \color none
-
-\begin_inset Formula $P_{2}$
-\end_inset
-
-
+de la tendance
 \end_layout
 
 \end_inset
@@ -2729,34 +2721,408 @@ Réalisation
 \end_layout
 
 \begin_layout Standard
-Nous avons tout d'abord developpé une première version sur notbook.
- Celle-ci nous a permi de valider le concept.
- Dans cette version chaque étape est modèlisé par un pipeline.
- 
-\end_layout
+Le script finale que nous avons développé est décrit par l'algorithme 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:script géneral"
+plural "false"
+caps "false"
+noprefix "false"
 
-\begin_layout Subsection
-Evaluation 
-\end_layout
+\end_inset
 
-\begin_layout Subsubsection
-Séparation des données 
+.
 \end_layout
 
 \begin_layout Standard
-Afin de tester la robustesse du modèle, nous utilisons les données d'une
- année glissante.
- En effet notre base de données contient les données de 2023 et 2024.
- A chaque exécution les données d'une années, qui débute à une date entre
- le 01/01/2023 et le 31/12/2023 chosie aléatoirement, sont sélectionnés.
- Dans la présentation pour ce rapport nous avons choisi un horizon d'une
- semaine pour la prévison.
- Ainsi les données de la dernière semaine des donnés sélectionnées sont
- gardées pourle test.
- Les autres données sont utilisées pour l'entraienemnt.
- Dans le cas d'optimisation et et d’ajustement des hyperparamètres, ces
- données sont aussi divisée à leur tour données d'entrainement et de validations.
- Le figure 
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Itemize
+Script final
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Entrée:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Base de données : 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+
+\begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(U_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+l'horizon 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $h$
+\end_inset
+
+ pour la prévision, par défaut 
+\begin_inset Formula $h=7*48=336$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Les hyperparamètres
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Sortie:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ : un dataframe contenant les résultats pour chaque configuration 
+\begin_inset Formula $q\in \mathcal{Q}$
+\end_inset
+
+ et chaque région 
+\begin_inset Formula $r\in \mathcal{R}$
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Pour chaque 
+\begin_inset Formula $(r,q)\in \mathcal{R\times Q}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Séparation des données pour l'entrainement et le test 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Tirer aléatoirement un 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $m\in\left\{ 0,...,L/2-1\right\} $
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\end_layout
+
+\begin_layout Itemize
+Définir
+\begin_inset Formula $\mathbb{T_{\mathrm{m}}}=\left\{ kT_{s},k\in\left\{ m,...,\tau=m-1+L/2\right\} \right\} $
+\end_inset
+
+ l'ensemble d'instants d'observation pour l'entrainement
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\end_layout
+
+\begin_layout Itemize
+Définir
+\begin_inset Formula $\mathbb{T_{\mathrm{test}}}=\left\{ kT_{s},k\in\left\{ \tau+1,\tau+h\right\} \right\} $
+\end_inset
+
+ l'ensemble d'instants d'observation pour le test 
+\end_layout
+
+\begin_layout Itemize
+Données d'entrainement :
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+
+\begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(U_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Données de test : 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{test}}}}$
+\end_inset
+
+
+\begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{test}}}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(U_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{test}}}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{test}}}}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Analyse temps-fréquence et extraction des périodes dominantes de 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+Décomposition des séries 
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+
+\begin_inset Formula $\left(T_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(U_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+, 
+\begin_inset Formula $\left(R_{k}^{(r)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{m}}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Pour chaque composante saisonnière 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Si la recherche automatique du meilleur modèle est activé, chercher le meilleur
+ modèle 
+\begin_inset Formula $SARIMA(p,d,q)(P,D,Q)_{s}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Sinon appliquer le modèle par défaut 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:model-1"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Sauvegarder le modèle
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Pour la tendance 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Si la recherche automatique du meilleur modèle est activé, chercher la meilleur
+ architecture
+\end_layout
+
+\begin_layout Itemize
+Sinon appliquer le modèle par défaut 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:sarima"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Sauvegarder le modèle
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Pour le résidu 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Si la recherche automatique du meilleur modèle est activé, chercher la meilleur
+ architecture
+\end_layout
+
+\begin_layout Itemize
+Sinon appliquer le modèle par défaut 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:sarima"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Sauvegarder le modèle
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Recomposition 
+\end_layout
+
+\begin_layout Itemize
+Evaluation
+\end_layout
+
+\begin_layout Itemize
+Sauvegarde des résultats
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:script géneral"
+
+\end_inset
+
+Décomposition en cascade des séries temporelles
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Le figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:spération données train test"
@@ -2766,7 +3132,18 @@ noprefix "false"
 
 \end_inset
 
-schématise cette séparation pour les données d'entrainement et de test.
+schématise la séparation des données d'entrainement et de test décrite dans
+ l'algorithme 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:script géneral"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2813,6 +3190,53 @@ Séparation des données
 
 \end_layout
 
+\begin_layout Standard
+Nous avons tout d'abord developpé une première version sur notebook.
+ Celle-ci nous a permi de valider le concept.
+ Dans celle-ci chaque étape est modèlisé par un pipeline.
+ Puis nous avons developpées une versions notebook avec un pipeline intégrale.
+ Nous avons constaté une dégradation dans les performances que nous n'avons
+ pas su exliquer.
+ Nous avons donc developpée le script décrit précédement, qui traite toutes
+ les configurations en se basant sur la version avec pipelines séparées.
+ Nous avons intégré du parallélèlisme pour accélérer le calcul.
+ Cependat nous étions affronter aux limitations de la puissance de calcul
+ de notre machine.
+ Nous avons pu traité une région et nous espérons pouvoir faire autant pour
+ ls autres régions.
+\end_layout
+
+\begin_layout Subsection
+Evaluation 
+\end_layout
+
+\begin_layout Subsubsection
+Séparation des données 
+\end_layout
+
+\begin_layout Standard
+La base de données contient les données de 2023 et 2024.
+ A chaque exécution les données d'une années, qui débute à une date entre
+ le 01/01/2023 et le 31/12/2023 chosie aléatoirement, sont sélectionnés
+ (cf.
+ l'algorithme 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:script géneral"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Nous avons choisi un horizon d'une semaine pour la prévison.
+ Dans le cas d'optimisation et et d’ajustement des hyperparamètres, les
+ données d'entrainement sont aussi divisée à leur tour en données d'entrainement
+ et de validations .
+ 
+\end_layout
+
 \begin_layout Subsubsection
 Métriques d'évaluation
 \end_layout
@@ -2822,7 +3246,7 @@ Les études méntionnées dans notre état de l'art confirment toute que les
  métriques les plus utilisées, dans la cadre de notre problèmatique, sont
  MAPE, RMSE et MAE.
  Ces métriques nous les avons présentés dans le premier chapitre.
- Ici nous synthétisons 
+ Ici nous synthétisons les résultats obtenus à ce jour.
 \end_layout
 
 \end_body

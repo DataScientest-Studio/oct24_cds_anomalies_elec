@@ -4518,13 +4518,19 @@ Conclusion
 Dans ce chapitre nous avons présenté notre démarche pour collecter, analyser,
  fusioner et traiter les bases de données dont nous avions besoin pour mener
  ce projet.
- Nous avons étudié les relations entre les variables exogènes et la varaible
+ Nous avons étudiers les relations entre les variables exogènes et la varaible
  cible.
- Nous avons ainsi démontré que les composantes saisonnières de la consommation
+ Nous avons démontré que les composantes saisonnières de la consommation
  d'électricité sont indépandantes des varaibles exogènes.
- Nous avons aussi formalisé la relation non linéaire qui existe entre la
- tendance (respectivement le résidu) de la consommation d'électricité et
- les tendances (respectivement les résidus) des variables météorologiques.
+ Nous avons formalisé la relation non linéaire qui existe entre la tendance
+ (respectivement le résidu) de la consommation d'électricité et les tendances
+ (respectivement les résidus) des variables exogènes.
+\end_layout
+
+\begin_layout Itemize
+le résidus de la consommation d'électricité les composantes résiduelles
+ des variables météorologiques et dépendent uniquement de la configuration
+ profile-puissance souscrite.
  
 \end_layout
 

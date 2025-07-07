@@ -158,10 +158,9 @@ ions.
 iques significatives.
  Puis nous présentons la notions de la prévision et les métriques associées
  à l'évaluation des performances de celle-ci.
- La théorie des séries temporelle est riche et large, nous limiterons dans
- notre présentation à quelques éléments que nous avons utilisés, et nous
- renvoyons le lecteur intéressé vers des références cités dans notre développeme
-nt.
+ La théorie des séries temporelle est riche et large, nous nous limiterons
+ dans notre présentation aux éléments que nous avons utilisés, et nous renvoyons
+ le lecteur intéressé vers les références cités dans notre développement.
 \end_layout
 
 \begin_layout Section
@@ -266,7 +265,7 @@ Une série temporelle est dite univariée si
 \end_layout
 
 \begin_layout Definition
-Une série temporelle est dite multivariée si si 
+Une série temporelle est dite multivariée si 
 \begin_inset Formula $Y_{t}∈\mathbb{R^{\mathrm{d}}}\ où.\ d>1$
 \end_inset
 
@@ -337,7 +336,7 @@ cité du profile Enedis
  avec un pas de temps d'une demi-heure.
  Chaque valeur de cette série temporelle correspond, donc, à la consommation
  d'électricité de tous les points de soutirage, situés dans la région Auvergne-R
-hône-Alpes, et qui sont de même profile et de même puissance souscrite.
+hône-Alpes, et qui sont de même profil et de même plage de puissance souscrite.
  Cette consommation est mesurée en watt-heure (Wh).
 \end_layout
 
@@ -370,7 +369,7 @@ name "fig:Consommation-électrique-du"
 
 \end_inset
 
-Consommation d'électricité du profile RES11 (+ RES11WE) avec une puissance
+Consommation d'électricité du profil RES11 (+ RES11WE) avec une puissance
  ]6-9] kVA, dans la région Auvergne-Rhône-Alpes
 \end_layout
 
@@ -396,16 +395,16 @@ noprefix "false"
 \end_inset
 
  montre un exemple de série temporelle multivariée, qui représente la série
- de l'exemple précédent observées simultanément avec des variables météorologiqu
-es.
+ de l'exemple précédent observée simultanément avec des variables météorologique
+s.
  Cette série temporelle multivariée est composée des variables suivantes
  :
 \end_layout
 
 \begin_layout Itemize
 la consommation d'électricité de tous les points de soutirage, situés dans
- la région Auvergne-Rhône-Alpes, et qui sont de même profile RES11 (+ RES11WE)
- et de même puissance souscrite ]6-9] kVA, exprimée en Wh.
+ la région Auvergne-Rhône-Alpes, et qui sont de même profil RES11 (+ RES11WE)
+ et de même plage de puissance souscrite ]6-9] kVA, exprimée en Wh.
 \end_layout
 
 \begin_layout Itemize
@@ -556,8 +555,7 @@ literal "false"
 \end_layout
 
 \begin_layout Itemize
-la tendance, qui est la composante à long terme représentant une évolution
- à long terme.
+la tendance, qui représente l'évolution à long terme.
 \end_layout
 
 \begin_layout Itemize
@@ -567,8 +565,7 @@ la ou les composantes saisonnières, qui correspondent à des répétitions
 
 \begin_layout Itemize
 la ou les composantes cycliques, qui représentent des fluctuations se produisant
- sur des périodes plus longues et de manière irrégulière.
- 
+ sur des périodes plus longues et de manière irrégulière,
 \end_layout
 
 \begin_layout Itemize
@@ -579,9 +576,8 @@ et le résidus, dit aussi bruit, qui correspond aux restes stochastiques
 \end_layout
 
 \begin_layout Standard
-En générale les composantes tendance et le cycle sont regroupées en une
- seule composante cycle-tendance, qui est souvent simplement appelée la
- tendance.
+En générale les composantes cycliques et la tendance sont regroupées en
+ une seule composante cycle-tendance, qui est souvant appelée la tendance.
  
 \end_layout
 
@@ -593,7 +589,7 @@ Décomposition additive et décomposition multiplicative
 La décomposition d'une série temporelle consiste à extraire ses composantes
  principales.
  Cette décomposition peut être additive ou multiplicative, selon la nature
- des interactions entre les composantes 
+ des interactions entre les composantes de la série 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "hyndman2021forecasting,hamilton1994time,box2015time"
@@ -683,8 +679,8 @@ où :
 \end_layout
 
 \begin_layout Standard
-Lorsque la tendance et le cycle sont regroupé en une seule composante, la
- décomposition additive s'écrit : 
+Lorsque la tendance et le cycle sont regroupés en une seule composante,
+ la décomposition additive s'écrit : 
 \end_layout
 
 \begin_layout Standard
@@ -809,7 +805,7 @@ la variance n’est pas constante, on parle dans ce cas d'une hétéroscédastic
 \end_layout
 
 \begin_layout Standard
-Une transformation logarithmique ou une transformation de Box-Cox pourrait
+Une transformation logarithmique ou une transformation de Box-Cox sert à
  stabiliser la variance avant la modélisation.
 \end_layout
 
@@ -995,7 +991,7 @@ Remarque
  : nous pouvons constater que le résiduel présente aussi des composante
  saisonnière.
  En effet notre série est multi-saisonnière.
- Dans notre approche nous procédons à des décomposition en cascade.
+ Dans notre approche nous procédons à des décompositions en cascade.
 \end_layout
 
 \begin_layout Standard
@@ -1167,7 +1163,17 @@ par l'équation :
 
 \begin_layout Standard
 Une fois la tendance est estimée, on peut alors estimer la saisonnalité
- par la procédé suivante : 
+ par l'algorithme 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Estimation-de-la-saisonalite"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+: 
 \end_layout
 
 \begin_layout Standard
@@ -1262,6 +1268,12 @@ On centre la saisonnalité pour qu'elle ait une somme nulle
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Estimation-de-la-saisonalite"
+
+\end_inset
+
 Estimation de la saisonnalité d'une série temporelle
 \end_layout
 
@@ -1290,7 +1302,17 @@ Enfin le résidu s'obtient :
 \begin_layout Standard
 Dans le cas d'une décomposition multiplicative, une transformation logarithmique
  est appliquée, puis la décomposition additive est effectuée, et ensuite
- une transformation exponentielle est appliqué.
+ une transformation exponentielle est appliqué 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:Décomposition-multiplicative-d'u"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1369,6 +1391,12 @@ log(Y_{t})=T_{t}^{1}+S_{t}^{1}+R_{t}^{1}\Rightarrow Y_{t}=\underset{T_{t}}{\unde
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Décomposition-multiplicative-d'u"
+
+\end_inset
+
 Décomposition multiplicative d'une série temporelle
 \end_layout
 
@@ -1398,8 +1426,8 @@ e, permet d'identifier les composantes de la série analysée, mais ne révèle
  pas les dépendances entre les valeurs passées et les valeurs présentes.
  L’étude des fonctions d’autocorrélation et d’autocorrélation partielle
  permet de mesurer cette dépendance.
- En complément, l’analyse spectrale (de Fourier) permet de transformer la
- série pour révéler sa structure fréquentielle.
+ En complément, l’analyse de Fourier permet de transformer la série pour
+ révéler sa structure fréquentielle.
  Cependant cette analyse n'est pas adaptée pour les séries temporelles non
  stationnaires, i.e.
  dont les caractéristiques spectrales varient au cours du temps.
@@ -1527,14 +1555,18 @@ Stationnarité faible (du second ordre)
 
 \begin_deeper
 \begin_layout Itemize
-\begin_inset Formula $\forall t\in\mathbb{T}E$
+\begin_inset Formula $\forall t\in\mathbb{T\ }E$
 \end_inset
 
 
 \begin_inset Formula $\left(Y_{t}\right)=m$
 \end_inset
 
-, où m est une constante
+, où 
+\begin_inset Formula $m$
+\end_inset
+
+ est une constante.
 \end_layout
 
 \begin_layout Itemize
@@ -1567,7 +1599,7 @@ Formes de non stationnarité
 \end_layout
 
 \begin_layout Standard
-Il existe deux formes simples de non stationnarité.
+Il existe deux formes simples de non stationnarité :
 \end_layout
 
 \begin_layout Itemize
@@ -1647,6 +1679,7 @@ Dans ce modèle
 \end_inset
 
  est invariant dans le temps.
+ La suppression de la tendance permet de stationnariser ce type de série.
  Les séries 
 \begin_inset Formula $Y_{t}-c-bt$
 \end_inset
@@ -1661,7 +1694,7 @@ Dans ce modèle
 
 \end_deeper
 \begin_layout Itemize
-la deuxième forme, appelée non-stationnarité DS (pour 
+la deuxième forme, stationnaire en différence DS (pour 
 \shape italic
 Difference Stationary
 \shape default
@@ -1800,12 +1833,12 @@ literal "false"
 \series bold
 Différentiation : 
 \series default
-la différentiation est une transformation que permet de stationnariser une
+la différentiation est une transformation qui permet de stationnariser une
  série en éliminant la tendance qui cause la non stationnarité.
  Une différentiation de premier ordre, par exemple, consiste à utiliser
  la différence entre deux observations consécutives.
- Il est parfois nécessaire de différencier la série temporelle plusieurs
- fois en successions afin d’éliminer une tendance polynomiale.
+ Il est parfois nécessaire de différencier avec un ordre supérieur la série
+ temporelle afin d’éliminer une tendance polynomiale par exemple.
  On parlera alors de différentiation d’ordre 
 \begin_inset Formula $d$
 \end_inset
@@ -2079,7 +2112,7 @@ Test de Phillips-Perron (PP)
 Le test PP constitue une extension du test ADF, conçue pour traiter de manière
  robuste l’autocorrélation et l’hétéroscédasticité des résidus.
  Il s’appuie sur les mêmes modèles que ceux du test de Dickey et Fuller
- simple en corrigent la statistique de test par des méthodes non paramétriques.
+ simple en corrigeant la statistique de test par des méthodes non paramétriques.
  L’hypothèse nulle demeure la présence d’une racine unitaire (non-stationnarité).
  
 \end_layout
@@ -2525,7 +2558,7 @@ Pour une série temporelle
 \begin_inset Formula $\left(Y_{t}\right)_{t\in\mathbb{T}}$
 \end_inset
 
-stationnaire (faiblement ou strictement), cette fonction est indépendant
+stationnaire (faiblement ou strictement), cette fonction est indépendante
  de l'origine du temps 
 \begin_inset Formula $t$
 \end_inset
@@ -2627,9 +2660,9 @@ noprefix "false"
 \end_layout
 
 \begin_layout Example
-L'analyse des ces graphiques permettent d'identifier une saisonnalités multiples
- (périodes de 22 et 48), une décroissance lente de la fonction d'autocorrélation.
- La fonction PACF montre un coefficient forte au décalage 
+L'analyse des ces graphiques permet d'identifier une saisonnalités multiples
+ (périodes de 22 et 44), une décroissance lente de la fonction d'autocorrélation.
+ La fonction PACF montre un coefficient fort au décalage 
 \begin_inset Formula $k=1$
 \end_inset
 
@@ -2638,19 +2671,59 @@ L'analyse des ces graphiques permettent d'identifier une saisonnalités multiple
 \end_layout
 
 \begin_layout Example
-Après décomposions de la série, avec une période de 48, nous analysons les
+Après décomposions de la série, avec une période de 44, nous analysons les
  fonctions ACF et PACF de ses composantes.
- Les figures montrent celle-ci.
+ Les figures
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ACF-et-ACP-T"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+,
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ACF-et-ACP-S"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ et 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ACF-et-ACP-R"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ montrent celles-ci.
 \end_layout
 
 \begin_layout Example
-Pour la composante résiduelle, nous constatons que les pics sont généralement
- proches de zéro mais à plusieurs décalage, les amplitudes des pics dépassent
- encore la bande de confiance.
+Pour la composante résiduelle 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ACF-et-ACP-R"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, nous constatons que les pics sont généralement proches de zéro mais à
+ plusieurs décalage, les amplitudes des pics dépassent encore la bande de
+ confiance.
  Ce qui montre que la corrélation n’est pas totalement nulle.
  Nous concluons qu'il y a encore de la saisonnalité et qu'il faut faire
  une décomposition en cascade.
- Nous détaillerons ce point dans le chapitre dédié à notre approche.
+ Nous détaillerons ce point dans le prochain chapitre.
  La présence d'autres saisonnalité est clairement confirmé par les fonctions
  ACF et PACF de la composante tendance.
 \end_layout
@@ -2829,8 +2902,8 @@ literal "false"
 Transformée de Fourier à Court Terme (Short-Time Fourier Transform (STFT))
  qui consiste à diviser la série en fenêtres puis appliquer la transformée
  de Fourier localement.
- Cette transformée permet de construire une représentation temps-fréquence
- (spectrogramme) avec une résolution temps-fréquence fixe.
+ Cette transformée permet de construire une représentation temps-fréquence,
+ appelée spectrogramme, avec une résolution temps-fréquence fixe.
 \end_layout
 
 \begin_layout Itemize
@@ -2896,7 +2969,7 @@ Son principe consiste à diviser la série en
 \end_inset
 
  (fenêtre), puis appliquer la transformée de Fourier sur chaque segment
- fenêtré (pondéré).
+ pondéré.
  Pour une série temporelle 
 \begin_inset Formula $\left(Y_{n}\right)_{n\in\mathbb{T}}$
 \end_inset
@@ -2994,7 +3067,7 @@ w_{n}=a_{0}-(1-a_{0})cos\left(2\pi n/N\right)\label{eq:fenetre}
 \end_layout
 
 \begin_layout Standard
-La transformée de Fourier à court terme est l'esnemble des segments, notée
+La transformée de Fourier à court terme est l'ensemble des segments, notée
  
 \begin_inset Formula $STFT\left(\left(Y_{n}\right)_{n\in\mathbb{T}}\right)=\left(X_{1,k},\ldots,X_{P,k}\right)_{k\in\left\{ 0,...,K\right\} }$
 \end_inset
@@ -3007,7 +3080,7 @@ La transformée de Fourier à court terme est l'esnemble des segments, notée
 \begin_inset Formula $𝑝^{éme}$
 \end_inset
 
- segment pondérée est définie par :
+ segment est définie par :
 \begin_inset Formula 
 \begin{equation}
 𝑋_{𝑝,k}=\sum_{t=0}^{K-1}Y_{p,n}e^{-\frac{j2\pi kn}{K}}\label{eq:STFT}
@@ -3042,11 +3115,11 @@ Le spectrogramme est
 \begin_layout Standard
 Dans notre cadre, l'objectif de cette analyse est d'extraire les périodes
  dominantes pour identifier toutes les saisonnalités.
- L'ensemble de ces périodes pour un seuil 
+ L'ensemble de ces périodes pour un seuil de détection 
 \begin_inset Formula $\delta$
 \end_inset
 
- de détection donné est par l'équation 
+ est donnée par l'équation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:detectionperiodes"
@@ -3123,7 +3196,7 @@ noprefix "false"
 \end_inset
 
 ).
- La pondération est faite par une fen^tre de Hamming.
+ La pondération est faite par une fenêtre de Hann.
 \begin_inset Float figure
 wide false
 sideways false
@@ -3180,18 +3253,14 @@ noprefix "false"
 Ce spectrogramme confirme la multi-saisonnalité, montrée par les fonctions
  ACF et PACF.
  Les périodes détectés sont 
-\begin_inset Formula $T_{1}=42\ pas\simeq0.875\ jours$
-\end_inset
-
-, 
-\begin_inset Formula $T_{2}=22\ pas\simeq0.4375\ jours$
+\begin_inset Formula $T_{1}=44\ pas\simeq0.92\ jours$
 \end_inset
 
  et 
-\begin_inset Formula $T_{3}=7\ jours$
+\begin_inset Formula $T_{2}=22\ pas\simeq0.46\ jours$
 \end_inset
 
-.
+
 \end_layout
 
 \begin_layout Section
@@ -3372,7 +3441,7 @@ en fonction de
  court terme, moyen terme ou long terme.
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Métriques d'évaluation 
 \end_layout
 

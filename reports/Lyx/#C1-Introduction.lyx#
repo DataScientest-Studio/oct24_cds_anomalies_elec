@@ -201,13 +201,13 @@ la prévision de la charge électrique qui consiste à prévoir la quantité
  Cette prévision est utilisée, par les opérateurs et fournisseurs d'électricité,
  pour produire et transporter la quantité d’énergie suffisante pour répondre
  aux besoins de consommation, tout en évitant une surproduction ou une sous-prod
-uction d’électricité.
- 
+uction d’électricité, 
 \end_layout
 
 \begin_layout Itemize
 la prévision de la consommation d’électricité qui consiste à prévoir la
- quantité d’électricité qui sera consommée sur une période par les utilisateurs.
+ quantité d’électricité qui sera consommée sur une période par un utilisateur
+ ou un groupe d'utilisateurs.
  
 \end_layout
 
@@ -226,7 +226,7 @@ literal "false"
 \end_layout
 
 \begin_layout Itemize
-prévision à court terme : elle couvre une période pouvant aller jusqu’à
+Prévision à court terme : elle couvre une période pouvant aller jusqu’à
  une semaine.
  Les prévisions à court terme sont particulièrement importantes pour un
  suivi et une gestion en temps réel.
@@ -243,7 +243,7 @@ literal "false"
 \end_layout
 
 \begin_layout Itemize
-prévision à moyen terme : elle varie d’une semaine à un an et est utilisée
+Prévision à moyen terme : elle varie d’une semaine à un an et est utilisée
  pour la planification de la maintenance et la gestion de la production
  et de la consommation.
  Cette prévision prend en compte les variations saisonnières de consommation
@@ -252,30 +252,22 @@ prévision à moyen terme : elle varie d’une semaine à un an et est utilisée
 \end_layout
 
 \begin_layout Itemize
-prévision à long terme : elle couvre généralement une période de plus d’un
+Prévision à long terme : elle couvre généralement une période de plus d’un
  an et prend en compte des facteurs tels que les variations démographiques,
  le développement urbain à grande échelle, la croissance économique et les
  impacts de la politique énergétique.
  La prévision de charge à long terme se concentre sur la planification et
- l’optimisation des systèmes, aidant les opérateurs et fournisseurs de l'électri
-cité à prendre des décisions quant à l’investissement dans de nouvelles
- capacités de production d’énergie et à la manière d’équilibrer différentes
- sources d’énergie.
+ l’optimisation des systèmes, aidant les opérateurs et les fournisseurs
+ de l'électricité à prendre des décisions quant à l’investissement dans
+ de nouvelles capacités de production d’énergie et à la manière d’équilibrer
+ les différentes sources d’énergie.
 \end_layout
 
 \begin_layout Standard
-Ces dernières années, les prévisions de la charge et de la consommation
- d’électricité ont suscité un grand intérêt tant dans la recherche académique
- que dans le secteur industriel.
+Ces dernières années, les prévisions de la charge électrique ont suscité
+ un grand intérêt tant dans la recherche académique que dans le secteur
+ industriel.
  Les auteurs des revues de littératures
-\begin_inset CommandInset citation
-LatexCommand cite
-key "nassif2022,systematic_review_residential_2023"
-literal "false"
-
-\end_inset
-
-
 \begin_inset CommandInset citation
 LatexCommand cite
 key "nassif2022,systematic_review_residential_2023"
@@ -286,18 +278,20 @@ literal "false"
  ont montré une grande croissance du nombre de publications portant sur
  des approches d’apprentissage automatique, de modélisation hybride, ou
  encore de prévision guidée par les connaissances.
- Cet tendance s’explique par les enjeux cruciaux liés à la transition énergétiqu
-e, à l’intégration des énergies renouvelables, à la gestion des systèmes
- intelligents (smart grids), à la sobriété énergétique, et à la participation
- active des consommateurs.
+ Cette tendance s’explique par les enjeux cruciaux liés à la transition
+ énergétique, à l’intégration des énergies renouvelables, à la gestion des
+ systèmes intelligents (smart grids), à la sobriété énergétique, et à la
+ participation active des consommateurs.
  Le volume croissant de données disponibles (météo, historique de consommation,
  caractéristiques thermiques des bâtiments, etc.) et la maturité des algorithmes
- d’apprentissage automatique contribuent à faire de la prévision de la consommat
-ion d’électricité un champ de recherche dynamique, interdisciplinaire et
- fortement connecté aux applications réelles.
- Ce projet, qui s'inscrit dans ce cadre, a pour objectif établissement d’un
- modèle de prévision de la consommation d’électricité, à court  terme, des
- utilisateurs du réseau Enedis en France.
+ d’apprentissage automatique contribuent aussi à faire de la prévision de
+ la consommation d’électricité un champ de recherche dynamique.
+ Nous avons constaté, que la plupart de ces travaux de recherche se concentrent
+ sur la prévisions de la charge électrique et qu'ils sont rares les travaux
+ dédiés à la prévision de la consommation d’électricité.
+ Ce projet a pour objectif l'établissement d’un modèle de prévision de la
+ consommation d’électricité, à court  terme, des utilisateurs du réseau
+ Enedis en France.
  
 \end_layout
 
@@ -318,9 +312,9 @@ literal "false"
 
 \end_inset
 
- présentent des agrégats de consommation et de production d’électricité
- des utilisateurs du réseau Enedis, et ne contiennent pas de données à l'échelle
- d'un seul utilisateur.
+ présentent des agrégats de consommation d’électricité des utilisateurs
+ du réseau Enedis, et ne contiennent pas de données à l'échelle d'un logement
+ .
  Suite à plusieurs échanges avec Enedis, nous avons choisi le jeu de données
  
 \begin_inset CommandInset citation
@@ -331,15 +325,12 @@ literal "false"
 \end_inset
 
  qui restitue la consommation d’électricité au pas d'une demi-heure des
- points de soutirage raccordés au réseau Enedis, dont puissance souscrite
- est inférieur ou égale à 36kVA.
+ points de soutirage raccordés au réseau Enedis, dont la plage de puissance
+ souscrite est inférieur ou égale à 36 kVA.
  Ce choix est justifié par la compatibilité de ces données avec nos objectifs
- initiaux et avec la possibilités d'une adaptation future pour détecter
- les anomalies dans la consommation d’électricité.
-\end_layout
-
-\begin_layout Standard
-Ce jeu de données 
+ initiaux et la possibilités d'une adaptation future pour détecter les anomalies
+ dans la consommation d’électricité à l'échelle d'un logement individuel.Ce
+ jeu de données 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "enedis_conso_inf36"
@@ -349,8 +340,8 @@ literal "false"
 
  donne les volumes d'énergie soutirés, les courbes de charge moyennes de
  clients dotés de compteurs communicants et le nombre de clients.
- Ces agrégats sont disponibles par région, plage de puissance souscrite
- et profil, les profils sont définis par Enedis dans 
+ Ces agrégats sont disponibles par région,par plage de puissance souscrite
+ et par profil, définis par Enedis dans 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "enedis_coefficients_profils"
@@ -359,10 +350,14 @@ literal "false"
 \end_inset
 
 .
- Nous avons, donc, cherché dans ce projet à établir un modèle fiable, robuste
+ 
+\end_layout
+
+\begin_layout Standard
+Nous avons, donc, cherché dans ce projet à établir un modèle fiable, robuste
  et précis pour la prévision de la consommation d’électricité, à court 
- termes, en fonction du profil de l'utilisateur, de la puissance souscrite,
- de la région et des données météo de celle-ci.
+ termes, en fonction du profil de l'utilisateur, de la plage de la puissance
+ souscrite, de la région et des données météo de celle-ci.
 \end_layout
 
 \begin_layout Subsection*
@@ -376,7 +371,7 @@ Pour atteindre les objectifs fixés et répondre à notre problématique nous
 
 \begin_layout Itemize
 fait un état de l'art des différentes études autour de la prévision de la
- consommation d’électricité, 
+ charge électrique et de la consommation d’électricité, 
 \end_layout
 
 \begin_layout Itemize
