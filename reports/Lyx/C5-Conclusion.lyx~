@@ -94,7 +94,7 @@
 \begin_body
 
 \begin_layout Chapter*
-Introduction générale
+Conclusion générale
 \end_layout
 
 \begin_layout Standard
@@ -172,252 +172,90 @@ thispagestyle{empty}
 
 \end_layout
 
-\begin_layout Subsection*
-Contexte
-\end_layout
-
 \begin_layout Standard
-La prévision est capitale autant pour la gestion de la production d'électricité
- que pour la gestion de sa consommation.
- Pour les opérateurs et fournisseurs d'électricité, une prévision précise
- de la quantité d’électricité à produire permettrait de bien équilibrer
- l’offre et la demande.
- Pour le consommateur, une prévision fiable de sa consommation permet de
- mieux gérer celle-ci et de détecter les éventuelles anomalies.
- Nous distinguons deux catégories de prévisions 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "osunmakinde2017shortterm,ibm2024load,david2023prevision"
-literal "false"
 
-\end_inset
-
- : 
-\end_layout
-
-\begin_layout Itemize
-la prévision de la charge électrique qui consiste à prévoir la quantité
- d’électricité qui sera nécessaire à un moment donné.
- Cette prévision est utilisée, par les opérateurs et fournisseurs d'électricité,
- pour produire et transporter la quantité d’énergie suffisante pour répondre
- aux besoins de consommation, tout en évitant une surproduction ou une sous-prod
-uction d’électricité, 
-\end_layout
-
-\begin_layout Itemize
-la prévision de la consommation d’électricité qui consiste à prévoir la
- quantité d’électricité qui sera consommée sur une période par un utilisateur
- ou un groupe d'utilisateurs.
+\lang english
+Au cours de ce projet, nous nous sommes intéréssés à la prévision de la
+ consommation d'éléctricité à court terme, pour les utilisateurs du réseau
+ Enedis.
+ Etant donnée que ce sujet suscite un grand intérêt dans le monde académique
+ et industriel, nous l'avons abordé comme un sujet de recherche scientifique.
+ Les travaux menés dans ce cadre, et présentés dans ce rapport, ont pour
+ objectif la recherche d'une nouvelle approche de prévision à court terme
+ de la consommation d'électricité en France au demi-heure près.
+ Pour répondre à ce problème, nous avons adopté une modélisation en séries
+ temporelles des données de la consommation d'électricté, dite variable
+ cible, et des données météorologiques, faisant partie des variables exogènes.
+ Puis nous avons proposé une approche basée sur la décomposition de ces
+ séries par analyse temps-fréquence et la prévision, de chaque composante
+ de variable cible en fonction des composantes des variables exogènes, par
+ un modèle approprié.
  
 \end_layout
 
 \begin_layout Standard
-En fonction de la durée de l’horizon temporel concerné, les prévisions de
- la charge électrique et de la consommation d’électricité peut être classées
- en trois types 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "soliman2010electric,david2023prevision"
-literal "false"
 
-\end_inset
-
-: 
-\end_layout
-
-\begin_layout Itemize
-Prévision à court terme : elle couvre une période pouvant aller jusqu’à
- une semaine.
- Les prévisions à court terme sont particulièrement importantes pour un
- suivi et une gestion en temps réel.
- Dans 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "soliman2010electric"
-literal "false"
-
-\end_inset
-
-, un autre type, dit à très court terme est considéré pour des durées de
- quelques minutes à quelques heures.
-\end_layout
-
-\begin_layout Itemize
-Prévision à moyen terme : elle varie d’une semaine à un an et est utilisée
- pour la planification de la maintenance et la gestion de la production
- et de la consommation.
- Cette prévision prend en compte les variations saisonnières de consommation
- d’électricité ainsi que les interruptions planifiées.
- 
-\end_layout
-
-\begin_layout Itemize
-Prévision à long terme : elle couvre généralement une période de plus d’un
- an et prend en compte des facteurs tels que les variations démographiques,
- le développement urbain à grande échelle, la croissance économique et les
- impacts de la politique énergétique.
- La prévision de charge à long terme se concentre sur la planification et
- l’optimisation des systèmes, aidant les opérateurs et les fournisseurs
- de l'électricité à prendre des décisions quant à l’investissement dans
- de nouvelles capacités de production d’énergie et à la manière d’équilibrer
- les différentes sources d’énergie.
-\end_layout
-
-\begin_layout Standard
-Ces dernières années, les prévisions de la charge électrique ont suscité
- un grand intérêt tant dans la recherche académique que dans le secteur
- industriel.
- Les auteurs des revues de littératures
-\begin_inset CommandInset citation
-LatexCommand cite
-key "nassif2022,systematic_review_residential_2023"
-literal "false"
-
-\end_inset
-
- ont montré une grande croissance du nombre de publications portant sur
- des approches d’apprentissage automatique, de modélisation hybride, ou
- encore de prévision guidée par les connaissances.
- Cette tendance s’explique par les enjeux cruciaux liés à la transition
- énergétique, à l’intégration des énergies renouvelables, à la gestion des
- systèmes intelligents (smart grids), à la sobriété énergétique, et à la
- participation active des consommateurs.
- Le volume croissant de données disponibles (météo, historique de consommation,
- caractéristiques thermiques des bâtiments, etc.) et la maturité des algorithmes
- d’apprentissage automatique contribuent aussi à faire de la prévision de
- la consommation d’électricité un champ de recherche dynamique.
- Nous avons constaté, que la plupart de ces travaux de recherche se concentrent
- sur la prévisions de la charge électrique et qu'ils sont rares les travaux
- dédiés à la prévision de la consommation d’électricité.
- Ce projet a pour objectif l'établissement d’un modèle de prévision de la
- consommation d’électricité, à court  terme, des utilisateurs du réseau
- Enedis en France.
- 
-\end_layout
-
-\begin_layout Subsection*
-Problématique
-\end_layout
-
-\begin_layout Standard
-Initialement, l'objectif était l'établissement d'un modèle de référence
- pour chaque consommateur, en particulier les logements résidentiels, et
- d'un modèle de détection des anomalies dans la consommation et d'identification
- des éventuelles causes de celles-ci.
- Les jeux de données publiées par Enedis 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "enedis_data_portal"
-literal "false"
-
-\end_inset
-
- présentent des agrégats de consommation d’électricité des utilisateurs
- du réseau Enedis, et ne contiennent pas de données à l'échelle d'un logement
- .
- Suite à plusieurs échanges avec Enedis, nous avons choisi le jeu de données
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "enedis_conso_inf36"
-literal "false"
-
-\end_inset
-
- qui restitue la consommation d’électricité au pas d'une demi-heure des
- points de soutirage raccordés au réseau Enedis, dont la plage de puissance
- souscrite est inférieur ou égale à 36 kVA.
- Ce choix est justifié par la compatibilité de ces données avec nos objectifs
- initiaux et la possibilités d'une adaptation future pour détecter les anomalies
- dans la consommation d’électricité à l'échelle d'un logement individuel.Ce
- jeu de données 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "enedis_conso_inf36"
-literal "false"
-
-\end_inset
-
- donne les volumes d'énergie soutirés, les courbes de charge moyennes de
- clients dotés de compteurs communicants et le nombre de clients.
- Ces agrégats sont disponibles par région,par plage de puissance souscrite
- et par profil, définis par Enedis dans 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "enedis_coefficients_profils"
-literal "false"
-
-\end_inset
-
-.
+\lang english
+Nous avons introduit, dans le premier chapitre, les concepts généraux de
+ la théorie des séries temporelles indispensables à notre travail.
+ Nous avons illustré ces concepts à travers des exemples tirés de nos données.
+ Cette étude théorique nous a permis de formaliser notre problème et de
+ valider les hypothèses de travail.
+ Une première contribution, tirée de cette première étude, est l'utilisation
+ de l'analyse temps-fréquence pour extraire les périodes dominantes d'une
+ série temporelle et décéomposer celle-ci, selon une nouvelle méthode, en
+ utilisant ces périodes.
  
 \end_layout
 
 \begin_layout Standard
-Nous avons, donc, cherché dans ce projet à établir un modèle fiable, robuste
- et précis pour la prévision de la consommation d’électricité, à court 
- termes, en fonction du profil de l'utilisateur, de la plage de la puissance
- souscrite, de la région et des données météo de celle-ci.
-\end_layout
 
-\begin_layout Subsection*
-Contribution
-\end_layout
-
-\begin_layout Standard
-Pour atteindre les objectifs fixés et répondre à notre problématique nous
- avons :
-\end_layout
-
-\begin_layout Itemize
-fait un état de l'art des différentes études autour de la prévision de la
- charge électrique et de la consommation d’électricité, 
-\end_layout
-
-\begin_layout Itemize
-établi une base de données agrégeant les jeux de données d'Enedis et les
- données météorologiques (température, humidité, rayonnement solaire et
- vitesse du vent), 
-\end_layout
-
-\begin_layout Itemize
-analysé et étudié les relations entre les différentes variables explicatives
- de la base constituée et la consommation d’électricité,
-\end_layout
-
-\begin_layout Itemize
-et établi un nouveau modèle, basé d'une part sur la décomposition par analyse
- spectrale de la consommation d'électricité et des différentes variables
- explicatives, et d'autre part sur la combinaison des modèles autorégressifs
- SARIMA (pour 
-\shape italic
-Seasonal AutoRegressive Integrated Moving Average
-\shape default
-) et des réseaux LSTM 
-\shape italic
-( pour Long Short-Term Memory
-\shape default
-).
- Le modèle établi a montré des performances supérieures à ce qui a ét publié
- dans la littéarture et porté à notre connaissance.
-\end_layout
-
-\begin_layout Subsection*
-Organisation du document
+\lang english
+Dans le second chapitre, nous avons tout d'abord présenté notre démarche
+ de collecte, de nettoyage, de construction et de traitement des données.
+ Puis nous avons exposé l'analyse des relations entre les variables exogènes
+ et la variable cible.
+ Ce travail nous a permis de définir des transformations à opérer sur les
+ composantes des variables exogènes afin de d'augmenter leur corrélation
+ avec les composantes correspondantes de la variable cible.
+ L'exploration de ces relations nous a conduit à identifier les modèles
+ les plus approriés à la prévision de chaque composante.
+ 
 \end_layout
 
 \begin_layout Standard
-Nous adoptons, dans notre approche la modélisation de la consommation d'électric
-ité, ainsi que les autres variables par des séries temporelles.
- Dans un premier chapitre nous présentons les outils mathématiques pour
- décrire, analyser et faire la pérvsion des séries temporelles.
- Le deuxième chapitre présente la construction de la base de données, les
- transformations qui lui sont appliquées et une analyse des différentes
- relations entre ses variables et la variable cible.
- Le dernier chapitre présente notre modèle.
- Afin de comparer nos résultats aves d'autre travaux, nous dressons une
- synthèse de la revue de littérature, qui ne vaut pas être exhaustive, du
- domaine de la prévision de la consommation d'électricité à court terme.
+Dans le dernier chapitre, nous avons exposé l'approche proposée.
+ Nous avons présenté son architecure, détaillé sa réalisation, puis présenté
+ et analysé ses performances.
+ La première étape de cette solution effectue la décomposition des séries
+ par notre méthode.
+ La deuxième consiste à combiner les transformations des composantes et
+ à effectuer la prévision par des modèles autorégressifs, dans le cas de
+ composante périodique, et la prévision des autre composante par des modèles
+ de regression, dont l'architecture est une mise en cascade de réseaux de
+ neuronnes récurrents à memoire court-terme et long terme LSTM et des couches
+ denses.
+ Les premieres résultats obtenus sont encouragente et dans la plupart des
+ cas, les performances sont très satisfaisantes.
+ 
+\end_layout
+
+\begin_layout Standard
+Notre approche reste perfectible afin d'améliorer les temps d'exécution
+ et les performances pour certaines profiles du réseau Enédis.
+ Pour le temps d'exécution, l'apprentissage par transefrt est une piste
+ à explorer, vu la similarité entre des profils d'utilisateurs.
+ Et pour les utilisateurs dont les performances sont mauvaises, l'intégration
+ d'autres caractéristiques, comme les jours spéciaux, peut améliorer la
+ précision de la prévision.
+ 
+\end_layout
+
+\begin_layout Standard
+Enfin ce projet était l'occasion de mettre en oeuvre l'ensemble des méthodes
+ et techniques apprises dans les cours.
+ Ce projet nous a permis également de découvrir le domaine de la prévision
+ de la consommation d'électricite.
  
 \end_layout
 
