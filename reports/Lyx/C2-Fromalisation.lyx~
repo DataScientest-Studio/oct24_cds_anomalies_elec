@@ -180,12 +180,12 @@ On appelle processus stochastique toute famille
 \begin_inset Formula $\mathit{(\mathit{\Omega},A,\mathbb{P})}$
 \end_inset
 
-, indexées par l’espace des temps
+, indexées par l’espace des temps 
 \begin_inset Formula $\mathbb{T}$
 \end_inset
 
  et à valeurs dans un même espace des états 
-\begin_inset Formula $\mathit{(E,\mathfrak{\mathscr{E}})}$
+\begin_inset Formula $\mathit{(E,\mathcal{B})}$
 \end_inset
 
 .
@@ -266,7 +266,7 @@ Une série temporelle est dite univariée si
 
 \begin_layout Definition
 Une série temporelle est dite multivariée si 
-\begin_inset Formula $Y_{t}∈\mathbb{R^{\mathrm{d}}}\ où.\ d>1$
+\begin_inset Formula $Y_{t}∈\mathbb{R^{\mathrm{d}}}\ où\ d>1$
 \end_inset
 
 .
@@ -275,7 +275,7 @@ Une série temporelle est dite multivariée si
 \end_layout
 
 \begin_layout Subsection
-Exemple de la consommation d'électricité
+Exemple 
 \end_layout
 
 \begin_layout Standard
@@ -300,7 +300,7 @@ cité du profile Enedis
 
 .
  Ces observations couvrent la période du 
-\begin_inset Formula $01\-01\-2023$
+\begin_inset Formula $01/01/2023$
 \end_inset
 
  au 
@@ -317,7 +317,7 @@ cité du profile Enedis
 \noun off
 \color none
 
-\begin_inset Formula $31\-12\-2024$
+\begin_inset Formula $31/12/2024$
 \end_inset
 
 
@@ -337,7 +337,7 @@ cité du profile Enedis
  Chaque valeur de cette série temporelle correspond, donc, à la consommation
  d'électricité de tous les points de soutirage, situés dans la région Auvergne-R
 hône-Alpes, et qui sont de même profil et de même plage de puissance souscrite.
- Cette consommation est mesurée en watt-heure (Wh).
+ Cette consommation est mesurée en Watt-heure (Wh).
 \end_layout
 
 \begin_layout Standard
@@ -350,7 +350,6 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename Chap1/exemple_conso_RES11_6_9_ARA.pdf
-	lyxscale 50
 	scale 50
 	rotateOrigin center
 
@@ -404,13 +403,13 @@ s.
 \begin_layout Itemize
 la consommation d'électricité de tous les points de soutirage, situés dans
  la région Auvergne-Rhône-Alpes, et qui sont de même profil RES11 (+ RES11WE)
- et de même plage de puissance souscrite ]6-9] kVA, exprimée en Wh.
+ et de même plage de puissance souscrite ]6-9] kVA, exprimée en Wh,
 \end_layout
 
 \begin_layout Itemize
 la température moyennée sur tous les départements de la région Auvergne-Rhône-Al
 pes, observée avec un pas de temps d'une demi-heure, sur la période du 
-\begin_inset Formula $01\-01\-2023$
+\begin_inset Formula $01/01/2023$
 \end_inset
 
  au 
@@ -427,7 +426,7 @@ pes, observée avec un pas de temps d'une demi-heure, sur la période du
 \noun off
 \color none
 
-\begin_inset Formula $31\-12\-2024$
+\begin_inset Formula $31/12/2024$
 \end_inset
 
 , et exprimée en °C,
@@ -436,7 +435,7 @@ pes, observée avec un pas de temps d'une demi-heure, sur la période du
 \begin_layout Itemize
 l'humidité moyennée sur tous les départements de la région Auvergne-Rhône-Alpes,
  observée avec un pas de temps d'une demi-heure, sur la période du 
-\begin_inset Formula $01\-01\-2023$
+\begin_inset Formula $01/01/2023$
 \end_inset
 
  au 
@@ -453,7 +452,7 @@ l'humidité moyennée sur tous les départements de la région Auvergne-Rhône-A
 \noun off
 \color none
 
-\begin_inset Formula $31\-12\-2024$
+\begin_inset Formula $31/12/2024$
 \end_inset
 
 ,
@@ -467,7 +466,7 @@ et exprimée en %,
 la vitesse du vent moyennée sur tous les départements de la région Auvergne-Rhôn
 e-Alpes, observée avec un pas de temps d'une demi-heure, sur la période
  du 
-\begin_inset Formula $01\-01\-2023$
+\begin_inset Formula $01/01/2023$
 \end_inset
 
  au 
@@ -484,7 +483,7 @@ e-Alpes, observée avec un pas de temps d'une demi-heure, sur la période
 \noun off
 \color none
 
-\begin_inset Formula $31\-12\-2024$
+\begin_inset Formula $31/12/2024$
 \end_inset
 
 , et exprimée en m/s.
@@ -500,7 +499,6 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename Chap1/exemple_conso_RES11_6_9_T_U_FF_ARA.pdf
-	lyxscale 50
 	scale 50
 	rotateOrigin center
 
@@ -588,8 +586,8 @@ Décomposition additive et décomposition multiplicative
 \begin_layout Standard
 La décomposition d'une série temporelle consiste à extraire ses composantes
  principales.
- Cette décomposition peut être additive ou multiplicative, selon la nature
- des interactions entre les composantes de la série 
+ Elle peut être additive ou multiplicative, selon la nature des interactions
+ entre les composantes de la série 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "hyndman2021forecasting,hamilton1994time,box2015time"
@@ -699,7 +697,7 @@ Dans une décomposition multiplicative, la série temporelle
 \begin_inset Formula $\left(Y_{t}\right)_{t\in\mathbb{T}}$
 \end_inset
 
-est exprimée comme le produit de ses composantes : 
+ est exprimée comme le produit de ses composantes : 
 \end_layout
 
 \begin_layout Standard
@@ -820,7 +818,7 @@ noprefix "false"
 
 \end_inset
 
- montre la décomposition multiplicative de la série du figure 
+ montre la décomposition multiplicative de la série de la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Consommation-électrique-du"
@@ -830,7 +828,7 @@ noprefix "false"
 
 \end_inset
 
- sur la période 
+ pour la période du 
 \begin_inset Formula $01/01/2023$
 \end_inset
 
@@ -848,7 +846,7 @@ noprefix "false"
 \noun off
 \color none
 
-\begin_inset Formula $31/01/2023$
+\begin_inset Formula $31/01/2023.$
 \end_inset
 
 
@@ -856,7 +854,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
 status open
@@ -864,7 +862,6 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename Chap1/exemple_decomposition_conso_RES11_6_9_ARA.pdf
-	lyxscale 50
 	scale 50
 	rotateOrigin center
 
@@ -883,7 +880,7 @@ name "fig:exemple_decomposition_serie-1"
 
 \end_inset
 
-Exemple de série multivariée
+Exemple de décomposition multiplicative
 \end_layout
 
 \end_inset
@@ -935,7 +932,7 @@ noprefix "false"
 \noun off
 \color none
 
-\begin_inset Formula $.31/01/2023.$
+\begin_inset Formula $31/01/2023.$
 \end_inset
 
 
@@ -943,7 +940,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
 status open
@@ -951,7 +948,6 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename Chap1/exemple_decomposition_additive_conso_RES11_6_9_ARA.pdf
-	lyxscale 50
 	scale 50
 	rotateOrigin center
 
@@ -970,7 +966,7 @@ name "fig:exemple_decomposition_additive_serie-"
 
 \end_inset
 
-Exemple de série multivariée
+Exemple de décomposition additive
 \end_layout
 
 \end_inset
@@ -988,7 +984,7 @@ Exemple de série multivariée
 \series bold
 Remarque
 \series default
- : nous pouvons constater que le résiduel présente aussi des composante
+ : nous pouvons constater que le résiduel présente aussi des composantes
  saisonnière.
  En effet notre série est multi-saisonnière.
  Dans notre approche nous procédons à des décompositions en cascade.
@@ -1026,7 +1022,7 @@ literal "false"
 \end_layout
 
 \begin_layout Standard
-On considère une série temporelle
+On considère une série temporelle 
 \begin_inset Formula $\left(Y_{t}\right)_{t\in\mathbb{T}}$
 \end_inset
 
@@ -1178,6 +1174,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
 status open
@@ -1233,12 +1230,12 @@ Groupement des
 \begin_inset Formula $p$
 \end_inset
 
- , puis on moyennage sur les 
+ , et calcul de la moyenne sur les 
 \begin_inset Formula $N$
 \end_inset
 
  périodes complets des données pour chaque 
-\begin_inset Formula $j\in\left\{ 1,...,p\right\} $
+\begin_inset Formula $j\in\left\{ 0,...,p-1\right\} $
 \end_inset
 
 :
@@ -1317,6 +1314,7 @@ noprefix "false"
 
 \begin_layout Standard
 \begin_inset Float algorithm
+placement H
 wide false
 sideways false
 status open
@@ -1431,7 +1429,7 @@ e, permet d'identifier les composantes de la série analysée, mais ne révèle
  Cependant cette analyse n'est pas adaptée pour les séries temporelles non
  stationnaires, i.e.
  dont les caractéristiques spectrales varient au cours du temps.
- Pour ce type de séries, une analyse temps-fréquence est plus adaptées.
+ Pour ce type de séries, une analyse temps-fréquence est plus adaptée.
  Dans cette section, nous présentons la notion de stationnarité, les fonctions
  d’autocorrélation et d’autocorrélation partielle, ainsi que les différentes
  méthodes d'analyse temps-fréquence.
@@ -1509,7 +1507,7 @@ Stationnarité stricte
 \begin_inset Formula $\left(Y_{t_{1}},...,Y_{t_{n}}\right)$
 \end_inset
 
-et 
+ et 
 \begin_inset Formula $\left(Y_{t_{1+k}},...,Y_{n+k}\right)$
 \end_inset
 
@@ -1599,11 +1597,8 @@ Formes de non stationnarité
 \end_layout
 
 \begin_layout Standard
-Il existe deux formes simples de non stationnarité :
-\end_layout
-
-\begin_layout Itemize
-la première, appelée non-stationnarité TS (pour 
+Il existe deux formes simples de non stationnarité en fonction de leur source.
+ La première, appelée non-stationnarité TS (pour 
 \shape italic
 Trend Stationary
 \shape default
@@ -1618,7 +1613,7 @@ noprefix "false"
 
 \end_inset
 
- sont un exemple de cette forme
+ sont un exemple de cette forme.
 \begin_inset Formula 
 \begin{equation}
 Y_{t}=c+bt+\epsilon_{t}\label{eq:non_satationaire_TS}
@@ -1653,10 +1648,18 @@ Y_{t}=c+bt+\epsilon_{t}\label{eq:non_satationaire_TS}
 
 .
  
-\end_layout
-
-\begin_deeper
-\begin_layout Standard
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
 Dans ce modèle
 \family roman
 \series medium
@@ -1692,9 +1695,8 @@ Dans ce modèle
  
 \end_layout
 
-\end_deeper
-\begin_layout Itemize
-la deuxième forme, stationnaire en différence DS (pour 
+\begin_layout Standard
+La deuxième forme, stationnaire en différence DS (pour 
 \shape italic
 Difference Stationary
 \shape default
@@ -1744,10 +1746,18 @@ Y_{t}=c+Y_{t-1}+\epsilon_{t}\label{eq:non_satationaire_DS}
 
 .
  
-\end_layout
-
-\begin_deeper
-\begin_layout Standard
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\xout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
 Dans ce modèle
 \family roman
 \series medium
@@ -1778,7 +1788,6 @@ Dans ce modèle
  est stationnaire.
 \end_layout
 
-\end_deeper
 \begin_layout Subsubsection
 Tests de stationnarité 
 \end_layout
@@ -1954,7 +1963,7 @@ Y_{t}^{(d)}=\text{\ensuremath{\Delta^{d}}}Y_{t}=(1-\mathbb{L})^{d}Y_{t-1}\label{
 Racine unitaire: 
 \series default
 pour comprendre cette notion, nécessaire à l'explication des principes de
- test on considère le modèle décrit par l'équation
+ test on considère le modèle décrit par l'équation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:modele_AR"
@@ -2033,7 +2042,7 @@ En utilisant l'opérateur de retard
 \begin_inset Formula $\Phi$
 \end_inset
 
- est un polynôme de degré
+ est un polynôme de degré 
 \begin_inset Formula $p$
 \end_inset
 
@@ -2539,7 +2548,7 @@ r(t,k)=\mathbb{C}orr\left(Y_{t+k}^{p},Y_{t}^{p}\right)
 \noun off
 \color none
 
-\begin_inset Formula $Y_{t+k}^{p},Y_{t}^{p}$
+\begin_inset Formula $Y_{t+k}^{p}\ et\ Y_{t}^{p}$
 \end_inset
 
 sont les projections linéaires des variables 
@@ -2558,7 +2567,7 @@ Pour une série temporelle
 \begin_inset Formula $\left(Y_{t}\right)_{t\in\mathbb{T}}$
 \end_inset
 
-stationnaire (faiblement ou strictement), cette fonction est indépendante
+ stationnaire (faiblement ou strictement), cette fonction est indépendante
  de l'origine du temps 
 \begin_inset Formula $t$
 \end_inset
@@ -2573,7 +2582,7 @@ stationnaire (faiblement ou strictement), cette fonction est indépendante
 \begin_layout Definition
 \begin_inset Formula 
 \begin{equation}
-r(t,k)=r(k)=\mathbb{C}orr\left(Y_{k}^{p},Y_{0}^{p}\right)\label{eq:PACF}
+r(t,k)=r(k)=\mathbb{C}orr\left(Y_{k}^{p},Y_{0}^{p}\right).\label{eq:PACF}
 \end{equation}
 
 \end_inset
@@ -2602,11 +2611,12 @@ noprefix "false"
 
 \end_inset
 
-différenciée.
+ différenciée.
 \end_layout
 
 \begin_layout Example
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -2671,9 +2681,9 @@ L'analyse des ces graphiques permet d'identifier une saisonnalités multiples
 \end_layout
 
 \begin_layout Example
-Après décomposions de la série, avec une période de 44, nous analysons les
+Après décomposion de la série, avec une période de 44, nous analysons les
  fonctions ACF et PACF de ses composantes.
- Les figures
+ Les figures 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:ACF-et-ACP-T"
@@ -2683,7 +2693,7 @@ noprefix "false"
 
 \end_inset
 
-,
+, 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:ACF-et-ACP-S"
@@ -2724,12 +2734,13 @@ noprefix "false"
  Nous concluons qu'il y a encore de la saisonnalité et qu'il faut faire
  une décomposition en cascade.
  Nous détaillerons ce point dans le prochain chapitre.
- La présence d'autres saisonnalité est clairement confirmé par les fonctions
- ACF et PACF de la composante tendance.
+ La présence d'autres saisonnalités est clairement confirmée par les fonctions
+ ACF et PACF du résidu.
 \end_layout
 
 \begin_layout Example
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -2828,6 +2839,7 @@ noprefix "false"
 
 \begin_layout Example
 \begin_inset Float figure
+placement h
 wide false
 sideways false
 status open
@@ -2899,7 +2911,7 @@ literal "false"
 \end_layout
 
 \begin_layout Itemize
-Transformée de Fourier à Court Terme (Short-Time Fourier Transform (STFT))
+La transformée de Fourier à court terme (Short-Time Fourier Transform (STFT))
  qui consiste à diviser la série en fenêtres puis appliquer la transformée
  de Fourier localement.
  Cette transformée permet de construire une représentation temps-fréquence,
@@ -2907,7 +2919,7 @@ Transformée de Fourier à Court Terme (Short-Time Fourier Transform (STFT))
 \end_layout
 
 \begin_layout Itemize
-Transformée en Ondelettes (Wavelet Transform (CWT)) : utilise des fonctions
+La transformée en ondelettes (Wavelet Transform (CWT)) qui utilise des fonctions
  de base localisées en temps et en fréquence (ondelettes), en permettant
  ainsi une résolution adaptative.
  Elle donne une bonne résolution temporelle pour les hautes fréquences et
@@ -2925,8 +2937,9 @@ literal "false"
 
 \end_inset
 
-, décompose le signal, d'une façon adaptative, en somme de composantes oscillant
-es, appelées IMF (pour intrinsic mode function en anglais).
+, et qui consite à décomposer le signal, d'une façon adaptative, en somme
+ de composantes oscillantes, appelées IMF (pour intrinsic mode function
+ en anglais).
  Cette décomposition est adaptée pour les signaux non-stationnaires.
  En utilisant cette décomposition nous pouvons estimer l'amplitude et la
  fréquence instantanées et établir une représentation temps-fréquence de
@@ -2995,7 +3008,17 @@ issues de la pondération par
 \begin_inset Formula $w$
 \end_inset
 
- , est définie par : 
+ , est définie par l'équation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:pondération"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \begin_inset Formula 
 \begin{equation}
 Y_{p,n}=Y_{((1-\rho)N-1)\times p+n}\times w_{n}\label{eq:pondération}
@@ -3043,15 +3066,6 @@ donne un exemple classique de
 \uwave default
 \noun default
 \color inherit
- Si 
-\begin_inset Formula $𝑎=0,56$
-\end_inset
-
- il s'agit d'une fenêtre d'Hamming, et si 
-\begin_inset Formula $𝑎_{0}=0,5$
-\end_inset
-
- il s'agit d'une fenêtre de Hann .
  
 \end_layout
 
@@ -3064,6 +3078,19 @@ w_{n}=a_{0}-(1-a_{0})cos\left(2\pi n/N\right)\label{eq:fenetre}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Si 
+\begin_inset Formula $𝑎=0,56$
+\end_inset
+
+ il s'agit d'une fenêtre d'Hamming, et si 
+\begin_inset Formula $𝑎_{0}=0,5$
+\end_inset
+
+ il s'agit d'une fenêtre de Hann .
+ 
 \end_layout
 
 \begin_layout Standard
@@ -3104,7 +3131,7 @@ où
 Le spectrogramme est 
 \begin_inset Formula 
 \begin{equation}
-\mathbb{S}=\left\{ \left|X_{p,k}\right|^{2},(p,k)\in\left\{ 0,..,P-1\right\} \times\left\{ 0,...,K\right\} \right\} \label{eq:Spectrogramme}
+\mathbb{S}=\left\{ \left|X_{p,k}\right|^{2},(p,k)\in\left\{ 0,..,P-1\right\} \times\left\{ 0,...,K-1\right\} \right\} \label{eq:Spectrogramme}
 \end{equation}
 
 \end_inset
@@ -3198,6 +3225,7 @@ noprefix "false"
 ).
  La pondération est faite par une fenêtre de Hann.
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
@@ -3226,7 +3254,7 @@ name "fig:Spectrogramme-de-la-1"
 
 \end_inset
 
-Spectrogramme de la série 
+Spectrogramme de la série de la figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Consommation-électrique-du"
@@ -3257,7 +3285,7 @@ Ce spectrogramme confirme la multi-saisonnalité, montrée par les fonctions
 \end_inset
 
  et 
-\begin_inset Formula $T_{2}=22\ pas\simeq0.46\ jours$
+\begin_inset Formula $T_{2}=22\ pas\simeq0.46\ jour$
 \end_inset
 
 
@@ -3342,8 +3370,7 @@ l'ensemble d'information disponible jusqu'au l'instant
 \uwave default
 \noun default
 \color inherit
-les valeurs passées de la variable cible et des valeurs des variables explicativ
-es.
+les valeurs passées de la variable cible et des variables explicatives.
  On suppose que la variable cible est
 \family roman
 \series medium
@@ -3518,7 +3545,7 @@ où
 \uwave default
 \noun default
 \color inherit
- est la vraie valeur au pas de temps 
+ est la vraie valeur à l'instant 
 \begin_inset Formula $t+i$
 \end_inset
 
@@ -3526,7 +3553,7 @@ où
 \begin_inset Formula $\widehat{Y}_{1,t+i}$
 \end_inset
 
- est la prévision au pas de temps 
+ est la prévision à l'instant 
 \begin_inset Formula $t+i$
 \end_inset
 

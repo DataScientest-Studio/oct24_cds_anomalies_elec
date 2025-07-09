@@ -192,28 +192,24 @@ literal "false"
 
 \end_inset
 
- : 
-\end_layout
-
-\begin_layout Itemize
-la prévision de la charge électrique qui consiste à prévoir la quantité
- d’électricité qui sera nécessaire à un moment donné.
+.
+ : la prévision de la charge électrique et la prévision de la consommation
+ d’électricité.
+ La prévision de la charge électrique consiste à prévoir la quantité d’électrici
+té qui sera nécessaire à un moment donné.
  Cette prévision est utilisée, par les opérateurs et fournisseurs d'électricité,
  pour produire et transporter la quantité d’énergie suffisante pour répondre
  aux besoins de consommation, tout en évitant une surproduction ou une sous-prod
-uction d’électricité, 
-\end_layout
-
-\begin_layout Itemize
-la prévision de la consommation d’électricité qui consiste à prévoir la
- quantité d’électricité qui sera consommée sur une période par un utilisateur
- ou un groupe d'utilisateurs.
+uction d’électricité.
+ Quant à la prévision de la consommation d’électricité, elle consiste à
+ prévoir la quantité d’électricité qui sera consommée sur une période par
+ un utilisateur ou un groupe d'utilisateurs.
  
 \end_layout
 
 \begin_layout Standard
 En fonction de la durée de l’horizon temporel concerné, les prévisions de
- la charge électrique et de la consommation d’électricité peut être classées
+ la charge électrique et de la consommation d’électricité peuvent être classées
  en trois types 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -275,23 +271,20 @@ literal "false"
 
 \end_inset
 
- ont montré une grande croissance du nombre de publications portant sur
- des approches d’apprentissage automatique, de modélisation hybride, ou
- encore de prévision guidée par les connaissances.
- Cette tendance s’explique par les enjeux cruciaux liés à la transition
- énergétique, à l’intégration des énergies renouvelables, à la gestion des
- systèmes intelligents (smart grids), à la sobriété énergétique, et à la
- participation active des consommateurs.
+ ont montré une grande croissance du nombre de publications de travaux recherche
+ axés sur ce sujet.
+ Cette tendance s’explique par les enjeux cruciaux liés à gestion de l'énergétiq
+ue, à l’intégration des énergies renouvelables, à la gestion des systèmes
+ intelligents (smart grids), à la participation active des consommateurs.
  Le volume croissant de données disponibles (météo, historique de consommation,
  caractéristiques thermiques des bâtiments, etc.) et la maturité des algorithmes
- d’apprentissage automatique contribuent aussi à faire de la prévision de
- la consommation d’électricité un champ de recherche dynamique.
- Nous avons constaté, que la plupart de ces travaux de recherche se concentrent
- sur la prévisions de la charge électrique et qu'ils sont rares les travaux
- dédiés à la prévision de la consommation d’électricité.
+ d’apprentissage automatique contribuent aussi à cette dynamique.
+ Cependant, nous avons constaté, que la plupart de ces travaux de recherche
+ se concentrent sur la prévision de la charge électrique, ils sont rares
+ les travaux dédiés à la prévision de la consommation d’électricité.
  Ce projet a pour objectif l'établissement d’un modèle de prévision de la
- consommation d’électricité, à court  terme, des utilisateurs du réseau
- Enedis en France.
+ consommation d’électricité, à court terme, des utilisateurs du réseau Enedis
+ en France.
  
 \end_layout
 
@@ -329,18 +322,11 @@ literal "false"
  souscrite est inférieur ou égale à 36 kVA.
  Ce choix est justifié par la compatibilité de ces données avec nos objectifs
  initiaux et la possibilités d'une adaptation future pour détecter les anomalies
- dans la consommation d’électricité à l'échelle d'un logement individuel.Ce
- jeu de données 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "enedis_conso_inf36"
-literal "false"
-
-\end_inset
-
- donne les volumes d'énergie soutirés, les courbes de charge moyennes de
- clients dotés de compteurs communicants et le nombre de clients.
- Ces agrégats sont disponibles par région,par plage de puissance souscrite
+ dans la consommation d’électricité à l'échelle d'un logement individuel.
+ Ce jeu de données contient les volumes d'énergie soutirés, les courbes
+ de charge moyennes de clients dotés de compteurs communicants et le nombre
+ de clients.
+ Ces agrégats sont disponibles par région, par plage de puissance souscrite
  et par profil, définis par Enedis dans 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -357,7 +343,7 @@ literal "false"
 Nous avons, donc, cherché dans ce projet à établir un modèle fiable, robuste
  et précis pour la prévision de la consommation d’électricité, à court 
  termes, en fonction du profil de l'utilisateur, de la plage de la puissance
- souscrite, de la région et des données météo de celle-ci.
+ souscrite, de la région et des données météorologiques de celle-ci.
 \end_layout
 
 \begin_layout Subsection*
@@ -370,8 +356,8 @@ Pour atteindre les objectifs fixés et répondre à notre problématique nous
 \end_layout
 
 \begin_layout Itemize
-fait un état de l'art des différentes études autour de la prévision de la
- charge électrique et de la consommation d’électricité, 
+fait un état de l'art des différentes études effectués sur la prévision
+ de la charge électrique et de la consommation d’électricité, 
 \end_layout
 
 \begin_layout Itemize
@@ -387,19 +373,19 @@ analysé et étudié les relations entre les différentes variables explicatives
 
 \begin_layout Itemize
 et établi un nouveau modèle, basé d'une part sur la décomposition par analyse
- spectrale de la consommation d'électricité et des différentes variables
+ temps-fréquence de la consommation d'électricité et des différentes variables
  explicatives, et d'autre part sur la combinaison des modèles autorégressifs
  SARIMA (pour 
 \shape italic
 Seasonal AutoRegressive Integrated Moving Average
 \shape default
-) et des réseaux LSTM 
+) et les réseaux de neurones récurrents à mémoire court-terme et long-terme
+ LSTM 
 \shape italic
 ( pour Long Short-Term Memory
 \shape default
 ).
- Le modèle établi a montré des performances supérieures à ce qui a ét publié
- dans la littéarture et porté à notre connaissance.
+ 
 \end_layout
 
 \begin_layout Subsection*
@@ -410,12 +396,12 @@ Organisation du document
 Nous adoptons, dans notre approche la modélisation de la consommation d'électric
 ité, ainsi que les autres variables par des séries temporelles.
  Dans un premier chapitre nous présentons les outils mathématiques pour
- décrire, analyser et faire la pérvsion des séries temporelles.
+ décrire, analyser et faire la prévision des séries temporelles.
  Le deuxième chapitre présente la construction de la base de données, les
  transformations qui lui sont appliquées et une analyse des différentes
  relations entre ses variables et la variable cible.
  Le dernier chapitre présente notre modèle.
- Afin de comparer nos résultats aves d'autre travaux, nous dressons une
+ Afin de comparer nos résultats avec d'autre travaux, nous dressons une
  synthèse de la revue de littérature, qui ne vaut pas être exhaustive, du
  domaine de la prévision de la consommation d'électricité à court terme.
  

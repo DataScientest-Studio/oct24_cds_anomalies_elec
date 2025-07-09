@@ -173,29 +173,25 @@ thispagestyle{empty}
 \end_layout
 
 \begin_layout Standard
-
-\lang english
-Au cours de ce projet, nous nous sommes intéréssés à la prévision de la
- consommation d'éléctricité à court terme, pour les utilisateurs du réseau
+Au cours de ce projet, nous nous sommes intéressés à la prévision de la
+ consommation d'électricité à court terme, pour les utilisateurs du réseau
  Enedis.
- Etant donnée que ce sujet suscite un grand intérêt dans le monde académique
+ Étant donnée que ce sujet suscite un grand intérêt dans le monde académique
  et industriel, nous l'avons abordé comme un sujet de recherche scientifique.
  Les travaux menés dans ce cadre, et présentés dans ce rapport, ont pour
  objectif la recherche d'une nouvelle approche de prévision à court terme
  de la consommation d'électricité en France au demi-heure près.
  Pour répondre à ce problème, nous avons adopté une modélisation en séries
- temporelles des données de la consommation d'électricté, dite variable
+ temporelles des données de la consommation d'électricité, dite variable
  cible, et des données météorologiques, faisant partie des variables exogènes.
  Puis nous avons proposé une approche basée sur la décomposition de ces
  séries par analyse temps-fréquence et la prévision, de chaque composante
- de variable cible en fonction des composantes des variables exogènes, par
- un modèle approprié.
+ de la variable cible en fonction des composantes des variables exogènes,
+ par un modèle spécifique.
  
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Nous avons introduit, dans le premier chapitre, les concepts généraux de
  la théorie des séries temporelles indispensables à notre travail.
  Nous avons illustré ces concepts à travers des exemples tirés de nos données.
@@ -203,47 +199,46 @@ Nous avons introduit, dans le premier chapitre, les concepts généraux de
  valider les hypothèses de travail.
  Une première contribution, tirée de cette première étude, est l'utilisation
  de l'analyse temps-fréquence pour extraire les périodes dominantes d'une
- série temporelle et décéomposer celle-ci, selon une nouvelle méthode, en
+ série temporelle et décomposer celle-ci, selon une nouvelle méthode, en
  utilisant ces périodes.
  
 \end_layout
 
 \begin_layout Standard
-
-\lang english
 Dans le second chapitre, nous avons tout d'abord présenté notre démarche
  de collecte, de nettoyage, de construction et de traitement des données.
  Puis nous avons exposé l'analyse des relations entre les variables exogènes
  et la variable cible.
  Ce travail nous a permis de définir des transformations à opérer sur les
- composantes des variables exogènes afin de d'augmenter leur corrélation
- avec les composantes correspondantes de la variable cible.
+ composantes des variables exogènes afin d'augmenter leur corrélation avec
+ les composantes correspondantes de la variable cible.
  L'exploration de ces relations nous a conduit à identifier les modèles
- les plus approriés à la prévision de chaque composante.
+ les plus appropriés à la prévision de chaque composante.
  
 \end_layout
 
 \begin_layout Standard
 Dans le dernier chapitre, nous avons exposé l'approche proposée.
- Nous avons présenté son architecure, détaillé sa réalisation, puis présenté
+ Nous avons présenté son architecture, détaillé sa réalisation, puis présenté
  et analysé ses performances.
  La première étape de cette solution effectue la décomposition des séries
  par notre méthode.
  La deuxième consiste à combiner les transformations des composantes et
  à effectuer la prévision par des modèles autorégressifs, dans le cas de
- composante périodique, et la prévision des autre composante par des modèles
- de regression, dont l'architecture est une mise en cascade de réseaux de
- neuronnes récurrents à memoire court-terme et long terme LSTM et des couches
+ composante périodique, et la prévision des autre composantes par des modèles
+ de régression, dont l'architecture est une mise en cascade de réseaux de
+ neurones récurrents à mémoire court-terme et long terme LSTM et de couches
  denses.
- Les premieres résultats obtenus sont encouragente et dans la plupart des
- cas, les performances sont très satisfaisantes.
+ Les premiers résultats obtenus sont encourageants et dans la plupart des
+ configurations profil - plage de puissance souscrite traités, les performances
+ sont très satisfaisantes.
  
 \end_layout
 
 \begin_layout Standard
 Notre approche reste perfectible afin d'améliorer les temps d'exécution
- et les performances pour certaines profiles du réseau Enédis.
- Pour le temps d'exécution, l'apprentissage par transefrt est une piste
+ et les performances pour certaines profils du réseau Enedis.
+ Pour le temps d'exécution, l'apprentissage par transfert est une piste
  à explorer, vu la similarité entre des profils d'utilisateurs.
  Et pour les utilisateurs dont les performances sont mauvaises, l'intégration
  d'autres caractéristiques, comme les jours spéciaux, peut améliorer la
@@ -252,10 +247,10 @@ Notre approche reste perfectible afin d'améliorer les temps d'exécution
 \end_layout
 
 \begin_layout Standard
-Enfin ce projet était l'occasion de mettre en oeuvre l'ensemble des méthodes
+Enfin ce projet était l'occasion de mettre en œuvre l'ensemble des méthodes
  et techniques apprises dans les cours.
  Ce projet nous a permis également de découvrir le domaine de la prévision
- de la consommation d'électricite.
+ de la consommation d'électricité.
  
 \end_layout
 
