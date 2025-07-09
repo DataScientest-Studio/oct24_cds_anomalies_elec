@@ -143,9 +143,10 @@ thispagestyle{empty}
 \end_layout
 
 \begin_layout Standard
-La consommation électrique est influencée, d'une part par des facteurs météorolo
-giques tels que la température, la vitesse du vent, le rayonnement solaire,
- l'humidité, la couverture nuageuse, le type et l’intensité des précipitations
+La consommation d'électricité est influencée, d'une part par des facteurs
+ météorologiques tels que la température, la vitesse du vent, le rayonnement
+ solaire, l'humidité, la couverture nuageuse, le type et l’intensité des
+ précipitations
 \begin_inset CommandInset citation
 LatexCommand cite
 key "grenier2006"
@@ -155,7 +156,7 @@ literal "false"
 
 .
  Et d'autre part elle peut être influencée par autres facteurs, tels que
- les comportements des consommateurs (té- létravail, autoproduction, contrôle
+ les comportements des consommateurs (télétravail, autoproduction, contrôle
  actif de la consommation, etc.
  ), les informations calendaires (jour de la semaine, jours spéciaux et
  fériés), les propriétés thermiques des bâtiments et le prix de l’électricité
@@ -193,8 +194,8 @@ literal "false"
  Elles contiennent également des informations calendaires.
  Cependant elles ne contiennent pas de données météorologiques.
  Pour compléter notre base de données avec les autres facteurs potentiellement
- influants sur la variable cible, nous avons collecté, réechantillonné et
- nettoyé les données météorologiques
+ influents sur la variable cible, nous avons collecté, re-échantillonné
+ et nettoyé les données météorologiques
 \begin_inset CommandInset citation
 LatexCommand cite
 key "meteofrance_data_portail"
@@ -208,8 +209,8 @@ literal "false"
 
 \begin_layout Standard
 Dans ce chapitre, nous présentons notre base de données en expliquant toutes
- les étapes : télechargement, construction de la base de données, nettoyage
- de celle-ci, fusion, analyse et sélection des varaibles exogènes à garder
+ les étapes : téléchargement, construction de la base de données, nettoyage
+ de celle-ci, fusion, analyse et sélection des variables exogènes à garder
  pour la modélisation.
  
 \end_layout
@@ -316,7 +317,7 @@ Comme nous l'avons mentionné dans l'introduction générale, nous avons collect
  parmi ces données, le jeux le plus compatible avec nos objectifs initiaux
  et dont l'usage pour notre modèle offre la possibilité d'une adaptation
  future pour détecter d'éventuelles anomalies dans la consommation d’électricité
- à l'echelle résidentielle.
+ à l'échelle résidentielle.
 \end_layout
 
 \begin_layout Standard
@@ -351,7 +352,7 @@ noprefix "false"
 
 \end_inset
 
-résume les champs de ce jeux avec une dscription détaillée.
+ résume les champs de ce jeux avec une description détaillée.
  Le tableau 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -362,7 +363,7 @@ noprefix "false"
 
 \end_inset
 
-donne un apperçu de l'entête du dataframe correspondant avec les différentes
+ donne un aperçu de l'entête du DataFrame correspondant avec les différentes
  colonnes avant la fusion avec les données météorologique.
  
 \end_layout
@@ -380,7 +381,7 @@ status open
 \begin_inset Graphics
 	filename Chap2/dataframe_1.png
 	lyxscale 60
-	scale 35
+	scale 40
 	clip
 
 \end_inset
@@ -400,7 +401,7 @@ name "tab:Entête-d'un-DataFrame"
 
 \end_inset
 
-Entête d'un DataFrame de la consommation d'électricité
+Entête du DataFrame de la consommation d'électricité
 \end_layout
 
 \end_inset
@@ -461,7 +462,7 @@ Format
 \noindent
 
 \series bold
-Desciption
+Description
 \end_layout
 
 \end_inset
@@ -960,7 +961,7 @@ Représentation en séries temporelles
 \end_layout
 
 \begin_layout Standard
-Pour notre problématique de pérvision nous avons besoin des colonnes : 
+Pour notre problématique de prévision nous avons besoin des colonnes : 
 \shape italic
 Horodate, Région, Profil, Plage de puissance souscrite, Nb points soutirage
  et Total énergie soutirée (Wh)
@@ -977,8 +978,9 @@ Horodate, Région, Profil, Plage de puissance souscrite, Nb points soutirage
 Nb points soutirage
 \shape default
 , qui est aussi une série temporelle, représente le nombre de points de
- soutirage correspond au nombre de sites avec un contrat actif sur le réseau
- Enedis pour toutes les 
+ soutirage, i.e.
+ le nombre de sites avec un contrat actif sur le réseau Enedis, pour toutes
+ les 
 \begin_inset Formula $½\ h$
 \end_inset
 
@@ -1004,7 +1006,7 @@ un ensemble d'instants d'observation, issue de la colonne
 \shape italic
 Horodate
 \shape default
-, que nous réprésentons par 
+, que nous représentons par 
 \begin_inset Formula $\mathbb{T}=\left\{ kT_{s},k\in\left\{ 0,...,L\right\} \right\} $
 \end_inset
 
@@ -1044,7 +1046,7 @@ une série temporelle qui correspond à la colonne
 \end_layout
 
 \begin_layout Itemize
-une série temporelle qui réprésente
+une série temporelle qui représente
 \shape italic
  Nb points soutirage
 \shape default
@@ -1056,11 +1058,11 @@ une série temporelle qui réprésente
 \end_layout
 
 \begin_layout Itemize
-une série temporelle qui réprésente
+une série temporelle qui représente
 \shape italic
  
 \shape default
-consommation moyenne des consommateurs de même profil et même puissances
+consommation moyenne des consommateurs de même profil et même puissance
  souscrite 
 \begin_inset Formula $\left(\overline{Y}_{k}\right)_{kT_{s}\in\mathbb{T}}=\left(\frac{Y_{k}^{g}}{N_{k}}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
@@ -1100,9 +1102,9 @@ Région
 
 \begin_layout Standard
 Les données sont publié par région pour les 12 régions administratives métropoli
-taines : Bretagne, Normandie, Pays de la Loire, Nouvelle Acquitaine, Centre
- Vale de Loire , Ile de France , Hauts de France, Grand Est, Bourgogne-Franche-C
-omté , Auvergne-Rhone-Alpes, Occitanie , Provence-Alpes-Côte d'Azur.
+taines : Bretagne, Normandie, Pays de la Loire, Nouvelle Aquitaine, Centre
+ Vale de Loire , Île de France , Hauts de France, Grand Est, Bourgogne-Franche-C
+omté , Auvergne-Rhône-Alpes, Occitanie , Provence-Alpes-Côte d'Azur.
 \end_layout
 
 \begin_layout Paragraph
@@ -1132,13 +1134,13 @@ noprefix "false"
 
 \end_inset
 
-résume ces profils et les palges de puissances souscrites associées.
+résume ces profils et les plages de puissances souscrites associées.
  Il y a 73 configurations en total.
  Nous avons donc 
 \begin_inset Formula $73\times12=876$
 \end_inset
 
- séries temporelles dont chacune est de longeur 
+ séries temporelles dont chacune est de longueur 
 \begin_inset Formula $L=(365+366)*48=35088$
 \end_inset
 
@@ -1792,7 +1794,7 @@ Profils et plages de puissance souscrite
 \end_layout
 
 \begin_layout Subsection
-Analyse et visulaisation
+Analyse et visualisation
 \end_layout
 
 \begin_layout Standard
@@ -1808,8 +1810,8 @@ on moyennée par rapport au nombre de points de soutirage
 \end_inset
 
  pour la région Auvergne-Rhône-Alpes.
- Nous rappelons que pour chaque profil et chaque plage de puisaance souscrite
- que la série temporelle 
+ Nous rappelons que pour chaque profil et chaque plage de puissance souscrite,
+ la série temporelle 
 \begin_inset Formula $\left(\overline{Y}_{k}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
@@ -1831,7 +1833,7 @@ noprefix "false"
 
 \end_inset
 
- montrent l'évolution par heure de la consommation d'électricté pour chaque
+ montrent l'évolution par heure de la consommation d'électricité pour chaque
  jour de la semaine et chaque plage de puissance souscrite.
  Les courbes de la figure 
 \begin_inset CommandInset ref
@@ -1843,7 +1845,7 @@ noprefix "false"
 
 \end_inset
 
- montrent l'évolution par heure de la consommation d'électricté pour chaque
+ montrent l'évolution par heure de la consommation d'électricité pour chaque
  jour de la semaine et chaque profil.
  
 \end_layout
@@ -1890,8 +1892,8 @@ name "fig:Conso-jour-plagepuissance"
 
 \end_inset
 
-Consommation journalière d'électricté en Auvergne-Rhône-Alpes selon la plage
- de puissance souscrite et le jour de la semaine
+Consommation journalière d'électricité en Auvergne-Rhône-Alpes selon la
+ plage de puissance souscrite et le jour de la semaine
 \end_layout
 
 \end_inset
@@ -1934,8 +1936,8 @@ name "fig:Conso-jour-plagepuissance-1"
 
 \end_inset
 
-Consommation journalière d'électricté en Auvergne-Rhône-Alpes selon le profil
- et le jour de la semaine
+Consommation journalière d'électricité en Auvergne-Rhône-Alpes selon le
+ profil et le jour de la semaine
 \end_layout
 
 \end_inset
@@ -1969,13 +1971,21 @@ noprefix "false"
 
 \end_inset
 
-montre la saisonnalité annuelle de nos séries temporelles.
- Dans ce graphique, on note une saisonnalité intra-annuelle prononcée, différenc
-iant l'éte et l’hiver.
- Pour une catégorie résidentielle, on peut stipuler que cette saisonnalité
- est principalement causée par la consommation électrique des appareils
+ montre la saisonnalité annuelle de nos séries temporelles.
+ Ce graphique montre une saisonnalité intra-annuelle prononcée, différenciant
+ l'été et l’hiver.
+ Pour une catégorie résidentielle, nous stipulons que cette saisonnalité
+ est principalement causée par la consommation d'électricité des appareils
  de chauffage et de climatisation, et dépend donc principalement de la températu
-re.
+re
+\begin_inset CommandInset citation
+LatexCommand cite
+key "david2023prevision"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -2008,7 +2018,7 @@ name "fig:SaisonnaliteAnnuelle"
 
 \end_inset
 
-Saisonnalité annuelle de la consommation d'électricté en Auvergne-Rhône-Alpes
+Saisonnalité annuelle de la consommation d'électricité en Auvergne-Rhône-Alpes
  
 \end_layout
 
@@ -2029,7 +2039,8 @@ Influence du jour de la semaine
 \begin_layout Standard
 Certaines études affirment que la distinction entre jours ouvrés, week-end
  et jours spéciaux (jours fériés, jours de fêtes,...) est importante dans le
- domaine de la prévision de la consommation électrique à court terme 
+ domaine de la prévision de la consommation d'électricité à court terme
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "cancelo2008,clements2016,nassif2022"
@@ -2068,8 +2079,8 @@ status open
 \align center
 \begin_inset Graphics
 	filename Chap2/effetjour.png
-	lyxscale 40
-	scale 35
+	lyxscale 50
+	scale 25
 
 \end_inset
 
@@ -2117,8 +2128,8 @@ literal "false"
 
 \end_inset
 
-montrent que les facteurs météorologiques qui influent sur la consommation
- d'éléctricité sont la température, l'humidité, la vitesse du vent et la
+ montrent que les facteurs météorologiques qui influent sur la consommation
+ d'électricité sont la température, l'humidité, la vitesse du vent et la
  nébulosité (couverture nuageuse).
  Ces études s'accordent sur le fait que la température est le facteur le
  plus influant.
@@ -2140,10 +2151,10 @@ literal "false"
 
 \end_inset
 
- montre l'impact de la température, de la vistesse du vent et de la nébulosité
- sur la consommation d'éléctricité au Quebec.
+ montre l'impact de la température, de la vitesse du vent et de la nébulosité
+ sur la consommation d'électricité au Québec.
  Il faut noter que la plupart de ces études sont faite sur des données de
- pays étrangers (Canda, Espagne, Angletterre, ..).
+ pays étrangers (Canada, Espagne, Angleterre, ..).
  Pour étudier l'impact de ces facteurs sur la consommation d'électricité
  en France, et établir un nouveau modèle, nous avons chercher à les collecter
  à partir des données publiés par Météo-France 
@@ -2155,7 +2166,7 @@ literal "false"
 \end_inset
 
  .
- Ces données climatologiques regroupent les mesures effectuées par toutes
+ Ces données météorologiques regroupent les mesures effectuées par toutes
  les stations de métropole et outre-mer depuis leur ouverture.
  Les différents facteurs météorologiques disponibles sont décrit dans 
 \begin_inset CommandInset citation
@@ -2308,7 +2319,7 @@ exprimée
 \end_layout
 
 \begin_layout Standard
-La temépratures, la vitesse du vent et l'humidité sont mesurées au pas d'une
+La températures, la vitesse du vent et l'humidité sont mesurées au pas d'une
  heure et ceci avec un maillage départementale.
  Quand au rayonnement
 \family roman
@@ -2338,7 +2349,7 @@ La temépratures, la vitesse du vent et l'humidité sont mesurées au pas d'une
 \color inherit
 , les données disponibles sont régionales mais avec un pas horaire de 3
  heures.
- Pour fusionner ces données avec notre base de donnés de consommation d'éléctric
+ Pour fusionner ces données avec notre base de donnés de consommation d'électric
 ité, qui est donnée au pas d'une demi-heure, nous avons réglés les deux
  problèmes spatio-temporelles.
 \end_layout
@@ -2360,7 +2371,7 @@ Pour une région
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\left(T_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T}},\left(U_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T}},\left(V_{t}^{(i,j)}\right)_{t\in\mathbb{T}}
+\left(T_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}},\left(U_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}},\left(V_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}
 \]
 
 \end_inset
@@ -2372,7 +2383,7 @@ Pour une région
 et pour le rayonnement 
 \begin_inset Formula 
 \[
-\left(R_{k}^{i}\right)_{kT_{s}\in\mathbb{T}}
+\left(R_{k}^{i}\right)_{kT_{s}\in\mathbb{T_{\mathrm{2}}}}
 \]
 
 \end_inset
@@ -2394,7 +2405,17 @@ et pour le rayonnement
 \uwave off
 \noun off
 \color none
-où 
+où
+\begin_inset space ~
+\end_inset
+
+
+
+\begin_inset Formula $T_{s}=1800s$
+\end_inset
+
+,
+ 
 \family default
 \series default
 \shape default
@@ -2408,19 +2429,18 @@ où
 \noun default
 \color inherit
 
-\begin_inset Formula $\mathbb{T}=\left\{ 2kT_{s},k\in\left\{ 0,...,L\right\} \right\} $
+\begin_inset Formula $\mathbb{T_{\mathrm{1}}}=\left\{ 2kT_{s},k\in\left\{ 0,...,\nicefrac{L}{2}\right\} \right\} $
 \end_inset
 
- où 
+, 
+\begin_inset Formula $\mathbb{T_{\mathrm{2}}}=\left\{ 6kT_{s},k\in\left\{ 0,...,\nicefrac{L}{2}\right\} \right\} $
+\end_inset
+
+et 
 \begin_inset Formula $L=(365+366)*24=17544$
 \end_inset
 
- (période de 01-01-2023 au 31-12-2024) et 
-\begin_inset Formula $T_{s}=1800s$
-\end_inset
-
-.
- 
+ (période de 01/01/2023 au 31/12/2024)
 \end_layout
 
 \begin_layout Subsection
@@ -2429,22 +2449,22 @@ Analyse
 
 \begin_layout Standard
 Pour résoudre le problème spatiale, nous devons trouver une solution pour
- passer de l'echelle d'une station météo à l'échelle d'une région pour les
- données météorologiques : temépratures, vitesse du vent et humidité.
+ passer de l'échelle d'une station météo à l'échelle d'une région pour les
+ données météorologiques : températures, vitesse du vent et humidité.
  Pour y remédier à ce problème nous avons étudié :
 \end_layout
 
 \begin_layout Itemize
 les distributions des processus
-\begin_inset Formula $\left(T_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(T_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}$
 \end_inset
 
  , 
-\begin_inset Formula $\left(U_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(U_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}$
 \end_inset
 
 , 
-\begin_inset Formula $\left(V_{t}^{(i,j)}\right)_{t\in\mathbb{T},}$
+\begin_inset Formula $\left(V_{k}^{(i,j)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}},}$
 \end_inset
 
 
@@ -2510,7 +2530,7 @@ la stationnarité et l'ergodicité de ces processus et des processus issues
 \end_layout
 
 \begin_layout Itemize
-les corrélations intrarégionales et interégionales entre ces processus.
+les corrélations intrarégionales et interrégionales entre ces processus.
 \end_layout
 
 \begin_layout Subsubsection
@@ -2522,8 +2542,8 @@ L’ergodicité spatiale suppose qu’on peut estimer des propriétés statistiq
  globales en utilisant uniquement les mesures d’un grand nombre de stations
  météo dispersées.
  L'intérêt de cette hypothèse est de savoir si nous pouvons considérer que
- les processus moyennes, décrites pérécedemment, sont représentives de toutes
- les mesures des stations d'une région.
+ les processus moyennes, décrites précédemment, sont représentatives de
+ toutes les mesures des stations d'une région.
  Cette hypothèse n'est pas démontrée théoriquement, mais en pratique, la
  moyenne spatiale des températures sur un réseau de stations est utilisé
  comme approximation de leur comportement temporel moyen 
@@ -2537,7 +2557,7 @@ literal "false"
 .
  Dans notre étude nous admettons cette hypothèse en la soutenant par les
  corrélations élevées entre les stations d'une même région.
- La figure
+ La figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Correl-ARA"
@@ -2549,11 +2569,11 @@ noprefix "false"
 
  montre à titre d'exemple la matrice de corrélation entre les processus
  
-\begin_inset Formula $\left(T_{k}^{(1,j)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(T_{k}^{(1,j)}\right)_{kT_{s}\in\mathbb{T_{\mathrm{1}}}}$
 \end_inset
 
- issues des différentes stations méteo de la région Auvergne-Rhône-Alpes
- (numéroté par 
+ issues des différentes stations météorologiques de la région Auvergne-Rhône-Alp
+es (numéroté par 
 \begin_inset Formula $i=1$
 \end_inset
 
@@ -2590,7 +2610,7 @@ name "fig:Correl-ARA"
 
 \end_inset
 
-la matrice de corréelation entre les stations de la région Auvergne-Rhône-Alpes
+la matrice de corrélation entre les stations de la région Auvergne-Rhône-Alpes
 \end_layout
 
 \end_inset
@@ -2631,10 +2651,10 @@ kurtosis en anglais
 \noun off
 \color none
 
-\begin_inset Formula $kT_{s}\in\mathbb{T}$
+\begin_inset Formula $kT_{s}\in\mathbb{T_{\mathrm{1}}}$
 \end_inset
 
-pour l'instant d'observation, 
+ pour l'instant d'observation, 
 \begin_inset Formula $i\in{1,..,12}$
 \end_inset
 
@@ -2663,7 +2683,7 @@ pour l'instant d'observation,
 \begin_inset Formula $j$
 \end_inset
 
- pour numéroter les postes (station) météo.
+ pour numéroter les postes (stations) météo.
  
 \end_layout
 
@@ -2683,7 +2703,7 @@ T_{k}^{i}=\frac{1}{N_{i}}\sum_{j=1}^{N_{i}}T_{k}^{(i,j)},\ U_{k}^{i}=\frac{1}{N_
 \end_layout
 
 \begin_layout Itemize
-Ecart-type :
+Écart-type :
 \end_layout
 
 \begin_layout Standard
@@ -2808,8 +2828,8 @@ Notons
 \noun default
 \color inherit
  .
- Les quartiles (premier quartile , médiane, et trosième quartile) sont données
- par l'équation 
+ Les quartiles (premier quartile , médiane, et troisième quartile) sont
+ données par l'équation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:quartils"
@@ -2838,7 +2858,7 @@ Q_{0.25}V_{k}^{i}=inf\left\{ x:F_{V_{k}^{i}}(x)\geq0.25\right\} ,\ Q_{0.5}V_{k}^
 \end_layout
 
 \begin_layout Subsubsection
-Suréchantillonnage temporelle
+Sur-échantillonnage temporelle
 \end_layout
 
 \begin_layout Standard
@@ -2911,7 +2931,7 @@ T_{2k+1}^{i}=\frac{T_{2k}^{i}+T_{2k+2}^{i}}{2},k\in\left\{ 0,...,\left[\nicefrac
 \end_layout
 
 \begin_layout Standard
-Le calcul est le même pour les deux autres variables : humidité et vistesse
+Le calcul est le même pour les deux autres variables : humidité et vitesse
  du vent.
  Pour le rayonnement la formule est différente :
 \end_layout
@@ -2934,7 +2954,7 @@ Fusion des bases de données
 \begin_layout Standard
 Après avoir analysée, nettoyé, traité et construit les deux bases de données,
  i.e.
- la base de données de consommation d'éléctricité et la base de données
+ la base de données de consommation d'électricité et la base de données
  météorologiques, nous avons fusionnées les deux.
  Nous avons également ajouté des champs nécessaires à notre analyse : jour
  de la semaine, mois , année, heure et minutes.
@@ -2950,7 +2970,7 @@ noprefix "false"
 
  montres les différents colonnes de la base de données construites.
  Dans la section suivante nous allons étudier l'influences de chaque facteur
- sur la consommation électrique.
+ sur la consommation d'électricité.
  A noter que les colonnes de nom débutant par 
 \begin_inset Formula $FF$
 \end_inset
@@ -2996,7 +3016,7 @@ name "tab:Entête-d'un-DataFrame-2"
 
 \end_inset
 
-Entête du DataFrame final
+Les colonnes de la base de données finale
 \end_layout
 
 \end_inset
@@ -3024,8 +3044,8 @@ noprefix "false"
 
 \end_inset
 
- présente les effets des facteurs météorologiques sur la consommation électrique
- total pour la région Auvergne-Rhône-Alpes.
+ présente les effets des facteurs météorologiques sur la consommation d'électric
+ité totale pour la région Auvergne-Rhône-Alpes.
  La figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3036,7 +3056,7 @@ noprefix "false"
 
 \end_inset
 
-présente les effets de ces facteurs sur la consommation électrique pour
+présente les effets de ces facteurs sur la consommation d'électricité pour
  un profil et une plage puissance spécifiques dans la région Auvergne-Rhône-Alpe
 s.
  Les valeurs en ordonnée correspondent à la consommation en Wh et en abscisse
@@ -3081,7 +3101,7 @@ name "fig:Corrélation-des-facteurs"
 
 \end_inset
 
-Corrélation des facteurs météorologiques avec la consommation électrique
+Corrélation des facteurs météorologiques avec la consommation d'électricité
  dans la région Auvergne-Rhône-Alpes
 \end_layout
 
@@ -3127,9 +3147,9 @@ name "fig:Corrélation-des-facteurs-1"
 
 \end_inset
 
-Corrélation des facteurs météorologiques avec la consommation électrique
- dans la région Auvergne-Rhône-Alpes pour pour le profile RES11 (+ RES11WE)
- et la plage de puisance P3: ]6-9] kVA
+Corrélation des facteurs météorologiques avec la consommation d'électricité
+ dans la région Auvergne-Rhône-Alpes pour pour le profil RES11 (+ RES11WE)
+ et sa plage de puissance P3: ]6-9] kVA
 \end_layout
 
 \end_inset
@@ -3157,12 +3177,12 @@ noprefix "false"
 
 \end_inset
 
-montre la corrélation entre la température moyenne et la consommation électrique
- observée entre 2023 et 2024.
+ montre la corrélation entre la température moyenne et la consommation d'électri
+cité observée entre 2023 et 2024.
  Elle présente une segmentation linéaire par morceaux des effets de la températu
 re moyenne et la température maximale.
- Ces courbes confirme que la consommation d'électricité est fortement liée
- au facteur température, et que cette realtion est non linéaire.
+ Ces courbes confirment que la consommation d'électricité est fortement
+ liée au facteur température, et que cette relation est non linéaire.
  Les principaux points de rupture détectés sont 11.27°C
 \family roman
 \series medium
@@ -3190,11 +3210,11 @@ re moyenne et la température maximale.
 \noun default
 \color inherit
  pour les températures moyennes et 17.3°C et 22.3°C pour températures maximales.
- Quand les températures maximales sont inféieures à 17.3°C, la pente de la
- droite de regression est forte, ce qui s’explique par l'utilisation de
- l’électricité pour se chauffer.
+ Quand les températures maximales sont inférieures à 17.3°C, la pente de
+ la droite de régression est forte, ce qui s’explique par l'utilisation
+ de l’électricité pour se chauffer.
  De même, au-dessus de 22.3°C, la consommation d'électricité commence à augmenter
-, probabelement à cause de l'utilisation de la climatisation.
+, probablement à cause de l'utilisation de la climatisation.
  Ces points de ruptures sont très utiles pour l’élaboration d’une spécification
  linéaire par morceaux appropriée
 \begin_inset CommandInset citation
@@ -3216,7 +3236,7 @@ literal "false"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -3251,8 +3271,8 @@ name "fig:Corrélationtemp-conso-1"
 
 \end_inset
 
-Corrélation de la température avec la consommation électrique dans la région
- Auvergne-Rhône-Alpes 
+Corrélation de la température avec la consommation d'électricité dans la
+ région Auvergne-Rhône-Alpes 
 \end_layout
 
 \end_inset
@@ -3268,8 +3288,8 @@ Corrélation de la température avec la consommation électrique dans la région
 \begin_layout Standard
 Nous avons raffiné notre analyse en observant les relations entre les composante
 s respectives des deux séries temporelles représentant la température et
- la consommation d'électricté.
- la figure 
+ la consommation d'électricité.
+ La figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Corrélationtemp-conso-1"
@@ -3280,7 +3300,7 @@ noprefix "false"
 \end_inset
 
 montre la corrélation entre la tendance de la température et la tendance
- de la consommation électrique observées entre 2023 et 2024 pour la région
+ de la consommation d'électricité observées entre 2023 et 2024 pour la région
  Auvergne-Rhône-Alpes.
  
 \end_layout
@@ -3290,7 +3310,7 @@ montre la corrélation entre la tendance de la température et la tendance
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -3317,8 +3337,8 @@ name "fig:Corrélation_tendance"
 
 \end_inset
 
-Corrélation entre la température avec la consommation électrique dans la
- région Auvergne-Rhône-Alpes
+Corrélation entre la tendance de la température et la tendance de la consommatio
+n d'électricité dans la région Auvergne-Rhône-Alpes
 \end_layout
 
 \end_inset
@@ -3334,7 +3354,7 @@ Corrélation entre la température avec la consommation électrique dans la
 \begin_layout Standard
 Ces tendances sont obtenues par une moyenne glissante sur une semaine puis
  centrées et réduites.
- Nous constatoons que la tendance de la consommation d'élecricité est corrélée
+ Nous constations que la tendance de la consommation d'électricité est corrélée
  avec l'inverse de la tendance de la température.
  La figure 
 \begin_inset CommandInset ref
@@ -3346,7 +3366,7 @@ noprefix "false"
 
 \end_inset
 
-et le tableau 
+ et le tableau 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:Corrélation-tendance"
@@ -3356,7 +3376,7 @@ noprefix "false"
 
 \end_inset
 
-montrent cette corrélation après inversion et standarisation.
+ montrent cette corrélation après inversion et standardisation.
  
 \end_layout
 
@@ -3392,8 +3412,8 @@ name "fig:Corrélation_tendance-1"
 
 \end_inset
 
-Corrélation entre la tendance de la température et la tendance de la consommatio
-n électrique dans la région Auvergne-Rhône-Alpes
+Corrélation entre la tendance de la température transformée et la tendance
+ de la consommation d'électricité dans la région Auvergne-Rhône-Alpes
 \end_layout
 
 \end_inset
@@ -3418,10 +3438,10 @@ status open
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle" tabularwidth="15cm">
+<features tabularvalignment="middle" tabularwidth="17cm">
 <column alignment="center" valignment="top" width="5cm">
 <column alignment="center" valignment="top" width="5cm">
-<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="7cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -3445,7 +3465,7 @@ Tendance de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Inverse de la tendance de la teméprature
+Inverse de la tendance de la température
 \end_layout
 
 \end_inset
@@ -3485,7 +3505,7 @@ Tendance de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Inverse de la tendance de la teméprature
+Inverse de la tendance de la température
 \end_layout
 
 \end_inset
@@ -3528,8 +3548,8 @@ name "tab:Corrélation-tendance"
 
 \end_inset
 
-Corrélation entre la tendance de la température et la tendance de la consommatio
-n électrique dans la région Auvergne-Rhône-Alpes
+Coefficients de corrélation entre la tendance de la température et la tendance
+ de la consommation d'électricité dans la région Auvergne-Rhône-Alpes
 \end_layout
 
 \end_inset
@@ -3543,9 +3563,9 @@ n électrique dans la région Auvergne-Rhône-Alpes
 \end_layout
 
 \begin_layout Standard
-Pour éviter les dévisons par zéros nous avons introduit une translation
+Pour éviter les dévissons par zéros nous avons introduit une translation
  de la tendance de la température.
- La transformation effectuée est décrite par l'équation
+ La transformation effectuée est décrite par l'équation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:transformation_tendance_T"
@@ -3588,7 +3608,7 @@ et
 \end_layout
 
 \begin_layout Standard
-Les composantes saisonières sont décorrélées et les composant résiduelles
+Les composantes saisonnières sont décorrélées et les composant résiduelles
  sont faiblement corrélées comme le montre le tableau 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3614,10 +3634,10 @@ status open
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle" tabularwidth="15cm">
+<features tabularvalignment="middle" tabularwidth="17cm">
 <column alignment="center" valignment="top" width="5cm">
 <column alignment="center" valignment="top" width="5cm">
-<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="7cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -3641,7 +3661,7 @@ Résidus de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Résidus de la teméprature
+Résidus de la température
 \end_layout
 
 \end_inset
@@ -3681,7 +3701,7 @@ Résidus de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Résidus de la teméprature
+Résidus de la température
 \end_layout
 
 \end_inset
@@ -3717,10 +3737,10 @@ Résidus de la teméprature
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle" tabularwidth="15cm">
+<features tabularvalignment="middle" tabularwidth="17cm">
 <column alignment="center" valignment="top" width="5cm">
 <column alignment="center" valignment="top" width="5cm">
-<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="7cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -3744,7 +3764,7 @@ Saisonnalité de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Saisonnalité de la teméprature
+Saisonnalité de la température
 \end_layout
 
 \end_inset
@@ -3784,7 +3804,7 @@ Saisonnalité de la consommation
 \begin_inset Text
 
 \begin_layout Plain Layout
-Saisonnalité de la teméprature
+Saisonnalité de la température
 \end_layout
 
 \end_inset
@@ -3827,9 +3847,9 @@ name "tab:Corrélation-saisonnalite-resid"
 
 \end_inset
 
-Corrélation des composantes saisonières et résiduelles de la température
- avecs les composantes respectives de la consommation électrique dans la
- région Auvergne-Rhône-Alpe
+Corrélation des composantes saisonnières et résiduelles de la température
+ avec les composantes respectives de la consommation d'électricité dans
+ la région Auvergne-Rhône-Alpe
 \end_layout
 
 \end_inset
@@ -3857,11 +3877,11 @@ noprefix "false"
 
 \end_inset
 
-montre la corrélation entre l'humidité et la consommation électrique observée
- entre 2023 et 2024.
+ montre la corrélation entre l'humidité et la consommation d'électricité
+ observée entre 2023 et 2024.
  Elle présente une segmentation linéaire par morceaux des effets de l'humidité
  moyenne et maximale.
- Ces courbes révèle une légère dépendance de la consommation d'électricité
+ Ces courbes révèlent une légère dépendance de la consommation d'électricité
  au facteur d'humidité.
  Les principaux points de rupture détectés sont 93%
 \family roman
@@ -3890,7 +3910,7 @@ montre la corrélation entre l'humidité et la consommation électrique observé
 \noun default
 \color inherit
  pour l'humidité moyenne et 93% et 95% pour l'humidité maximale.
- Quand l'humdité dépasse le seuil de 95%, la consommation tende vers une
+ Quand l'humidité dépasse le seuil de 95%, la consommation tende vers une
  grande augmentation.
  
 \end_layout
@@ -3960,8 +3980,8 @@ noprefix "false"
 
 \end_inset
 
-montre les tendances de l'humidité et de la consommation électrique observée
- entre 2023 et 2024 pour la région Auvergne-Rhône-Alpes.
+ montre les tendances de l'humidité et de la consommation d'électricité
+ observée entre 2023 et 2024 pour la région Auvergne-Rhône-Alpes.
  Ces tendances sont obtenues par une moyenne glissante sur une semaine puis
  centrées et réduites.
  
@@ -4000,7 +4020,7 @@ name "fig:Corrélation_tendanceU2"
 \end_inset
 
 Corrélation entre la tendance de l'humidité et la tendance de la consommation
- électrique dans la région Auvergne-Rhône-Alpes
+ d'électricité dans la région Auvergne-Rhône-Alpes
 \end_layout
 
 \end_inset
@@ -4014,7 +4034,7 @@ Corrélation entre la tendance de l'humidité et la tendance de la consommation
 \end_layout
 
 \begin_layout Standard
-Nous constatons que la tendance de la consommation d'élecricité est corrélée
+Nous constatons que la tendance de la consommation d'électricité est corrélée
  avec la tendance de l'humidité pendant la période hivernale, et elle est
  corrélée avec l'inverse de la tendance de l'humidité pendant la période
  estivale.
@@ -4028,9 +4048,9 @@ noprefix "false"
 
 \end_inset
 
-donne les cofficients de corrélation, calculés par la méthode de Pearson.
+ donne les coefficients de corrélation, calculés par la méthode de Pearson.
  Le premier tableau donne ces coefficients pour toutes les saisons et le
- deuxièmes en séprant les saisons.
+ deuxièmes en séparant les saisons.
 \end_layout
 
 \begin_layout Standard
@@ -4045,10 +4065,10 @@ status open
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle" tabularwidth="15cm">
+<features tabularvalignment="middle" tabularwidth="17cm">
 <column alignment="center" valignment="top" width="5cm">
 <column alignment="center" valignment="top" width="5cm">
-<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="7cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -4148,10 +4168,10 @@ Tendance de l'humidité
 \align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="3">
-<features tabularvalignment="middle" tabularwidth="15cm">
+<features tabularvalignment="middle" tabularwidth="17cm">
 <column alignment="center" valignment="top" width="5cm">
 <column alignment="center" valignment="top" width="5cm">
-<column alignment="center" valignment="top" width="5cm">
+<column alignment="center" valignment="top" width="7cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -4259,7 +4279,7 @@ name "tab:Corrélation-saisonnalite-resid-1"
 \end_inset
 
 Coefficients de Corrélation entre la tendance de l'humidité et la tendance
- de la consommation électrique dans la région Auvergne-Rhône-Alpes.
+ de la consommation d'électricité dans la région Auvergne-Rhône-Alpes.
  (a) Pour toutes les saisons, (b) En séparant les saisons
 \end_layout
 
@@ -4274,18 +4294,15 @@ Coefficients de Corrélation entre la tendance de l'humidité et la tendance
 \end_layout
 
 \begin_layout Standard
-La composantes saisonière de
-\begin_inset space ~
-\end_inset
-
-la consommation d'électricité est décorrélée de la composante saisonière
- de l'humidité, avec un coefficient de corrélation de 
+La composantes saisonnière de la consommation d'électricité est décorrélée
+ de la composante saisonnière de l'humidité, avec un coefficient de corrélation
+ de 
 \begin_inset Formula $0.032$
 \end_inset
 
 .
  Par contre leurs composantes résiduelles sont faiblement corrélée avec
- un coefficient fde corrélation de 
+ un coefficient de corrélation de 
 \begin_inset Formula $-0.34$
 \end_inset
 
@@ -4308,12 +4325,12 @@ noprefix "false"
 
 \end_inset
 
-montre relation entre le rayonnement solaire global et la consommation électriqu
-e observée entre 2023 et 2024, avec une segmentation linéaire par morceaux
- des effets.
+ montre relation entre le rayonnement solaire global et la consommation
+ d'électricité observée entre 2023 et 2024, avec une segmentation linéaire
+ par morceaux des effets.
  Ces courbes confirme que la consommation d'électricité est fortement liée
  au rayonnement solaire global.
- Cette relation s'explique par le besoin d'éclairage qaund le rayonnement
+ Cette relation s'explique par le besoin d'éclairage quand le rayonnement
  solaire est faible ou nul.
  Le principal point de rupture détecté 
 \family roman
@@ -4346,11 +4363,12 @@ est
 \end_inset
 
 .
- Quand le rayonnement est inféieure à cette valeur l'utilisation de l’électricit
-é pour l'éclairage augmente la consommation, et plus le rayonnement augmente
+ Quand le rayonnement est inférieure à cette valeur l'utilisation de l’électrici
+té pour l'éclairage augmente la consommation, et plus le rayonnement augmente
  plus la consommation diminue.
- Ce lien entre le rayonnement solaire et consommation, pourtant évident,
- n'est pas étudié dans la littérature contrairrement aux autre facteurs.
+ Ce lien entre le rayonnement solaire et la consommation d'électricité,
+ pourtant évident, n'est pas étudié dans la littérature à notre connaissance
+ contrairement aux autre facteurs.
  
 \end_layout
 
@@ -4386,8 +4404,8 @@ name "fig:Corrélationtemp-conso-1-1"
 
 \end_inset
 
-Corrélation de la température avec la consommation électrique dans la région
- Auvergne-Rhône-Alpes
+Corrélation de la température avec la consommation d'électricité dans la
+ région Auvergne-Rhône-Alpes
 \end_layout
 
 \end_inset
@@ -4412,9 +4430,9 @@ noprefix "false"
 \end_inset
 
 montre la relation entre la tendance du rayonnement solaire global et la
- tendance de la consommation électrique observée entre 2023 et 2024 pour
+ tendance de la consommation d'électricité observée entre 2023 et 2024 pour
  la région Auvergne-Rhône-Alpes.
- Nous constatons que la tendance de la consommation d'élecricité est fortement
+ Nous constatons que la tendance de la consommation d'électricité est fortement
  corrélée avec l'inverse de la tendance du rayonnement.
 \end_layout
 
@@ -4451,7 +4469,7 @@ name "fig:Corrélation_tendanceR"
 \end_inset
 
 Corrélation entre la tendance du rayonnement solaire global et la tendance
- de la consommation électrique dans la région Auvergne-Rhône-Alpes
+ de la consommation d'électricité dans la région Auvergne-Rhône-Alpes
 \end_layout
 
 \end_inset
@@ -4475,7 +4493,7 @@ noprefix "false"
 
 \end_inset
 
-montre cette corrélation après inversion et standarisation.
+montre cette corrélation après inversion et standardisation.
  
 \end_layout
 
@@ -4512,7 +4530,7 @@ name "fig:Corrélation_tendanceR-1"
 \end_inset
 
 Corrélation entre la tendance du rayonnement solaire global et la tendance
- de la consommation électrique dans la région Auvergne-Rhône-Alpes
+ de la consommation d'électricité dans la région Auvergne-Rhône-Alpes
 \end_layout
 
 \end_inset
@@ -4531,12 +4549,12 @@ Conclusion
 
 \begin_layout Standard
 Dans ce chapitre nous avons présenté notre démarche pour collecter, analyser,
- fusioner et traiter les bases de données dont nous avions besoin pour mener
- ce projet.
- Nous avons étudié les relations entre les variables exogènes et la varaible
+ fusionner et traiter les bases de données dont nous avions besoin pour
+ mener ce projet.
+ Nous avons étudié les relations entre les variables exogènes et la variable
  cible.
  Nous avons ainsi démontré que les composantes saisonnières de la consommation
- d'électricité sont indépandantes des varaibles exogènes.
+ d'électricité sont indépendantes des variables exogènes.
  Nous avons aussi formalisé la relation non linéaire qui existe entre la
  tendance (respectivement le résidu) de la consommation d'électricité et
  les tendances (respectivement les résidus) des variables météorologiques.
