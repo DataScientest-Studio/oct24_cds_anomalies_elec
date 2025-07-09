@@ -117,7 +117,7 @@ status open
 
 
 \backslash
-hspace{1 cm}
+hspace{5 cm}
 \end_layout
 
 \end_inset
@@ -136,7 +136,6 @@ hspace{1 cm}
 \begin_inset Graphics
 	filename logos/Datascientest.jpg
 	lyxscale 40
-	scale 60
 
 \end_inset
 
@@ -161,7 +160,7 @@ status open
 
 
 \backslash
-hspace{1cm}
+hspace{6cm}
 \end_layout
 
 \end_inset
@@ -207,7 +206,15 @@ vspace{2cm}
 
 \series bold
 \size larger
-Rapport de projet : Prévision de la consommation d'électricité en France
+Rapport final du projet 
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\series bold
+\size larger
+Prévision de la consommation d'électricité en France
 \end_layout
 
 \begin_layout Standard

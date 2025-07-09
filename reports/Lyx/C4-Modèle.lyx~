@@ -301,7 +301,7 @@ des performances du modèle à l'horizon
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $\mathscr{\mathit{\mathit{\mathcal{R}}}\mathrm{=\left\{ 11,24,27,28,32,44,52,53,75,76,93,84\right\} }}$
+\begin_inset Formula $\mathscr{\mathit{\mathit{\mathcal{\mathcal{R}}}}\mathrm{=\left\{ 11,24,27,28,32,44,52,53,75,76,93,84\right\} }}$
 \end_inset
 
 désigne l'ensemble des régions métropolitaines encodées par leur code officiel
@@ -610,7 +610,7 @@ Liste des régions et leurs codes
 
 \end_deeper
 \begin_layout Itemize
-\begin_inset Formula $\mathcal{Q}$
+\begin_inset Formula $\mathcal{\mathcal{\mathit{\mathit{\mathcal{C}}}}}$
 \end_inset
 
  désigne l'ensemble de configurations associant profil Enedis et plage de
@@ -634,7 +634,7 @@ noprefix "false"
 
 est la série temporelle de la consommation d'électricité (en Wh) de la configura
 tion profil - plage de puissance, notée 
-\begin_inset Formula $q\in\mathcal{Q}$
+\begin_inset Formula $q\in\mathcal{\mathit{\mathcal{C}}}$
 \end_inset
 
 , dans la région 
@@ -651,7 +651,7 @@ tion profil - plage de puissance, notée
 
 est la série temporelle qui représente le nombre de point de soutirage de
  la configuration profil - plage de puissance, notée 
-\begin_inset Formula $q\in\mathcal{Q}$
+\begin_inset Formula $q\in\mathcal{\mathit{\mathcal{C}}}$
 \end_inset
 
 , dans la région 
@@ -671,7 +671,7 @@ est la série temporelle qui représente le nombre de point de soutirage de
 \shape default
 la consommation moyenne des utilisateurs de la configuration profil - plage
  de puissance 
-\begin_inset Formula $q\in\mathcal{Q}$
+\begin_inset Formula $q\in\mathcal{\mathit{\mathcal{C}}}$
 \end_inset
 
  dans la région 
@@ -722,7 +722,7 @@ est la série temporelle qui correspond au rayonnement solaire global de
 \end_inset
 
  le spectrogramme de la série 
-\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{r\in\mathit{\mathcal{R}},q\in\mathcal{Q},kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{r\in\mathit{\mathcal{R}},q\in\mathcal{\mathit{\mathcal{C}}},kT_{s}\in\mathbb{T}}$
 \end_inset
 
 obtenu en utilisant la fenêtre 
@@ -758,7 +758,7 @@ obtenu en utilisant la fenêtre
 \end_inset
 
  l'ensemble des périodes détectés par analyse spétrale de la série 
-\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{r\in\mathit{\mathcal{R}},q\in\mathcal{Q},kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(Y_{k}^{(r,q)}\right)_{r\in\mathit{\mathcal{R}},q\in\mathcal{\mathit{\mathcal{C}}},kT_{s}\in\mathbb{T}}$
 \end_inset
 
 avec un seuil 
@@ -1680,7 +1680,7 @@ name "fig:Spectrogramme-de-la"
 
 Spectrogramme de la série temporelle de consommation d'électricité sur toute
  la région Auvergne-Rhône-Alpes 
-\begin_inset Formula $\left(\stackrel[q\in Q]{}{\sum}Y_{k}^{(84,q)}\right)_{kT_{s}\in\mathbb{T}}$
+\begin_inset Formula $\left(\stackrel[q\in\mathit{\mathcal{C}}]{}{\sum}Y_{k}^{(84,q)}\right)_{kT_{s}\in\mathbb{T}}$
 \end_inset
 
 
@@ -2079,7 +2079,7 @@ Modèles SARIMA pour la prévision des composantes saisonnières
 
 \begin_layout Standard
 Nous utilisons un modèle 
-\begin_inset Formula $SARIMA(p,d,q)(P,D,Q)_{s}$
+\begin_inset Formula $SARIMA(p,d,q)(P,D,\mathit{\mathrm{\mathit{Q}}})_{s}$
 \end_inset
 
  pour la prévision de chaque composante saisonnière, de période 
@@ -2630,7 +2630,7 @@ où
 \begin_inset Formula $r=84$
 \end_inset
 
- (région Auvergne-Rhône-Alpes) et la configuration profile_plage de puissance
+ (région Auvergne-Rhône-Alpes) et la configuration profile - plage de puissance
  est 
 \begin_inset Formula $q=\left(RES11(+RES11WE),P4:]9-12]kVA\right)$
 \end_inset
@@ -2975,7 +2975,7 @@ Sortie:
 \noun default
 \color inherit
  : un DataFrame contenant les résultats pour chaque configuration 
-\begin_inset Formula $q\in\mathcal{Q}$
+\begin_inset Formula $q\in\mathcal{\mathit{\mathcal{C}}}$
 \end_inset
 
  et chaque région 
@@ -2988,7 +2988,7 @@ Sortie:
 \end_deeper
 \begin_layout Itemize
 Pour chaque 
-\begin_inset Formula $(r,q)\in\mathcal{R\times Q}$
+\begin_inset Formula $(r,q)\in\mathcal{R\times\mathit{\mathcal{C}}}$
 \end_inset
 
  
@@ -3152,7 +3152,7 @@ Pour chaque composante saisonnière
 \begin_layout Itemize
 Si la recherche automatique du meilleur modèle est activé, chercher le meilleur
  modèle 
-\begin_inset Formula $SARIMA(p,d,q)(P,D,Q)_{s}$
+\begin_inset Formula $\mathrm{\mathit{SARIMA(p,d,q)(P,D,Q)_{s}}}$
 \end_inset
 
 
@@ -3553,7 +3553,7 @@ Nous constatons que pour les plages de puissance souscrite P6 : [15-18[
  certain cas les 2% Contrairement aux autres plages.
  La figure montre en nuage de point la métrique MAPE pour chaque configuration
  
-\begin_inset Formula $\mathcal{\mathrm{\mathit{q}}\in Q}$
+\begin_inset Formula $\mathcal{\mathrm{\mathit{q}}\in\mathit{\mathit{\mathcal{C}}}}$
 \end_inset
 
 dans la région Auvergne-Rhône-Alpes (
