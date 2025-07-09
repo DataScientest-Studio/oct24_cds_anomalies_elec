@@ -1263,7 +1263,7 @@ noprefix "false"
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -1318,7 +1318,7 @@ noprefix "false"
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
@@ -1390,7 +1390,7 @@ noprefix "false"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Itemize
 Analyse temps-fréquence (SpectrogramAnalysis)
@@ -1602,7 +1602,7 @@ name "alg:Analyse-spectrale-algo"
 
 \end_inset
 
-analyse temps-fréquence et détection des périodes dominantes
+Analyse temps-fréquence et détection des périodes dominantes
 \end_layout
 
 \end_inset
@@ -1723,7 +1723,7 @@ noprefix "false"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Itemize
 Décomposition (DecompositionSerieTemporelle)
@@ -3420,7 +3420,7 @@ Nous avons tout d'abord développe une première version sur notebook.
 \end_layout
 
 \begin_layout Subsection
-Valuation 
+Evaluation des performances
 \end_layout
 
 \begin_layout Standard

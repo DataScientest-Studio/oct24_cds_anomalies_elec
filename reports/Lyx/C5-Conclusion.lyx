@@ -128,7 +128,7 @@ status open
 \backslash
 addcontentsline {toc} {chapter} {
 \backslash
-textbf{Introduction générale}}
+textbf{Conclusion générale}}
 \end_layout
 
 \begin_layout Plain Layout
@@ -146,7 +146,7 @@ fancyhead[RO]{
 \backslash
 nouppercase{
 \backslash
-textit{Introduction générale}}} 
+textit{Conclusion générale}}} 
 \end_layout
 
 \begin_layout Plain Layout
@@ -157,7 +157,7 @@ fancyhead[LE]{
 \backslash
 nouppercase{
 \backslash
-textit{Introduction générale}}}
+textit{Conclusion générale}}}
 \end_layout
 
 \begin_layout Plain Layout

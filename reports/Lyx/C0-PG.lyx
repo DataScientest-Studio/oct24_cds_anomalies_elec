@@ -161,7 +161,7 @@ status open
 
 
 \backslash
-hspace{5cm}
+hspace{6cm}
 \end_layout
 
 \end_inset
@@ -207,7 +207,7 @@ vspace{2cm}
 
 \series bold
 \size larger
-Rapport de projet : Prédiction de la consommation électrique en France
+Rapport de projet : Prévision de la consommation d'électricité en France
 \end_layout
 
 \begin_layout Standard
@@ -251,7 +251,24 @@ Youssef SERRESTOU
 
 \begin_layout Standard
 \align center
-Kalome BOTOWAMUNGU 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Tuteur : Kalome BOTOWAMUNGU 
 \end_layout
 
 \begin_layout Standard
