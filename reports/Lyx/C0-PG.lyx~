@@ -117,7 +117,7 @@ status open
 
 
 \backslash
-hspace{5 cm}
+hspace{1 cm}
 \end_layout
 
 \end_inset
@@ -136,6 +136,7 @@ hspace{5 cm}
 \begin_inset Graphics
 	filename logos/Datascientest.jpg
 	lyxscale 40
+	scale 60
 
 \end_inset
 
@@ -160,7 +161,7 @@ status open
 
 
 \backslash
-hspace{6cm}
+hspace{1cm}
 \end_layout
 
 \end_inset
