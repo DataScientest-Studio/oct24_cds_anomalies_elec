@@ -381,7 +381,7 @@ status open
 \begin_inset Graphics
 	filename Chap2/dataframe_1.png
 	lyxscale 60
-	scale 40
+	scale 35
 	clip
 
 \end_inset
@@ -579,7 +579,7 @@ Plage de puissance souscrite
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -2410,12 +2410,10 @@ où
 \end_inset
 
 
-
 \begin_inset Formula $T_{s}=1800s$
 \end_inset
 
-,
- 
+, 
 \family default
 \series default
 \shape default
@@ -3441,7 +3439,7 @@ status open
 <features tabularvalignment="middle" tabularwidth="17cm">
 <column alignment="center" valignment="top" width="5cm">
 <column alignment="center" valignment="top" width="5cm">
-<column alignment="center" valignment="top" width="7cm">
+<column alignment="center" valignment="top" width="5cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text

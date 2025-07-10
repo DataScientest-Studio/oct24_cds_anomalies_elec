@@ -218,7 +218,7 @@ Dans le dernier chapitre, nous avons exposé l'approche proposée.
  modèles autorégressifs, pour la prévision des composantes saisonnières,
  et avec des modèles de régression, dont l'architecture est une mise en
  cascade de réseaux de neurones récurrents à mémoire court-terme et long
- terme LSTM et de couches denses, pour la prévision de la tendance et du
+ terme LSTM et de couches denses, pour la prévision de la tendance et le
  résidu.
  Les premiers résultats obtenus sont encourageants et dans la plupart des
  configurations profil - plage de puissance souscrite les performances sont

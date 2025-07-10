@@ -355,7 +355,7 @@ Pour atteindre les objectifs fixés et répondre à notre problématique nous
 \end_layout
 
 \begin_layout Itemize
-fait un état de l'art des différentes études effectuées sur la prévision
+fait un état de l'art des différentes études effectués sur la prévision
  de la charge électrique et de la consommation d’électricité, 
 \end_layout
 
@@ -367,7 +367,7 @@ fait un état de l'art des différentes études effectuées sur la prévision
 
 \begin_layout Itemize
 analysé et étudié les relations entre les différentes variables explicatives
- et la consommation d’électricité,
+ de la base constituée et la consommation d’électricité,
 \end_layout
 
 \begin_layout Itemize
@@ -393,12 +393,12 @@ Organisation du document
 
 \begin_layout Standard
 Nous adoptons, dans notre approche la modélisation de la consommation d'électric
-ité, ainsi que les variables explicatives par des séries temporelles.
+ité, ainsi que les autres variables par des séries temporelles.
  Dans un premier chapitre nous présentons les outils mathématiques pour
  décrire, analyser et faire la prévision des séries temporelles.
  Le deuxième chapitre présente la construction de la base de données, les
- transformations appliquées sur celle-ci et une analyse des différentes
- relations entre les variables explicatives et la variable cible.
+ transformations qui lui sont appliquées et une analyse des différentes
+ relations entre ses variables et la variable cible.
  Le dernier chapitre présente notre modèle.
  Afin de comparer nos résultats avec d'autre travaux, nous dressons une
  synthèse de la revue de littérature, qui ne vaut pas être exhaustive, du

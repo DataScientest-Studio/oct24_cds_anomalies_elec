@@ -176,7 +176,7 @@ Au cours de ce projet, nous nous sommes intéressés à la prévision de la
  temporelles des données de la consommation d'électricité, dite variable
  cible, et des données météorologiques, faisant partie des variables exogènes.
  Puis nous avons proposé une approche basée sur la décomposition de ces
- séries par analyse temps-fréquence et la prévision, de chaque composante
+ séries par analyse temps-fréquence et sur la prévision, de chaque composante
  de la variable cible en fonction des composantes des variables exogènes,
  par un modèle spécifique.
  
@@ -214,12 +214,12 @@ Dans le dernier chapitre, nous avons exposé l'approche proposée.
  et analysé ses performances.
  La première étape de cette solution effectue la décomposition des séries
  par notre méthode.
- La deuxième consiste à combiner les transformations des composantes et
- à effectuer la prévision par des modèles autorégressifs, dans le cas de
- composante périodique, et la prévision des autre composantes par des modèles
- de régression, dont l'architecture est une mise en cascade de réseaux de
- neurones récurrents à mémoire court-terme et long terme LSTM et de couches
- denses.
+ La deuxième consiste à combiner les transformations des composantes avec
+ modèles autorégressifs, pour la prévision des composantes saisonnières,
+ et avec des modèles de régression, dont l'architecture est une mise en
+ cascade de réseaux de neurones récurrents à mémoire court-terme et long
+ terme LSTM et de couches denses, pour la prévision de la tendance et du
+ résidu.
  Les premiers résultats obtenus sont encourageants et dans la plupart des
  configurations profil - plage de puissance souscrite les performances sont
  très satisfaisantes.
@@ -228,7 +228,7 @@ Dans le dernier chapitre, nous avons exposé l'approche proposée.
 
 \begin_layout Standard
 Notre approche reste perfectible afin d'améliorer les temps d'exécution
- et les performances pour certaines profils du réseau Enedis.
+ et les performances pour certaines configurations.
  Pour le temps d'exécution, l'apprentissage par transfert est une piste
  à explorer, vu la similarité entre des profils d'utilisateurs.
  Et pour les utilisateurs dont les performances sont perfectibles, l'intégration
