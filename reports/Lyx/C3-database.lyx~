@@ -3635,7 +3635,7 @@ status open
 <features tabularvalignment="middle" tabularwidth="17cm">
 <column alignment="center" valignment="top" width="5cm">
 <column alignment="center" valignment="top" width="5cm">
-<column alignment="center" valignment="top" width="7cm">
+<column alignment="center" valignment="top" width="5cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -3738,7 +3738,7 @@ Résidus de la température
 <features tabularvalignment="middle" tabularwidth="17cm">
 <column alignment="center" valignment="top" width="5cm">
 <column alignment="center" valignment="top" width="5cm">
-<column alignment="center" valignment="top" width="7cm">
+<column alignment="center" valignment="top" width="5cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -4066,7 +4066,7 @@ status open
 <features tabularvalignment="middle" tabularwidth="17cm">
 <column alignment="center" valignment="top" width="5cm">
 <column alignment="center" valignment="top" width="5cm">
-<column alignment="center" valignment="top" width="7cm">
+<column alignment="center" valignment="top" width="5cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -4169,7 +4169,7 @@ Tendance de l'humidité
 <features tabularvalignment="middle" tabularwidth="17cm">
 <column alignment="center" valignment="top" width="5cm">
 <column alignment="center" valignment="top" width="5cm">
-<column alignment="center" valignment="top" width="7cm">
+<column alignment="center" valignment="top" width="5cm">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text

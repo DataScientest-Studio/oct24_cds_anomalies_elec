@@ -693,7 +693,7 @@ Y_{t}=T_{t}+S_{t}+R_{t}\label{eq:1.2}
 \end_layout
 
 \begin_layout Standard
-Dans une décomposition multiplicative, la série temporelle
+Dans une décomposition multiplicative, la série temporelle 
 \begin_inset Formula $\left(Y_{t}\right)_{t\in\mathbb{T}}$
 \end_inset
 
