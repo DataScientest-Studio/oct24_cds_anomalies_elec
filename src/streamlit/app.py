@@ -19,7 +19,7 @@ def show_header():
 # -----------------------------
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Aller à", [
-    "Conetexte général du projet"
+    "Préambule",
     "Contexte et problématique",
     "Formalisation du problème",
     "Données utilisées",
@@ -31,14 +31,36 @@ page = st.sidebar.radio("Aller à", [
     "Conclusion"
 ])
 
-
+# -----------------------------
+# Préambule
+# -----------------------------
+if page == "Préambule":
+    show_header()
+    st.markdown("""
+    **Historique et contexte initial :**  
+    - Projet proposé initialement par Guillaume ROTH 
+    - Équipe initiale : Fei YANG, Guillaume ROTH, et Youssef SERRESTOU
+    - Objectif du projet dans sa formulation initiale : détection d'anomalie de la consoammation d'électricité dans des batiments résidentiels 
+   
+    **Changements importants :**
+    - Absence de données pour les objectifs initiaux
+    - Départ de la collègue Fei YANG pour un autre projet
+    - Manque d'implication de Guillaume ROTH 
+                
+    **Nouveau Contexte :**
+    - Suite à : 
+        - Des échanges avec Enedis
+        - Une étude de l'état de l'art
+        - Et en concertation avec le tuteur de projet
+    
+    - **➔ Le projet est axé sur  :**  
+    la prévision de la consommation d'électricité, à court terme, des utilisateurs du réseau Enedis en France.
+    """)
 # -----------------------------
 # 1. Contexte et problématique
 # -----------------------------
 if page == "Contexte et problématique":
     show_header()
-    st.title("🔌 Prévision de la Consommation d'électricité en France")
-    st.subheader("Projet DataScientest")
     st.markdown("""
     **Historique :**  
     Projet proposé initalement par Guillaume ROTH 
