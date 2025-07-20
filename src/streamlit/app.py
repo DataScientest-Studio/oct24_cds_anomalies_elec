@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+from pathlib import Path
+import io
+import contextlib
 
 
 def show_header():
@@ -13,6 +17,51 @@ def show_header():
             **Projet DataScientest | Youssef SERRESTOU**
         """)
         
+
+# -----------------------------
+# Pour les visualisations
+# -----------------------------
+# --- Dossiers de données ---
+BASE_DIR = Path(r"D:\MesDocuments\Formation\DataScientist_PSL\Projet\BD")
+FOLDERS = {
+    "🌦️ Météo (CSV brut)": BASE_DIR / "Meteo" / "CSV",
+    "⚡ Consommation par région": BASE_DIR / "conso-inf36-region",
+    "🌞 Rayonnement par région": BASE_DIR / "Meteo" / "rayonnement"
+    #"📍 Météo par région": BASE_DIR / "Meteo" / "region",
+}
+
+# --- Fonctions ---
+
+@st.cache_data
+def list_csv_files(folder: Path):
+    """Liste les fichiers CSV dans un dossier donné."""
+    return sorted([f for f in folder.glob("*.csv")])
+
+def get_file_size(path: Path) -> float:
+    """Retourne la taille d’un fichier en Mo."""
+    return os.path.getsize(path) / (1024 * 1024)
+
+@st.cache_data(show_spinner=True)
+def load_csv_preview(file_path: Path, sep: str, nrows: int = 20) -> pd.DataFrame:
+    """Charge les n premières lignes d’un fichier CSV avec séparateur ;"""
+    return pd.read_csv(file_path, sep=';', nrows=nrows, low_memory=False)
+
+def show_file_info(file: Path, sep: str):
+    size_mb = get_file_size(file)
+    st.markdown(f"**Nom :** `{file.name}` — **Taille :** {size_mb:.2f} Mo — **Séparateur :** `{sep}`")
+
+    if st.button("📥 Charger un aperçu de 20 lignes", key=file.name):
+        try:
+            df = load_csv_preview(file, sep=sep)
+            st.dataframe(df)
+        except Exception as e:
+            st.error(f"❌ Erreur lors du chargement : {e}")
+
+SEPARATORS = {
+    "🌦️ Météo (CSV brut)": ';',
+    "⚡ Consommation par région": ';',
+    "🧪 Rayonnement par région": ','  
+}
         
 # -----------------------------
 # Sidebar navigation
@@ -43,9 +92,9 @@ if page == "Préambule":
     - Objectif du projet dans sa formulation initiale : détection d'anomalie de la consoammation d'électricité dans des batiments résidentiels 
    
     **Changements importants :**
-    - Absence de données pour les objectifs initiaux
+    - Absence de données à l'échelle d'un habitat
     - Départ de la collègue Fei YANG pour un autre projet
-    - Manque d'implication de Guillaume ROTH 
+    - Desintéressement de la part de Guillaume ROTH 
                 
     **Nouveau Contexte :**
     - Suite à : 
@@ -53,36 +102,35 @@ if page == "Préambule":
         - Une étude de l'état de l'art
         - Et en concertation avec le tuteur de projet
     
-    - **➔ Le projet est axé sur  :**  
-    la prévision de la consommation d'électricité, à court terme, des utilisateurs du réseau Enedis en France.
+    - **➔ L'objectif fixé est  :**  
+    l'établissment d'un modèle de prévision de la consommation d'électricité, à court terme, des utilisateurs du réseau Enedis en France.
     """)
 # -----------------------------
 # 1. Contexte et problématique
 # -----------------------------
 if page == "Contexte et problématique":
     show_header()
-    st.markdown("""
-    **Historique :**  
-    Projet proposé initalement par Guillaume ROTH 
-    Equipe initiale : Fei YANG, Guillaume ROTH et Youssef SERRESTOU
-    Objectif du projet dans sa formulation initiale : Détection d'anomalie de la consoammation d'électricité dans des batiments résidentiels 
-    
-    **Evolution contextuelle**
-    - Absence de 
+    st.markdown(""" 
     **Contexte :**  
-    La prévision de la consommation électrique est essentielle pour équilibrer l’offre et la demande, 
-    réduire la surproduction et mieux intégrer les énergies renouvelables.
+    Les deux prévisions à distinguer :
+    -  la prévision de la charge électrique :
+        - fournisseurs et opérateurs d’électricité  
+        - Equilibre entre l’offre et la demande    
+    -  La prévision de la consommation d'électricité :
+        - estimation de la demande  
+        - suivi et gestion de la consommation
+    
+    Type selon l'horizon:
+    - Prévision à court terme < 1 semaine
+    - Prévision à moyen terme < 1 an
+    - Prévision à long terme > 1 an
     
     **Problématique :**  
     Construire un modèle robuste pour prévoir à court terme la consommation des utilisateurs du réseau Enedis, 
-    en fonction de leur profil, de la puissance souscrite et des données météorologiques.
-    
-    **Objectifs :**
-    - Fusionner données Enedis et météo
-    - Analyser les corrélations
-    - Construire un pipeline SARIMA + LSTM
-    - Évaluer les prévisions (MAPE, MAE, RMSE)
-    """)
+    en fonction de leur profil, de la puissance souscrite et d'autres variables explicatives.
+     """)
+
+
 
 # -----------------------------
 # 2. Formalisation du problème
@@ -93,16 +141,16 @@ elif page == "Formalisation du problème":
     st.markdown("""
     Dans cette section, nous présentons la formalisation mathématique de notre problème de prévision.
     Nous explicitons les notations et les hypothèses retenues.
-    """)
+  
 
     #st.image("figures/schema_donnees.png", caption="Schéma des données fusionnées (exemple)")
 
-    uploaded_file = st.file_uploader("📁 Importer vos données CSV pour affichage", type=["csv"])
-    if uploaded_file:
-        df = pd.read_csv(uploaded_file)
-        st.dataframe(df.head())
-
-
+    **Objectifs :**
+    - Fusionner données Enedis et météo
+    - Analyser les corrélations
+    - Construire un pipeline SARIMA + LSTM
+    - Évaluer les prévisions (MAPE, MAE, RMSE)
+   """)
 # -----------------------------
 # 3. Données utilisées
 # -----------------------------
@@ -122,10 +170,25 @@ elif page == "Données utilisées":
 
     #st.image("figures/schema_donnees.png", caption="Schéma des données fusionnées (exemple)")
 
-    uploaded_file = st.file_uploader("📁 Importer vos données CSV pour affichage", type=["csv"])
-    if uploaded_file:
-        df = pd.read_csv(uploaded_file)
-        st.dataframe(df.head())
+    st.title("📁 Visualisation rapide des CSV par répertoire")
+
+    folder_label = st.selectbox("📂 Choisissez un répertoire :", list(FOLDERS.keys()))
+    folder_path = FOLDERS[folder_label]
+    sep = SEPARATORS.get(folder_label, ';')
+
+    if not folder_path.exists():
+        st.error(f"Le dossier `{folder_path}` n’existe pas.")
+      
+
+    csv_files = list_csv_files(folder_path)
+    if not csv_files:
+        st.warning("Aucun fichier CSV trouvé dans ce dossier.")
+        
+
+    selected_file = st.selectbox("📄 Choisissez un fichier CSV :", csv_files)
+    if selected_file:
+        show_file_info(selected_file,sep)
+
 
 # -----------------------------
 # 3. Analyse exploratoire
