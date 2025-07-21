@@ -144,7 +144,7 @@ page = st.sidebar.radio("Aller à", [
     "Fusion des données",
     "Exploration de la base construite",
     "Formalisation du problème",
-    "Deuxième analyse exploratoire",
+    "Analyse des séries temporelles",
     "Méthodologie",
     "Modèle et prévisions",
     "Résultats",
@@ -232,7 +232,7 @@ if page == "Contexte et problématique":
         - Recherche des bases de données pour inclure ces variables : 
         - Analyse, traitement et fusioner des différentes base de données 
         - Fromalisation et modélisation du problème
-        - Analyse plus fine de l'influence de chaque facteur 
+        - Proposition d'une nouvelle approche
         - Evaluation de l'approche proposée
         - Présentation écrite et orale
        
@@ -321,15 +321,35 @@ elif page == "Fusion des données":
             
 
         """)
+        st.title("📁 Visualisation rapide des CSV par répertoire")
+        folder_label = st.selectbox("📂 Choisissez un répertoire :", list(FOLDERS_Fusion.keys()))
+        folder_path = FOLDERS_Fusion[folder_label]
+        sep = ','
+    
+
+
+        if not folder_path.exists():
+            st.error(f"Le dossier `{folder_path}` n’existe pas.")
+      
+        csv_files = list_csv_files(folder_path)
+        if not csv_files:
+            st.warning("Aucun fichier CSV trouvé dans ce dossier.")
+            
+        selected_file = st.selectbox("📄 Choisissez un fichier CSV :", csv_files)
+    
     with col2:
         st.markdown(""" 
         2. **Probème d'échantillonnage spatiale** :
-        Hypothèse : ergodicité spatiale
-        Analyse des corrélations 
-        ➔ Pour chaque région on remplace les données de toutes ses stations météo par leurs statistiques :
+        
+        - Hypothèse : ergodicité spatiale
+        - Analyse des corrélations 
+        
+        ➔ Pour chaque région on remplace les données de toutes ses stations météo par leurs statistiques:
+        
             - moyenne
             - extremums
             - écart-type
+            - quartils q1, q2, q3
             - coefficient d’asymétrie (skew)
             - coefficient d’aplatissement (kurtosis)
             
@@ -337,24 +357,6 @@ elif page == "Fusion des données":
     
     #st.image("figures/schema_donnees.png", caption="Schéma des données fusionnées (exemple)")
 
-    st.title("📁 Visualisation rapide des CSV par répertoire")
-
-    folder_label = st.selectbox("📂 Choisissez un répertoire :", list(FOLDERS_Fusion.keys()))
-    folder_path = FOLDERS_Fusion[folder_label]
-    sep = ','
-    
-
-
-    if not folder_path.exists():
-        st.error(f"Le dossier `{folder_path}` n’existe pas.")
-      
-
-    csv_files = list_csv_files(folder_path)
-    if not csv_files:
-        st.warning("Aucun fichier CSV trouvé dans ce dossier.")
-    
-   
-    selected_file = st.selectbox("📄 Choisissez un fichier CSV :", csv_files)
     if selected_file:
         show_file_info(selected_file, sep = None)
 # -----------------------------
@@ -363,18 +365,22 @@ elif page == "Fusion des données":
 elif page == "Exploration de la base construite":
     set_full_width()
     show_header()
-    st.title("🔎 Première analyse exploratoire des facteurs influant sur la consommation")
+    st.title("🔎 Première analyse exploratoire")
 
     st.markdown("""
-    Cliquez sur chaque section pour explorer les effets visuels :
+    Cette section illustre l'effet de plusieurs facteurs sur la consommation électrique:
+    
+        - Les données sont celle de la région Auvergne-Rhône-Alpes
+        - la consommation a été divisée par le nombre de points de soutirage        
+    
     """)
 
     FACTEURS = {
         "🕒 Saisonnalité intra-journalière": "Chap2/conso_par_heure.png",
         "📅 Saisonnalité annuelle": "Chap2/SaisonnaliteAnnuelle.png",
-        "🧍 Influence du profil": "Chap2/ConsoProfil.png",
+        "🧍 Influence du profil": "Chap2/conso_par_profile.png",
         "⚡ Influence de la puissance souscrite": "Chap2/ConsoPlagePuissance.png",
-        "🌤️ Influence des facteurs météorologiques": "Chap2/InfluenceFactoMeteoTotal.png",
+        "🌤️ Influence des facteurs météorologiques": "Chap2/conso_vs_facteurs_meteo.png",
         "📆 Influence des jours de semaine/week-end": "Chap2/effetjour.png"
     }
 
@@ -382,19 +388,24 @@ elif page == "Exploration de la base construite":
     items = list(FACTEURS.items())
 
     # Affichage en deux colonnes
-    for i in range(0, len(items), 2):
-        col1, col2 = st.columns(2)
+    for i in range(0, len(items)):
+        titre, img = items[i]
+        with st.expander(titre):
+                st.image(img, use_column_width=True)
+    
+    # for i in range(0, len(items), 2):
+        # col1, col2 = st.columns(2)
 
-        with col1:
-            titre1, img1 = items[i]
-            with st.expander(titre1):
-                st.image(img1, use_column_width=True)
+        # with col1:
+            # titre1, img1 = items[i]
+            # with st.expander(titre1):
+                # st.image(img1, use_column_width=True)
 
-        if i + 1 < len(items):
-            with col2:
-                titre2, img2 = items[i + 1]
-                with st.expander(titre2):
-                    st.image(img2, use_column_width=True)
+        # if i + 1 < len(items):
+            # with col2:
+                # titre2, img2 = items[i + 1]
+                # with st.expander(titre2):
+                    # st.image(img2, use_column_width=True)
         
         
     # st.title("🔎 Analyse exploratoire de la consommation")
@@ -423,28 +434,56 @@ elif page == "Exploration de la base construite":
 elif page == "Formalisation du problème":
     set_full_width()
     show_header()
-    st.header("🧭 Formalisation du problème")
+    st.title("Formalisation du problème")
+    
+    st.markdown("### Représentation")
     st.markdown("""
-    Dans cette section, nous présentons la formalisation mathématique de notre problème de prévision.
-    Nous explicitons les notations et les hypothèses retenues.
+        Pour toute configuration profil et palge de puissance sosucrites dans une région :
+        - la consommation est une série temporelle
+        - les facteurs météorologiques  sont des série temporelle""")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("### Les facteurs météorologiques")
+        st.markdown(" - **Température moyenne (°C)** dans la région \\(r\\).")
+        st.latex(r"""\left(T_{k}^{(r)}\right)_{kT_{s} \in \mathbb{T}}""")
+        
+        st.markdown(" - **Humidité moyenne (%)** dans la région \\(r\\).")
+        st.latex(r"""\left(U_{k}^{(r)}\right)_{kT_{s} \in \mathbb{T}}""")
+        
+        st.markdown(" - **Rayonnement solaire global (W/m2)** dans la région \\(r\\).")
+        st.latex(r"""\left(R_{k}^{(r)}\right)_{kT_{s} \in \mathbb{T}}""")
+        
+        
+          
+    with col2:
+
+        st.markdown("### La variable cible")
+        st.markdown("Série temporelle de la **consommation moyenne** par configuration(profil - palge de puissance sosucrites fixés).")
+        st.latex(r"""\left(\overline{Y}_{k}^{(r,q)}\right)_{kT_{s} \in \mathbb{T}} = \left(\frac{Y_{k}^{(r,q)}}{N_{k}^{(r,q)}}\right)_{kT_{s} \in \mathbb{T}}""")
+        
+        st.markdown("Série temporelle de la **consommation d’électricité (en Wh)** pour une configuration q, dans une région r.")
+        st.latex(r"""\left(Y_{k}^{(r,q)}\right)_{kT_{s} \in \mathbb{T}}""")
+        
+        st.markdown("Série temporelle représentant le **nombre de points de soutirage**")
+        st.latex(r"""\left(N_{k}^{(r,q)}\right)_{kT_{s} \in \mathbb{T}}""")
+        
+        
+    st.markdown("L’ensemble des **instants d’observation** disponibles dans notre base couvre la période du **01/01/2023** au **31/12/2024**")
+    st.latex(r"""\mathbb{T} = \left\{ kT_{s},\; k \in \left\{ 0,\ldots,L \right\} \right\}""") 
+    st.markdown("Le pas temporel d’échantillonnage est:")
+    st.latex(r"""T_s= 30 \ minutes""")
+ 
+     
+
   
-
-    #st.image("figures/schema_donnees.png", caption="Schéma des données fusionnées (exemple)")
-
-    **Objectifs :**
-    - Fusionner données Enedis et météo
-    - Analyser les corrélations
-    - Construire un pipeline SARIMA + LSTM
-    - Évaluer les prévisions (MAPE, MAE, RMSE)
-   """)
-
 # -----------------------------
-# 6. Analyse exploratoire
+# 6. Analyse des séries temporelles
 # -----------------------------
-elif page == "Analyse exploratoire":
+elif page == "Analyse des séries temporelles":
     set_full_width()
     show_header()
-    st.title("🧹 Analyse exploratoire")
+    st.title("🧹 Analyse des séries temporelles")
     st.markdown("""
     - Visualisation des séries temporelles
     - Tests de stationnarité (ADF, KPSS)
