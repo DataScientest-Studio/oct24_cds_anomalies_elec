@@ -88,8 +88,9 @@ page = st.sidebar.radio("Aller à", [
     "Contexte et problématique",
     "Données utilisées",
     "Fusion des données",
+    "Exploration de la base construite",
     "Formalisation du problème",
-    "Analyse exploratoire",
+    "Deuxième analyse exploratoire",
     "Méthodologie",
     "Modèle et prévisions",
     "Résultats",
@@ -269,7 +270,9 @@ elif page == "Fusion des données":
     with col2:
         st.markdown(""" 
         2. **Probème d'échantillonnage spatiale** :
-        Pour chaque région on remplace les données de toutes ses stations météo par les statistiques :
+        Hypothèse : ergodicité spatiale
+        Analyse des corrélations 
+        ➔ Pour chaque région on remplace les données de toutes ses stations météo par leurs statistiques :
             - moyenne
             - extremums
             - écart-type
@@ -301,7 +304,37 @@ elif page == "Fusion des données":
     if selected_file:
         show_file_info(selected_file, sep = None)
 # -----------------------------
-# 3. Formalisation du problème
+# 4. Exploration de la base construite
+# -----------------------------
+elif page == "Exploration de la base construite":
+    set_full_width()
+    show_header()
+    st.title("🧹 Exploration de la base construite")
+    st.markdown("""
+    - Saisonnalit´e intra-journalière
+    - Tests de stationnarité (ADF, KPSS)
+    - Analyse ACF / PACF
+    - Corrélations météo-consommation
+    """)
+
+    #st.image("figures/acf_pacf.png", caption="Exemple d'ACF / PACF sur la série différenciée")
+    #st.image("figures/correlation_meteo.png", caption="Corrélations météo / consommation")
+    
+    st.latex(r"""
+        \begin{cases}
+        Y_t = T_t + S_t + R_t \\
+        log(Y_t) = \log(T_t) + \log(S_t) + \log(R_t)
+        \end{cases}
+        """)
+    st.markdown("""
+    - Visualisation des séries temporelles
+    - Tests de stationnarité (ADF, KPSS)
+    - Analyse ACF / PACF
+    - Corrélations météo-consommation
+    """)
+
+# -----------------------------
+# 5. Formalisation du problème
 # -----------------------------
 elif page == "Formalisation du problème":
     set_full_width()
@@ -322,7 +355,7 @@ elif page == "Formalisation du problème":
    """)
 
 # -----------------------------
-# 4. Analyse exploratoire
+# 6. Analyse exploratoire
 # -----------------------------
 elif page == "Analyse exploratoire":
     set_full_width()
