@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import io
 import contextlib
+import seaborn as sns
 
 # --- Entête ----
 def show_header():
@@ -23,8 +24,8 @@ def set_full_width():
         <style>
             /* Supprimer les marges sur les côtés */
             .appview-container .main .block-container {
-                padding-left: 1rem;
-                padding-right: 1rem;
+                padding-left: 2rem;
+                padding-right: 2rem;
                 max-width: 100% !important;
             }
         </style>
@@ -42,6 +43,14 @@ FOLDERS = {
 FOLDERS_Fusion = {
     "⚡+🌦️ Consommation-météo par région": BASE_DIR / "conso-inf36-meteo-rayonnement-region-propre"
 }
+# séparateurs 
+SEPARATORS = {
+    "🌦️ Météo (CSV brut)": ';',
+    "⚡ Consommation par région": ';',
+    "🧪 Rayonnement par région": ',' ,
+    "⚡+🌦️ Consommation-météo par région": ','  
+}
+
 # --- Fonctions ---
 
 @st.cache_data
@@ -72,12 +81,57 @@ def show_file_info(file: Path, sep: str):
         except Exception as e:
             st.error(f"❌ Erreur lors du chargement : {e}")
 
-SEPARATORS = {
-    "🌦️ Météo (CSV brut)": ';',
-    "⚡ Consommation par région": ';',
-    "🧪 Rayonnement par région": ',' ,
-    "⚡+🌦️ Consommation-météo par région": ','  
-}
+@st.cache_data(show_spinner=True)
+def load_csv_entier(file_path: Path) -> pd.DataFrame:
+    """Charge les n premières lignes d’un fichier CSV avec séparateur ;"""
+    return pd.read_csv(file_path, low_memory=False)
+ 
+
+
+def show_exploratory_analysis(df_fusion):
+    # Configuration de la grille de subplots
+    fig, axs = plt.subplots(ncols=4, nrows=4, figsize=(30, 30))
+    fig.suptitle("Total énergie soutirée normalisée (Wh) en fonction de l'heure (h)", fontsize="x-large")
+
+    col = 0
+    row = 0
+
+    profils = df_fusion['Profil'].unique()
+    max_plots = min(len(profils), 16)
+
+    for i, p in enumerate(profils[:max_plots]):
+        df_conso_temp = df_fusion.loc[df_fusion['Profil'] == p, 
+                                      ['Plage de puissance souscrite', 'h', 'Nb points soutirage',
+                                       "Total énergie soutirée (Wh)", 'day_n']].copy()
+
+        # Normalisation de la consommation
+        df_conso_temp["Total énergie soutirée normalisée (Wh)"] = (
+            df_conso_temp["Total énergie soutirée (Wh)"] / df_conso_temp["Nb points soutirage"]
+        )
+
+        sns.set_theme(style="white")
+
+        sns.lineplot(
+            x='h',
+            y="Total énergie soutirée normalisée (Wh)",
+            hue='day_n',
+            data=df_conso_temp,
+            ax=axs[row, col]
+        )
+
+        axs[row, col].set_title(f"Profil : {p}")
+        axs[row, col].legend(title="Jour", loc="upper right", fontsize='small')
+
+        col += 1
+        if col == 4:
+            col = 0
+            row += 1
+
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
+
+    # Intégration dans Streamlit
+    st.pyplot(fig)
+
         
 # -----------------------------
 # Sidebar navigation
@@ -299,7 +353,7 @@ elif page == "Fusion des données":
     if not csv_files:
         st.warning("Aucun fichier CSV trouvé dans ce dossier.")
     
-
+   
     selected_file = st.selectbox("📄 Choisissez un fichier CSV :", csv_files)
     if selected_file:
         show_file_info(selected_file, sep = None)
@@ -309,29 +363,59 @@ elif page == "Fusion des données":
 elif page == "Exploration de la base construite":
     set_full_width()
     show_header()
-    st.title("🧹 Exploration de la base construite")
+    st.title("🔎 Première analyse exploratoire des facteurs influant sur la consommation")
+
     st.markdown("""
-    - Saisonnalit´e intra-journalière
-    - Tests de stationnarité (ADF, KPSS)
-    - Analyse ACF / PACF
-    - Corrélations météo-consommation
+    Cliquez sur chaque section pour explorer les effets visuels :
     """)
 
-    #st.image("figures/acf_pacf.png", caption="Exemple d'ACF / PACF sur la série différenciée")
-    #st.image("figures/correlation_meteo.png", caption="Corrélations météo / consommation")
+    FACTEURS = {
+        "🕒 Saisonnalité intra-journalière": "Chap2/conso_par_heure.png",
+        "📅 Saisonnalité annuelle": "Chap2/SaisonnaliteAnnuelle.png",
+        "🧍 Influence du profil": "Chap2/ConsoProfil.png",
+        "⚡ Influence de la puissance souscrite": "Chap2/ConsoPlagePuissance.png",
+        "🌤️ Influence des facteurs météorologiques": "Chap2/InfluenceFactoMeteoTotal.png",
+        "📆 Influence des jours de semaine/week-end": "Chap2/effetjour.png"
+    }
+
+    # Convertir les éléments en liste pour itération par 2
+    items = list(FACTEURS.items())
+
+    # Affichage en deux colonnes
+    for i in range(0, len(items), 2):
+        col1, col2 = st.columns(2)
+
+        with col1:
+            titre1, img1 = items[i]
+            with st.expander(titre1):
+                st.image(img1, use_column_width=True)
+
+        if i + 1 < len(items):
+            with col2:
+                titre2, img2 = items[i + 1]
+                with st.expander(titre2):
+                    st.image(img2, use_column_width=True)
+        
+        
+    # st.title("🔎 Analyse exploratoire de la consommation")
+    # folder_label = st.selectbox("📂 Choisissez un répertoire :", list(FOLDERS_Fusion.keys()))
+    # folder_path = FOLDERS_Fusion[folder_label]
+    # sep = ','
     
-    st.latex(r"""
-        \begin{cases}
-        Y_t = T_t + S_t + R_t \\
-        log(Y_t) = \log(T_t) + \log(S_t) + \log(R_t)
-        \end{cases}
-        """)
-    st.markdown("""
-    - Visualisation des séries temporelles
-    - Tests de stationnarité (ADF, KPSS)
-    - Analyse ACF / PACF
-    - Corrélations météo-consommation
-    """)
+
+
+    # if not folder_path.exists():
+        # st.error(f"Le dossier `{folder_path}` n’existe pas.")
+      
+
+    # csv_files = list_csv_files(folder_path)
+    # if not csv_files:
+        # st.warning("Aucun fichier CSV trouvé dans ce dossier.")
+    
+   
+    # selected_file = st.selectbox("📄 Choisissez un fichier CSV :", csv_files)
+    # df_fusion = load_csv_entier(selected_file)  # ou load complet si besoin
+    # show_exploratory_analysis(df_fusion)
 
 # -----------------------------
 # 5. Formalisation du problème
