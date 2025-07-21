@@ -2,10 +2,25 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+import sys
 from pathlib import Path
 import io
 import contextlib
 import seaborn as sns
+from statsmodels.tsa.stattools import adfuller, kpss
+
+# Ajouter le dossier où se trouve le module analyse_spectrale.py
+SRC_DIR = Path(__file__).resolve().parents[1]
+if str(SRC_DIR) not in sys.path:
+    sys.path.append(str(SRC_DIR))
+
+# ➤ Maintenant tu peux importer ton module depuis src/models/
+import importlib
+import models.analyse_spectrale
+
+importlib.reload(models.analyse_spectrale)
+
+from models.analyse_spectrale import SpectrogramAnalysis
 
 # --- Entête ----
 def show_header():
@@ -86,8 +101,141 @@ def load_csv_entier(file_path: Path) -> pd.DataFrame:
     """Charge les n premières lignes d’un fichier CSV avec séparateur ;"""
     return pd.read_csv(file_path, low_memory=False)
  
+def imputer_series(s, method='ffill', window=3):
+    """
+    Impute les valeurs manquantes d'une série temporelle.
 
+    Parameters
+    ----------
+    s : pd.Series
+        Série temporelle avec un DatetimeIndex.
+    method : str
+        Méthode d'imputation : 'interpolate', 'ffill', 'bfill', 'rolling'.
+    window : int
+        Taille de la fenêtre pour la moyenne glissante (si method='rolling').
 
+    Returns
+    -------
+    s_filled : pd.Series
+        Série avec trous imputés.
+    """
+    s = s.sort_index()
+
+    if method == 'ffill':
+        return s.ffill()
+    elif method == 'bfill':
+        return s.bfill()
+    elif method == 'rolling':
+        return s.rolling(window=window, center=True).mean().fillna(method='bfill').fillna(method='ffill')
+    else:
+        raise ValueError("Méthode d'imputation non reconnue : utilisez 'interpolate', 'ffill', 'bfill' ou 'rolling'.")
+# Pour régler certaines irrégularité dans les données vues en tant que séries temporelles
+def force_datetime_index(df, freq='30min', start_default = '2023-01-01'):
+    """
+    Force un DataFrame à avoir un DatetimeIndex régulier.
+
+    Parameters
+    ----------
+    df : pd.DataFrame ou pd.Series
+        Données d'entrée sans index temporel.
+    freq : str
+        Fréquence du pas temporel (ex : '30min', '1H').
+    start_time : str or pd.Timestamp
+        Date de départ pour créer l'index.
+
+    Returns
+    -------
+    df_copy : pd.DataFrame or pd.Series
+        Données avec un DatetimeIndex régulier.
+    """
+    h_str = df['h'].astype(int).astype(str).str.zfill(2)
+    mn_str = df['mn'].astype(int).astype(str).str.zfill(2)
+
+    date = pd.to_datetime(df['date'] + ' ' + h_str + ':' + mn_str, format='%Y-%m-%d %H:%M')
+    #date = pd.to_datetime(df['date'] + ' ' + df['h'].astype(str) + ':' + df['mn'].astype(str))
+    
+    if df['date'].min() is pd.NaT:
+        start_time = date.min() or start_default
+    else:
+        start_time = start_default
+
+    df_copy = df.copy()
+    new_index = pd.date_range(start=start_time, periods=len(df_copy), freq=freq)
+    df_copy.index = new_index
+    return df_copy
+
+def charger_et_filtrer_df_fusion(FOLDERS_Fusion: dict):
+    st.markdown("📂 **Sélection de la série à analyser**")
+    
+    folder_label = st.selectbox("📁 Choisissez un répertoire :", list(FOLDERS_Fusion.keys()))
+    folder_path = FOLDERS_Fusion[folder_label]
+
+    if not folder_path.exists():
+        st.error(f"❌ Le dossier `{folder_path}` n’existe pas.")
+        return None
+
+    csv_files = list_csv_files(folder_path)
+    if not csv_files:
+        st.warning("⚠️ Aucun fichier CSV trouvé dans ce dossier.")
+        return None
+
+    selected_file = st.selectbox("📄 Choisissez un fichier CSV :", csv_files)
+    df_fusion = load_csv_entier(selected_file)
+
+    required_cols = ["Profil", "Plage de puissance souscrite"]
+    if not all(col in df_fusion.columns for col in required_cols):
+        st.error("❌ Les colonnes 'Profil' et 'Plage de puissance souscrite' sont manquantes.")
+        return None
+
+    # Sélection du profil
+    profils_disponibles = sorted(df_fusion["Profil"].dropna().unique())
+    profil_selectionne = st.selectbox("👤 Choisissez un profil :", profils_disponibles)
+
+    # Sélection de la plage de puissance
+    puissances_disponibles = sorted(
+        df_fusion[df_fusion["Profil"] == profil_selectionne]["Plage de puissance souscrite"].dropna().unique()
+    )
+    puissance_selectionnee = st.selectbox("⚡ Choisissez une plage de puissance :", puissances_disponibles)
+
+    # Filtrage
+    df_fusion_filtred = df_fusion[
+        (df_fusion["Profil"] == profil_selectionne) &
+        (df_fusion["Plage de puissance souscrite"] == puissance_selectionnee)
+    ]
+
+    st.success(f"✅ {len(df_fusion_filtred)} lignes sélectionnées pour {profil_selectionne} / {puissance_selectionnee}")
+
+    return df_fusion_filtred
+def test_stationnarite(serie, test_type='ADF'):
+    if test_type == 'ADF':
+        result = adfuller(serie.dropna())
+        st.markdown("**Test ADF (Augmented Dickey-Fuller)**")
+        st.write(f"Statistique de test : {result[0]:.4f}")
+        st.write(f"p-value : {result[1]:.4f}")
+        st.write(f"Nombre de retards : {result[2]}")
+        st.write(f"Nombre d’observations : {result[3]}")
+        st.write("Valeurs critiques :")
+        for key, value in result[4].items():
+            st.write(f"  - {key}: {value:.3f}")
+        if result[1] < 0.05:
+            st.success("✅ La série est stationnaire (p-value < 0.05)")
+        else:
+            st.warning("⚠️ La série n’est probablement pas stationnaire (p-value ≥ 0.05)")
+
+    elif test_type == 'KPSS':
+        result = kpss(serie.dropna(), regression='c', nlags="auto")
+        st.markdown("**Test KPSS (Kwiatkowski–Phillips–Schmidt–Shin)**")
+        st.write(f"Statistique de test : {result[0]:.4f}")
+        st.write(f"p-value : {result[1]:.4f}")
+        st.write(f"Nombre de lags utilisés : {result[2]}")
+        st.write("Valeurs critiques :")
+        for key, value in result[3].items():
+            st.write(f"  - {key}: {value:.3f}")
+        if result[1] < 0.05:
+            st.warning("⚠️ La série n’est probablement **non stationnaire** (p-value < 0.05)")
+        else:
+            st.success("✅ La série est stationnaire (p-value ≥ 0.05)")
+            
 def show_exploratory_analysis(df_fusion):
     # Configuration de la grille de subplots
     fig, axs = plt.subplots(ncols=4, nrows=4, figsize=(30, 30))
@@ -132,7 +280,17 @@ def show_exploratory_analysis(df_fusion):
     # Intégration dans Streamlit
     st.pyplot(fig)
 
-        
+def analyse_spectrale_streamlit(serie):
+    st.markdown("#### 🎵 Spectrogramme de la série sélectionnée")
+   
+    spectrogram_analyzer = SpectrogramAnalysis(window='hann', nperseg=10*48, noverlap=2*48, fs= 1/1800, threshold=0.5)
+    spectrogram_analyzer.fit(serie['Total énergie soutirée (Wh)'].dropna())
+    TT = spectrogram_analyzer.transform(serie['Total énergie soutirée (Wh)'].dropna())
+    
+    fig = plt.figure(figsize=(10, 4))
+    spectrogram_analyzer.plot_spectrogramme(fig=fig)
+    
+    st.pyplot(fig)
 # -----------------------------
 # Sidebar navigation
 # -----------------------------
@@ -143,7 +301,7 @@ page = st.sidebar.radio("Aller à", [
     "Données utilisées",
     "Fusion des données",
     "Exploration de la base construite",
-    "Formalisation du problème",
+    "Représentation du problème",
     "Analyse des séries temporelles",
     "Méthodologie",
     "Modèle et prévisions",
@@ -185,8 +343,7 @@ if page == "Acceuil":
         - 👨‍🏫 Une concertation avec le **tuteur du projet**
 
         ---
-        ➔ **Nouvel objectif :**  
-        _Établir un modèle de prévision de la consommation d’électricité à court terme pour les utilisateurs du réseau Enedis en France._
+        ➔ _Établir un modèle de prévision de la consommation d’électricité à court terme pour les utilisateurs du réseau Enedis en France._
         """)
 
 
@@ -227,9 +384,9 @@ if page == "Contexte et problématique":
         
         
         **Les étapes de réalisation du projet:**  
-        - Recherche des données de consommation à utiliser : base de données Enedis , data.gouv,  échanges avec Enedis  
-        - Détermination des facteurs influants (variables explicatives/exogènes) sur la consommation :  état de l'art
-        - Recherche des bases de données pour inclure ces variables : 
+        - Recherche des données de consommation à utiliser ➔ base de données Enedis , data.gouv,  échanges avec Enedis  
+        - Détermination des facteurs influants sur la consommation ➔  état de l'art
+        - Recherche des bases de données pour inclure ces variables 
         - Analyse, traitement et fusioner des différentes base de données 
         - Fromalisation et modélisation du problème
         - Proposition d'une nouvelle approche
@@ -429,12 +586,12 @@ elif page == "Exploration de la base construite":
     # show_exploratory_analysis(df_fusion)
 
 # -----------------------------
-# 5. Formalisation du problème
+# 5. Représentation du problème
 # -----------------------------
-elif page == "Formalisation du problème":
+elif page == "Représentation du problème":
     set_full_width()
     show_header()
-    st.title("Formalisation du problème")
+    st.title("Représentation du problème")
     
     st.markdown("### Représentation")
     st.markdown("""
@@ -483,29 +640,93 @@ elif page == "Formalisation du problème":
 elif page == "Analyse des séries temporelles":
     set_full_width()
     show_header()
-    st.title("🧹 Analyse des séries temporelles")
-    st.markdown("""
-    - Visualisation des séries temporelles
-    - Tests de stationnarité (ADF, KPSS)
-    - Analyse ACF / PACF
-    - Corrélations météo-consommation
-    """)
+    st.title("🧪 Analyse temporelle et spectrale des séries de consommation")
 
-    #st.image("figures/acf_pacf.png", caption="Exemple d'ACF / PACF sur la série différenciée")
-    #st.image("figures/correlation_meteo.png", caption="Corrélations météo / consommation")
+    st.markdown("Cette section explore différentes propriétés étudiées de nos séries temporelles avant de présenter notre formalisation et modélisation.")
+
+    ANALYSES = {
     
-    st.latex(r"""
-        \begin{cases}
-        Y_t = T_t + S_t + R_t \\
-        log(Y_t) = \log(T_t) + \log(S_t) + \log(R_t)
-        \end{cases}
-        """)
-    st.markdown("""
-    - Visualisation des séries temporelles
-    - Tests de stationnarité (ADF, KPSS)
-    - Analyse ACF / PACF
-    - Corrélations météo-consommation
-    """)
+       "📉 Tests de stationnarité (ADF, KPSS)": {
+            "commentaire": """
+            Les tests de stationnarité nous ont permis de vérifier si les propriétés statistiques de nos séries sont constantes dans le temps :
+            
+                -  les séries temporelles de la consommation d'électricité sont non stationnaires et ceci est dû à leurs tendances, 
+                -  les composantes saisonnières et résiduelles sont stationnaires,  
+                
+            - **ADF (Augmented Dickey-Fuller)** : H0 = non stationnaire  
+            - **KPSS** : H0 = stationnaire  
+            Une p-value < 0.05 permet de rejeter l’hypothèse nulle.
+            """,
+            "fonction": "Tests de stationnarité"  
+        },
+        
+        "🎵 Analyse spectrale": {
+            
+            "commentaire": """
+            - L’analyse spectrale met en évidence les **périodes dominantes** dans la série (fréquences). 
+            - Cela permet d’identifier les composantes saisonnières.
+            """,
+            "fonction": "spectrogramme"
+        },
+        "📈 Analyse ACF / PACF": {
+            "fonction": "ACF/PACF",  
+            "commentaire": """
+            Les fonctions ACF (auto-corrélation) et PACF (auto-corrélation partielle) aident à identifier l’ordre des modèles AR et MA.  
+            - ACF montre les corrélations à différents retards  
+            - PACF montre les corrélations après retrait des effets intermédiaires
+            """
+        },
+        "🔍 Décomposition des séries temporelles": {
+            "fonction": "Décomposition",
+            "commentaire": """
+            La série est décomposée en trois composantes :  
+            - **Tendance**
+            - **Saisonnalité**
+            - **Résidu**  
+            Cela permet de mieux modéliser chaque aspect séparément (ex : LSTM pour la tendance, SARIMAX pour la saisonnalité).
+            """
+        },
+        "🌡️ Corrélation conso / météo": {
+            "image": "figures/correlation_conso_meteo.png",
+            "commentaire": """
+            Analyse de la **corrélation entre les composantes de la consommation** (tendance, saisonnalité, résidu)  
+            et les **variables météorologiques** (température, humidité, rayonnement).  
+            Cela permet d’identifier les **facteurs exogènes** utiles pour améliorer les prévisions.
+            """
+        }
+    }
+    
+    df_fusion_filtred= charger_et_filtrer_df_fusion(FOLDERS_Fusion)
+    df_fusion_filtred = force_datetime_index(df_fusion_filtred)
+    df_fusion_filtred = imputer_series(df_fusion_filtred, method='ffill', window=3) 
+    df_fusion_filtred["Total énergie soutirée (Wh)"] = df_fusion_filtred["Total énergie soutirée (Wh)"] / df_fusion_filtred["Nb points soutirage"]
+    if df_fusion_filtred is not None:
+        st.dataframe(df_fusion_filtred.head())
+        
+    for titre, bloc in ANALYSES.items():
+        with st.expander(titre):
+            if bloc.get("fonction") == "Tests de stationnarité"  :
+                st.markdown(bloc["commentaire"])
+                
+                col1, col2 = st.columns(2)
+                with col1:
+                    test_type = st.selectbox("🔍 Choix du test", ["ADF", "KPSS"])
+                with col2:
+                    col_name = st.selectbox("📈 Choisir une variable", df_fusion_filtred.columns)
+
+                if st.button("🧪 Lancer le test"):
+                    test_stationnarite(df_fusion_filtred[col_name], test_type)
+            elif bloc.get("fonction") == "spectrogramme":
+                st.markdown(bloc["commentaire"])
+                #start = pd.Timestamp("2023-01-01 00:00")
+                #end = pd.Timestamp("2023-12-31 00:00")
+                serie = df_fusion_filtred[['Total énergie soutirée (Wh)']]#.loc[start:end]
+                
+                if st.button("🎵 Lancer l’analyse spectrale"):
+                    analyse_spectrale_streamlit(serie)
+            else:
+                st.image(bloc["image"], use_column_width=True)
+                st.markdown(bloc["commentaire"])
 # -----------------------------
 # 5. Méthodologie
 # -----------------------------

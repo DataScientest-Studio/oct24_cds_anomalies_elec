@@ -82,17 +82,27 @@ class SpectrogramAnalysis(BaseEstimator, TransformerMixin):
         return pd.DataFrame({'Périodes': self.dominant_periodes}).drop_duplicates()
         
 
-    def plot_spectrogramme(self):
-        plt.figure(figsize=(10, 4))
-        plt.pcolormesh(self.times, self.frequencies, self.spectrogram, shading='gouraud')
-        plt.ylabel('Fréquence [Hz]')
-        plt.xlabel('Temps [sec]')
-        plt.title('Spectrogramme')
-        plt.colorbar(label='Intensité')
+    def plot_spectrogramme(self, fig = None):
+        
+        if fig is None:
+            fig = plt.figure(figsize=(10, 4))
+
+        ax = fig.gca()
+        im = ax.pcolormesh(self.times, self.frequencies, self.spectrogram, shading='gouraud')
+        ax.set_ylabel('Fréquence (Hz)')
+        ax.set_xlabel('Temps (s)')
+        ax.set_title('Spectrogramme')
+        fig.colorbar(im, ax=ax, label='Intensité')
+        # plt.figure(figsize=(10, 4))
+        # plt.pcolormesh(self.times, self.frequencies, self.spectrogram, shading='gouraud')
+        # plt.ylabel('Fréquence [Hz]')
+        # plt.xlabel('Temps [sec]')
+        # plt.title('Spectrogramme')
+        # plt.colorbar(label='Intensité')
 
         if self.dominant_frequencies is not None:
             for freq in self.dominant_frequencies:
-                plt.axhline(freq, color='red', linestyle='--', label=f'Periode : {self.fs/freq:.2f} pas')
+                plt.axhline(freq, color='red', linestyle='--', label=f'Periode : {np.round(self.fs/freq):.2f} pas')
             plt.legend()
 
         plt.tight_layout()
