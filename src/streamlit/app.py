@@ -8,6 +8,10 @@ import io
 import contextlib
 import seaborn as sns
 from statsmodels.tsa.stattools import adfuller, kpss
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+
+
 
 # Ajouter le dossier où se trouve le module analyse_spectrale.py
 SRC_DIR = Path(__file__).resolve().parents[1]
@@ -289,6 +293,22 @@ def analyse_spectrale_streamlit(serie):
     
     fig = plt.figure(figsize=(10, 4))
     spectrogram_analyzer.plot_spectrogramme(fig=fig)
+    
+    st.pyplot(fig)
+    
+    
+
+def acf_pacf_streamlit(serie):
+    st.markdown("#### 🎵 Spectrogramme de la série sélectionnée")
+   
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10,7))
+
+    plot_acf(serie_diff_R , lags = 2*48, ax=ax1)
+
+    ax1.set_title("Fonction d'autocorrélation")
+
+    plot_pacf(serie_diff_R , lags = 2*48, ax=ax2)
+    ax2.set_title("Fonction d'autocorrélation partielle")
     
     st.pyplot(fig)
 # -----------------------------
@@ -640,19 +660,26 @@ elif page == "Représentation du problème":
 elif page == "Analyse des séries temporelles":
     set_full_width()
     show_header()
-    st.title("🧪 Analyse temporelle et spectrale des séries de consommation")
+    st.title("🔎 Analyse temporelle et spectrale des séries de consommation")
 
-    st.markdown("Cette section explore différentes propriétés étudiées de nos séries temporelles avant de présenter notre formalisation et modélisation.")
+    st.markdown("Cette section explore différentes propriétés étudiées de nos séries temporelles avant de présenter la modélisation proposée.")
 
     ANALYSES = {
     
        "📉 Tests de stationnarité (ADF, KPSS)": {
             "commentaire": """
-            Les tests de stationnarité nous ont permis de vérifier si les propriétés statistiques de nos séries sont constantes dans le temps :
+            Les tests de stationnarité permet de vérfier si les propriétés statistiques de nos séries sont constantes dans le temps afin:
             
-                -  les séries temporelles de la consommation d'électricité sont non stationnaires et ceci est dû à leurs tendances, 
-                -  les composantes saisonnières et résiduelles sont stationnaires,  
+                - d'adapter une méthode d'analyse spectrale appropriée
+                - et de paramètrer correctement les modèles  
                 
+            **Conclusions**:
+          
+                - les séries temporelles de la consommation d'électricité dans sont majoritairement non stationnaires 
+                - cette non stationnarité est due à leurs tendances, 
+                - les composantes saisonnières et résiduelles sont stationnaires,  
+            **Exemple**:
+            
             - **ADF (Augmented Dickey-Fuller)** : H0 = non stationnaire  
             - **KPSS** : H0 = stationnaire  
             Une p-value < 0.05 permet de rejeter l’hypothèse nulle.
@@ -663,8 +690,9 @@ elif page == "Analyse des séries temporelles":
         "🎵 Analyse spectrale": {
             
             "commentaire": """
-            - L’analyse spectrale met en évidence les **périodes dominantes** dans la série (fréquences). 
-            - Cela permet d’identifier les composantes saisonnières.
+            L’analyse spectrale a été utilisé pour  
+            - mettre en évidence les **périodes dominantes** dans la série (fréquences). 
+            - extraire les **composantes saisonnières** en utilisant ces périodes.
             """,
             "fonction": "spectrogramme"
         },
