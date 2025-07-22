@@ -9,7 +9,7 @@ import contextlib
 import seaborn as sns
 from statsmodels.tsa.stattools import adfuller, kpss
 from statsmodels.tsa.seasonal import seasonal_decompose
-
+from statsmodels.graphics.tsaplots import plot_pacf, plot_acf
 
 
 
@@ -301,13 +301,13 @@ def analyse_spectrale_streamlit(serie):
 def acf_pacf_streamlit(serie):
     st.markdown("#### 🎵 Spectrogramme de la série sélectionnée")
    
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10,7))
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8,6))
 
-    plot_acf(serie_diff_R , lags = 2*48, ax=ax1)
+    plot_acf(serie , lags = 2*48, ax=ax1)
 
     ax1.set_title("Fonction d'autocorrélation")
 
-    plot_pacf(serie_diff_R , lags = 2*48, ax=ax2)
+    plot_pacf(serie , lags = 2*48, ax=ax2)
     ax2.set_title("Fonction d'autocorrélation partielle")
     
     st.pyplot(fig)
@@ -697,7 +697,7 @@ elif page == "Analyse des séries temporelles":
             "fonction": "spectrogramme"
         },
         "📈 Analyse ACF / PACF": {
-            "fonction": "ACF/PACF",  
+            "fonction": "ACF / PACF",  
             "commentaire": """
             Les fonctions ACF (auto-corrélation) et PACF (auto-corrélation partielle) aident à identifier l’ordre des modèles AR et MA.  
             - ACF montre les corrélations à différents retards  
@@ -723,11 +723,22 @@ elif page == "Analyse des séries temporelles":
             """
         }
     }
-    
+    # Préparation des données : filtrer + normalisation + décomposition
     df_fusion_filtred= charger_et_filtrer_df_fusion(FOLDERS_Fusion)
     df_fusion_filtred = force_datetime_index(df_fusion_filtred)
     df_fusion_filtred = imputer_series(df_fusion_filtred, method='ffill', window=3) 
     df_fusion_filtred["Total énergie soutirée (Wh)"] = df_fusion_filtred["Total énergie soutirée (Wh)"] / df_fusion_filtred["Nb points soutirage"]
+    
+    #start = pd.Timestamp("2023-01-01 00:00")
+    #end = pd.Timestamp("2023-12-31 00:00")
+    serie = df_fusion_filtred[['Total énergie soutirée (Wh)']]#.loc[start:end]
+    serie_diff = serie.diff().dropna()
+    
+    decomposition = seasonal_decompose(serie, period=48,  extrapolate_trend='freq')
+    serie_T = decomposition.trend
+    serie_S = decomposition.seasonal
+    serie_R = decomposition.resid
+    
     if df_fusion_filtred is not None:
         st.dataframe(df_fusion_filtred.head())
         
@@ -746,12 +757,17 @@ elif page == "Analyse des séries temporelles":
                     test_stationnarite(df_fusion_filtred[col_name], test_type)
             elif bloc.get("fonction") == "spectrogramme":
                 st.markdown(bloc["commentaire"])
-                #start = pd.Timestamp("2023-01-01 00:00")
-                #end = pd.Timestamp("2023-12-31 00:00")
-                serie = df_fusion_filtred[['Total énergie soutirée (Wh)']]#.loc[start:end]
-                
+              
                 if st.button("🎵 Lancer l’analyse spectrale"):
                     analyse_spectrale_streamlit(serie)
+            
+            elif bloc.get("fonction") == "ACF / PACF":
+                st.markdown(bloc["commentaire"])
+            
+                
+                
+                if st.button("🎵 Lancer l'analyse ACF / PACF"):
+                    acf_pacf_streamlit(serie)
             else:
                 st.image(bloc["image"], use_column_width=True)
                 st.markdown(bloc["commentaire"])
