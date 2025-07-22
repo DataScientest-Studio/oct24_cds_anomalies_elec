@@ -457,7 +457,7 @@ page = st.sidebar.radio("Aller à", [
     "Représentation du problème",
     "Analyse des séries temporelles",
     "Analyse de corrélation",
-    "Méthodologie",
+    "Approche proposée",
     "Modèle et prévisions",
     "Résultats",
     "Démonstration"
@@ -992,20 +992,36 @@ elif page == "Analyse de corrélation":
                 st.image(bloc["image"], use_column_width=True)
                 
 # -----------------------------
-# 5. Méthodologie
+# 8. Approche proposée
 # -----------------------------
-elif page == "Méthodologie":
+elif page == "Approche proposée":
     set_full_width()
     show_header()
-    st.title("🔬 Méthodologie")
-    st.markdown("""
-    Dans la suite nous allon présenter l'analyse de la **corrélation entre les composantes de la consommation** (tendance, saisonnalité, résidu)  
-            et les **variables météorologiques** (température, humidité, rayonnement).  
-            Cela permet d’identifier les **facteurs exogènes** utiles pour améliorer les prévisions.
-    """)
+    st.title("🧠 Approche proposée – Architecture générale")
 
-    #st.image("figures/pipeline_general.png", caption="Pipeline général")
-    #st.image("figures/spectrogramme.png", caption="Analyse temps-fréquence")
+    st.markdown("""
+    ### Objectif de l’approche :
+
+    - Réaliser une **prédiction à court terme** de la consommation électrique (pas de 30 min, 1 semaine).
+    - Exploiter la **structure multi-saisonnière** de la série temporelle.
+    - Décomposer le signal pour le modéliser plus efficacement.
+
+    ### Étapes clés de l'architecture :
+
+    1. **Décomposition de la série temporelle** :
+        - Extraction des composantes : tendance, saisonnalité, résidu.
+    
+    2. **Modélisation des composantes** :
+        - Saison : **SARIMAX**, car très efficace pour capter la saisonnalité.
+        - Tendance : **LSTM**, pour capter la dynamique à long terme.
+        - Résidu : possibilité d’un traitement résiduel (non modélisé ici).
+
+    3. **Recomposition finale** :
+        - Somme des prédictions des composantes pour obtenir la prévision globale.
+
+    ### Diagramme d’architecture :
+    """)
+    st.image("Chap3/Archi.png", caption="Architecture générale de la solution hybride SARIMAX + LSTM", use_column_width=True)
 
 # -----------------------------
 # 6. Modèle et prévisions
