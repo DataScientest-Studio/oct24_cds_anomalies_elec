@@ -1,16 +1,21 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import numpy as np
+
 import os
 import sys
-from pathlib import Path
 import io
-import contextlib
+
+import matplotlib.pyplot as plt
+from pathlib import Path
 import seaborn as sns
+import contextlib
+
 from statsmodels.tsa.stattools import adfuller, kpss
 from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.graphics.tsaplots import plot_pacf, plot_acf
 
+from sklearn.preprocessing import MinMaxScaler
 
 
 # Ajouter le dossier où se trouve le module analyse_spectrale.py
@@ -298,7 +303,7 @@ def spectral_analysis_streamlit(serie):
     st.pyplot(fig)
     
 def acf_pacf_streamlit(serie):
-    st.markdown("#### 🎵 Spectrogramme de la série sélectionnée")
+    st.markdown("#### 🎵 ACF et PACF de la série sélectionnée")
    
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8,6))
 
@@ -324,30 +329,121 @@ def decomposition_streamlit(serie):
     serie_S = decomposition.seasonal
     serie_R = decomposition.resid
     # Tracé manuel avec couleurs
-    fig, axs = plt.subplots(4, 1, figsize=(10, 8), sharex=True)
-    axs[0].plot(serie, label='Serie initiale', color='black')
+    fig, axs = plt.subplots(4, 1, figsize=(8, 6), sharex=True)
+    axs[0].plot(serie, color='black')
     axs[0].set_ylabel('Observé')
 
-    axs[1].plot(serie_T, label='Tendance', color='blue')
-    axs[1].set_ylabel('Tendance')
+    axs[1].plot(serie_T, color='blue')
+    axs[1].set_ylabel('Tendance',fontsize=10)
 
-    label = f"Composante saisonnière de période = {P}"
+    label = f"Période = {P}"
     axs[2].plot(serie_S, label=label, color='green')
-    axs[2].set_ylabel('Composante saisonnière')
+    axs[2].set_ylabel('Saisonnalité',fontsize=10)
 
-    axs[3].plot(serie_R, label='Residual', color='red')
-    axs[3].set_ylabel('Résidu')
-
+    axs[3].plot(serie_R, color='red')
+    axs[3].set_ylabel('Résidu',fontsize=10)
+    axs[3].set_xlabel("Temps", fontsize=10)
+    axs[3].tick_params(axis='x', labelrotation=45) 
+    
+    
     for ax in axs:
         ax.legend(loc='upper right')
         ax.grid(True)
 
-    fig.suptitle("Décomposition multiplicative de la  série de la consommation électrique pour le profil", fontsize=10)
+    fig.suptitle("Décomposition multiplicative de la  série sélectionnée", fontsize=10)
     plt.tight_layout(rect=[0, 0, 1, 0.97])  # Pour ne pas écraser le titre
     st.pyplot(fig)
+def plot_correlation_tendances(serie_conso, serie_temp, var : str):
+    """
+    Affiche la corrélation visuelle entre la tendance de la consommation
+    et la tendance inversée de la température, normalisées.
+    
+    - serie_conso : série pandas (consommation en Wh)
+    - serie_temp : série pandas (température en °C)
+    """
+    scaler = MinMaxScaler()
+
+    # Moyenne mobile sur 7 jours (48 pas/jour)
+    moyenne_mobile = serie_conso.rolling(window=48*7).mean()
+    if var == 'U':
+        moyenne_mobile_T = serie_temp.rolling(window=48*7).mean()
+    else : 
+        moyenne_mobile_T = 1 / (serie_temp.rolling(window=48*7).mean() + 1 - np.min(serie_temp))
+
+    moyenne_mobile_normalise = scaler.fit_transform(moyenne_mobile.values.reshape(-1,1))
+    moyenne_mobile_T_normalisee = scaler.fit_transform(moyenne_mobile_T.values.reshape(-1,1))
+    # Corrélation de Pearson
+    #coeff = np.corrcoef(moyenne_mobile_normalise, moyenne_mobile_T_normalisee)[0, 1]
+    
+    
+    fig = plt.figure(figsize=(12, 6))
+    plt.plot(moyenne_mobile_normalise, 
+             label='Tendance normalisée de la consommation', linestyle='--', color='black')
+    plt.plot(moyenne_mobile_T_normalisee, 
+             label='Tendance transformée et normalisée de la variable météo cible', linestyle='--', color='red')
+
+    
+    
+    plt.title("Corrélation des tendances")
+    plt.xlabel("Temps – pas = 30 minutes")
+    plt.ylabel("Valeur (échelle normalisée)")
+    plt.legend()
+    plt.grid(True)
+    
+    st.pyplot(fig)
+
+def plot_correlation_residu(serie_conso, serie_meteo, var : str):
+    """
+    Affiche la corrélation visuelle entre la tendance de la consommation
+    et la tendance inversée de la variable météo cible, normalisées,
+    et affiche le coefficient de corrélation de Pearson.
+    
+    - serie_conso : série pandas (consommation en Wh)
+    - serie_temp : série pandas (température, humidité, etc.)
+    """
+    # Analyse spectrale
+    spectrogram_analyzer = SpectrogramAnalysis(window='hann', nperseg=10*48, noverlap=2*48, fs= 1/1800, threshold=0.5)
+    spectrogram_analyzer.fit(serie['Total énergie soutirée (Wh)'].dropna())
+    TT = spectrogram_analyzer.transform(serie['Total énergie soutirée (Wh)'].dropna())
+    P = int(TT.iloc[0,0])
+    decomposition = seasonal_decompose(serie_conso, period=P,model='multiplicative',  extrapolate_trend='freq')
+    serie_conso_resid = decomposition.resid
+    
+    serie_meteo = serie_meteo + 1 - np.min(serie_meteo)
+    decomposition = seasonal_decompose(serie_meteo, period=P, model='multiplicative',  extrapolate_trend='freq')
+    serie_meteo_resid = decomposition.resid
+    
+    
+    scaler = MinMaxScaler()
 
 
 
+    # Aligner les deux séries (évite NaN)
+  
+
+    # Normalisation
+    conso_norm = scaler.fit_transform(serie_conso_resid.values.reshape(-1,1))
+    meteo_norm = scaler.fit_transform(serie_meteo_resid.values.reshape(-1,1))
+
+    # Corrélation de Pearson
+    coeff = np.corrcoef(conso_norm.ravel(), meteo_norm.ravel())[0, 1]
+
+    # Tracé
+    fig, ax = plt.subplots(figsize=(12, 6))
+    ax.plot(conso_norm, label='Tendance normalisée de la consommation', linestyle='--', color='black')
+    ax.plot(meteo_norm, label='Tendance inversée et normalisée de la variable météo cible', linestyle='--', color='red')
+
+    ax.set_title("Corrélation des résidus")
+    ax.set_xlabel("Temps – pas = 30 minutes")
+    ax.set_ylabel("Valeur (échelle normalisée)")
+    ax.legend()
+    ax.grid(True)
+
+    # Affichage du coefficient en haut à gauche
+    ax.text(0.01, 0.95, f"r = {coeff:.2f}", transform=ax.transAxes,
+            fontsize=12, verticalalignment='top', bbox=dict(boxstyle="round", facecolor='white', alpha=0.8))
+
+    st.pyplot(fig)
 # -----------------------------
 # Sidebar navigation
 # -----------------------------
@@ -788,20 +884,24 @@ elif page == "Analyse des séries temporelles":
 elif page == "Analyse de corrélation":
     set_full_width()
     show_header()
-    st.title("🔎 Analyse temporelle et spectrale des séries de consommation")
+    st.title("🔎 Analyse des corrélations")
 
-    st.markdown("Cette section explore différentes propriétés étudiées de nos séries temporelles avant de présenter la modélisation proposée.")
+    st.markdown("""Cette section présente l'analyse de corrélation entre
+    
+- les composantes de la consommation d'électricité 
+- et les composantes des variables météorologiques
+                    """)
 
     ANALYSES = {
     
        "🎵 Analyse de la composante saisonnière": {
             "commentaire": """Notre analyse a permis d'établir que:
             
-    - les composantes saisonnières sont stationnaires,
-    - elles dépendent uniquement de la configuration profil & plage de puissance souscrite, 
-    - elles sont indépendantes des variables exogènes 
+- les composantes saisonnières sont stationnaires,
+- elles dépendent uniquement de la configuration profil & plage de puissance souscrite, 
+- elles sont indépendantes des variables exogènes 
 
-    \u2794  des modèles SARIMA sont bien adaptés pour la prévision de ces composantes.
+\u2794  des modèles SARIMA sont bien adaptés pour la prévision de ces composantes.
                 """,
             "fonction": "Décomposition"  
         },
@@ -809,73 +909,88 @@ elif page == "Analyse de corrélation":
         "📉 Analyse de la tendance ": {
             
             "commentaire": """
-            Notre analyse a permis d'établir que: 
+            Notre analyse a permis d'établir: 
             
-        - l'existence d'une relation non linéaire entre la tendance de la consommation d'électricité et les tendances des variables exogènes,
-        - la corrélation entre la tendance de la consommation d'électricité  et les séries obtenues par translation et inversion des tendances des variables exogènes.
+            - l'existence d'une relation non linéaire entre la tendance de la consommation d'électricité et les tendances des variables exogènes,
+            - la corrélation entre la tendance de la consommation d'électricité  et les séries obtenues par translation et inversion des tendances des variables exogènes.
             """,
-            "fonction": "spectrogramme"
+            
+            "options_tendance": 
+            {
+            "🌡️ Température": "tendances_T",
+            "💧 Humidité": "tendances_U",
+            "☀️ Rayonnement": "tendances_R"
+            }
         },
-        "📈 Analyse de la composante résiduelle": {
-            "fonction": "ACF / PACF",  
+        "📉 Analyse du résidu ": {
+            
             "commentaire": """
-            Les fonctions ACF (auto-corrélation) et PACF (auto-corrélation partielle) aident à identifier l’ordre des modèles AR et MA.  
-            - ACF montre les corrélations à différents retards  
-            - PACF montre les corrélations après retrait des effets intermédiaires
-            """
-        }
+            Notre analyse a permis d'établir: 
+            
+            - l'existence d'une faible corrélation entre le résidu de la consommation d'électricité  et les résidus des variables exogènes.
+            """,
+            
+            "options_résidus": 
+            {
+            "🌡️ Température": "résidu_T",
+            "💧 Humidité": "résidu_U",
+            "☀️ Rayonnement": "résidu_R"
+            }
+        },
     }
     # Préparation des données : filtrer + normalisation + décomposition
     df_fusion_filtred= load_and_filter_df_fusion(FOLDERS_Fusion)
     df_fusion_filtred = force_datetime_index(df_fusion_filtred)
     df_fusion_filtred = imputer_series(df_fusion_filtred, method='ffill', window=3) 
     df_fusion_filtred["Total énergie soutirée (Wh)"] = df_fusion_filtred["Total énergie soutirée (Wh)"] / df_fusion_filtred["Nb points soutirage"]
-    
+    # Choisir une partie 
     start = pd.Timestamp("2023-01-01 00:00")
     end = pd.Timestamp("2023-01-31 00:00")
-    serie = df_fusion_filtred[['Total énergie soutirée (Wh)']].loc[start:end]
-
-    
+    serie = df_fusion_filtred[['Total énergie soutirée (Wh)']]
+    serie_T = df_fusion_filtred[['T_moyenne']]
+    serie_U = df_fusion_filtred[['U_moyenne']]
+    serie_R = df_fusion_filtred[['Rayonnement solaire global (W/m2)']]
     if df_fusion_filtred is not None:
         st.dataframe(df_fusion_filtred.head())
         
     for titre, bloc in ANALYSES.items():
         with st.expander(titre):
-            if bloc.get("fonction") == "Tests de stationnarité"  :
-                st.markdown(bloc["commentaire"])
-                
-                col1, col2 = st.columns(2)
-                with col1:
-                    test_type = st.selectbox("🔍 Choix du test", ["ADF", "KPSS"])
-                with col2:
-                    col_name = st.selectbox("📈 Choisir une variable", df_fusion_filtred.columns)
+            
+            st.markdown(bloc.get("commentaire", ""))  # commentaire systématiquement affiché
 
-                if st.button("🧪 Lancer le test"):
-                    stationnarity_test(df_fusion_filtred[col_name], test_type)
-            
-            # Spectrogramme
-            elif bloc.get("fonction") == "spectrogramme":
-                st.markdown(bloc["commentaire"])
-              
-                if st.button("🎵 Lancer l’analyse spectrale"):
-                    spectral_analysis_streamlit(serie)
-            # ACF / PACF
-            elif bloc.get("fonction") == "ACF / PACF":
-                st.markdown(bloc["commentaire"])
-                
-                if st.button("🎵 Lancer l'analyse ACF / PACF"):
-                    acf_pacf_streamlit(serie)
-            
-            # Decomposition        
-            elif bloc.get("fonction") == "Décomposition":
-                st.markdown(bloc["commentaire"])
-                
+            # 1. Décomposition
+            if bloc.get("fonction") == "Décomposition":
                 if st.button("🎵 Lancer la décomposition"):
-                    decomposition_streamlit(serie)
-            # Corrélation          
-            else:
+                    decomposition_streamlit(serie.loc[start:end])
+
+            # 2. Tendance
+            elif "options_tendance" in bloc:
+                choix = st.selectbox("🔎 Choisir la variable météo à étudier :", list(bloc["options_tendance"].keys()), key=f"{titre}_tendance")
+                nom_fonction = bloc["options_tendance"][choix]
+
+                if nom_fonction == "tendances_T":
+                    plot_correlation_tendances(serie, serie_T, 'T')
+                elif nom_fonction == "tendances_U":
+                    plot_correlation_tendances(serie, serie_U, 'U')
+                elif nom_fonction == "tendances_R":
+                    plot_correlation_tendances(serie, serie_R, 'R')
+
+            # 3. Résidus
+            elif "options_résidus" in bloc:
+                choix = st.selectbox("🔎 Choisir la variable météo à étudier :", list(bloc["options_résidus"].keys()), key=f"{titre}_residu")
+                nom_fonction = bloc["options_résidus"][choix]
+
+                if nom_fonction == "résidu_T":
+                    plot_correlation_residu(serie.loc[start:end], serie_T.loc[start:end], 'T')
+                elif nom_fonction == "résidu_U":
+                    plot_correlation_residu(serie.loc[start:end], serie_U.loc[start:end], 'U')
+                elif nom_fonction == "résidu_R":
+                    plot_correlation_residu(serie.loc[start:end], serie_R.loc[start:end], 'R')
+
+            # 4. Bloc avec image (par défaut)
+            elif "image" in bloc:
                 st.image(bloc["image"], use_column_width=True)
-                st.markdown(bloc["commentaire"])
+                
 # -----------------------------
 # 5. Méthodologie
 # -----------------------------
