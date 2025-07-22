@@ -168,7 +168,8 @@ def force_datetime_index(df, freq='30min', start_default = '2023-01-01'):
     df_copy.index = new_index
     return df_copy
 
-def charger_et_filtrer_df_fusion(FOLDERS_Fusion: dict):
+
+def load_and_filter_df_fusion(FOLDERS_Fusion: dict):
     st.markdown("📂 **Sélection de la série à analyser**")
     
     folder_label = st.selectbox("📁 Choisissez un répertoire :", list(FOLDERS_Fusion.keys()))
@@ -210,7 +211,7 @@ def charger_et_filtrer_df_fusion(FOLDERS_Fusion: dict):
     #st.success(f"✅ {len(df_fusion_filtred)} lignes sélectionnées pour {profil_selectionne} / {puissance_selectionnee}")
 
     return df_fusion_filtred
-def test_stationnarite(serie, test_type='ADF'):
+def stationnarity_test(serie, test_type='ADF'):
     if test_type == 'ADF':
         result = adfuller(serie.dropna())
         st.markdown("**Test ADF (Augmented Dickey-Fuller)**")
@@ -239,7 +240,7 @@ def test_stationnarite(serie, test_type='ADF'):
             st.warning("⚠️ La série est non stationnaire (p-value < 0.05)")
         else:
             st.success("✅ La série est stationnaire (p-value ≥ 0.05)")
-            
+       
 def show_exploratory_analysis(df_fusion):
     # Configuration de la grille de subplots
     fig, axs = plt.subplots(ncols=4, nrows=4, figsize=(30, 30))
@@ -284,7 +285,7 @@ def show_exploratory_analysis(df_fusion):
     # Intégration dans Streamlit
     st.pyplot(fig)
 
-def analyse_spectrale_streamlit(serie):
+def spectral_analysis_streamlit(serie):
     st.markdown("#### 🎵 Spectrogramme de la série sélectionnée")
    
     spectrogram_analyzer = SpectrogramAnalysis(window='hann', nperseg=10*48, noverlap=2*48, fs= 1/1800, threshold=0.5)
@@ -296,8 +297,6 @@ def analyse_spectrale_streamlit(serie):
     
     st.pyplot(fig)
     
-    
-
 def acf_pacf_streamlit(serie):
     st.markdown("#### 🎵 Spectrogramme de la série sélectionnée")
    
@@ -346,6 +345,9 @@ def decomposition_streamlit(serie):
     fig.suptitle("Décomposition multiplicative de la  série de la consommation électrique pour le profil", fontsize=10)
     plt.tight_layout(rect=[0, 0, 1, 0.97])  # Pour ne pas écraser le titre
     st.pyplot(fig)
+
+
+
 # -----------------------------
 # Sidebar navigation
 # -----------------------------
@@ -673,13 +675,9 @@ elif page == "Analyse des séries temporelles":
             Les tests de stationnarité permet de vérfier si les propriétés statistiques de nos séries sont constantes dans le temps afin:
             
                 - d'adapter une méthode d'analyse spectrale appropriée
-                - et de paramètrer correctement les modèles  
+                - et paramètrer correctement les modèles  
                 
-            **Conclusions**:
-          
-                - les séries temporelles de la consommation d'électricité dans sont majoritairement non stationnaires 
-                - cette non stationnarité est due à leurs tendances, 
-                - les composantes saisonnières et résiduelles sont stationnaires,  
+     
             **Exemple**:
             
             - **ADF (Augmented Dickey-Fuller)** : H0 = non stationnaire (présence de racine unitaire) 
@@ -733,7 +731,7 @@ elif page == "Analyse des séries temporelles":
         }
     }
     # Préparation des données : filtrer + normalisation + décomposition
-    df_fusion_filtred= charger_et_filtrer_df_fusion(FOLDERS_Fusion)
+    df_fusion_filtred= load_and_filter_df_fusion(FOLDERS_Fusion)
     df_fusion_filtred = force_datetime_index(df_fusion_filtred)
     df_fusion_filtred = imputer_series(df_fusion_filtred, method='ffill', window=3) 
     df_fusion_filtred["Total énergie soutirée (Wh)"] = df_fusion_filtred["Total énergie soutirée (Wh)"] / df_fusion_filtred["Nb points soutirage"]
@@ -758,14 +756,14 @@ elif page == "Analyse des séries temporelles":
                     col_name = st.selectbox("📈 Choisir une variable", df_fusion_filtred.columns)
 
                 if st.button("🧪 Lancer le test"):
-                    test_stationnarite(df_fusion_filtred[col_name], test_type)
+                    stationnarity_test(df_fusion_filtred[col_name], test_type)
             
             # Spectrogramme
             elif bloc.get("fonction") == "spectrogramme":
                 st.markdown(bloc["commentaire"])
               
                 if st.button("🎵 Lancer l’analyse spectrale"):
-                    analyse_spectrale_streamlit(serie)
+                    spectral_analysis_streamlit(serie)
             # ACF / PACF
             elif bloc.get("fonction") == "ACF / PACF":
                 st.markdown(bloc["commentaire"])
@@ -787,7 +785,7 @@ elif page == "Analyse des séries temporelles":
 # -----------------------------
 # 7. Analyse de corrélation
 # -----------------------------
-elif page == "Analyse des composantes ":
+elif page == "Analyse de corrélation":
     set_full_width()
     show_header()
     st.title("🔎 Analyse temporelle et spectrale des séries de consommation")
@@ -797,32 +795,24 @@ elif page == "Analyse des composantes ":
     ANALYSES = {
     
        "🎵 Analyse de la composante saisonnière": {
-            "commentaire": """
-            Les tests de stationnarité permet de vérfier si les propriétés statistiques de nos séries sont constantes dans le temps afin:
+            "commentaire": """Notre analyse a permis d'établir que:
             
-                - d'adapter une méthode d'analyse spectrale appropriée
-                - et de paramètrer correctement les modèles  
-                
-            **Conclusions**:
-          
-                - les séries temporelles de la consommation d'électricité dans sont majoritairement non stationnaires 
-                - cette non stationnarité est due à leurs tendances, 
-                - les composantes saisonnières et résiduelles sont stationnaires,  
-            **Exemple**:
-            
-            - **ADF (Augmented Dickey-Fuller)** : H0 = non stationnaire  
-            - **KPSS** : H0 = stationnaire  
-            Une p-value < 0.05 permet de rejeter l’hypothèse nulle.
-            """,
-            "fonction": "Tests de stationnarité"  
+    - les composantes saisonnières sont stationnaires,
+    - elles dépendent uniquement de la configuration profil & plage de puissance souscrite, 
+    - elles sont indépendantes des variables exogènes 
+
+    \u2794  des modèles SARIMA sont bien adaptés pour la prévision de ces composantes.
+                """,
+            "fonction": "Décomposition"  
         },
         
         "📉 Analyse de la tendance ": {
             
             "commentaire": """
-            L’analyse spectrale a été utilisé pour  
-            - mettre en évidence les **périodes dominantes** dans la série (fréquences). 
-            - extraire les **composantes saisonnières** en utilisant ces périodes.
+            Notre analyse a permis d'établir que: 
+            
+        - l'existence d'une relation non linéaire entre la tendance de la consommation d'électricité et les tendances des variables exogènes,
+        - la corrélation entre la tendance de la consommation d'électricité  et les séries obtenues par translation et inversion des tendances des variables exogènes.
             """,
             "fonction": "spectrogramme"
         },
@@ -836,14 +826,14 @@ elif page == "Analyse des composantes ":
         }
     }
     # Préparation des données : filtrer + normalisation + décomposition
-    df_fusion_filtred= charger_et_filtrer_df_fusion(FOLDERS_Fusion)
+    df_fusion_filtred= load_and_filter_df_fusion(FOLDERS_Fusion)
     df_fusion_filtred = force_datetime_index(df_fusion_filtred)
     df_fusion_filtred = imputer_series(df_fusion_filtred, method='ffill', window=3) 
     df_fusion_filtred["Total énergie soutirée (Wh)"] = df_fusion_filtred["Total énergie soutirée (Wh)"] / df_fusion_filtred["Nb points soutirage"]
     
-    #start = pd.Timestamp("2023-01-01 00:00")
-    #end = pd.Timestamp("2023-12-31 00:00")
-    serie = df_fusion_filtred[['Total énergie soutirée (Wh)']]#.loc[start:end]
+    start = pd.Timestamp("2023-01-01 00:00")
+    end = pd.Timestamp("2023-01-31 00:00")
+    serie = df_fusion_filtred[['Total énergie soutirée (Wh)']].loc[start:end]
 
     
     if df_fusion_filtred is not None:
@@ -861,14 +851,14 @@ elif page == "Analyse des composantes ":
                     col_name = st.selectbox("📈 Choisir une variable", df_fusion_filtred.columns)
 
                 if st.button("🧪 Lancer le test"):
-                    test_stationnarite(df_fusion_filtred[col_name], test_type)
+                    stationnarity_test(df_fusion_filtred[col_name], test_type)
             
             # Spectrogramme
             elif bloc.get("fonction") == "spectrogramme":
                 st.markdown(bloc["commentaire"])
               
                 if st.button("🎵 Lancer l’analyse spectrale"):
-                    analyse_spectrale_streamlit(serie)
+                    spectral_analysis_streamlit(serie)
             # ACF / PACF
             elif bloc.get("fonction") == "ACF / PACF":
                 st.markdown(bloc["commentaire"])
@@ -894,7 +884,7 @@ elif page == "Méthodologie":
     show_header()
     st.title("🔬 Méthodologie")
     st.markdown("""
-  Dans la suite nous allon présenter l'analyse de la **corrélation entre les composantes de la consommation** (tendance, saisonnalité, résidu)  
+    Dans la suite nous allon présenter l'analyse de la **corrélation entre les composantes de la consommation** (tendance, saisonnalité, résidu)  
             et les **variables météorologiques** (température, humidité, rayonnement).  
             Cela permet d’identifier les **facteurs exogènes** utiles pour améliorer les prévisions.
     """)
