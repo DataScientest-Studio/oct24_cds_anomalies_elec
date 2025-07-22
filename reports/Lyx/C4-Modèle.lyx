@@ -1934,7 +1934,7 @@ de
 \begin_inset Formula 
 \begin{equation}
 forme\ multiplicative:\begin{array}{c}
-\Gamma_{k}=\Gamma_{p_{m},k}\\
+\Gamma_{k}=\Gamma_{p_{M},k}\\
 \epsilon_{k}=\frac{C_{k}}{\Gamma_{k}\times\underset{p\in\mathbb{P}_{\delta}^{(r,q)}}{\prod}S_{p,k}}
 \end{array}
 \end{equation}
@@ -1945,7 +1945,7 @@ forme\ multiplicative:\begin{array}{c}
 \begin_inset Formula 
 \begin{equation}
 forme\ additive:\begin{array}{c}
-\Gamma_{k}=\Gamma_{p_{m},k}\\
+\Gamma_{k}=\Gamma_{p_{M},k}\\
 \epsilon_{k}=C_{k}-\Gamma_{k}-\underset{p\in\mathbb{P}_{\delta}^{(r,q)}}{\sum}S_{p,k}
 \end{array}
 \end{equation}

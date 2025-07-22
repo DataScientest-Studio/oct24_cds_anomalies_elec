@@ -365,8 +365,15 @@ def plot_correlation_tendances(serie_conso, serie_temp, var : str):
 
     # Moyenne mobile sur 7 jours (48 pas/jour)
     moyenne_mobile = serie_conso.rolling(window=48*7).mean()
+    
+
     if var == 'U':
-        moyenne_mobile_T = serie_temp.rolling(window=48*7).mean()
+        # Masque pour les valeurs entre 80 et 95
+        moyenne_mobile_T = 1/serie_temp.rolling(window=48*7).mean()
+        #moyenne_mobile_T = 1/ (moyenne_mobile_T + np.max(moyenne_mobile_T))
+        #mask_mid = (moyenne_mobile_T > 80) & (moyenne_mobile_T < 95)
+        #moyenne_mobile_T[mask_mid] = 1 / (1 + moyenne_mobile_T[mask_mid])
+            
     else : 
         moyenne_mobile_T = 1 / (serie_temp.rolling(window=48*7).mean() + 1 - np.min(serie_temp))
 
@@ -458,9 +465,9 @@ page = st.sidebar.radio("Aller à", [
     "Analyse des séries temporelles",
     "Analyse de corrélation",
     "Approche proposée",
-    "Modèle et prévisions",
+    "Réalisation – Implémentation",
     "Résultats",
-    "Démonstration"
+    "Démonstration",
     "Conclusion"
 ])
 
@@ -515,8 +522,8 @@ if page == "Contexte et problématique":
         st.markdown(""" 
         **Contexte :**  
         Deux catégories de prévisions à distinguer :
-        -  la prévision de la charge électrique :
-            - imortante pour les fournisseurs et opérateurs d’électricité  
+        -  **la prévision de la charge électrique** :
+            - importante pour les fournisseurs et opérateurs d’électricité  
             - sert à équilibrer l’offre et la demande 
             - largement étudiée
         -  **La prévision de la consommation d'électricité** :
@@ -524,8 +531,8 @@ if page == "Contexte et problématique":
             - sert à pérdire la consommation réelle 
             - moins abordée dans les études publiées
         
-        Type selon l'horizon:
-        - **Prévision à court terme** < 1 semaine
+        Typologie selon  l'horizon:
+        - Prévision à court terme < 1 semaine
         - Prévision à moyen terme > 1 semaine et < 1 an
         - Prévision à long terme > 1 an
         """)
@@ -937,6 +944,16 @@ elif page == "Analyse de corrélation":
             "☀️ Rayonnement": "résidu_R"
             }
         },
+       
+        "📌 **Conclusions de cette analyse**": {
+            "commentaire": """
+    
+            - Relation non linéaire entre la tendance/le résidu de la consommation d'électricité et les tendances/résidus des variables exogènes,
+            - Effet mémoire : adaptation aux changementx après un délai    
+            - Transformation nécessaire pour augmenter la corrélation
+            
+            """
+        }
     }
     # Préparation des données : filtrer + normalisation + décomposition
     df_fusion_filtred= load_and_filter_df_fusion(FOLDERS_Fusion)
@@ -997,55 +1014,82 @@ elif page == "Analyse de corrélation":
 elif page == "Approche proposée":
     set_full_width()
     show_header()
-    st.title("🧠 Approche proposée – Architecture générale")
-
-    st.markdown("""
-    ### Objectif de l’approche :
-
-    - Réaliser une **prédiction à court terme** de la consommation électrique (pas de 30 min, 1 semaine).
-    - Exploiter la **structure multi-saisonnière** de la série temporelle.
-    - Décomposer le signal pour le modéliser plus efficacement.
-
-    ### Étapes clés de l'architecture :
-
-    1. **Décomposition de la série temporelle** :
-        - Extraction des composantes : tendance, saisonnalité, résidu.
+    st.title("💡 Approche proposée")
     
-    2. **Modélisation des composantes** :
-        - Saison : **SARIMAX**, car très efficace pour capter la saisonnalité.
-        - Tendance : **LSTM**, pour capter la dynamique à long terme.
-        - Résidu : possibilité d’un traitement résiduel (non modélisé ici).
+    col1, col2 = st.columns(2)
 
-    3. **Recomposition finale** :
-        - Somme des prédictions des composantes pour obtenir la prévision globale.
+    # with col1:
+        # st.markdown("""
+        # ### Idée de l’approche :
 
-    ### Diagramme d’architecture :
-    """)
-    st.image("Chap3/Archi.png", caption="Architecture générale de la solution hybride SARIMAX + LSTM", use_column_width=True)
+        # - Diviser pour mieux régner: 
+            # - Extraire les composantes saisonnières 
+            # - Extraire la tendance 
+            # - Extraire le résidus
+        # - Prévoir chaque composante par un modèle approprié
+        # - Concevoir une architecture générique et adaptable
+         # """)
+    with col1:
+        st.markdown("""
+        ### Les grandes étapes :
+
+        1. **Analyse spectrale de la série de consommation**
+        2. **Décomposition des  séries temporelles (cible et variables exogènes)** :
+            - Extraction des composantes : tendance, saisonnalité, résidu.
+        
+        2. **Modélisation des composantes** :
+            - Saisonnières : le modèle **SARIMAX**. 
+            - Tendance : structure multi-couche pour capter la dynamique à long terme.
+            - Résidu :   structure multi-couche pour capter les corrélations temporelles fines, les non linéairités et les dépendances mémoire à court terme.
+
+        3. **Recomposition finale** :
+            - Produit des prédictions des composantes pour obtenir la prévision globale.""")
+    with col2:
+        st.markdown("""
+        ### Architecture du modèle LSTM :
+        """)
+        st.image("Chap3/Archi_lstm_multicouche_VF.png", use_column_width=True, caption="Architecture du modèle LSTM ")
+        
+    
+    st.markdown("""
+        ### Diagramme d’architecture :
+        """)
+    st.image("Chap3/Archi.png", caption="Architecture générale de la solution proposée")
+    
+    
+
 
 # -----------------------------
-# 6. Modèle et prévisions
+# 9. Réalisation – Implémentation
 # -----------------------------
-elif page == "Modèle et prévisions":
+if page == "Réalisation – Implémentation":
     set_full_width()
     show_header()
-    st.title("🤖 Modèle et prévisions")
+    st.title("🧪 Réalisation – Implémentation")
+
     st.markdown("""
-    **Modèle SARIMA :**
-    - Paramètres choisis après ACF/PACF
-    - Différentiation pour stationnarité
+    🛠️ Le pipeline a été développé en **Python** à l’aide de **pandas**, **scikit-learn**, **TensorFlow**, et **statsmodels**.
 
-    **Modèle LSTM :**
-    - Architecture adaptée aux séquences
-    - Entraîné sur les composantes décomposées
+    ### 📁 Architecture modulaire :
+    - **SARIMAX** : encapsulé dans une classe `SARIMAModel` compatible `sklearn.pipeline`
+    - **LSTM Tendance / Résidu** :
+        - `EarlyStopping`, `ReduceLROnPlateau`, normalisation indépendante
+        - Résidu et tendance sont prédits **indépendamment**
 
-    **Prévisions :**
-    - Résultats sur données test
-    - Graphiques prévision vs vérité terrain
+    ### 📊 Normalisation :
+    - **MinMaxScaler** sur les résidus
+    - **StandardScaler** pour les tendances
+    - Utilisation d’objets `Pipeline` pour conserver les transformateurs
+
+    ### 🧠 Entraînement des modèles :
+    - SARIMAX entraîné pour chaque configuration `(profil, puissance, région)`
+    - LSTM entraîné sur les résidus et les tendances avec `fit_generator` et `TimeSeriesSplit`
+    
+    ### 🧩 Recomposition :
+    ```python
+    y_final = y_sarimax + y_lstm_trend + y_lstm_residual
+    ```
     """)
-
-    #st.image("figures/prevision_sarima.png", caption="Exemple de prévision SARIMA")
-    #st.image("figures/prevision_lstm.png", caption="Exemple de prévision LSTM")
 
 # -----------------------------
 # 7. Résultats

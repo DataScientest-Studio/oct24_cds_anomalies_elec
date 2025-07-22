@@ -2431,7 +2431,7 @@ où
 \end_inset
 
 , 
-\begin_inset Formula $\mathbb{T_{\mathrm{2}}}=\left\{ 6kT_{s},k\in\left\{ 0,...,\nicefrac{L}{2}\right\} \right\} $
+\begin_inset Formula $\mathbb{T_{\mathrm{2}}}=\left\{ 6kT_{s},k\in\left\{ 0,...,\nicefrac{L}{6}\right\} \right\} $
 \end_inset
 
 et 
