@@ -485,7 +485,7 @@ def run_demo_prediction(df_selection):
     if st.button("🚀 Lancer la prédiction !"):
         try:
             resultats = traiter_profile_puissance(df_selection, selected_profil, selected_puissance, selected_region)
-            st.write("Résultats bruts :", resultats)
+            #st.write("Résultats bruts :", resultats)
 
             if resultats is not None and not resultats.empty:
                 st.success("✅ Prédiction réussie !")
@@ -496,11 +496,14 @@ def run_demo_prediction(df_selection):
                 for composante in composants:
                     st.markdown(f"#### 📈 Composante : {composante}")
                     df_comp = resultats[resultats["Composante"] == composante]
+                    # Bloc de métriques
+                    with st.container():
+                        col1, col2, col3 = st.columns(3)
+                        col1.metric("📊 MAPE (%)", f"{df_comp['MAPE (%)'].values[0]:.3f}")
+                        col2.metric("📉 MAE (Wh)", f"{df_comp['MAE (Wh)'].values[0]:,.2f}")
+                        col3.metric("📈 RMSE (Wh)", f"{df_comp['RMSE (Wh)'].values[0]:,.2f}")
 
-                    col1, col2, col3 = st.columns(3)
-                    col1.metric("MAPE (%)", f"{df_comp['MAPE (%)'].values[0]:.3f}")
-                    col2.metric("MAE (Wh)", f"{df_comp['MAE (Wh)'].values[0]:,.2f}")
-                    col3.metric("RMSE (Wh)", f"{df_comp['RMSE (Wh)'].values[0]:,.2f}")
+                    st.markdown("---")
 
                 # Affichage tableau complet
                 st.markdown("## 📋 Résumé des scores")
@@ -935,7 +938,7 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg):
             st.write(f"Données vides pour profil={profile}, puissance={puissance}")
             return None
             
-        st.write(f"Données non vides pour profil={profile}, puissance={puissance}, region {reg}")
+        #st.write(f"Données non vides pour profil={profile}, puissance={puissance}, region {reg}")
         #----------------------------------------------------------------------------------------------------------------------------
         # Prétraitement qui complète le netoyage et le traitement déjà effectués lors de la création de la base de données
         # 1. On ne garde que les colonnes température, force du vent FF, humidité U, Rayonnement R, nombre de points de soutirage et consom 
@@ -1055,11 +1058,11 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg):
             'enforce_stationarity' : False,
             'enforce_invertibility' : False
             }  
-            print(sarima_params_composantes)  
+            #print(sarima_params_composantes)  
             estimateur_composantes_periodiques[periode] = SARIMAModelFitted(**sarima_params_composantes)
             estimateur_composantes_periodiques[periode].fit(X_train[f"{TARGET}_saisonnalite_{int(periode)}"].iloc[-TOTAL_SIZE_SARIMAX:].asfreq('30T')) # on se limte à trois mois pour ne pas saturer la memoire
             X_prediction_composant[periode] = estimateur_composantes_periodiques[periode].predict(X_test[f"{TARGET}_saisonnalite_{int(periode)}"]) 
-            print('fin prédiction saisonnalite : ', periode, '...')
+            #print('fin prédiction saisonnalite : ', periode, '...')
 
             # Nettoyage de la mémoire
             K.clear_session()
@@ -1069,10 +1072,10 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg):
             mape_s = mean_absolute_percentage_error(X_test[f"{TARGET}_saisonnalite_{int(periode)}"], X_prediction_composant[periode])
             mae_s = mean_absolute_error(X_test[f"{TARGET}_saisonnalite_{int(periode)}"], X_prediction_composant[periode])
             rmse_s =np.sqrt(mean_squared_error(X_test[f"{TARGET}_saisonnalite_{int(periode)}"], X_prediction_composant[periode]))
-            st.write(f"saisonnalite_{int(periode)}:")
-            st.write(f"MAPE: {mape_s:.2%}")
-            st.write(f"MAE: {mae_s:.2}")
-            st.write(f"RMSE: {rmse_s:.2}")
+            # st.write(f"saisonnalite_{int(periode)}:")
+            # st.write(f"MAPE: {mape_s:.2%}")
+            # st.write(f"MAE: {mae_s:.2}")
+            # st.write(f"RMSE: {rmse_s:.2}")
 
             df_result = pd.concat([df_result, pd.DataFrame({'region' : [reg], 
                 'Profil' : [profile],
@@ -1102,14 +1105,14 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg):
         # Prediction
         X_test_input_residuel  = X_test_append[COLUMNS_RESIDUEL]
         X_prediction_composant['residuel'] = models['residuel'].predict(X_test_input_residuel)  
-        st.write('fin prédiction résiduel ...')
+        #st.write('fin prédiction résiduel ...')
         mape_s = mean_absolute_percentage_error(X_test[f"{TARGET}_residuel"], X_prediction_composant['residuel'])
         mae_s = mean_absolute_error(X_test[f"{TARGET}_residuel"], X_prediction_composant['residuel'])
         rmse_s =np.sqrt(mean_squared_error(X_test[f"{TARGET}_residuel"], X_prediction_composant['residuel']))
-        st.write("residuel")
-        st.write(f"MAPE: {mape_s:.2%}")
-        st.write(f"MAE: {mae_s:.2}")
-        st.write(f"RMSE: {rmse_s:.2}")
+        # st.write("residuel")
+        # st.write(f"MAPE: {mape_s:.2%}")
+        # st.write(f"MAE: {mae_s:.2}")
+        # st.write(f"RMSE: {rmse_s:.2}")
         df_result = pd.concat([df_result, pd.DataFrame({'region' : [reg], 
                 'Profil' : [profile],
                 'Puissance' :  [puissance],
@@ -1137,14 +1140,14 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg):
         
         X_test_input_tendance  = X_test_append[COLUMNS_TENDANCE]
         X_prediction_composant['tendance'] = models['tendance'].predict(X_test_input_tendance)  
-        st.write('fin prédiction tendance ...')
+        #st.write('fin prédiction tendance ...')
         mape_s = mean_absolute_percentage_error(X_test[f"{TARGET}_tendance"], X_prediction_composant['tendance'])
         mae_s = mean_absolute_error(X_test[f"{TARGET}_tendance"], X_prediction_composant['tendance'])
         rmse_s =np.sqrt(mean_squared_error(X_test[f"{TARGET}_tendance"], X_prediction_composant['tendance']))
-        st.write("tendance")
-        st.write(f"MAPE: {mape_s:.2%}")
-        st.write(f"MAE: {mae_s:.2}")
-        st.write(f"RMSE: {rmse_s:.2}")
+        # st.write("tendance")
+        # st.write(f"MAPE: {mape_s:.2%}")
+        # st.write(f"MAE: {mae_s:.2}")
+        # st.write(f"RMSE: {rmse_s:.2}")
         df_result = pd.concat([df_result, pd.DataFrame({'region' : [reg], 
                 'Profil' : [profile],
                 'Puissance' :  [puissance],
@@ -1174,9 +1177,9 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg):
         mape = mean_absolute_percentage_error(y_test, y_prediction)
         mae = mean_absolute_error(y_test, y_prediction)
         rmse =np.sqrt(mean_squared_error(y_test, y_prediction))
-        st.write(f"MAPE: {mape:.2%}")
-        st.write(f"MAE: {mae:.2}")
-        st.write(f"RMSE: {rmse:.2}")
+        # st.write(f"MAPE: {mape:.2%}")
+        # st.write(f"MAE: {mae:.2}")
+        # st.write(f"RMSE: {rmse:.2}")
           
 
         ######################################################################################################
@@ -1197,8 +1200,8 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg):
 
         gc.collect()
         K.clear_session() 
-        st.write("✅ Résultat prêt à retourner")
-        st.write("Résultat final : ", resultats)
+        #st.write("✅ Résultat prêt à retourner")
+        #st.write("Résultat final : ", df_result)
         return df_result  
     except Exception as e:
         st.write(f"Erreur rencontrée pour {reg} - {profile} - {puissance}: {str(e)}")
@@ -1864,7 +1867,6 @@ elif page == "Démonstration":
     st.subheader("Aperçu des données chargées")
     st.dataframe(df_fusion_filtred.head())
     if df_fusion_filtred is not None:
-        st.write('OK')
         run_demo_prediction(df_fusion_filtred)
 # -----------------------------
 # 7. Résultats
