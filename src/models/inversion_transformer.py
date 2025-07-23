@@ -7,7 +7,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 # Utilisé pour transformer les colonnes comme la Température ('T') ou le Rayonnement ('R')
 # --------------------------
 class InversionTransformer(BaseEstimator, TransformerMixin):
-    def __init__(self, columns_to_inverse=['T', 'R']):
+    def __init__(self, columns_to_inverse=None):
         self.columns_to_inverse = columns_to_inverse
         
 

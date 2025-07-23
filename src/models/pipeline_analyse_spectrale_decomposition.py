@@ -1,16 +1,16 @@
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 # Les modules nécessaires internes
 # ------------------------------------------------------------------------------------------------------------------------------------------------
-import decomposition_serie_temporelle
-import analyse_spectrale 
+from . import decomposition_serie_temporelle
+from . import analyse_spectrale 
 
 # pour la mise à jour
 import importlib
 importlib.reload(decomposition_serie_temporelle)
 importlib.reload(analyse_spectrale)
 
-from decomposition_serie_temporelle import DecompositionSerieTemporelle
-from analyse_spectrale import SpectrogramAnalysis
+from .decomposition_serie_temporelle import DecompositionSerieTemporelle
+from .analyse_spectrale import SpectrogramAnalysis
 
 
 # Packages 

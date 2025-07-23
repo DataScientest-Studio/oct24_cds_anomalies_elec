@@ -16,15 +16,17 @@ class LSTMModel(BaseEstimator, RegressorMixin):
                  window_size=48, 
                  n_neurons=128, 
                  epochs=100, 
-                 batch_size=32, 
-                 patience=3, 
+                 batch_size=64, 
+                 patience=6, 
                  factor=0.1,
                  loss="mean_absolute_error",
+                 min_delta = 0.001,
                  nbfoldcv=5, 
                  optimize_architecture=False, 
-                 optimize_lr=False, 
+                 optimize_lr=True, 
                  use_grid_search=False,
-                 save_path=None):
+                 save_path=None,
+                 activation = 'relu'):
 
         self.window_size = window_size
         self.model = None
@@ -36,27 +38,17 @@ class LSTMModel(BaseEstimator, RegressorMixin):
         self.patience = patience
         self.factor = factor
         self.loss = loss
+        self.min_delta = min_delta
         self.use_grid_search = use_grid_search
         self.nbfoldcv = nbfoldcv
         self.save_path = save_path
         self.n_features = None
+        self.activation = activation
 
     def fit(self, X, y=None):
         
             
-        """
-        # Si sequence_transformer rend un tuple (X, y)
-        if isinstance(X, tuple) and len(X) == 2:
-            X_seq, y_seq = X
-        else:
-            raise ValueError("L'entrée X doit être un tuple (X_seq, y_seq) après séquencement.")
-       
-        self.X = X_seq
-        if y_seq is None:
-            raise ValueError("Le modèle ne peut pas être ajusté. ajouter y.")
-        else:
-            self.y = y_seq
-        """
+
         # Séparation des features et de la target concaténée
         self.X = X[:, :, :-1]
         self.y = X[:, 0, -1]
@@ -66,41 +58,46 @@ class LSTMModel(BaseEstimator, RegressorMixin):
 
 
         callbacks = [
-            EarlyStopping(monitor='loss', patience=self.patience, restore_best_weights=True) #,
-        ]
+            EarlyStopping(monitor='val_loss',
+                          patience=self.patience,
+                          min_delta=self.min_delta, #1e-3,
+                          restore_best_weights=True,
+                          verbose=1) 
+                    ]
         
         if self.save_path is not None: # si un nom de fichier pour sauvegarder le modèle est précisé
-            callbacks.append(ModelCheckpoint(self.save_path, 
-                                            monitor='val_loss', 
-                                            save_best_only=False, 
-                                            verbose=0
+            callbacks.append(ModelCheckpoint(filepath=self.save_path,
+                                             monitor='val_loss',
+                                             save_best_only=True,
+                                             verbose=1
                                              )
                                  )
 
 
         if self.optimize_lr:
-            callbacks.append(ReduceLROnPlateau(monitor='loss', factor=self.factor, patience=self.patience, min_lr=1e-5))
-
-
+            callbacks.append(ReduceLROnPlateau(monitor='val_loss', factor=self.factor, patience=self.patience//4, min_lr=1e-6))
+        if self.use_grid_search:
+            self.model = self._grid_search_lstm(self.X, self.y)
+        
         if self.optimize_architecture:
             self.model = self._optimize_lstm(self.X, self.y, callbacks)
-        #elif self.save_path is not None and os.path.exists(self.save_path):
-        #    self.model = load_model(self.save_path)
+        elif self.save_path is not None and os.path.exists(self.save_path):
+              self.model = load_model(self.save_path)
         else:
             self.model = Sequential()
             self.model.add(Input(shape=(self.X.shape[1], self.X.shape[2])))
-            self.model.add(LSTM(self.n_neurons, activation='relu', return_sequences=True))
-            self.model.add(LSTM(self.n_neurons, activation='relu'))
+            self.model.add(LSTM(self.n_neurons, activation=self.activation,return_sequences=True))
+            self.model.add(LSTM(self.n_neurons, activation=self.activation, return_sequences=True))
+            self.model.add(LSTM(self.n_neurons,  activation=self.activation))
             self.model.add(Dense(units=self.n_neurons, activation="relu"))
             self.model.add(Dense(1))
         
-        if self.use_grid_search:
-            self.model = self._grid_search_lstm(self.X, self.y)
 
-        self.model.compile(optimizer=Adam(), loss=self.loss)
-        self.model.fit(self.X, self.y, epochs=self.epochs, batch_size=self.batch_size, verbose=1, callbacks=callbacks)
-        if self.save_path is not None:
-            self.model.save(self.save_path)
+
+        self.model.compile(optimizer=Adam(learning_rate=5e-4), loss=self.loss)
+        self.model.fit(self.X, self.y, epochs=self.epochs, batch_size=self.batch_size, validation_split=0.2, verbose=1, callbacks=callbacks)
+        #if self.save_path is not None:
+            #self.model.save(self.save_path)
 
 
         self.is_fitted_ = True
@@ -113,30 +110,44 @@ class LSTMModel(BaseEstimator, RegressorMixin):
     def _optimize_lstm(self, X_scaled, y_scaled, callbacks):
         best_model = None
         best_score = float('inf')
+        tscv = TimeSeriesSplit(n_splits=self.nbfoldcv)
 
-        for n_neurons in [64,128, 256]: #[32, 64, 128]:
-            for n_layers in [1, 2, 3]:
+        #for train_index, test_index in tscv.split(X_scaled):
+            #X_train, X_test = X_scaled[train_index], X_scaled[test_index]
+            #y_train, y_test = y_scaled[train_index], y_scaled[test_index]
+        train_index, val_index = next(tscv.split(X_scaled))
+
+        X_train, X_val = X_scaled[train_index], X_scaled[val_index]
+        y_train, y_val = y_scaled[train_index], y_scaled[val_index]
+            
+        for n_neurons in [64,128,256]:
+                
+            for n_layers in [1,2,3]:
+                
                 model = Sequential()
                 for i in range(n_layers):
                     return_seq = i < (n_layers - 1)
                     if i == 0:
-                        model.add(Input(shape=(X_scaled.shape[1], X_scaled.shape[2])))
-                        model.add(LSTM(n_neurons, activation='relu', return_sequences=return_seq))
+                        model.add(Input(shape=(X_train.shape[1], X_train.shape[2])))
+                        model.add(LSTM(n_neurons, activation=self.activation, return_sequences=return_seq))
                     else:
-                        model.add(LSTM(n_neurons, activation='relu', return_sequences=return_seq))
-                
+                        model.add(LSTM(n_neurons, activation=self.activation, return_sequences=return_seq))
+                    
                 model.add(Dense(units=n_neurons, activation="relu"))
                 model.add(Dense(1))
                 model.compile(optimizer=Adam(), loss=self.loss) # Adam (lr = ?)
-                model.fit(X_scaled, y_scaled, epochs=5, batch_size=self.batch_size, verbose=0, callbacks=callbacks)
-                loss = model.evaluate(X_scaled, y_scaled, verbose=0)
+                model.fit(X_train, y_train, epochs=5, batch_size=self.batch_size, verbose=0, callbacks=callbacks)
+                loss = model.evaluate(X_val, y_val, verbose=0)
                 if loss < best_score:
                     best_score = loss
                     best_model = model
+                    n_neurons_best_architecture = n_neurons
+                    n_layers_best_architecture = n_layers
+                    
                 gc.collect()
                 K.clear_session()
 
-        print(f"Best architecture - Neurons: {n_neurons}, Layers: {n_layers}, Loss: {best_score}")
+        print(f"Best architecture - Neurons: {n_neurons_best_architecture}, Layers: {n_layers_best_architecture}, Loss: {best_score}")
         return best_model
 
     def _grid_search_lstm(self, X_scaled, y_scaled):

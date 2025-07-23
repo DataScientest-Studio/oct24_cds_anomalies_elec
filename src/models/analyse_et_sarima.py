@@ -4,9 +4,9 @@
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-import decomposition_serie_temporelle
-import analyse_spectrale 
-import sarimax_model
+from . import decomposition_serie_temporelle
+from . import analyse_spectrale 
+from . import sarimax_model
 
 # pour la mise à jour
 import importlib
@@ -15,9 +15,9 @@ importlib.reload(analyse_spectrale)
 importlib.reload(sarimax_model)
 
 # mise à jour des classes
-from sarimax_model import SARIMAModel
-from decomposition_serie_temporelle import DecompositionSerieTemporelle
-from analyse_spectrale import SpectrogramAnalysis
+from .sarimax_model import SARIMAModel
+from .decomposition_serie_temporelle import DecompositionSerieTemporelle
+from .analyse_spectrale import SpectrogramAnalysis
 
 
 # Packages 
@@ -39,6 +39,7 @@ class SpectrogramToSARIMAPipeline(BaseEstimator, TransformerMixin):
         self.spectrogram = SpectrogramAnalysis(**self.spectro_params)
         self.sarima = None
         self.period = None
+        
 
     def fit(self, X, y=None):
         if isinstance(X, pd.DataFrame):
@@ -67,6 +68,7 @@ class SpectrogramToSARIMAPipeline(BaseEstimator, TransformerMixin):
         # Étape 2 : entraîner SARIMA sur la série complète avec cette période
         self.sarima = SARIMAModel(period=self.period, **self.sarima_params)
         self.sarima.fit(X_fit)
+
         gc.collect()
         K.clear_session()
         return self

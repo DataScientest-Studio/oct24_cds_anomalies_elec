@@ -39,9 +39,14 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 # OS
 
 import os
+
 import requests
 import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import gzip
+
+
 
 import datetime
 import time
@@ -57,9 +62,6 @@ import numpy as np
 
 # matplotlib
 import matplotlib.pyplot as plt
-
-from ipywidgets import interact, IntSlider, FloatSlider, Dropdown, Button, HBox, VBox
-import ipywidgets as widgets
 import seaborn as sns
 import pylab
 
@@ -80,8 +82,6 @@ from pmdarima.arima import auto_arima
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.tsa.statespace import sarimax
 
-# Métriques 
-from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolute_percentage_error
 
 
 # Décomposition série temporelle
@@ -89,7 +89,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolu
 from statsmodels.tsa.seasonal import seasonal_decompose 
 
 
-
+from tensorflow.keras.models import load_model
 
 
 
@@ -114,18 +114,13 @@ from tensorflow.keras import backend as K
 # Métriques 
 from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolute_percentage_error
 
-# Gestion d'erreur / fichier log
-import logging
-logging.basicConfig(filename='erreurs.log', level=logging.ERROR)
 
-#Parrallèlisme
-from joblib import Parallel, delayed
+
+
 # Pkg pour Sauvegarde des modèles
 import joblib
 import pickle
 
-# time
-import time
 
 
 # expression réguière
@@ -165,46 +160,23 @@ def reset_tensorflow_session():
     tf.keras.backend.clear_session()
     gc.collect()
 
-# Configuration du Logger général du projet
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("projet_execution.log"),
-        logging.StreamHandler(sys.stdout)
-    ]
-)
 
-logger = logging.getLogger(__name__)
-logger.info("Environnement initialisé correctement avec la seed %d", SEED)
-
-""" try:
-    from IPython import get_ipython
-    if get_ipython() is None:
-        from IPython import embed
-        logger.info("Lancement du kernel interactif IPython")
-        embed()
-except ImportError:
-    logger.warning("IPython non disponible") """
-
-# Configuration du Logger général du projet
-
-from log_manager import setup_logger
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 # Les modules developpés pour le projet : chargement avec mise à jour
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 
-import decomposition_serie_temporelle
-import analyse_spectrale 
-import pipeline_analyse_spectrale_decomposition 
-import analyse_et_sarima
-import sarimax_model
-import lstm_model
-import sequence_transformer
-import inversion_transformer
-import normalisation_transformation
-import wrapper_pour_lstm
-import realigner
+from . import decomposition_serie_temporelle
+from . import analyse_spectrale 
+from . import pipeline_analyse_spectrale_decomposition 
+from . import analyse_et_sarima
+from . import sarimax_model
+from . import sarimax_model_fitted
+from . import lstm_model
+from . import sequence_transformer
+from . import inversion_transformer
+from . import normalisation_transformation
+from . import wrapper_pour_lstm
+from . import realigner
 # pour la mise à jour
 import importlib
 importlib.reload(decomposition_serie_temporelle)
@@ -212,6 +184,7 @@ importlib.reload(analyse_spectrale)
 importlib.reload(pipeline_analyse_spectrale_decomposition)
 importlib.reload(lstm_model)
 importlib.reload(sarimax_model)
+importlib.reload(sarimax_model_fitted)
 importlib.reload(analyse_et_sarima)
 importlib.reload(sequence_transformer)
 importlib.reload(inversion_transformer)
@@ -219,47 +192,30 @@ importlib.reload(normalisation_transformation)
 importlib.reload(wrapper_pour_lstm)
 importlib.reload(realigner)
 
-from decomposition_serie_temporelle import DecompositionSerieTemporelle
-from analyse_spectrale import SpectrogramAnalysis
-from sarimax_model import SARIMAModel
-from lstm_model import LSTMModel
-from pipeline_analyse_spectrale_decomposition import SpectroDecompPipeline
-from analyse_et_sarima import SpectrogramToSARIMAPipeline
-from sequence_transformer import SequenceTransformer
-from inversion_transformer import InversionTransformer
-from normalisation_transformation import NormalisationTransformer
-from wrapper_pour_lstm import WrapperforLSTM
-from realigner import ReAligner 
+from .decomposition_serie_temporelle import DecompositionSerieTemporelle
+from .analyse_spectrale import SpectrogramAnalysis
+from .sarimax_model import SARIMAModel
+from .sarimax_model_fitted import SARIMAModelFitted
+
+from .lstm_model import LSTMModel
+from .pipeline_analyse_spectrale_decomposition import SpectroDecompPipeline
+from .analyse_et_sarima import SpectrogramToSARIMAPipeline
+from .sequence_transformer import SequenceTransformer
+from .inversion_transformer import InversionTransformer
+from .normalisation_transformation import NormalisationTransformer
+from .wrapper_pour_lstm import WrapperforLSTM
+from .realigner import ReAligner 
  
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 # Dossier pour le téléchargement des fichiers et extraction du dataframe 
 # ------------------------------------------------------------------------------------------------------------------------------------------------
-folder_projet_BD = r"D:\MesDocuments\Formation\DataScientist_PSL\Projet\BD" # repertoire de la base de données
-folder_BD_propre= os.path.join(folder_projet_BD, "conso-inf36-meteo-rayonnement-region-propre") # 
-liste_file = os.listdir(folder_BD_propre)
 
-# création d'un dossier pour stocker les résultats (scores)
-folder_resultats = os.path.join(folder_projet_BD, "resultats") 
-if not os.path.isdir(folder_resultats):   
-    os.mkdir(folder_resultats)
-# création d'un dossier pour stocker les modèles 
-folder_models = os.path.join(folder_projet_BD, "models") 
-if not os.path.isdir(folder_models):   
-    os.mkdir(folder_models)
+# dossier contenant les modèles 
+folder_all_models = r"D:\MesDocuments\Formation\DataScientist_PSL\Projet\BD\models" # repertoire de la base de données
+folder_models= os.path.join(folder_all_models, "ARA") # 
 
 
-# création d'un dossier pour stocker les données de test
-folder_test = os.path.join(folder_projet_BD, "fichiers_test") 
-if not os.path.isdir(folder_test):   
-    os.mkdir(folder_test)
-
-folder_log = os.path.join(folder_projet_BD, "fichiers_log") 
-if not os.path.isdir(folder_log):
-    os.mkdir(folder_log)
-
-# Initaition du logger
-logger = setup_logger(log_dir=folder_log, log_file="predictions_conso_elec.log")
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 # Constantes et Variables globales servant de paramètres par défaut pour les constructeurs 
 # ------------------------------------------------------------------------------------------------------------------------------------------------
@@ -286,32 +242,6 @@ TOTAL_SIZE = NB_PAS_JOUR*NOMBRE_JOUR_TOTAL
 TOTAL_SIZE_SARIMAX = 90 * NB_PAS_JOUR # trois mois pour entrainer le sarimax ce qui permet d'éviter l'explosion de la mémoir pour le filtre de Kalman
 THRESHOLD = 0.3 # Seuli de détection pour le spectre
 NB_COMPOSANTES_SPECTRALES = 2 # Le nombre de composante spectrale à garder
-# On se restreint au profiles de maisons résenditielles :objectif initial du projet
-LISTE_PROFILE = list(['RES1 (+ RES1WE)', 'RES11 (+ RES11WE)', 'RES2 (+ RES5)', 'RES2WE','RES3', 'RES4'])
-LISTE_PLAGE_PUISSANCE = list(['P0: Total <= 36 kVA', 'P1: ]0-3] kVA', 'P2: ]3-6] kVA', 'P3: ]6-9] kVA', 'P4: ]9-12] kVA',
-                              'P5: ]12-15] kVA', 'P6: ]15-18] kVA', 'P7: ]18-24] kVA','P8: ]24-30] kVA', 'P9: ]30-36] kVA'])
-
-#code région
-regions_insee = {
-    "Guadeloupe": "01",
-    "Martinique": "02",
-    "Guyane": "03",
-    "La Réunion": "04",
-    "Mayotte": "06",
-    "Île-de-France": "11",
-    "Centre-Val de Loire": "24",
-    "Bourgogne-Franche-Comté": "27",
-    "Normandie": "28",
-    "Hauts-de-France": "32",
-    "Grand Est": "44",
-    "Pays de la Loire": "52",
-    "Bretagne": "53",
-    "Nouvelle-Aquitaine": "75",
-    "Occitanie": "76",
-    "Auvergne-Rhône-Alpes": "84",
-    "Provence-Alpes-Côte d'Azur": "93",
-    "Corse": "94"
-}
 
 
 # Paramètres de la décomposition spectrale
@@ -464,25 +394,6 @@ def split_time_series(df, TEST_PROPORTION=0.02):
     df_train = df.iloc[:split_idx]
     df_test = df.iloc[split_idx:]
     return df_train, df_test     
-# J'ajoute une ffonction pour vérifier si la prédiction ne contient pas des nan ou des valeurs abberant. Ceci sert à sauter les cas qui pose problème
-def check_prediction(y_pred, step_name=""):
-    """
-    Vérifie qu'une prédiction ne contient pas de NaN ou de valeurs aberrantes.
-    """
-    if y_pred is None:
-        logging.error(f"{step_name}: prédiction retournée None")
-        return False
-    if np.any(pd.isna(y_pred)):
-        logging.error(f"{step_name}: présence de NaN dans la prédiction")
-        return False
-    if np.any(np.isinf(y_pred)):
-        logging.error(f"{step_name}: présence de inf ou -inf dans la prédiction")
-        return False
-    if np.isnan(y_pred).all():
-        logging.error(f"{step_name}: toutes les valeurs sont NaN")
-        return False
-    return True
-
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 # Step 1 Pipeline 1 chainage d'analyse spectrale et décomposition  de la consommation
@@ -499,10 +410,6 @@ def premiere_analyse(df,spectro_params = None, column_target = None):
         periodes = spectrogram_analyzer.transform(y) 
         return periodes.values.flatten().astype(int)[0:NB_COMPOSANTES_SPECTRALES]
         #return spectrogram_analyzer.dominant_periodes.astype(int).tolist()[0:2] # les deux premières
-
-
-
-
 
 # Pipeline  de la première étape : analyse spectrale et décomposition  de la consommation
 # Construction de la première pipeline 
@@ -535,29 +442,30 @@ def constructeur_pipeline_etape_0(target_column, liste_columns, liste_forme_in, 
 # Pipeline de trois opérations : inversion des colonnes 'T' et 'R', normalisation, création de séaunce pour alimenter lstm et modèle lstm
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 
-def constructeur_pipeline_composante_lstm(lstm_params=None, scaler_method=None, columns_to_inverse = None, column_target = None):
+# def constructeur_pipeline_composante_lstm(lstm_params=None, scaler_method=None, columns_to_inverse = None, column_target = None):
     
-    lstm_params = lstm_params 
-    columns_to_inverse = columns_to_inverse 
-    column_target = column_target 
-    scaler_method = scaler_method
+#     lstm_params = lstm_params 
+#     columns_to_inverse = columns_to_inverse 
+#     column_target = column_target 
+#     scaler_method = scaler_method
 
 
-    inversion = InversionTransformer(columns_to_inverse=columns_to_inverse)
-    #print(column_target)
-    scaler = NormalisationTransformer(scaler=scaler_method, column_target=column_target) # Normalisation
+#     inversion = InversionTransformer(columns_to_inverse=columns_to_inverse)
+#     #print(column_target)
+#     scaler = NormalisationTransformer(scaler=scaler_method, column_target=column_target) # Normalisation
     
-    create_sequences = SequenceTransformer(window_size=lstm_params['window_size'],column_target=column_target) # Séquencement pour LSTM
+#     create_sequences = SequenceTransformer(window_size=lstm_params['window_size'],column_target=column_target) # Séquencement pour LSTM
 
-    lstm_model = LSTMModel( **lstm_params) # Modèle LSTM
+#     lstm_model = LSTMModel( **lstm_params) # Modèle LSTM
 
-    pipeline_lstm = Pipeline(steps = [
-        ('inversion',inversion ),
-        ('normalize', scaler),
-        ('seq_transform', create_sequences),
-        ('lstm', lstm_model)
-        ])
-    return pipeline_lstm
+#     pipeline_lstm = Pipeline(steps = [
+#         ('inversion',inversion ),
+#         ('normalize', scaler),
+#         ('seq_transform', create_sequences),
+#         ('lstm', lstm_model)
+#         ])
+#     return pipeline_lstm
+
 
 # ------------------------------------------------------------
 # Constructeur de pipelines SARIMA par composante périodique + LSTM
@@ -566,7 +474,7 @@ def constructeur_pipeline_composante_lstm(lstm_params=None, scaler_method=None, 
 # Les paramètres sont fixés via spectro_params et sarima_params
 # Dans cette version sans pipeline on appelle pour chaque composant un modèle sarima
 sarima_params_composantes_periodiques= {
-        "research_best_model": True,# Pas d'auto-ajustement des hyperparamètres
+        "research_best_model": True,# auto-ajustement des hyperparamètres
         "is_stationary" : False, 
         "index_start" : 0 #windows_size
     }
@@ -575,25 +483,22 @@ sarima_params_composantes_periodiques= {
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 # traitement d'une configuration profile-puissance
 # ------------------------------------------------------------------------------------------------------------------------------------------------
-def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg,file_out ):
+def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg):
 
     try:
         # des graines pour stabilisé les noyau tf, np
-        seed = 42
-        save_model = True
+        seed = 42 # figé pour la démo
         os.environ['PYTHONHASHSEED'] = str(seed)
         os.environ['TF_DETERMINISTIC_OPS'] = '1'
         tf.random.set_seed(seed)
-        #np.random.seed(seed)
-        #random.seed(seed)
-        
+ 
         INDEX_DEBUT = NB_PAS_JOUR * np.random.randint(365) # debut aléatoire à chaque simulation
         print("on traite ...", reg)
-        print(len(df_profile_puissance))
+        print(INDEX_DEBUT)
 
  
         
-        
+
         if df_profile_puissance.empty:
             print(f"Données vides pour profil={profile}, puissance={puissance}")
             return None
@@ -640,61 +545,90 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg,fil
                                                 liste_forme_in = FOMRES_DECOMPOSITION, 
                                                 periodes = periodes,
                                                 spectro_params = spectro_params_default)
-
-        # pipeline 1 : prédiction pour chaque composante
-        # Ajout de la composante résiduelle
-        # Pour le sauvegarde 
-
-
-        pipeline_lstm_residuel = constructeur_pipeline_composante_lstm(lstm_params =lstm_params_residuel , 
-                                                                       scaler_method = MinMaxScaler(), #StandardScaler(),
-                                                                       columns_to_inverse = COLUMNS_TO_INVERSE_RESIDUEL, 
-                                                                       column_target = 'Total énergie soutirée (Wh)_residuel')
-
-        # Ajout de la composante tendance
-        #lstm_params_tendance['save_path'] = os.path.join(folder_models,f"model_lstm_tendance_{profile}_{puissance}_{reg}.keras") 
-        #model_lstm_tendance_sauvegarde = os.path.join(folder_models,f"model_lstm_tendance_{profile}_{puissance}_{reg}.joblib")
-
-        pipeline_lstm_tendance = constructeur_pipeline_composante_lstm(lstm_params = lstm_params_tendance, 
-                                                                       scaler_method = MinMaxScaler(),
-                                                                       columns_to_inverse = COLUMNS_TO_INVERSE_TENDANCE, 
-                                                                       column_target = 'Total énergie soutirée (Wh)_tendance')
-                                        
-                                    
-                                        
+                
+        #####################################################################################################################################                                
         # Séparation des données après le passage par le premier étage de décomposition
         # On décompose les données d'entrainements
+        #####################################################################################################################################
         reset_tensorflow_session()
         fitted_pipeline_1 = pipeline_1.fit(sub_df)
         sub_df_decomposed  = fitted_pipeline_1.transform(sub_df) 
         X_train, X_test = split_time_series(sub_df_decomposed, TEST_PROPORTION = TEST_PROPORTION ) 
-            # Pour lstm on prend une partie du train --> alignement avec sarima
+        # Pour lstm on prend une partie du train --> alignement avec sarima
         X_test_append = pd.concat([X_train.iloc[-WINDOWS_SIZE:], X_test])
         
-        #Nettoyage df
-        #del sub_df, fitted_pipeline_1, sub_df_decomposed
-        
-        # Medure de temps entrainement + évaluation
-        tic = time.perf_counter()
-        ######################################################################################################
         # fit et prédiction de la composante saisonnalité 1
         X_prediction_composant = {} 
-        estimateur_composantes_periodiques = {}
-        ######################################################################################################
-        # des pipelines pour chaque composante saisonnière détectée
-        ######################################################################################################
-        #print('on est la')
+
+        #####################################################################################################################################
+        # # Reconstitue les modèles à partir des fichiers sauvegardés.
+        # - Détecte automatiquement les périodes des modèles SARIMAX.
+        # - Restaure les pipelines et LSTM pour tendance et résiduels.
+        
+        # Retourne un dictionnaire contenant :
+        # - 'saisonnalite' : dict[periode] → dict info modèle SARIMAX
+        # - 'tendance' / 'tendance_lstm' : pipeline + keras model
+        # - 'residuel' / 'residuel_lstm' : pipeline + keras model
+        # 
+        # ##################################################################################################################################### 
+ 
+       
+        safe_profile = clean_filename_part(profile)
+        safe_puissance = clean_filename_part(puissance)
+        safe_region = clean_filename_part(reg)
+
+        models = {
+            'saisonnalite': {},
+            'tendance': None,
+            'tendance_lstm': None,
+            'residuel': None,
+            'residuel_lstm': None
+        }
+
+        df_result = pd.DataFrame({})
+        estimateur_composantes_periodiques = {}             
         for periode in periodes:
-            reset_tensorflow_session() # nettoyage
-            estimateur_composantes_periodiques[periode] = SpectrogramToSARIMAPipeline(spectro_params=spectro_params_default, sarima_params=sarima_params_composantes_periodiques)
+            path_model = os.path.join(folder_models, f"model_sarimax_saisonnalite_{periode}_{safe_profile}_{safe_puissance}_{safe_region}.sm")
+            if not os.path.exists(path_model):
+                raise ValueError("chemin inexistant.")
+            
+
+           
+            with open(path_model, 'rb') as f:
+                model_info = pickle.load(f)
+
+
+            params = model_info["params"]
+
+            if params is None:
+                raise ValueError("Paramètres SARIMAX manquants.")
+
+            if isinstance(params, pd.Series):
+                params = np.array(params.values)
+            elif not isinstance(params, np.ndarray):
+                params = np.array(params)
+
+            
+            
+            sarima_params_composantes = {
+            'period' : periode,
+            'order' : model_info['order'],
+            'seasonal_order' : model_info['seasonal_order'],
+            'model_param' : params,
+            'trend' : model_info['trend'],
+            'enforce_stationarity' : False,
+            'enforce_invertibility' : False
+            }  
+            print(sarima_params_composantes)  
+            estimateur_composantes_periodiques[periode] = SARIMAModelFitted(**sarima_params_composantes)
             estimateur_composantes_periodiques[periode].fit(X_train[f"{TARGET}_saisonnalite_{int(periode)}"].iloc[-TOTAL_SIZE_SARIMAX:].asfreq('30T')) # on se limte à trois mois pour ne pas saturer la memoire
-            X_prediction_composant[periode] = estimateur_composantes_periodiques[periode].transform(X_test[f"{TARGET}_saisonnalite_{int(periode)}"]) 
+            X_prediction_composant[periode] = estimateur_composantes_periodiques[periode].predict(X_test[f"{TARGET}_saisonnalite_{int(periode)}"]) 
             print('fin prédiction saisonnalite : ', periode, '...')
 
             # Nettoyage de la mémoire
             K.clear_session()
             gc.collect()
-        
+            
             #del estimateur_composantes_periodiques[periode]
             mape_s = mean_absolute_percentage_error(X_test[f"{TARGET}_saisonnalite_{int(periode)}"], X_prediction_composant[periode])
             mae_s = mean_absolute_error(X_test[f"{TARGET}_saisonnalite_{int(periode)}"], X_prediction_composant[periode])
@@ -703,44 +637,87 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg,fil
             print(f"MAPE: {mape_s:.2%}")
             print(f"MAE: {mae_s:.2}")
             print(f"RMSE: {rmse_s:.2}")
+
+            df_result = pd.concat([df_result, pd.DataFrame({'region' : [reg], 
+                'Profil' : [profile],
+                'Puissance' :  [puissance],
+                'Composante' : f"saisonnalite_{int(periode)}",
+                'MAPE (%)' : [100*mape_s],
+                'MAE (Wh)' : [mae_s],
+                'RMSE (Wh)' : [rmse_s],
+                })] )
             
         ######################################################################################################
         # Prediction partie résiduelle
         ######################################################################################################
-        X_input_residuel  = X_train[COLUMNS_RESIDUEL]
-        y_target_residuel = X_train[f"{TARGET}_residuel"]
+        path_resid_pipeline = os.path.join(folder_models, f"model_composante_residuelle_sans_lstm_{safe_profile}_{safe_puissance}_{safe_region}.joblib")
+        path_resid_lstm = os.path.join(folder_models, f"model_composante_residuelle_lstm_{safe_profile}_{safe_puissance}_{safe_region}.keras")
 
-        # Fit
-        reset_tensorflow_session()
-        pipeline_lstm_residuel_fitted = pipeline_lstm_residuel.fit(X_input_residuel,y_target_residuel) 
+        if os.path.exists(path_resid_pipeline) and os.path.exists(path_resid_lstm):
+            pipeline_resid = joblib.load(path_resid_pipeline)
+            model_resid_lstm = load_model(path_resid_lstm)
+            pipeline_resid.named_steps['lstm'].model = model_resid_lstm
+        
+            models['residuel'] = pipeline_resid
+            models['residuel_lstm'] = model_resid_lstm
+          
 
-
-        reset_tensorflow_session()
-        # Préparation des autres colonnes
-        X_test_input_residuel  = X_test_append[COLUMNS_RESIDUEL]
-        #y_test_target_residuel = X_test_append[f"{TARGET}_residuel"]
+  
         # Prediction
-        X_prediction_composant['residuel'] = pipeline_lstm_residuel_fitted.predict(X_test_input_residuel)  
+        X_test_input_residuel  = X_test_append[COLUMNS_RESIDUEL]
+        X_prediction_composant['residuel'] = models['residuel'].predict(X_test_input_residuel)  
         print('fin prédiction résiduel ...')
+        mape_s = mean_absolute_percentage_error(X_test[f"{TARGET}_residuel"], X_prediction_composant['residuel'])
+        mae_s = mean_absolute_error(X_test[f"{TARGET}_residuel"], X_prediction_composant['residuel'])
+        rmse_s =np.sqrt(mean_squared_error(X_test[f"{TARGET}_residuel"], X_prediction_composant['residuel']))
+        print("residuel")
+        print(f"MAPE: {mape_s:.2%}")
+        print(f"MAE: {mae_s:.2}")
+        print(f"RMSE: {rmse_s:.2}")
+        df_result = pd.concat([df_result, pd.DataFrame({'region' : [reg], 
+                'Profil' : [profile],
+                'Puissance' :  [puissance],
+                'Composante' : 'résidu',
+                'MAPE (%)' : [100*mape_s],
+                'MAE (Wh)' : [mae_s],
+                'RMSE (Wh)' : [rmse_s],
+                })])
 
         ######################################################################################################
         # Prédiction partie tendancielle
         ######################################################################################################
-        X_input_tendance = X_train[COLUMNS_TENDANCE]
-        y_target_tendance =X_train[f"{TARGET}_tendance"]
-        # Fit
-        reset_tensorflow_session()
-        pipeline_lstm_tendance_fitted = pipeline_lstm_tendance.fit(X_input_tendance, y_target_tendance)
-        # Enregistrement du modèle
-        #joblib.dump(pipeline_lstm_tendance_fitted, model_lstm_tendance_sauvegarde)
-        reset_tensorflow_session()
-        # Préparation des autres colonnes
+        # --- Modèles Tendance ---
+        path_tendance_pipeline = os.path.join(folder_models, f"model_composante_tendance_sans_lstm_{safe_profile}_{safe_puissance}_{safe_region}.joblib")
+        path_tendance_lstm = os.path.join(folder_models, f"model_composante_tendance_lstm_{safe_profile}_{safe_puissance}_{safe_region}.keras")
+
+        if os.path.exists(path_tendance_pipeline) and os.path.exists(path_tendance_lstm):
+            pipeline_tendance = joblib.load(path_tendance_pipeline)
+            model_tendance_lstm = load_model(path_tendance_lstm)
+            pipeline_tendance.named_steps['lstm'].model = model_tendance_lstm
+
+            models['tendance'] = pipeline_tendance
+            models['tendance_lstm'] = model_tendance_lstm
+                # Prediction
+        
         X_test_input_tendance  = X_test_append[COLUMNS_TENDANCE]
-        y_test_target_tendance = X_test_append[f"{TARGET}_tendance"]
-        # Prediction
-        X_prediction_composant['tendance'] = pipeline_lstm_tendance_fitted.predict(X_test_input_tendance)
+        X_prediction_composant['tendance'] = models['tendance'].predict(X_test_input_tendance)  
         print('fin prédiction tendance ...')
-            
+        mape_s = mean_absolute_percentage_error(X_test[f"{TARGET}_tendance"], X_prediction_composant['tendance'])
+        mae_s = mean_absolute_error(X_test[f"{TARGET}_tendance"], X_prediction_composant['tendance'])
+        rmse_s =np.sqrt(mean_squared_error(X_test[f"{TARGET}_tendance"], X_prediction_composant['tendance']))
+        print("tendance")
+        print(f"MAPE: {mape_s:.2%}")
+        print(f"MAE: {mae_s:.2}")
+        print(f"RMSE: {rmse_s:.2}")
+        df_result = pd.concat([df_result, pd.DataFrame({'region' : [reg], 
+                'Profil' : [profile],
+                'Puissance' :  [puissance],
+                'Composante' : 'tendance',
+                'MAPE (%)' : [100*mape_s],
+                'MAE (Wh)' : [mae_s],
+                'RMSE (Wh)' : [rmse_s],
+                })] )
+
 
         ######################################################################################################
         # Reconstitution
@@ -753,32 +730,7 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg,fil
 
         y_prediction = pd.Series(y_prediction, index = y_test.index)
         
-        
-        ######################################################################################################
-        # temps d'exécution
-        ######################################################################################################
-        toc = time.perf_counter()
-        temps_execution = toc -tic
 
-
-        ######################################################################################################
-        # Vérification que les résultats ne contiennent pas de Nan
-        ######################################################################################################
-        if not check_prediction(y_prediction, step_name="Final Reconstruction"):
-            logging.warning(f"Impossible de calculer les métriques pour le profil {profile}, puissance {puissance}.")
-            for periode in periodes:
-                if not check_prediction(X_prediction_composant[periode], step_name=f"Composante saisonnière{periode}"):
-                    logging.warning(f"Problème de composante saisonnière{periode}")
-            
-            if not check_prediction(X_prediction_composant['tendance'], step_name="Composante tendance"):
-                logging.warning("Problème de composante tendancielle")
-
-            if not check_prediction(X_prediction_composant['residuel'], step_name="Composante residuel"):
-                logging.warning("Problème de composante residuelle")
-
-            return None
-        
-        
         ######################################################################################################
         # Evaluation par rapport aux métriques MAPE, MAE et RMSE
         ######################################################################################################
@@ -790,158 +742,29 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg,fil
         print(f"MAE: {mae:.2}")
         print(f"RMSE: {rmse:.2}")
           
-        
-        ######################################################################################################
-        # Sauvegarde des fichiesr de test
-        # suite au problème de caractère spéciaux pour l'enregistrement des fichier
-        # on ajoute une fonction pour supprimer les caractères speciax
-        ######################################################################################################
-
-        safe_profile = clean_filename_part(profile)
-        safe_puissance = clean_filename_part(puissance)
-        safe_region = clean_filename_part(reg)
-
-        file_test_name = f"test_{safe_profile}_{safe_puissance}_{safe_region}.csv"
-        #sauvegarde des données de test
-        file_test = os.path.join(folder_test, file_test_name)   
-        print(file_test)
-        y_df = pd.DataFrame(y_test, columns=['y_test'])
-        y_df['y_prediction'] = y_prediction
-        y_df['region'] = reg
-        y_df.to_csv(file_test, index=True,index_label="time")
-        
 
         ######################################################################################################
         # Sauvegarde des fichiesr des scores par rapport aux métriquex sont stockés dans une df_result
         # suite au problème de caractère spéciaux pour l'enregistrement des fichier
         # on ajoute une fonction pour supprimer les caractères speciax
         ######################################################################################################
-        df_result = pd.DataFrame({'region' : [reg], 
+        df_result =pd.concat([df_result, pd.DataFrame({'region' : [reg], 
                 'Profil' : [profile],
                 'Puissance' :  [puissance],
+                'Composante' : 'serie observée',
                 'MAPE (%)' : [100*mape],
                 'MAE (Wh)' : [mae],
                 'RMSE (Wh)' : [rmse],
-                'temps execution' : [temps_execution]
-                }) 
-        df_result.to_csv(file_out, mode='a', header=not os.path.exists(file_out), index=False)    
+                })] )
+     
         
-
-
-        # sauvegarde des modèles basés sur LSTM
-        # Enregistrement du modèle lstm résiduel
-        
-        if save_model:
-            # Sauvegarde des Modèles des composantes saisonnères en pkl
-            for periode in periodes:
-                    model_sarimax_saisonnalite_sauvegarde = os.path.join(folder_models,f"model_sarimax_saisonnalite_{periode}_{safe_profile}_{safe_puissance}_{safe_region}.sm")
-                    # estimateur_composantes_periodiques[periode].sarima.get_fitted_model() .save(model_sarimax_saisonnalite_sauvegarde,remove_data=True)
-                    sarima_model = estimateur_composantes_periodiques[periode].sarima.get_fitted_model() 
-                    sarima_info = {
-                        'order': sarima_model.model_orders.get('arima', sarima_model.model.order),
-                        'seasonal_order': sarima_model.model.seasonal_order,
-                        'trend': sarima_model.model.trend,
-                        'params': sarima_model.params
-                        }
-                    with open(model_sarimax_saisonnalite_sauvegarde, 'wb') as f:
-                        pickle.dump(sarima_info, f)
-                    
-            
-            # --- Résiduelle ---
-            resid_lstm_step = pipeline_lstm_residuel_fitted.named_steps.get('lstm', None)
-            if resid_lstm_step is None or resid_lstm_step.model is None:
-                raise ValueError("Le pipeline résiduel n'a pas d'étape 'lstm' ou le modèle est déjà None")
-
-            path_resid_pipeline = os.path.join(
-                folder_models, f"model_composante_residuelle_sans_lstm_{safe_profile}_{safe_puissance}_{safe_region}.joblib")
-            path_resid_lstm = os.path.join(
-                folder_models, f"model_composante_residuelle_lstm_{safe_profile}_{safe_puissance}_{safe_region}.keras")
-
-            # Sauvegarde LSTM keras
-            resid_lstm_step.model.save(path_resid_lstm)
-            resid_lstm_step.model = None
-
-            # Sauvegarde pipeline sans le LSTM keras
-            joblib.dump(pipeline_lstm_residuel_fitted, path_resid_pipeline)
-
-            print(f"Résiduelle sauvegardée :\n- Pipeline : {path_resid_pipeline}\n- LSTM : {path_resid_lstm}")
-
-            # --- Tendance ---
-            tendance_lstm_step = pipeline_lstm_tendance_fitted.named_steps.get('lstm', None)
-            if tendance_lstm_step is None or tendance_lstm_step.model is None:
-                raise ValueError("Le pipeline tendance n'a pas d'étape 'lstm' ou le modèle est déjà None")
-
-            path_tendance_pipeline = os.path.join(
-                folder_models, f"model_composante_tendance_sans_lstm_{safe_profile}_{safe_puissance}_{safe_region}.joblib")
-            path_tendance_lstm = os.path.join(
-                folder_models, f"model_composante_tendance_lstm_{safe_profile}_{safe_puissance}_{safe_region}.keras")
-
-            tendance_lstm_step.model.save(path_tendance_lstm)
-            tendance_lstm_step.model = None
-
-            joblib.dump(pipeline_lstm_tendance_fitted, path_tendance_pipeline)
-
 
         gc.collect()
         K.clear_session() 
-        
+        print("✅ Résultat prêt à retourner")
         return df_result  
     except Exception as e:
         print(f"Erreur rencontrée pour {reg} - {profile} - {puissance}: {str(e)}")
         return None
        
        
-
-
-# -----------------------------------------------
-# Exécution parallèle principale
-# -----------------------------------------------
-if __name__ == '__main__':
-    for file_name in liste_file[2:]:  # boucle séquentielle sur les régions
-        file = os.path.join(folder_BD_propre, file_name)
-        df = pd.read_csv(file, low_memory=False)
-        #print(' la vraie longueur est !!', len(df))
-        reg = df['Région'].unique()[0]
-        print("Nous traitons la région ....", reg)
-        
-        
-        # sauveagrde des résultats pour chaque région dans un csv 
-        filename = f"resultats_{reg}.csv" 
-        file_out = os.path.join(folder_resultats, filename)    
-
-        
-
-        # Générer les jobs (profile, puissance)
-        jobs = []
-        #for profile in set(LISTE_PROFILE) & set(df['Profil'].unique()):
-        
-       
-        #L = list(set(LISTE_PROFILE) & set(df['Profil'].unique()))
-        for profile in df['Profil'].unique(): #
-            liste_puissances_souscrites = df.loc[(df['Profil'] == profile), 'Plage de puissance souscrite'].unique()
-            for puissance in liste_puissances_souscrites:
-                df_profile_puissance = df.loc[(df['Profil']==profile) & (df['Plage de puissance souscrite']==puissance)]  # extraction de la partie de la base
-                jobs.append((df_profile_puissance,profile, puissance, reg,file_out))
-
-        # Parallélisation 
-        n_jobs = os.cpu_count()//2 - 1
-        results = Parallel(n_jobs)( delayed(traiter_profile_puissance)
-                                      (df_, profile_, puissance_, reg_, file_out_) 
-                                      for (df_,profile_, puissance_, reg_,file_out_) in jobs
-                                      )
-
-        # Collecte des résultats
-        #df_result = pd.DataFrame([res for res in results if res is not None])
-        
-        # Sauvegarde région
-        #filename = f"resultats_{reg}.csv"
-        #file_out = os.path.join(folder_resultats, filename)
-        #df_result.to_csv(file_sortie, index=False)
-
-        print("Fin du traitement pour la région:", reg)
-
-        # Nettoyage mémoire entre chaque fichier
-        K.clear_session()
-        gc.collect() 
-
-        

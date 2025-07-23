@@ -16,7 +16,7 @@ class SARIMAModel(BaseEstimator, RegressorMixin):
     - 'n_splits': nombre de splits pour la validation croisée (TimeSeriesSplit)
 
     """
-    def __init__(self, period=48, research_best_model = False, n_splits = 5, is_stationary = False, index_start = 0):
+    def __init__(self, period=48, research_best_model = False, n_splits = 3, is_stationary = False, index_start = 0):
         self.period = period
         self.model = None
         self.research_best_model = research_best_model
@@ -88,8 +88,8 @@ class SARIMAModel(BaseEstimator, RegressorMixin):
                                     trend='n',
                                     enforce_stationarity=False,
                                     enforce_invertibility=False,
-                                    initialization='approximate_diffuse',
-                                    low_memory=True
+                                    initialization='approximate_diffuse'
+                                    #low_memory=True
                                     )
             else : 
                 self.model = SARIMAX(self.X,
@@ -99,7 +99,7 @@ class SARIMAModel(BaseEstimator, RegressorMixin):
                                     enforce_stationarity=True,
                                     enforce_invertibility=True,
                                     initialization='approximate_diffuse',
-                                    low_memory=True
+                                    #low_memory=True
                                     )
             
             self.fitted_model = self.model.fit(disp=False,method='powell')
@@ -115,20 +115,22 @@ class SARIMAModel(BaseEstimator, RegressorMixin):
                                     trend='n',
                                     enforce_stationarity=False,
                                     enforce_invertibility=False,
-                                    initialization='approximate_diffuse',
-                                    low_memory=True)
+                                    initialization='approximate_diffuse'
+                                    #low_memory=True
+                                    )
             else: 
                 #print("on passe par ici")
                 self.model = SARIMAX(self.X,order=(2,1,1),
                       seasonal_order=(1,1,0,self.period),
                       enforce_stationarity=True,
                       enforce_invertibility=False,
-                      initialization='approximate_diffuse',
-                      low_memory=True
+                      initialization='approximate_diffuse'
+                      #low_memory=True
                       )
                 #print(self.model)
             print("entrainement...")
             self.fitted_model = self.model.fit(disp=False,method='powell')
+            
             #self.fitted_model.summary()
               
         return self
@@ -141,7 +143,8 @@ class SARIMAModel(BaseEstimator, RegressorMixin):
         print('predict...')
         forecast = self.fitted_model.get_forecast(steps=len(X.iloc[self.index_start:]))
         return forecast
-        
+    def get_fitted_model(self):
+        return self.fitted_model    
         
 
 

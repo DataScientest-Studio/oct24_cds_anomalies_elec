@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 
 
@@ -10,8 +10,9 @@ from sklearn.preprocessing import StandardScaler
 # Normalisation des données (X seulement)
 # --------------------------
 class NormalisationTransformer(BaseEstimator, TransformerMixin):
-    def __init__(self, column_target = None):
-        self.scaler = StandardScaler()
+    def __init__(self, scaler = None, column_target = None):
+        self.scaler = scaler if scaler is not None else StandardScaler()
+        #
         self.column_target = column_target or 'y'
         
 
