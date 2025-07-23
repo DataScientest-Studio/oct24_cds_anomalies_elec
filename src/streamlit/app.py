@@ -6,7 +6,7 @@ import os
 import sys
 import io
 from pathlib import Path
-
+import altair as alt
 
 # Ajoute le répertoire Scripts au sys.path pour rendre les modules importables
 SCRIPTS_DIR = Path(r"D:\MesDocuments\Formation\DataScientist_PSL\Projet\Scripts")
@@ -56,7 +56,7 @@ def show_header():
         st.image("logos/dst-logo.svg", width=100)
     with col2:
         st.markdown("""
-            # 🔌 Prévision de la Consommation d'électricité en France
+            # 🔌 Prévision de la consommation d'électricité en France
             **Projet DataScientest | Youssef SERRESTOU**
         """)
 
@@ -96,6 +96,9 @@ SEPARATORS = {
     "⚡+🌦️ Consommation-météo par région": ','  
 }
 
+FOLDER_RESULT = {
+    "Résultats globaux": BASE_DIR / "resultats"
+}
 # --- Fonctions ---
 
 @st.cache_data
@@ -738,83 +741,92 @@ folder_all_models = r"D:\MesDocuments\Formation\DataScientist_PSL\Projet\BD\mode
 folder_models= os.path.join(folder_all_models, "ARA") # 
 
 
-# ------------------------------------------------------------------------------------------------------------------------------------------------
-# Constantes et Variables globales servant de paramètres par défaut pour les constructeurs 
-# ------------------------------------------------------------------------------------------------------------------------------------------------
-TARGET  = 'Total énergie soutirée (Wh)'
+# # ------------------------------------------------------------------------------------------------------------------------------------------------
+# # Constantes et Variables globales servant de paramètres par défaut pour les constructeurs 
+# # ------------------------------------------------------------------------------------------------------------------------------------------------
+    # st.markdown("### ⏳ Horizon de prédiction")
+    # NOMBRE_JOUR_PREDICTION = st.slider(
+    # "Sélectionnez l'horizon de la prédiction en jours =  48 pas",
+    # min_value = 1,  # 1 jour
+    # max_value = 60, # 1 semaine
+    # value = 7,     # valeur par défaut
+    # step = 7
+     # )
+
+# TARGET  = 'Total énergie soutirée (Wh)'
 
 
-COLUMNS_A_DECOMPOSER = list(['Total énergie soutirée (Wh)', 'T_moyenne', 'U_moyenne', 'Rayonnement solaire global (W/m2)']) 
-FOMRES_DECOMPOSITION =  list(["multiplicative","multiplicative","multiplicative", "multiplicative"])
-COLUMNS_TENDANCE = list(['Total énergie soutirée (Wh)_tendance','T_moyenne_tendance', 'U_moyenne_tendance', 'Rayonnement solaire global (W/m2)_tendance'])
-COLUMNS_RESIDUEL= list(['Total énergie soutirée (Wh)_residuel','T_moyenne_residuel', 'U_moyenne_residuel', 'Rayonnement solaire global (W/m2)_residuel']) 
-COLUMNS_TO_INVERSE_TENDANCE = list(['T_moyenne_tendance', 'U_moyenne_tendance', 'Rayonnement solaire global (W/m2)_tendance'])
-COLUMNS_TO_INVERSE_RESIDUEL = list(['T_moyenne_residuel', 'U_moyenne_residuel', 'Rayonnement solaire global (W/m2)_residuel'])
-FS = 1/1800 # fréquence d'échantillonnage pas  = 30 minutes
-NOMBRE_POINTS_PAR_SEGMENT = 30*48  # pour l'analyse spectrale une semaine
-OVERLAP = 12 # Recouvrement entre fenêtres
-WINDOWS_SIZE = 24 # Taile de fenêtre pour LSTM
-NB_PAS_JOUR = 48 # pas  = 30 minutes ==> 48 par jour
-NOMBRE_JOUR_PREDICTION = 7 #a évaluer
-NOMBRE_JOUR_TRAIN = 365 # une année pour le train
-NOMBRE_JOUR_TOTAL = NOMBRE_JOUR_TRAIN + NOMBRE_JOUR_PREDICTION
-TEST_PROPORTION = NOMBRE_JOUR_PREDICTION / NOMBRE_JOUR_TOTAL
-TRAIN_SIZE = NB_PAS_JOUR*NOMBRE_JOUR_TRAIN
-TOTAL_SIZE = NB_PAS_JOUR*NOMBRE_JOUR_TOTAL
-TOTAL_SIZE_SARIMAX = 90 * NB_PAS_JOUR # trois mois pour entrainer le sarimax ce qui permet d'éviter l'explosion de la mémoir pour le filtre de Kalman
-THRESHOLD = 0.3 # Seuli de détection pour le spectre
-NB_COMPOSANTES_SPECTRALES = 2 # Le nombre de composante spectrale à garder
+# COLUMNS_A_DECOMPOSER = list(['Total énergie soutirée (Wh)', 'T_moyenne', 'U_moyenne', 'Rayonnement solaire global (W/m2)']) 
+# FOMRES_DECOMPOSITION =  list(["multiplicative","multiplicative","multiplicative", "multiplicative"])
+# COLUMNS_TENDANCE = list(['Total énergie soutirée (Wh)_tendance','T_moyenne_tendance', 'U_moyenne_tendance', 'Rayonnement solaire global (W/m2)_tendance'])
+# COLUMNS_RESIDUEL= list(['Total énergie soutirée (Wh)_residuel','T_moyenne_residuel', 'U_moyenne_residuel', 'Rayonnement solaire global (W/m2)_residuel']) 
+# COLUMNS_TO_INVERSE_TENDANCE = list(['T_moyenne_tendance', 'U_moyenne_tendance', 'Rayonnement solaire global (W/m2)_tendance'])
+# COLUMNS_TO_INVERSE_RESIDUEL = list(['T_moyenne_residuel', 'U_moyenne_residuel', 'Rayonnement solaire global (W/m2)_residuel'])
+# FS = 1/1800 # fréquence d'échantillonnage pas  = 30 minutes
+# NOMBRE_POINTS_PAR_SEGMENT = 30*48  # pour l'analyse spectrale une semaine
+# OVERLAP = 12 # Recouvrement entre fenêtres
+# WINDOWS_SIZE = 24 # Taile de fenêtre pour LSTM
+# NB_PAS_JOUR = 48 # pas  = 30 minutes ==> 48 par jour
+# NOMBRE_JOUR_PREDICTION = 15 #a évaluer
+# NOMBRE_JOUR_TRAIN = 365 # une année pour le train
+# NOMBRE_JOUR_TOTAL = NOMBRE_JOUR_TRAIN + NOMBRE_JOUR_PREDICTION
+# TEST_PROPORTION = NOMBRE_JOUR_PREDICTION / NOMBRE_JOUR_TOTAL
+# TRAIN_SIZE = NB_PAS_JOUR*NOMBRE_JOUR_TRAIN
+# TOTAL_SIZE = NB_PAS_JOUR*NOMBRE_JOUR_TOTAL
+# TOTAL_SIZE_SARIMAX = 90 * NB_PAS_JOUR # trois mois pour entrainer le sarimax ce qui permet d'éviter l'explosion de la mémoir pour le filtre de Kalman
+# THRESHOLD = 0.3 # Seuli de détection pour le spectre
+# NB_COMPOSANTES_SPECTRALES = 2 # Le nombre de composante spectrale à garder
 
 
-# Paramètres de la décomposition spectrale
-spectro_params_default ={"fs": FS,                                     # Fréquence d'échantillonnage (1pas = 30 minutes :  Ts = 1800s, Fs = 1/1800 Hz)
-                         "window": "hann",                             # Fenêtre de Hann 
-                         "nperseg": NOMBRE_POINTS_PAR_SEGMENT,         # Longueur de la fenêtre d'analyse spectrale
-                         "noverlap": OVERLAP,                          # Recouvrement entre fenêtres
-                         "threshold": THRESHOLD                           # Seuil élevé pour ne détecter qu'une période dominante
-                        } 
+# # Paramètres de la décomposition spectrale
+# spectro_params_default ={"fs": FS,                                     # Fréquence d'échantillonnage (1pas = 30 minutes :  Ts = 1800s, Fs = 1/1800 Hz)
+                         # "window": "hann",                             # Fenêtre de Hann 
+                         # "nperseg": NOMBRE_POINTS_PAR_SEGMENT,         # Longueur de la fenêtre d'analyse spectrale
+                         # "noverlap": OVERLAP,                          # Recouvrement entre fenêtres
+                         # "threshold": THRESHOLD                           # Seuil élevé pour ne détecter qu'une période dominante
+                        # } 
                         
-# Paramètres pour LSTM : prédiction de la composante tendance
-lstm_params_tendance =  { 'window_size' : WINDOWS_SIZE, 
-                         'n_neurons': 256,  
-                         'factor' : 0.1,
-                         'patience' : 30,
-                         'epochs' : 100, 
-                         'batch_size' : 32, 
-                         'loss' : "mean_absolute_percentage_error",#"mean_absolute_error",
-                         'min_delta' : 5e-3,
-                         'nbfoldcv' : 5, 
-                         'optimize_architecture':True, # Pour chercher l'architecture optimale
-                         'optimize_lr':True,           # Pour chehercher le taux optimal
-                         'use_grid_search':False,      # Utilsation du grid_search pour les hyperparamètres
-                         'save_path' : None,           # 'best_lstm_model_tendance.keras'
-                         'activation': 'relu'  
-                        }
-# Paramètres pour LSTM : prédiction de la composante résisiduelle                        
-lstm_params_residuel =  { 'window_size' : WINDOWS_SIZE, 
-                         'n_neurons': 256,  
-                         'factor' : 0.1,
-                         'patience' : 30,
-                         'epochs' : 100, 
-                         'batch_size' : 32, 
-                         'loss' : "mean_absolute_error", #"mean_absolute_percentage_error",
-                         'min_delta' : 5e-3,
-                         'nbfoldcv' : 5, 
-                         'optimize_architecture':True,  # Pour chercher l'architecture optimale
-                         'optimize_lr':True,            # Pour chehercher le taux optimal
-                         'use_grid_search':False,       # Utilsation du grid_search pour les hyperparamètres
-                         'save_path' : None,            # 'best_lstm_model_tendance.keras' 
-                         'activation': 'relu' #'tanh'
-                        }
+# # Paramètres pour LSTM : prédiction de la composante tendance
+# lstm_params_tendance =  { 'window_size' : WINDOWS_SIZE, 
+                         # 'n_neurons': 256,  
+                         # 'factor' : 0.1,
+                         # 'patience' : 30,
+                         # 'epochs' : 100, 
+                         # 'batch_size' : 32, 
+                         # 'loss' : "mean_absolute_percentage_error",#"mean_absolute_error",
+                         # 'min_delta' : 5e-3,
+                         # 'nbfoldcv' : 5, 
+                         # 'optimize_architecture':True, # Pour chercher l'architecture optimale
+                         # 'optimize_lr':True,           # Pour chehercher le taux optimal
+                         # 'use_grid_search':False,      # Utilsation du grid_search pour les hyperparamètres
+                         # 'save_path' : None,           # 'best_lstm_model_tendance.keras'
+                         # 'activation': 'relu'  
+                        # }
+# # Paramètres pour LSTM : prédiction de la composante résisiduelle                        
+# lstm_params_residuel =  { 'window_size' : WINDOWS_SIZE, 
+                         # 'n_neurons': 256,  
+                         # 'factor' : 0.1,
+                         # 'patience' : 30,
+                         # 'epochs' : 100, 
+                         # 'batch_size' : 32, 
+                         # 'loss' : "mean_absolute_error", #"mean_absolute_percentage_error",
+                         # 'min_delta' : 5e-3,
+                         # 'nbfoldcv' : 5, 
+                         # 'optimize_architecture':True,  # Pour chercher l'architecture optimale
+                         # 'optimize_lr':True,            # Pour chehercher le taux optimal
+                         # 'use_grid_search':False,       # Utilsation du grid_search pour les hyperparamètres
+                         # 'save_path' : None,            # 'best_lstm_model_tendance.keras' 
+                         # 'activation': 'relu' #'tanh'
+                        # }
 
 
-COLUMNS = ["T_moyenne", 
-               "U_moyenne",
-               "FF_moyenne",
-               "Rayonnement solaire global (W/m2)", 
-               "Nb points soutirage" ,
-               "Total énergie soutirée (Wh)"
-               ]
+# COLUMNS = ["T_moyenne", 
+               # "U_moyenne",
+               # "FF_moyenne",
+               # "Rayonnement solaire global (W/m2)", 
+               # "Nb points soutirage" ,
+               # "Total énergie soutirée (Wh)"
+               # ]
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1202,6 +1214,40 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg):
         K.clear_session() 
         #st.write("✅ Résultat prêt à retourner")
         #st.write("Résultat final : ", df_result)
+        #st.markdown("#📈 Série réelle vs prédite")
+        # df_compare = pd.DataFrame(y_test, columns=['y_test (Wh)'])
+        # df_compare['y_prediction (Wh)'] = y_prediction
+        # st.line_chart(df_compare)
+        
+        
+        
+        # Préparer le DataFrame pour Altair (long format)
+        df_compare = pd.DataFrame({
+            'Datetime': y_test.index,
+            'Série réelle (Wh)': y_test.values,
+            'Série prédite (Wh)': y_prediction.values
+        })
+        df_long = df_compare.melt(id_vars='Datetime', var_name='Série', value_name='Valeur (Wh)')
+
+        # Créer le graphique Altair
+        chart = alt.Chart(df_long).mark_line().encode(
+            x='Datetime:T',
+            y='Valeur (Wh):Q',
+            color=alt.Color('Série:N', scale=alt.Scale(domain=['Série réelle (Wh)', 'Série prédite (Wh)'],
+                                                       range=['#1f77b4', '#d62728']))  # Bleu et rouge
+        ).properties(
+            width=700,
+            height=400,
+            title='📈 Série réelle vs prédite'
+        ).configure_axis(
+            labelFontSize=12,
+            titleFontSize=14
+        ).configure_title(
+            fontSize=16,
+            anchor='start'
+        )
+
+        st.altair_chart(chart, use_container_width=True)
         return df_result  
     except Exception as e:
         st.write(f"Erreur rencontrée pour {reg} - {profile} - {puissance}: {str(e)}")
@@ -1210,7 +1256,42 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg):
        
 
 
+def afficher_resultats_globaux(chemin_dossier_csv):
+    st.title("📊 Résultats globaux des prédictions")
 
+    # Chargement des fichiers CSV du dossier
+    fichiers = [f for f in os.listdir(chemin_dossier_csv) if f.endswith(".csv")]
+    fichier_selectionne = st.selectbox("📂 Choisir un fichier de résultats :", fichiers)
+
+    if fichier_selectionne:
+        path_csv = os.path.join(chemin_dossier_csv, fichier_selectionne)
+        df = pd.read_csv(path_csv)
+
+        # Sélecteurs
+        region = st.selectbox("🌍 Région :", df["region"].unique())
+        df_filtré = df[df["region"] == region]
+
+        profil = st.selectbox("👤 Profil :", df_filtré["Profil"].unique())
+        df_filtré = df_filtré[df_filtré["Profil"] == profil]
+
+        puissance = st.selectbox("⚡ Puissance :", df_filtré["Puissance"].unique())
+        df_filtré = df_filtré[df_filtré["Puissance"] == puissance]
+
+        st.markdown("### 📈 Métriques de performance")
+        st.dataframe(df_filtré)
+
+        st.markdown("### 📉 Visualisation des métriques")
+        métriques = ["MAPE (%)", "MAE (Wh)", "RMSE (Wh)", "temps execution"]
+        for metrique in métriques:
+            chart = alt.Chart(df_filtré).mark_bar().encode(
+                x=alt.X('Composante:N', title="Composante"),
+                y=alt.Y(f'{metrique}:Q'),
+                color=alt.value("#007ACC")
+            ).properties(title=metrique)
+            st.altair_chart(chart, use_container_width=True)
+
+        # Téléchargement
+        st.download_button("📥 Télécharger le CSV", df.to_csv(index=False), file_name=fichier_selectionne)
 # -----------------------------
 # Sidebar navigation
 # -----------------------------
@@ -1227,7 +1308,7 @@ page = st.sidebar.radio("Aller à", [
     "Approche proposée",
     "Réalisation – Implémentation",
     "Démonstration",
-    "Analyse des résultats",
+    "Résultats",
     "Conclusion"
 ])
 
@@ -1825,33 +1906,43 @@ elif page == "Approche proposée":
 if page == "Réalisation – Implémentation":
     set_full_width()
     show_header()
-    st.title("🧪 Réalisation – Implémentation")
+    st.title("Quelques détails de la réalisation – implémentation")
+    
+    st.markdown("""### **Architecture modulaire en pipelines** """)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""
+        - **Analyse spectrale** : encapsulé dans une classe `SpectrogramAnalysis` compatible `sklearn.pipeline`
+        - **Décomposition**  : encapsulé dans une classe `DecompositionSerieTemporelle` compatible `sklearn.pipeline`
+        - **SARIMAX** : 
+        
+            - encapsulé dans une classe `SARIMAModel` compatible `sklearn.pipeline`
+            - encapsulé dans une pipeline avec analyse spectrale 
+            - recherche par cross-validation du meilleur modèle
+            """)
+    with col2:
+        st.markdown("""
+        - **LSTM Tendance / Résidu** :
+            - Classe `LSTMModel` compatible `sklearn.pipeline` 
+            - Recherche par cross-validation de la meilleur structure
+                - nombre de couches lstm et denses, nombre de neuronnes, taux de dropout,fonction d'activation, taux d'apprentissage, ...)  
+            - Surveillance pendant l'entraînement et arrêt si nécessaire (`EarlyStopping` et `ReduceLROnPlateau`) 
+            - Encapsulée dans une pipeline avec 
+                - une classe de préparation des données
+                - une classe de transformation (transaltion , inversion) des variables exogènes
+                - une classe de **Normalisation** :
+                    - **MinMaxScaler** sur les résidus
+                    - **StandardScaler** pour les tendances
+            """)
 
     st.markdown("""
-    🛠️ Le pipeline a été développé en **Python** à l’aide de **pandas**, **scikit-learn**, **TensorFlow**, et **statsmodels**.
-
-    ### 📁 Architecture modulaire :
-    - **SARIMAX** : encapsulé dans une classe `SARIMAModel` compatible `sklearn.pipeline`
-    - **LSTM Tendance / Résidu** :
-        - `EarlyStopping`, `ReduceLROnPlateau`, normalisation indépendante
-        - Résidu et tendance sont prédits **indépendamment**
-
-    ### 📊 Normalisation :
-    - **MinMaxScaler** sur les résidus
-    - **StandardScaler** pour les tendances
-    - Utilisation d’objets `Pipeline` pour conserver les transformateurs
-
-    ### 🧠 Entraînement des modèles :
-    - SARIMAX entraîné pour chaque configuration `(profil, puissance, région)`
-    - LSTM entraîné sur les résidus et les tendances avec `fit_generator` et `TimeSeriesSplit`
-    
-    ### 🧩 Recomposition :
-    ```python
-    y_final = y_sarimax + y_lstm_trend + y_lstm_residual
-    ```
-    """)
-
-
+     ### Entraînement des modèles :
+        - entraînés pour chaque configuration `(profil, puissance, région)`
+        - entrainé sur  une année glissante
+        - prévision sur une semaine au pas de 30 minutes
+        - cross-validation adaptées aux séries temporelles
+        - sauvegarde des meilleurs modèles
+       """)
 # -----------------------------
 # 10. Démonstration
 # -----------------------------
@@ -1866,28 +1957,110 @@ elif page == "Démonstration":
     df_fusion_filtred = imputer_series(df_fusion_filtred, method='ffill', window=3) 
     st.subheader("Aperçu des données chargées")
     st.dataframe(df_fusion_filtred.head())
+    
+    # ------------------------------------------------------------------------------------------------------------------------------------------------
+    # Constantes et Variables globales servant de paramètres par défaut pour les constructeurs 
+    # ------------------------------------------------------------------------------------------------------------------------------------------------
+    st.markdown("### ⏳ Horizon de prédiction")
+    NOMBRE_JOUR_PREDICTION = st.slider(
+    "Sélectionnez l'horizon de la prédiction en jours =  48 pas",
+    min_value = 1,  # 1 jour
+    max_value = 60, # 1 semaine
+    value = 7,     # valeur par défaut
+    step = 7
+     )
+
+    TARGET  = 'Total énergie soutirée (Wh)'
+
+
+    COLUMNS_A_DECOMPOSER = list(['Total énergie soutirée (Wh)', 'T_moyenne', 'U_moyenne', 'Rayonnement solaire global (W/m2)']) 
+    FOMRES_DECOMPOSITION =  list(["multiplicative","multiplicative","multiplicative", "multiplicative"])
+    COLUMNS_TENDANCE = list(['Total énergie soutirée (Wh)_tendance','T_moyenne_tendance', 'U_moyenne_tendance', 'Rayonnement solaire global (W/m2)_tendance'])
+    COLUMNS_RESIDUEL= list(['Total énergie soutirée (Wh)_residuel','T_moyenne_residuel', 'U_moyenne_residuel', 'Rayonnement solaire global (W/m2)_residuel']) 
+    COLUMNS_TO_INVERSE_TENDANCE = list(['T_moyenne_tendance', 'U_moyenne_tendance', 'Rayonnement solaire global (W/m2)_tendance'])
+    COLUMNS_TO_INVERSE_RESIDUEL = list(['T_moyenne_residuel', 'U_moyenne_residuel', 'Rayonnement solaire global (W/m2)_residuel'])
+    FS = 1/1800 # fréquence d'échantillonnage pas  = 30 minutes
+    NOMBRE_POINTS_PAR_SEGMENT = 30*48  # pour l'analyse spectrale une semaine
+    OVERLAP = 12 # Recouvrement entre fenêtres
+    WINDOWS_SIZE = 24 # Taile de fenêtre pour LSTM
+    NB_PAS_JOUR = 48 # pas  = 30 minutes ==> 48 par jour
+    #NOMBRE_JOUR_PREDICTION = 15 #a évaluer
+    NOMBRE_JOUR_TRAIN = 365 # une année pour le train
+    NOMBRE_JOUR_TOTAL = NOMBRE_JOUR_TRAIN + NOMBRE_JOUR_PREDICTION
+    TEST_PROPORTION = NOMBRE_JOUR_PREDICTION / NOMBRE_JOUR_TOTAL
+    TRAIN_SIZE = NB_PAS_JOUR*NOMBRE_JOUR_TRAIN
+    TOTAL_SIZE = NB_PAS_JOUR*NOMBRE_JOUR_TOTAL
+    TOTAL_SIZE_SARIMAX = 90 * NB_PAS_JOUR # trois mois pour entrainer le sarimax ce qui permet d'éviter l'explosion de la mémoir pour le filtre de Kalman
+    THRESHOLD = 0.3 # Seuli de détection pour le spectre
+    NB_COMPOSANTES_SPECTRALES = 2 # Le nombre de composante spectrale à garder
+
+
+    # Paramètres de la décomposition spectrale
+    spectro_params_default ={"fs": FS,                                     # Fréquence d'échantillonnage (1pas = 30 minutes :  Ts = 1800s, Fs = 1/1800 Hz)
+                             "window": "hann",                             # Fenêtre de Hann 
+                             "nperseg": NOMBRE_POINTS_PAR_SEGMENT,         # Longueur de la fenêtre d'analyse spectrale
+                             "noverlap": OVERLAP,                          # Recouvrement entre fenêtres
+                             "threshold": THRESHOLD                           # Seuil élevé pour ne détecter qu'une période dominante
+                            } 
+                        
+    # Paramètres pour LSTM : prédiction de la composante tendance
+    lstm_params_tendance =  { 'window_size' : WINDOWS_SIZE, 
+                             'n_neurons': 256,  
+                             'factor' : 0.1,
+                             'patience' : 30,
+                             'epochs' : 100, 
+                             'batch_size' : 32, 
+                             'loss' : "mean_absolute_percentage_error",#"mean_absolute_error",
+                             'min_delta' : 5e-3,
+                             'nbfoldcv' : 5, 
+                             'optimize_architecture':True, # Pour chercher l'architecture optimale
+                             'optimize_lr':True,           # Pour chehercher le taux optimal
+                             'use_grid_search':False,      # Utilsation du grid_search pour les hyperparamètres
+                             'save_path' : None,           # 'best_lstm_model_tendance.keras'
+                             'activation': 'relu'  
+                            }
+    # Paramètres pour LSTM : prédiction de la composante résisiduelle                        
+    lstm_params_residuel =  { 'window_size' : WINDOWS_SIZE, 
+                             'n_neurons': 256,  
+                             'factor' : 0.1,
+                             'patience' : 30,
+                             'epochs' : 100, 
+                             'batch_size' : 32, 
+                             'loss' : "mean_absolute_error", #"mean_absolute_percentage_error",
+                             'min_delta' : 5e-3,
+                             'nbfoldcv' : 5, 
+                             'optimize_architecture':True,  # Pour chercher l'architecture optimale
+                             'optimize_lr':True,            # Pour chehercher le taux optimal
+                             'use_grid_search':False,       # Utilsation du grid_search pour les hyperparamètres
+                             'save_path' : None,            # 'best_lstm_model_tendance.keras' 
+                             'activation': 'relu' #'tanh'
+                            }
+
+
+    COLUMNS = ["T_moyenne", 
+                   "U_moyenne",
+                   "FF_moyenne",
+                   "Rayonnement solaire global (W/m2)", 
+                   "Nb points soutirage" ,
+                   "Total énergie soutirée (Wh)"
+                   ]
+
+
+    
+
     if df_fusion_filtred is not None:
         run_demo_prediction(df_fusion_filtred)
 # -----------------------------
-# 7. Résultats
+# 11. Résultats
 # -----------------------------
 elif page == "Résultats":
     set_full_width()
     show_header()
-    st.title("📊 Résultats et évaluation")
-    st.markdown("""
-    - MAPE global
-    - MAE et RMSE par profil et plage de puissance
-    - Distribution des erreurs
-    """)
-
-    #st.image("figures/mape_distribution.png", caption="Distribution du MAPE")
-    #st.image("figures/mae_rmse.png", caption="MAE / RMSE par profil")
-
-
+    st.title("📊 Résultats globaux")
+    afficher_resultats_globaux(FOLDER_RESULT)
 # -----------------------------
 # Footer
 # -----------------------------
 st.sidebar.markdown("---")
-st.sidebar.info("Projet DataScientest - Prévision de la consommation électrique")
+st.sidebar.info("Prévision de la consommation électrique - YS")
 
