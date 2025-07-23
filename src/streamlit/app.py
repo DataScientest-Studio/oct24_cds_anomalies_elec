@@ -1257,41 +1257,54 @@ def traiter_profile_puissance(df_profile_puissance , profile, puissance, reg):
 
 
 def afficher_resultats_globaux(chemin_dossier_csv):
-    st.title("📊 Résultats globaux des prédictions")
+    
+    folder_label = list(chemin_dossier_csv.keys())[0]
+    folder_path = chemin_dossier_csv[folder_label]
 
+    if not folder_path.exists():
+        st.error(f"❌ Le dossier `{folder_path}` n’existe pas.")
+        return None
+
+    csv_files = list_csv_files(folder_path)
+    if not csv_files:
+        st.warning("⚠️ Aucun fichier CSV trouvé dans ce dossier.")
+        return None
+
+    selected_file = st.selectbox("📄 Choisissez un fichier CSV :", csv_files)
+    df = pd.read_csv(selected_file)
     # Chargement des fichiers CSV du dossier
-    fichiers = [f for f in os.listdir(chemin_dossier_csv) if f.endswith(".csv")]
-    fichier_selectionne = st.selectbox("📂 Choisir un fichier de résultats :", fichiers)
+ 
 
-    if fichier_selectionne:
-        path_csv = os.path.join(chemin_dossier_csv, fichier_selectionne)
-        df = pd.read_csv(path_csv)
+    metriques = ["MAPE (%)", "MAE (Wh)", "RMSE (Wh)", "temps execution"]
+    for metrique in metriques:
+        st.markdown(f"{metrique}")
 
-        # Sélecteurs
-        region = st.selectbox("🌍 Région :", df["region"].unique())
-        df_filtré = df[df["region"] == region]
+        # Initialiser le graphe
+        fig, ax = plt.subplots(figsize=(8, 4))
+        palette = sns.color_palette("husl", n_colors=df["Profil"].nunique())
+        sns.set_theme(style="white")
 
-        profil = st.selectbox("👤 Profil :", df_filtré["Profil"].unique())
-        df_filtré = df_filtré[df_filtré["Profil"] == profil]
-
-        puissance = st.selectbox("⚡ Puissance :", df_filtré["Puissance"].unique())
-        df_filtré = df_filtré[df_filtré["Puissance"] == puissance]
-
-        st.markdown("### 📈 Métriques de performance")
-        st.dataframe(df_filtré)
-
-        st.markdown("### 📉 Visualisation des métriques")
-        métriques = ["MAPE (%)", "MAE (Wh)", "RMSE (Wh)", "temps execution"]
-        for metrique in métriques:
-            chart = alt.Chart(df_filtré).mark_bar().encode(
-                x=alt.X('Composante:N', title="Composante"),
-                y=alt.Y(f'{metrique}:Q'),
-                color=alt.value("#007ACC")
-            ).properties(title=metrique)
-            st.altair_chart(chart, use_container_width=True)
+        sns.scatterplot(
+            x='Profil',
+            y=metrique,
+            hue='Puissance',
+            data=df,
+            palette=palette,
+            ax=ax
+        )
+        if metrique == "MAPE (%)":
+            ax.axhline(y=6, color='red', linestyle='--', linewidth=1, label="Seuil 4%")
+        ax.legend(fontsize=6)
+        ax.set_xticklabels(ax.get_xticklabels(), rotation=45, fontsize=6)
+        ax.set_yticklabels(ax.get_yticklabels(), fontsize=6)
+        ax.set_title(f"{metrique} pour les configurations profil - puissance", fontsize=6)
+        ax.set_xlabel("Puissance", fontsize=6)
+        ax.set_ylabel(metrique, fontsize=6)
+        ax.legend(title="Profil", fontsize=6, title_fontsize=6)
+        st.pyplot(fig)
 
         # Téléchargement
-        st.download_button("📥 Télécharger le CSV", df.to_csv(index=False), file_name=fichier_selectionne)
+    st.download_button("📥 Télécharger le CSV", df.to_csv(index=False), file_name=csv_files)
 # -----------------------------
 # Sidebar navigation
 # -----------------------------
@@ -2052,6 +2065,15 @@ elif page == "Démonstration":
         run_demo_prediction(df_fusion_filtred)
 # -----------------------------
 # 11. Résultats
+# -----------------------------
+elif page == "Résultats":
+    set_full_width()
+    show_header()
+    st.title("📊 Résultats globaux")
+    afficher_resultats_globaux(FOLDER_RESULT)
+    
+# -----------------------------
+# 12. Conclusion
 # -----------------------------
 elif page == "Résultats":
     set_full_width()
