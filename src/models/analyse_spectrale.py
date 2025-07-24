@@ -82,8 +82,10 @@ class SpectrogramAnalysis(BaseEstimator, TransformerMixin):
         return pd.DataFrame({'Périodes': self.dominant_periodes}).drop_duplicates()
         
 
-    def plot_spectrogramme(self):
-        plt.figure(figsize=(10, 4))
+    def plot_spectrogramme(self, fig = None):
+        
+        if fig is None:
+            fig = plt.figure(figsize=(10, 6))
         plt.pcolormesh(self.times, self.frequencies, self.spectrogram, shading='gouraud')
         plt.ylabel('Fréquence [Hz]')
         plt.xlabel('Temps [sec]')

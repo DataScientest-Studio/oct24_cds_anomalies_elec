@@ -345,7 +345,7 @@ def decomposition_streamlit(serie):
     spectrogram_analyzer = SpectrogramAnalysis(window='hann', nperseg=10*48, noverlap=2*48, fs= 1/1800, threshold=0.5)
     spectrogram_analyzer.fit(serie['Total énergie soutirée (Wh)'].dropna())
     TT = spectrogram_analyzer.transform(serie['Total énergie soutirée (Wh)'].dropna())
-    P = int(TT.iloc[0,0])
+    P = int(TT.iloc[-1,-1])
     #serie_diff = serie.diff().dropna()
     
     decomposition = seasonal_decompose(serie, period=P,model='multiplicative',  extrapolate_trend='freq')
@@ -403,23 +403,39 @@ def plot_correlation_tendances(serie_conso, serie_temp, var : str):
 
     moyenne_mobile_normalise = scaler.fit_transform(moyenne_mobile.values.reshape(-1,1))
     moyenne_mobile_T_normalisee = scaler.fit_transform(moyenne_mobile_T.values.reshape(-1,1))
+    
+    
     # Corrélation de Pearson
-    #coeff = np.corrcoef(moyenne_mobile_normalise, moyenne_mobile_T_normalisee)[0, 1]
-    
-    
-    fig = plt.figure(figsize=(12, 6))
-    plt.plot(moyenne_mobile_normalise, 
+    # Convertir en array et retirer les NaN
+    x = np.array(moyenne_mobile_normalise)
+    y = np.array(moyenne_mobile_T_normalisee)
+
+    # Supprimer les valeurs où au moins un est NaN
+    mask = ~np.isnan(x) & ~np.isnan(y)
+    x_clean, y_clean = x[mask], y[mask]
+
+    # Corrélation propre
+    coeff = np.corrcoef(x_clean, y_clean)[0, 1]
+        
+    #fig = plt.figure(figsize=(12, 6))
+    # Tracé
+    fig, ax = plt.subplots(figsize=(12, 6))
+    ax.plot(moyenne_mobile_normalise, 
              label='Tendance normalisée de la consommation', linestyle='--', color='black')
-    plt.plot(moyenne_mobile_T_normalisee, 
+    ax.plot(moyenne_mobile_T_normalisee, 
              label='Tendance transformée et normalisée de la variable météo cible', linestyle='--', color='red')
 
     
     
-    plt.title("Corrélation des tendances")
-    plt.xlabel("Temps – pas = 30 minutes")
-    plt.ylabel("Valeur (échelle normalisée)")
-    plt.legend()
-    plt.grid(True)
+    ax.set_title("Corrélation des tendances")
+    ax.set_xlabel("Temps – pas = 30 minutes")
+    ax.set_ylabel("Valeur (échelle normalisée)")
+    ax.legend()
+    ax.grid(True)
+    
+    # Affichage du coefficient en haut à gauche
+    ax.text(0.01, 0.95, f"r = {coeff:.2f}", transform=ax.transAxes,
+            fontsize=12, verticalalignment='top', bbox=dict(boxstyle="round", facecolor='white', alpha=0.8))
     
     st.pyplot(fig)
 
@@ -1303,8 +1319,7 @@ def afficher_resultats_globaux(chemin_dossier_csv):
         ax.legend(title="Profil", fontsize=6, title_fontsize=6)
         st.pyplot(fig)
 
-        # Téléchargement
-    st.download_button("📥 Télécharger le CSV", df.to_csv(index=False), file_name=csv_files)
+
 # -----------------------------
 # Sidebar navigation
 # -----------------------------
@@ -1317,7 +1332,7 @@ page = st.sidebar.radio("Aller à", [
     "Exploration de la base construite",
     "Représentation du problème",
     "Analyse des séries temporelles",
-    "Analyse de corrélation",
+    "Analyse des corrélations",
     "Approche proposée",
     "Réalisation – Implémentation",
     "Démonstration",
@@ -1346,7 +1361,7 @@ if page == "Acceuil":
         ### Changements importants
         - ❌ Absence de données à l’échelle d’un habitat  
         - 🚶‍♀️ Départ de **Fei YANG** pour un autre projet  
-        -  Désengagement progressif de **Guillaume ROTH**
+        - ❌ Désengagement progressif de **Guillaume ROTH**
         """)
 
     with col2:
@@ -1399,9 +1414,9 @@ if page == "Contexte et problématique":
         
         
         **Les étapes de réalisation du projet:**  
-        - Recherche des données de consommation à utiliser ➔ base de données Enedis , data.gouv,  échanges avec Enedis  
+        - Recherche des données de consommation d'électricité à utiliser ➔ base de données Enedis , data.gouv,  échanges avec Enedis
         - Détermination des facteurs influants sur la consommation ➔  état de l'art
-        - Recherche des bases de données pour inclure ces variables 
+        - Recherche des bases de données pour inclure ces variables ➔ data.gouv, Météo-France
         - Analyse, traitement et fusioner des différentes base de données 
         - Fromalisation et modélisation du problème
         - Proposition d'une nouvelle approche
@@ -1428,7 +1443,7 @@ elif page == "Données utilisées":
         **Caractéristiques :**
         - Données restituant l'énergie totale soutirée au pas de 30 minutes d'agrégats de points de soutirage 
         - Plage de puissance ≤ 36 kVA
-        - Agrégées par région, Profil et Plage de puissance souscrite 
+        - Agrégées par région, profil et plage de puissance souscrite 
         - Période choisie : 2023-2024
             
         2. **Données de Météo-Franceo-France**
@@ -1542,7 +1557,8 @@ elif page == "Exploration de la base construite":
     st.markdown("""
     Cette section illustre l'effet de plusieurs facteurs sur la consommation électrique:
     
-        - Les données sont utilisées pour générer les figures issues de la région Auvergne-Rhône-Alpes
+        - L'affichage ici est statique pour éviter le problème de temps de génération des figures 
+        - Les données  utilisées pour générer les figures sont issues de la région Auvergne-Rhône-Alpes
         - la consommation a été divisée par le nombre de points de soutirage        
     
     """)
@@ -1560,10 +1576,19 @@ elif page == "Exploration de la base construite":
     items = list(FACTEURS.items())
 
     # Affichage en deux colonnes
-    for i in range(0, len(items)):
+    cols = st.columns(2)  # Crée deux colonnes
+
+    for i in range(len(items)):
         titre, img = items[i]
-        with st.expander(titre):
+        col = cols[i % 2]  # Alterne entre la colonne de gauche (0) et celle de droite (1)
+        with col:
+            with st.expander(titre):
                 st.image(img, use_column_width=True)
+    
+    # for i in range(0, len(items)):
+        # titre, img = items[i]
+        # with st.expander(titre):
+                # st.image(img, use_column_width=True)
     
 
 # -----------------------------
@@ -1742,7 +1767,7 @@ elif page == "Analyse des séries temporelles":
 # -----------------------------
 # 7. Analyse de corrélation
 # -----------------------------
-elif page == "Analyse de corrélation":
+elif page == "Analyse des corrélations":
     set_full_width()
     show_header()
     st.title("🔎 Analyse des corrélations")
