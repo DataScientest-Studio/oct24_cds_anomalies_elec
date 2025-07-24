@@ -2110,6 +2110,14 @@ elif page == "Démonstration":
 
     if df_fusion_filtred is not None:
         run_demo_prediction(df_fusion_filtred)
+    
+    st.markdown("""
+        **Nous constatons que** : 
+        - **SARIMAX**  capte les **saisonnalités multi-périodiques** avec une précision remarquable (MAPE < 0.01%).
+        - **LSTM** capte la **tendance** avec une très bonne précision (MAPE moyen ≈ 0.2%).
+        - le modèle dédié aux **résidus**, a de bons résultas mais peine pour certaines configurations, la MAPE est variable selon la configuration.
+            """)
+   
 # -----------------------------
 # 11. Résultats
 # -----------------------------
@@ -2118,14 +2126,43 @@ elif page == "Résultats":
     show_header()
     st.title("📊 Résultats globaux")
     afficher_resultats_globaux(FOLDER_RESULT)
-    
+
+
 # -----------------------------
 # 12. Conclusion
 # -----------------------------
 elif page == "Conclusion":
     set_full_width()
     show_header()
-    st.title("Conclusion")
+    st.title("✅ Conclusion")
+    col1, col2 = st.columns(2)
+    with col1:
+            st.markdown("#### Par rapport au projet")
+            st.markdown(""" 
+                            - Les objectifs fixés sont atteints
+                            - La précision est globalement très satisfaisante,
+                            - La modularité de l'approche permet 
+                                - le **raffinement/perfectionement** du modèle pour les configurations problèmatiques
+                                - l'intégration d’autres variables explicatives (comme les jours spéciaux par exemple),
+                                - l'intégration des  spécification linéaire par morceaux des effects des variables explicatives (cf. le rapport)                                
+                    """)
+            st.markdown("#### Les perspectives liées au projets")
+            st.markdown("""
+                - Faire une publication scientifique
+                - Perfectionner l'approche
+                - Intégrer la détection d’anomalies basée sur l’écart modèle-observé.
+                - Comparaison avec un éventuel modèle d'Enedis  
+                    """)
+    with col2:
+            st.markdown("#### Personnellement")
+            st.markdown(""" 
+                            
+                            - Le projet est très formateur, 
+                            - Permet la mise en pratique des compétences developpées
+                            - Une grande charge de travail --> induit un retard sur la formation
+                            - Très bonne formation
+                    """)
+                
 # -----------------------------
 # Footer
 # -----------------------------
