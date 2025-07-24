@@ -1373,7 +1373,8 @@ if page == "Acceuil":
         - 👨‍🏫 Une concertation avec le **tuteur du projet**
 
         ---
-        ➔ _Établir un modèle de prévision de la consommation d’électricité à court terme pour les utilisateurs du réseau Enedis en France._
+        ➔
+         _Établir un modèle de prévision de la consommation d’électricité à court terme pour les utilisateurs du réseau Enedis en France._
         """)
 
 
@@ -1400,7 +1401,7 @@ if page == "Contexte et problématique":
             - sert à pérdire la consommation réelle 
             - moins abordée dans les études publiées
         
-        Typologie selon  l'horizon:
+        **Typologie selon  l'horizon**:
         - Prévision à court terme < 1 semaine
         - Prévision à moyen terme > 1 semaine et < 1 an
         - Prévision à long terme > 1 an
@@ -1441,9 +1442,9 @@ elif page == "Données utilisées":
         1. **Données Enedis**:
         
         **Caractéristiques :**
-        - Données restituant l'énergie totale soutirée au pas de 30 minutes d'agrégats de points de soutirage 
+        - Données restituant l'énergie totale soutirée au pas de 30 minutes 
         - Plage de puissance ≤ 36 kVA
-        - Agrégées par région, profil et plage de puissance souscrite 
+        - Agrégées par profil, plage de puissance souscrite et région
         - Période choisie : 2023-2024
             
         2. **Données de Météo-Franceo-France**
@@ -1451,13 +1452,14 @@ elif page == "Données utilisées":
             - Humidité (%), 
             - Vitesse du vent (m/s), 
             
+
+    """)
+    with col2:
+        st.markdown(""" 
         **Caractéristiques :**
         - Granularité temporelle (échantillonnage temporel) : un pas d'une heure 
         - Données de toutes les stations météo d'un département 
         - Période choisie : 2023-2024
-    """)
-    with col2:
-        st.markdown(""" 
         3. **Données de Météo-Franceo-France**
             - nébulosité remplacée par le rayonnement global (W/m2)
         
@@ -1471,7 +1473,7 @@ elif page == "Données utilisées":
     
     #st.image("figures/schema_donnees.png", caption="Schéma des données fusionnées (exemple)")
 
-    st.title("📁 Visualisation rapide des CSV par répertoire")
+    st.markdown("""**Visualisation rapide des CSV par répertoire**""")
 
     folder_label = st.selectbox("📂 Choisissez un répertoire :", list(FOLDERS.keys()))
     folder_path = FOLDERS[folder_label]
@@ -1508,7 +1510,8 @@ elif page == "Fusion des données":
             
 
         """)
-        st.title("📁 Visualisation rapide des CSV par répertoire")
+        st.markdown("""**Visualisation rapide des CSV par répertoire**""")
+        #st.title("📁 Visualisation rapide des CSV par répertoire")
         folder_label = st.selectbox("📂 Choisissez un répertoire :", list(FOLDERS_Fusion.keys()))
         folder_path = FOLDERS_Fusion[folder_label]
         sep = ','
@@ -1601,13 +1604,13 @@ elif page == "Représentation du problème":
     
     st.markdown("### Représentation")
     st.markdown("""
-        Pour toute configuration profil et palge de puissance sosucrites dans une région :
-        - la consommation est une série temporelle
-        - les facteurs météorologiques  sont des série temporelle""")
+        Pour toute configuration `(q = (profil, palge de puissance sosucrite), r=région)` :
+        - la consommation est représentée par une série temporelle
+        - les facteurs météorologiques  sont représentée par des série temporelle""")
     
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("### Les facteurs météorologiques")
+        st.markdown("#### Les facteurs météorologiques")
         st.markdown(" - **Température moyenne (°C)** dans la région \\(r\\).")
         st.latex(r"""\left(T_{k}^{(r)}\right)_{kT_{s} \in \mathbb{T}}""")
         
@@ -1621,22 +1624,41 @@ elif page == "Représentation du problème":
           
     with col2:
 
-        st.markdown("### La variable cible")
-        st.markdown("Série temporelle de la **consommation moyenne** par configuration(profil - palge de puissance sosucrites fixés).")
+        st.markdown("#### La variable cible")
+        st.markdown("- Série temporelle de la **consommation moyenne** par configuration(profil - palge de puissance sosucrites fixés).")
         st.latex(r"""\left(\overline{Y}_{k}^{(r,q)}\right)_{kT_{s} \in \mathbb{T}} = \left(\frac{Y_{k}^{(r,q)}}{N_{k}^{(r,q)}}\right)_{kT_{s} \in \mathbb{T}}""")
         
-        st.markdown("Série temporelle de la **consommation d’électricité (en Wh)** pour une configuration q, dans une région r.")
+        st.markdown("- Série temporelle de la **consommation d’électricité (en Wh)** pour une configuration q, dans une région r.")
         st.latex(r"""\left(Y_{k}^{(r,q)}\right)_{kT_{s} \in \mathbb{T}}""")
         
         st.markdown("Série temporelle représentant le **nombre de points de soutirage**")
         st.latex(r"""\left(N_{k}^{(r,q)}\right)_{kT_{s} \in \mathbb{T}}""")
         
-        
-    st.markdown("L’ensemble des **instants d’observation** disponibles dans notre base couvre la période du **01/01/2023** au **31/12/2024**")
-    st.latex(r"""\mathbb{T} = \left\{ kT_{s},\; k \in \left\{ 0,\ldots,L \right\} \right\}""") 
-    st.markdown("Le pas temporel d’échantillonnage est:")
-    st.latex(r"""T_s= 30 \ minutes""")
- 
+    st.markdown("L’ensemble des **instants d’observation** disponibles dans notre base qui couvre la période du **01/01/2023** au **31/12/2024** est : ")
+    st.latex(r"""\mathbb{T} = \left\{ kT_{s},\; k \in \left\{ 0,\ldots,L \right\}, T_s = 1800 s, L = 35088 \right\}""") 
+    with st.container():
+        st.markdown("#### Formalisation du problème")
+        st.latex(r"""
+                \text{Pour toute configuration } q  = \text{ (profil - plage de puissance) dans une région } r ,
+                \text{ nous cherchons un modèle } \mathcal{M}^{(q,r)} \\
+                \text{ qui permet d’estimer les valeurs futures } 
+                \left( Y_k \right)_{kT_s \in \mathbb{T}_{\mathrm{test}}} 
+                \text{ pour un horizon } h, \\
+                \text{ en fonction de l’ensemble d’informations disponible sur les valeurs passées de la série cible et des passées et présentes des variables exogènes}
+                """)
+
+        st.latex(r"""
+        \left(\widehat{Y}_{\tau+1},\ \widehat{Y}_{\tau+2},\ ..., \ \widehat{Y}_{\tau+h}\right) 
+        = \mathcal{M}^{(q,r)}\left( \left\{ 
+        \left(Y_k^{(r,q)}\right)_{kT_s \in \mathbb{T}_{\mathrm{m}}},\ 
+        \left(T_k^{(r)}\right)_{kT_s \in \mathbb{T}_{1}},\ 
+        \left(U_k^{(r)}\right)_{kT_s \in \mathbb{T}_{1}},\ 
+        \left(R_k^{(r)}\right)_{kT_s \in \mathbb{T}_{1}} 
+        \right\} \right)
+        """)
+       
+    
+    
      
 
   
@@ -1646,7 +1668,7 @@ elif page == "Représentation du problème":
 elif page == "Analyse des séries temporelles":
     set_full_width()
     show_header()
-    st.title("🔎 Analyse temporelle et spectrale des séries de consommation")
+    st.title("🔎 Analyse temporelle et spectrale")
 
     st.markdown("Cette section explore différentes propriétés étudiées de nos séries temporelles avant de présenter la modélisation proposée.")
 
@@ -1955,7 +1977,7 @@ if page == "Réalisation – Implémentation":
         - **SARIMAX** : 
         
             - encapsulé dans une classe `SARIMAModel` compatible `sklearn.pipeline`
-            - encapsulé dans une pipeline avec analyse spectrale 
+            - encapsulé dans un pipeline avec analyse spectrale 
             - recherche par cross-validation du meilleur modèle
             """)
     with col2:
@@ -1963,21 +1985,21 @@ if page == "Réalisation – Implémentation":
         - **LSTM Tendance / Résidu** :
             - Classe `LSTMModel` compatible `sklearn.pipeline` 
             - Recherche par cross-validation de la meilleur structure
-                - nombre de couches lstm et denses, nombre de neuronnes, taux de dropout,fonction d'activation, taux d'apprentissage, ...)  
+                - nombre de couches lstm et denses, nombre de neuronnes, fonction d'activation, taux d'apprentissage,taux de dropout, ...)  
             - Surveillance pendant l'entraînement et arrêt si nécessaire (`EarlyStopping` et `ReduceLROnPlateau`) 
-            - Encapsulée dans une pipeline avec 
+            - Encapsulée dans un pipeline avec 
                 - une classe de préparation des données
                 - une classe de transformation (transaltion , inversion) des variables exogènes
                 - une classe de **Normalisation** :
-                    - **MinMaxScaler** sur les résidus
-                    - **StandardScaler** pour les tendances
+                    - **MinMaxScaler** pour les tendances 
+                    - **StandardScaler** pour les résidus
             """)
 
     st.markdown("""
      ### Entraînement des modèles :
         - entraînés pour chaque configuration `(profil, puissance, région)`
         - entrainé sur  une année glissante
-        - prévision sur une semaine au pas de 30 minutes
+        - prévision  au pas de 30 minutes pour un horizon donné
         - cross-validation adaptées aux séries temporelles
         - sauvegarde des meilleurs modèles
        """)
@@ -2100,11 +2122,10 @@ elif page == "Résultats":
 # -----------------------------
 # 12. Conclusion
 # -----------------------------
-elif page == "Résultats":
+elif page == "Conclusion":
     set_full_width()
     show_header()
-    st.title("📊 Résultats globaux")
-    afficher_resultats_globaux(FOLDER_RESULT)
+    st.title("Conclusion")
 # -----------------------------
 # Footer
 # -----------------------------
