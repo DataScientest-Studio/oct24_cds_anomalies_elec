@@ -2128,6 +2128,8 @@ elif page == "Résultats":
     afficher_resultats_globaux(FOLDER_RESULT)
 
 
+
+
 # -----------------------------
 # 12. Conclusion
 # -----------------------------
@@ -2142,7 +2144,7 @@ elif page == "Conclusion":
                             - Les objectifs fixés sont atteints
                             - La précision est globalement très satisfaisante,
                             - La modularité de l'approche permet 
-                                - le **raffinement/perfectionement** du modèle pour les configurations problèmatiques
+                                - le raffinement/perfectionement du modèle pour les configurations problèmatiques
                                 - l'intégration d’autres variables explicatives (comme les jours spéciaux par exemple),
                                 - l'intégration des  spécification linéaire par morceaux des effects des variables explicatives (cf. le rapport)                                
                     """)
