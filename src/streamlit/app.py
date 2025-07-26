@@ -1291,7 +1291,7 @@ def afficher_resultats_globaux(chemin_dossier_csv):
     # Chargement des fichiers CSV du dossier
  
 
-    metriques = ["MAPE (%)", "MAE (Wh)", "RMSE (Wh)", "temps execution"]
+    metriques = ["MAPE (%)"] # "MAE (Wh)", "RMSE (Wh)", "temps execution"]
     for metrique in metriques:
         st.markdown(f"{metrique}")
 
@@ -1309,14 +1309,17 @@ def afficher_resultats_globaux(chemin_dossier_csv):
             ax=ax
         )
         if metrique == "MAPE (%)":
-            ax.axhline(y=6, color='red', linestyle='--', linewidth=1, label="Seuil 4%")
+            ax.axhline(y=2, color='green', linestyle='--', linewidth=1, label="Seuil 2%")
+            ax.axhline(y=4, color='blue', linestyle='--', linewidth=1, label="Seuil 4%")
+            ax.axhline(y=8, color='orange', linestyle='--', linewidth=1, label="Seuil 8%")
+            ax.axhline(y=20, color='red', linestyle='--', linewidth=1, label="Seuil 20%")
         ax.legend(fontsize=6)
         ax.set_xticklabels(ax.get_xticklabels(), rotation=45, fontsize=6)
         ax.set_yticklabels(ax.get_yticklabels(), fontsize=6)
         ax.set_title(f"{metrique} pour les configurations profil - puissance", fontsize=6)
         ax.set_xlabel("Puissance", fontsize=6)
         ax.set_ylabel(metrique, fontsize=6)
-        ax.legend(title="Profil", fontsize=6, title_fontsize=6)
+        ax.legend(title="Puissance", fontsize=6, title_fontsize=6)
         st.pyplot(fig)
 
 
@@ -1368,9 +1371,9 @@ if page == "Acceuil":
         st.markdown("""
         ### 🎯 Objectif du projet
         Suite à :  
-        - 🤝 Des échanges avec **Enedis**  
-        - 📚 Une **étude de l’état de l’art**  
-        - 👨‍🏫 Une concertation avec le **tuteur du projet**
+        - 🤝 des échanges avec **Enedis**  
+        - 📚 une **étude de l’état de l’art**  
+        - 👨‍🏫 et en concertation avec le **tuteur du projet**
 
         ---
         ➔
@@ -1396,9 +1399,9 @@ if page == "Contexte et problématique":
             - importante pour les fournisseurs et opérateurs d’électricité  
             - sert à équilibrer l’offre et la demande 
             - largement étudiée
-        -  **La prévision de la consommation d'électricité** :
+        -  **la prévision de la consommation d'électricité** :
             - importante pour les consommateurs et pour les producteurs
-            - sert à pérdire la consommation réelle 
+            - sert à prédire la consommation réelle 
             - moins abordée dans les études publiées
         
         **Typologie selon  l'horizon**:
@@ -1457,8 +1460,8 @@ elif page == "Données utilisées":
     with col2:
         st.markdown(""" 
         **Caractéristiques :**
-        - Granularité temporelle (échantillonnage temporel) : un pas d'une heure 
-        - Données de toutes les stations météo d'un département 
+        - Granularité temporelle (échantillonnage temporel) : horaire (1 heure) 
+        - Données de toutes les stations regroupés par département, et par lots de période 
         - Période choisie : 2023-2024
         3. **Données de Météo-Franceo-France**
             - nébulosité remplacée par le rayonnement global (W/m2)
@@ -1504,7 +1507,7 @@ elif page == "Fusion des données":
 
     with col1:
         st.markdown(""" 
-        1. **Probème d'échantillonnage temporelle**:
+        1. **Probème d'échantillonnage temporel**
             - Période d'échantillonnage choisie : 30 minutes
             - sur-échantillonnage par interpolation linéaire des données météorologiques 
             
@@ -1562,17 +1565,17 @@ elif page == "Exploration de la base construite":
     
         - L'affichage ici est statique pour éviter le problème de temps de génération des figures 
         - Les données  utilisées pour générer les figures sont issues de la région Auvergne-Rhône-Alpes
-        - la consommation a été divisée par le nombre de points de soutirage        
+        - la consommation a été divisée par le nombre de points de soutirage puis normalisée       
     
     """)
 
     FACTEURS = {
         "🕒 Saisonnalité intra-journalière": "Chap2/conso_par_heure.png",
-        "📅 Saisonnalité annuelle": "Chap2/SaisonnaliteAnnuelle.png",
-        "🧍 Influence du profil": "Chap2/conso_par_profile.png",
-        "⚡ Influence de la puissance souscrite": "Chap2/ConsoPlagePuissance.png",
+        "📅 Saisonnalité annuelle": "Chap2/conso_annuelle.png",
+        "🧍 Influence du profil": "Chap2/conso_horarire_par_profile.png",
+        "⚡ Influence de la puissance souscrite": "Chap2/conso_heure_par_plage.png",
         "🌤️ Influence des facteurs météorologiques": "Chap2/conso_vs_facteurs_meteo.png",
-        "📆 Influence des jours de semaine/week-end": "Chap2/effetjour.png"
+        #"📆 Influence des jours de semaine/week-end": "Chap2/effetjour.png"
     }
 
     # Convertir les éléments en liste pour itération par 2
@@ -1581,13 +1584,16 @@ elif page == "Exploration de la base construite":
     # Affichage en deux colonnes
     cols = st.columns(2)  # Crée deux colonnes
 
-    for i in range(len(items)):
+    for i in range(len(items)-1):
         titre, img = items[i]
         col = cols[i % 2]  # Alterne entre la colonne de gauche (0) et celle de droite (1)
         with col:
             with st.expander(titre):
                 st.image(img, use_column_width=True)
     
+    titre, img = items[-1]
+    with st.expander(titre):
+                st.image(img, use_column_width=True)
     # for i in range(0, len(items)):
         # titre, img = items[i]
         # with st.expander(titre):
@@ -1603,58 +1609,60 @@ elif page == "Représentation du problème":
     st.title("Représentation du problème")
     
     st.markdown("### Représentation")
-    st.markdown("""
-        Pour toute configuration `(q = (profil, palge de puissance sosucrite), r=région)` :
-        - la consommation est représentée par une série temporelle
-        - les facteurs météorologiques  sont représentée par des série temporelle""")
-    
+    # st.markdown("""
+        # Pour toute configuration `(q = (profil, palge de puissance sosucrite), r=région)` :
+    st.latex(r"""\text{Pour toute configuration } q  = \text{ (profil - plage de puissance) dans une région } r """)
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown("#### Les facteurs météorologiques")
+
+        st.markdown("#### La variable cible est ")
+
+        st.markdown("- La série temporelle qui représente **consommation d’électricité moyenne (en Wh)**  par point de soutirage")
+        st.latex(r"""\left(\overline{Y}_{t}^{(r,q)}\right)_{t \in \mathbb{T}} = \left(\frac{Y_{t}^{(r,q)}}{N_{t}^{(r,q)}}\right)_{t \in \mathbb{T}}""")
+
+        
+        st.markdown("-  La **consommation d’électricité (en Wh)** est une série temporelle de.")
+        st.latex(r"""\left(Y_{t}^{(r,q)}\right)_{t \in \mathbb{T}}""")
+        
+        st.markdown("- Série temporelle représentant le **nombre de points de soutirage**")
+        st.latex(r"""\left(N_{t}^{(r,q)}\right)_{t \in \mathbb{T}}""")
+        
+    with col2:
+        st.markdown("#### Les variables exogènes sont les facteurs météorologiques")
         st.markdown(" - **Température moyenne (°C)** dans la région \\(r\\).")
-        st.latex(r"""\left(T_{k}^{(r)}\right)_{kT_{s} \in \mathbb{T}}""")
+        st.latex(r"""\left(T_{t}^{(r)}\right)_{t \in \mathbb{T}}""")
         
         st.markdown(" - **Humidité moyenne (%)** dans la région \\(r\\).")
-        st.latex(r"""\left(U_{k}^{(r)}\right)_{kT_{s} \in \mathbb{T}}""")
+        st.latex(r"""\left(U_{t}^{(r)}\right)_{t \in \mathbb{T}}""")
         
         st.markdown(" - **Rayonnement solaire global (W/m2)** dans la région \\(r\\).")
-        st.latex(r"""\left(R_{k}^{(r)}\right)_{kT_{s} \in \mathbb{T}}""")
+        st.latex(r"""\left(R_{t}^{(r)}\right)_{t \in \mathbb{T}}""")
         
         
           
-    with col2:
-
-        st.markdown("#### La variable cible")
-        st.markdown("- Série temporelle de la **consommation moyenne** par configuration(profil - palge de puissance sosucrites fixés).")
-        st.latex(r"""\left(\overline{Y}_{k}^{(r,q)}\right)_{kT_{s} \in \mathbb{T}} = \left(\frac{Y_{k}^{(r,q)}}{N_{k}^{(r,q)}}\right)_{kT_{s} \in \mathbb{T}}""")
-        
-        st.markdown("- Série temporelle de la **consommation d’électricité (en Wh)** pour une configuration q, dans une région r.")
-        st.latex(r"""\left(Y_{k}^{(r,q)}\right)_{kT_{s} \in \mathbb{T}}""")
-        
-        st.markdown("Série temporelle représentant le **nombre de points de soutirage**")
-        st.latex(r"""\left(N_{k}^{(r,q)}\right)_{kT_{s} \in \mathbb{T}}""")
+    
         
     st.markdown("L’ensemble des **instants d’observation** disponibles dans notre base qui couvre la période du **01/01/2023** au **31/12/2024** est : ")
-    st.latex(r"""\mathbb{T} = \left\{ kT_{s},\; k \in \left\{ 0,\ldots,L \right\}, T_s = 1800 s, L = 35088 \right\}""") 
+    st.latex(r"""\mathbb{T} = \left\{ t = kT_s,\; k \in \left\{ 0,\ldots,L \right\}, T_s = 1800 s, L = 35088 \right\}""") 
     with st.container():
         st.markdown("#### Formalisation du problème")
         st.latex(r"""
-                \text{Pour toute configuration } q  = \text{ (profil - plage de puissance) dans une région } r ,
-                \text{ nous cherchons un modèle } \mathcal{M}^{(q,r)} \\
+       
+                \text{ Nous cherchons un modèle } \mathcal{M}^{(q,r)} 
                 \text{ qui permet d’estimer les valeurs futures } 
-                \left( Y_k \right)_{kT_s \in \mathbb{T}_{\mathrm{test}}} 
+                \left( Y_k \right)_{\tau \leq t \leq \tau + h} 
                 \text{ pour un horizon } h, \\
-                \text{ en fonction de l’ensemble d’informations disponible sur les valeurs passées de la série cible et des passées et présentes des variables exogènes}
+                \text{ en fonction de l’ensemble d’informations disponible sur les valeurs passées de la série cible et les valeurs des variables exogènes}
                 """)
 
         st.latex(r"""
         \left(\widehat{Y}_{\tau+1},\ \widehat{Y}_{\tau+2},\ ..., \ \widehat{Y}_{\tau+h}\right) 
-        = \mathcal{M}^{(q,r)}\left( \left\{ 
-        \left(Y_k^{(r,q)}\right)_{kT_s \in \mathbb{T}_{\mathrm{m}}},\ 
-        \left(T_k^{(r)}\right)_{kT_s \in \mathbb{T}_{1}},\ 
-        \left(U_k^{(r)}\right)_{kT_s \in \mathbb{T}_{1}},\ 
-        \left(R_k^{(r)}\right)_{kT_s \in \mathbb{T}_{1}} 
-        \right\} \right)
+        = \mathcal{M}^{(q,r)}\left( 
+        \left(Y_t^{(r,q)}\right)_{t \leq \tau },\ 
+        \left(T_t^{(r)}\right)_{t \leq \tau + h},\ 
+        \left(U_t^{(r)}\right)_{t \leq \tau + h  },\ 
+        \left(R_t^{(r)}\right)_{t \leq \tau + h } 
+         \right)
         """)
        
     
@@ -1670,7 +1678,7 @@ elif page == "Analyse des séries temporelles":
     show_header()
     st.title("🔎 Analyse temporelle et spectrale")
 
-    st.markdown("Cette section explore différentes propriétés étudiées de nos séries temporelles avant de présenter la modélisation proposée.")
+    st.markdown("Cette section expose les  propriétés étudiées de nos séries temporelles avant d'établir la modélisation proposée.")
 
     ANALYSES = {
     
@@ -1695,7 +1703,7 @@ elif page == "Analyse des séries temporelles":
             
             "commentaire": """
             L’analyse spectrale a été utilisé pour  
-            - mettre en évidence les **périodes dominantes** dans la série (fréquences). 
+            - mettre en évidence les **périodes dominantes** dans la série. 
             - extraire les **composantes saisonnières** en utilisant ces périodes.
             """,
             "fonction": "spectrogramme"
@@ -1711,11 +1719,11 @@ elif page == "Analyse des séries temporelles":
         "🔍 **Décomposition des séries temporelles**": {
             "fonction": "Décomposition",
             "commentaire": """
-            La série est décomposée en trois composantes :  
+            La série est décomposée en  :  
             - **Tendance**
-            - **Saisonnalité**
+            - **Saisonnalités**
             - **Résidu**  
-            Cela permet de mieux modéliser chaque aspect séparément (ex : LSTM pour la tendance, SARIMAX pour la saisonnalité).
+            Cela permet de mieux modéliser chaque composante séparément.
             """
         },
         "📌 **Conclusions de cette analyse**": {
@@ -1757,7 +1765,7 @@ elif page == "Analyse des séries temporelles":
                 with col1:
                     test_type = st.selectbox("🔍 Choix du test", ["ADF", "KPSS"])
                 with col2:
-                    col_name = st.selectbox("📈 Choisir une variable", df_fusion_filtred.columns)
+                    col_name = st.selectbox("📈 Choisir une variable", ["Total énergie soutirée (Wh)", "T_moyenne","U_moyenne", "Rayonnement solaire global (W/m2)"])
 
                 if st.button("🧪 Lancer le test"):
                     stationnarity_test(df_fusion_filtred[col_name], test_type)
@@ -1936,24 +1944,24 @@ elif page == "Approche proposée":
 
         1. **Analyse spectrale de la série de consommation**
         2. **Décomposition des  séries temporelles (cible et variables exogènes)** :
-            - Extraction des composantes : tendance, saisonnalité, résidu.
+            - Extraction des composantes : tendance, saisonnalités, résidu.
         
-        2. **Modélisation des composantes** :
-            - Saisonnières : le modèle **SARIMAX**. 
-            - Tendance : structure multi-couche pour capter la dynamique à long terme.
-            - Résidu :   structure multi-couche pour capter les corrélations temporelles fines, les non linéairités et les dépendances mémoire à court terme.
+        2. **Modélisation des composantes** 
+            - Saisonnières : **SARIMAX**. 
+            - Tendance :  modèles multi-couches pour capter la dynamique à long terme.
+            - Résidu : modèles multi-couches pour capter les corrélations temporelles fines, les non linéairités et les dépendances à court terme.
 
         3. **Recomposition finale** :
             - Produit des prédictions des composantes pour obtenir la prévision globale.""")
     with col2:
         st.markdown("""
-        ### Architecture du modèle LSTM :
+        ### Modèle multi-couches :
         """)
-        st.image("Chap3/Archi_lstm_multicouche_VF.png", use_column_width=True, caption="Architecture du modèle LSTM ")
+        st.image("Chap3/Archi_lstm_multicouche_VF.png", use_column_width=True, caption="Architecture du modèle multi-couches ")
         
     
     st.markdown("""
-        ### Diagramme d’architecture :
+        ### Architecture du modèle global :
         """)
     st.image("Chap3/Archi.png", caption="Architecture générale de la solution proposée")
     
@@ -2009,7 +2017,7 @@ if page == "Réalisation – Implémentation":
 elif page == "Démonstration":
     set_full_width()
     show_header()
-    st.title("📊 Démonstration avec modèles pré-entraînés")
+    st.title("📊 Démonstration avec des modèles pré-entraînés")
 
     # Choix de la région, profil et puissance 
     df_fusion_filtred = load_and_filter_df_fusion(FOLDERS_Fusion)  #
@@ -2128,7 +2136,20 @@ elif page == "Résultats":
     afficher_resultats_globaux(FOLDER_RESULT)
 
 
+    st.title("📊 Comparaison avec l'état de l'art")
 
+    st.markdown("Comparaison des approches récentes (2019–2023) selon : MAPE, méthode, base de données, granularité et horizon.")
+
+    # Tableau des résultats
+    df = pd.DataFrame([
+        {"Auteur": "Liu et al. (2023)", "Méthode": "CNN + LSTM + Attention", "Données": "Résidentiel agrégé + météo", "Pas": "30 min", "Horizon": "24h", "MAPE": ">7.49%"},
+        {"Auteur": "Zhang et al. (2020)", "Méthode": "GBDT", "Données": "Foyers individuels", "Pas": "30 min", "Horizon": "6h", "MAPE": "5–6%"},
+        {"Auteur": "Kong et al. (2019)", "Méthode": "LSTM", "Données": "Agrégats résidentiels", "Pas": "30 min", "Horizon": "24h", "MAPE": "2 à 8%"},
+    ])
+
+    st.dataframe(df, use_container_width=True)
+
+    st.success("Notre modèle (MAPE < 4% sur un horizon > 7 jours, 30min) dépasse plusieurs références.")
 
 # -----------------------------
 # 12. Conclusion
