@@ -79,8 +79,8 @@ def set_full_width():
 # --- Dossiers de données ---
 BASE_DIR = Path(r"D:\MesDocuments\Formation\DataScientist_PSL\Projet\BD")
 FOLDERS = {
-    "🌦️ Météo (CSV brut)": BASE_DIR / "Meteo" / "CSV",
     "⚡ Consommation par région": BASE_DIR / "conso-inf36-region",
+    "🌦️ Météo (CSV brut)": BASE_DIR / "Meteo" / "CSV",
     "🌞 Rayonnement par région": BASE_DIR / "Meteo" / "rayonnement",
     "⚡+🌦️ Consommation-météo par région": BASE_DIR / "conso-inf36-meteo-rayonnement-region-propre"
 }
@@ -118,16 +118,18 @@ def load_csv_preview(file_path: Path, sep: str, nrows: int = 20) -> pd.DataFrame
     else : 
         return pd.read_csv(file_path,nrows=nrows, low_memory=False)
 
+@st.cache_data(show_spinner=True)
 def show_file_info(file: Path, sep: str):
     size_mb = get_file_size(file)
     st.markdown(f"**Nom :** `{file.name}` — **Taille :** {size_mb:.2f} Mo — **Séparateur :** `{sep}`")
 
-    if st.button("📥 Charger un aperçu de 20 lignes", key=file.name):
-        try:
-            df = load_csv_preview(file, sep=sep)
-            st.dataframe(df)
-        except Exception as e:
-            st.error(f"❌ Erreur lors du chargement : {e}")
+    #if st.button("📥 Charger un aperçu de 20 lignes", key=file.name):
+       
+    try:
+        df = load_csv_preview(file, sep=sep)
+        st.dataframe(df)
+    except Exception as e:
+        st.error(f"❌ Erreur lors du chargement : {e}")
 
 @st.cache_data(show_spinner=True)
 def load_csv_entier(file_path: Path) -> pd.DataFrame:
@@ -197,7 +199,7 @@ def force_datetime_index(df, freq='30min', start_default = '2023-01-01'):
     df_copy.index = new_index
     return df_copy
 
-
+#@st.cache_data(show_spinner=True)
 def load_and_filter_df_fusion(FOLDERS_Fusion: dict):
     st.markdown("📂 **Sélection de la série à analyser**")
     
@@ -317,7 +319,7 @@ def show_exploratory_analysis(df_fusion):
 def spectral_analysis_streamlit(serie):
     st.markdown("#### 🎵 Spectrogramme de la série sélectionnée")
    
-    spectrogram_analyzer = SpectrogramAnalysis(window='hann', nperseg=10*48, noverlap=2*48, fs= 1/1800, threshold=0.5)
+    spectrogram_analyzer = SpectrogramAnalysis(window='hann', nperseg=10*48, noverlap=2*48, fs= 1/1800, threshold=0.3)
     spectrogram_analyzer.fit(serie['Total énergie soutirée (Wh)'].dropna())
     TT = spectrogram_analyzer.transform(serie['Total énergie soutirée (Wh)'].dropna())
     
@@ -501,37 +503,37 @@ def run_demo_prediction(df_selection):
     selected_puissance = df_selection["Plage de puissance souscrite"].unique()[0]
     st.write(selected_profil,selected_puissance,selected_region)
 
-    if st.button("🚀 Lancer la prédiction !"):
-        try:
-            resultats = traiter_profile_puissance(df_selection, selected_profil, selected_puissance, selected_region)
+    #if st.button("🚀 Lancer la prédiction !"):
+    try:
+        resultats = traiter_profile_puissance(df_selection, selected_profil, selected_puissance, selected_region)
             #st.write("Résultats bruts :", resultats)
 
-            if resultats is not None and not resultats.empty:
-                st.success("✅ Prédiction réussie !")
+        if resultats is not None and not resultats.empty:
+            st.success("✅ Prédiction réussie !")
 
                 # Résultats par composante
-                st.markdown("## 🔍 Prédictions par composante")
-                composants = resultats["Composante"].unique()
-                for composante in composants:
-                    st.markdown(f"#### 📈 Composante : {composante}")
-                    df_comp = resultats[resultats["Composante"] == composante]
+            st.markdown("## 🔍 Prédictions par composante")
+            composants = resultats["Composante"].unique()
+            for composante in composants:
+                st.markdown(f"#### 📈 Composante : {composante}")
+                df_comp = resultats[resultats["Composante"] == composante]
                     # Bloc de métriques
-                    with st.container():
-                        col1, col2, col3 = st.columns(3)
-                        col1.metric("📊 MAPE (%)", f"{df_comp['MAPE (%)'].values[0]:.3f}")
-                        col2.metric("📉 MAE (Wh)", f"{df_comp['MAE (Wh)'].values[0]:,.2f}")
-                        col3.metric("📈 RMSE (Wh)", f"{df_comp['RMSE (Wh)'].values[0]:,.2f}")
+                with st.container():
+                    col1, col2, col3 = st.columns(3)
+                    col1.metric("📊 MAPE (%)", f"{df_comp['MAPE (%)'].values[0]:.3f}")
+                    col2.metric("📉 MAE (Wh)", f"{df_comp['MAE (Wh)'].values[0]:,.2f}")
+                    col3.metric("📈 RMSE (Wh)", f"{df_comp['RMSE (Wh)'].values[0]:,.2f}")
 
-                    st.markdown("---")
+                st.markdown("---")
 
                 # Affichage tableau complet
-                st.markdown("## 📋 Résumé des scores")
-                st.dataframe(resultats)
+            st.markdown("## 📋 Résumé des scores")
+            st.dataframe(resultats)
 
-            else:
-                st.warning("Aucun résultat retourné.")
+        else:
+            st.warning("Aucun résultat retourné.")
 
-        except Exception as e:
+    except Exception as e:
             st.error(f"❌ Une erreur est survenue : {e}")
 
 
@@ -1377,7 +1379,7 @@ if page == "Acceuil":
 
         ---
         ➔
-         _Établir un modèle de prévision de la consommation d’électricité à court terme pour les utilisateurs du réseau Enedis en France._
+         _Prévision de la consommation d’électricité à court terme pour les utilisateurs du réseau Enedis en France._
         """)
 
 
@@ -1393,7 +1395,7 @@ if page == "Contexte et problématique":
 
     with col1:
         st.markdown(""" 
-        **Contexte :**  
+        **Contexte**  
         Deux catégories de prévisions à distinguer :
         -  **la prévision de la charge électrique** :
             - importante pour les fournisseurs et opérateurs d’électricité  
@@ -1421,11 +1423,10 @@ if page == "Contexte et problématique":
         - Recherche des données de consommation d'électricité à utiliser ➔ base de données Enedis , data.gouv,  échanges avec Enedis
         - Détermination des facteurs influants sur la consommation ➔  état de l'art
         - Recherche des bases de données pour inclure ces variables ➔ data.gouv, Météo-France
-        - Analyse, traitement et fusioner des différentes base de données 
+        - Analyse, traitement et fusion des différentes base de données 
         - Fromalisation et modélisation du problème
         - Proposition d'une nouvelle approche
         - Evaluation de l'approche proposée
-        - Présentation écrite et orale
        
          """)
 
@@ -1450,7 +1451,7 @@ elif page == "Données utilisées":
         - Agrégées par profil, plage de puissance souscrite et région
         - Période choisie : 2023-2024
             
-        2. **Données de Météo-Franceo-France**
+        2. **Données de Météo-France**
             - Température (°C), 
             - Humidité (%), 
             - Vitesse du vent (m/s), 
@@ -1463,7 +1464,7 @@ elif page == "Données utilisées":
         - Granularité temporelle (échantillonnage temporel) : horaire (1 heure) 
         - Données de toutes les stations regroupés par département, et par lots de période 
         - Période choisie : 2023-2024
-        3. **Données de Météo-Franceo-France**
+        3. **Données de Météo-France**
             - nébulosité remplacée par le rayonnement global (W/m2)
         
         **Caractéristiques :**
@@ -1611,24 +1612,23 @@ elif page == "Représentation du problème":
     st.markdown("### Représentation")
     # st.markdown("""
         # Pour toute configuration `(q = (profil, palge de puissance sosucrite), r=région)` :
-    st.latex(r"""\text{Pour toute configuration } q  = \text{ (profil - plage de puissance) dans une région } r """)
+    st.latex(r"""\text{Pour toute configuration } q  = \text{ (profil, plage de puissance) dans une région } r """)
     col1, col2 = st.columns(2)
     with col1:
 
-        st.markdown("#### La variable cible est ")
-
-        st.markdown("- La série temporelle qui représente **consommation d’électricité moyenne (en Wh)**  par point de soutirage")
-        st.latex(r"""\left(\overline{Y}_{t}^{(r,q)}\right)_{t \in \mathbb{T}} = \left(\frac{Y_{t}^{(r,q)}}{N_{t}^{(r,q)}}\right)_{t \in \mathbb{T}}""")
-
-        
-        st.markdown("-  La **consommation d’électricité (en Wh)** est une série temporelle de.")
+        st.markdown("#### La variable cible")
+ 
+        st.markdown("-  La série temporelle qui représente la **consommation d’électricité (en Wh)** est une série temporelle de.")
         st.latex(r"""\left(Y_{t}^{(r,q)}\right)_{t \in \mathbb{T}}""")
         
-        st.markdown("- Série temporelle représentant le **nombre de points de soutirage**")
-        st.latex(r"""\left(N_{t}^{(r,q)}\right)_{t \in \mathbb{T}}""")
+        st.markdown("- Ou bien la série temporelle qui représente **consommation d’électricité moyenne (en Wh)**  par point de soutirage")
+        st.latex(r"""\left(\overline{Y}_{t}^{(r,q)}\right)_{t \in \mathbb{T}} = \left(\frac{Y_{t}^{(r,q)}}{N_{t}^{(r,q)}}\right)_{t \in \mathbb{T}}""")
+        
+        #st.markdown("- Série temporelle représentant le **nombre de points de soutirage**")
+        st.latex(r"""\text{où }\left(N_{t}^{(r,q)}\right)_{t \in \mathbb{T}}\text{est la série temporelle représentant le nombre de points de soutirage}""")
         
     with col2:
-        st.markdown("#### Les variables exogènes sont les facteurs météorologiques")
+        st.markdown("#### Les variables exogènes :  les facteurs météorologiques")
         st.markdown(" - **Température moyenne (°C)** dans la région \\(r\\).")
         st.latex(r"""\left(T_{t}^{(r)}\right)_{t \in \mathbb{T}}""")
         
@@ -1652,7 +1652,7 @@ elif page == "Représentation du problème":
                 \text{ qui permet d’estimer les valeurs futures } 
                 \left( Y_k \right)_{\tau \leq t \leq \tau + h} 
                 \text{ pour un horizon } h, \\
-                \text{ en fonction de l’ensemble d’informations disponible sur les valeurs passées de la série cible et les valeurs des variables exogènes}
+                \text{ en fonction de l’ensemble d’informations disponible sur les valeurs passées de la série cible et les valeurs des variables exogènes.}
                 """)
 
         st.latex(r"""
@@ -1767,28 +1767,28 @@ elif page == "Analyse des séries temporelles":
                 with col2:
                     col_name = st.selectbox("📈 Choisir une variable", ["Total énergie soutirée (Wh)", "T_moyenne","U_moyenne", "Rayonnement solaire global (W/m2)"])
 
-                if st.button("🧪 Lancer le test"):
-                    stationnarity_test(df_fusion_filtred[col_name], test_type)
+                #if st.button("🧪 Lancer le test"):
+                stationnarity_test(df_fusion_filtred[col_name], test_type)
             
             # Spectrogramme
             elif bloc.get("fonction") == "spectrogramme":
                 st.markdown(bloc["commentaire"])
               
-                if st.button("🎵 Lancer l’analyse spectrale"):
-                    spectral_analysis_streamlit(serie)
+                #if st.button("🎵 Lancer l’analyse spectrale"):
+                spectral_analysis_streamlit(serie)
             # ACF / PACF
             elif bloc.get("fonction") == "ACF / PACF":
                 st.markdown(bloc["commentaire"])
                 
-                if st.button("🎵 Lancer l'analyse ACF / PACF"):
-                    acf_pacf_streamlit(serie)
+                #if st.button("🎵 Lancer l'analyse ACF / PACF"):
+                acf_pacf_streamlit(serie)
             
             # Decomposition        
             elif bloc.get("fonction") == "Décomposition":
                 st.markdown(bloc["commentaire"])
                 
-                if st.button("🎵 Lancer la décomposition"):
-                    decomposition_streamlit(serie)
+                #if st.button("🎵 Lancer la décomposition"):
+                decomposition_streamlit(serie)
             # Corrélation          
             else:
                 st.markdown(bloc["commentaire"])
@@ -1943,7 +1943,7 @@ elif page == "Approche proposée":
         ### Les grandes étapes :
 
         1. **Analyse spectrale de la série de consommation**
-        2. **Décomposition des  séries temporelles (cible et variables exogènes)** :
+        2. **Décomposition des  séries temporelles (cible et variables exogènes)**
             - Extraction des composantes : tendance, saisonnalités, résidu.
         
         2. **Modélisation des composantes** 
@@ -1980,37 +1980,38 @@ if page == "Réalisation – Implémentation":
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("""
-        - **Analyse spectrale** : encapsulé dans une classe `SpectrogramAnalysis` compatible `sklearn.pipeline`
-        - **Décomposition**  : encapsulé dans une classe `DecompositionSerieTemporelle` compatible `sklearn.pipeline`
-        - **SARIMAX** : 
+        - **Analyse spectrale** : une classe `SpectrogramAnalysis` compatible `sklearn.pipeline`
+        - **Décomposition**  : une classe `DecompositionSerieTemporelle` compatible `sklearn.pipeline`
+        - **SARIMAX** 
         
-            - encapsulé dans une classe `SARIMAModel` compatible `sklearn.pipeline`
-            - encapsulé dans un pipeline avec analyse spectrale 
-            - recherche par cross-validation du meilleur modèle
+            - Une classe `SARIMAModel` compatible `sklearn.pipeline`
+            - Intégré à un pipeline avec analyse spectrale 
+            - Recherche par cross-validation du meilleur modèle
+
             """)
-    with col2:
         st.markdown("""
-        - **LSTM Tendance / Résidu** :
+        - **Modèle multi-couches**
             - Classe `LSTMModel` compatible `sklearn.pipeline` 
             - Recherche par cross-validation de la meilleur structure
                 - nombre de couches lstm et denses, nombre de neuronnes, fonction d'activation, taux d'apprentissage,taux de dropout, ...)  
             - Surveillance pendant l'entraînement et arrêt si nécessaire (`EarlyStopping` et `ReduceLROnPlateau`) 
-            - Encapsulée dans un pipeline avec 
+            - Intégré à à un pipeline avec 
                 - une classe de préparation des données
                 - une classe de transformation (transaltion , inversion) des variables exogènes
-                - une classe de **Normalisation** :
-                    - **MinMaxScaler** pour les tendances 
-                    - **StandardScaler** pour les résidus
-            """)
+                - une classe de normalisation :
+                    - MinMaxScaler pour les tendances 
+                    - StandardScaler pour les résidus
+            """)    
+    with col2:
 
-    st.markdown("""
-     ### Entraînement des modèles :
-        - entraînés pour chaque configuration `(profil, puissance, région)`
-        - entrainé sur  une année glissante
-        - prévision  au pas de 30 minutes pour un horizon donné
-        - cross-validation adaptées aux séries temporelles
-        - sauvegarde des meilleurs modèles
-       """)
+
+        st.markdown("""
+         ### Entraînement des modèles 
+            - Entraînement pour chaque configuration `(profil, puissance, région)`
+            - Entraînement sur  une année glissante
+            - Recherche par cross-validation, adaptées aux séries temporelles, du meilleur modèle
+            - Sauvegarde des meilleurs modèles
+           """)
 # -----------------------------
 # 10. Démonstration
 # -----------------------------
@@ -2165,14 +2166,13 @@ elif page == "Conclusion":
                             - Les objectifs fixés sont atteints
                             - La précision est globalement très satisfaisante,
                             - La modularité de l'approche permet 
-                                - le raffinement/perfectionement du modèle pour les configurations problèmatiques
+                                - le raffinement/perfectionement du modèle pour les configurations qui posent problème,
                                 - l'intégration d’autres variables explicatives (comme les jours spéciaux par exemple),
-                                - l'intégration des  spécification linéaire par morceaux des effects des variables explicatives (cf. le rapport)                                
+                                - l'intégration des  spécification linéaire par morceaux des effects des variables explicatives (cf. le rapport).                                
                     """)
             st.markdown("#### Les perspectives liées au projets")
             st.markdown("""
                 - Faire une publication scientifique
-                - Perfectionner l'approche
                 - Intégrer la détection d’anomalies basée sur l’écart modèle-observé.
                 - Comparaison avec un éventuel modèle d'Enedis  
                     """)
