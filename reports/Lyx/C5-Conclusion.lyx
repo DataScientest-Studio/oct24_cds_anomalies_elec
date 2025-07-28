@@ -126,6 +126,15 @@ status open
 
 
 \backslash
+addcontentsline {toc} {chapter} {
+\backslash
+textbf{Conclusion générale}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
 pagestyle{fancy}
 \end_layout
 

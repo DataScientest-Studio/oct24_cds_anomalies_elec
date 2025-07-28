@@ -693,7 +693,7 @@ Y_{t}=T_{t}+S_{t}+R_{t}\label{eq:1.2}
 \end_layout
 
 \begin_layout Standard
-Dans une décomposition multiplicative, la série temporelle
+Dans une décomposition multiplicative, la série temporelle 
 \begin_inset Formula $\left(Y_{t}\right)_{t\in\mathbb{T}}$
 \end_inset
 
@@ -3606,7 +3606,7 @@ RMSE (Root mean squared error) :
 
 \begin_inset Formula 
 \begin{equation}
-MAE=\sqrt{\frac{1}{k}\sum_{i=1}^{k}\left|\widehat{Y}_{1,t+i}-Y_{1,t+i}\right|^{2}}\label{eq:RMSE}
+RMSE=\sqrt{\frac{1}{k}\sum_{i=1}^{k}\left|\widehat{Y}_{1,t+i}-Y_{1,t+i}\right|^{2}}\label{eq:RMSE}
 \end{equation}
 
 \end_inset

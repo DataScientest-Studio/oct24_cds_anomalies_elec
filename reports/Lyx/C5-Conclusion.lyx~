@@ -228,7 +228,7 @@ Dans le dernier chapitre, nous avons exposé l'approche proposée.
 
 \begin_layout Standard
 Notre approche reste perfectible afin d'améliorer les temps d'exécution
- et les performances pour certaines profils du réseau Enedis.
+ et les performances pour certaines configurations.
  Pour le temps d'exécution, l'apprentissage par transfert est une piste
  à explorer, vu la similarité entre des profils d'utilisateurs.
  Et pour les utilisateurs dont les performances sont perfectibles, l'intégration

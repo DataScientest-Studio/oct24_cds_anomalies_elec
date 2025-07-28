@@ -3606,7 +3606,7 @@ RMSE (Root mean squared error) :
 
 \begin_inset Formula 
 \begin{equation}
-MAE=\sqrt{\frac{1}{k}\sum_{i=1}^{k}\left|\widehat{Y}_{1,t+i}-Y_{1,t+i}\right|^{2}}\label{eq:RMSE}
+RMSE=\sqrt{\frac{1}{k}\sum_{i=1}^{k}\left|\widehat{Y}_{1,t+i}-Y_{1,t+i}\right|^{2}}\label{eq:RMSE}
 \end{equation}
 
 \end_inset
@@ -3645,7 +3645,7 @@ les composantes d'une série temporelle,
 \end_layout
 
 \begin_layout Enumerate
-la décomposition d'une série temporelle 
+la décomposition d'une série temporelle, 
 \end_layout
 
 \begin_layout Enumerate
@@ -3653,8 +3653,8 @@ les fonctions d'autocorrélation et d'autocorrélation partielle,
 \end_layout
 
 \begin_layout Enumerate
-la notion de stationnarité, qui caractérise la l'invariance ou non des propriété
-s statistiques dans le temps,
+la notion de stationnarité, qui caractérise l'invariance ou non des propriétés
+ statistiques dans le temps,
 \end_layout
 
 \begin_layout Enumerate

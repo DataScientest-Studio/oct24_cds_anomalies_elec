@@ -2098,7 +2098,7 @@ name "fig:Conso-jour-plagepuissance-1-1"
 \end_inset
 
 Distribution de la consommation d'électricité en Auvergne-Rhône-Alpes selon
- les jours de la semaine et profile
+ les jours de la semaine et profil
 \end_layout
 
 \end_inset
@@ -3146,8 +3146,8 @@ name "fig:Corrélation-des-facteurs-1"
 \end_inset
 
 Corrélation des facteurs météorologiques avec la consommation d'électricité
- dans la région Auvergne-Rhône-Alpes pour pour le profil RES11 (+ RES11WE)
- et sa plage de puissance P3: ]6-9] kVA
+ dans la région Auvergne-Rhône-Alpes pour le profil RES11 (+ RES11WE) et
+ sa plage de puissance P3: ]6-9] kVA
 \end_layout
 
 \end_inset
@@ -4276,7 +4276,7 @@ name "tab:Corrélation-saisonnalite-resid-1"
 
 \end_inset
 
-Coefficients de Corrélation entre la tendance de l'humidité et la tendance
+Coefficients de corrélation entre la tendance de l'humidité et la tendance
  de la consommation d'électricité dans la région Auvergne-Rhône-Alpes.
  (a) Pour toutes les saisons, (b) En séparant les saisons
 \end_layout
