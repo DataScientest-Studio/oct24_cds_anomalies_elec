@@ -1995,7 +1995,7 @@ if page == "Réalisation – Implémentation":
             - Recherche par cross-validation de la meilleur structure
                 - nombre de couches lstm et denses, nombre de neuronnes, fonction d'activation, taux d'apprentissage,taux de dropout, ...)  
             - Surveillance pendant l'entraînement et arrêt si nécessaire (`EarlyStopping` et `ReduceLROnPlateau`) 
-            - Intégré à à un pipeline avec 
+            - Intégré à un pipeline avec 
                 - une classe de préparation des données
                 - une classe de transformation (transaltion , inversion) des variables exogènes
                 - une classe de normalisation :
